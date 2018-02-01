@@ -1,4 +1,4 @@
-package com.eResidue.Utils;
+package com.eDocs.Utils;
 
 import org.openqa.selenium.WebDriver;
 
@@ -23,7 +23,7 @@ public class Constant {
 	static Utils WD = new Utils();
 	public static WebDriver driver = WD.getWebDriver();
 
-	public static final String dbUrl = "jdbc:mysql://localhost:3306/edocs";
+	public static final String dbUrl = "jdbc:mysql://localhost:3306/selenium";
 	
 	public static final String username = "root";
 	

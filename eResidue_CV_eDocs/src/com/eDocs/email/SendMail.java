@@ -1,4 +1,4 @@
-package com.eResidue.email;
+package com.eDocs.email;
 
 import java.util.Properties;
 

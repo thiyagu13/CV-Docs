@@ -1,4 +1,4 @@
-package com.eResidue.Utils;
+package com.eDocs.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,7 +67,7 @@ public class Utils {
 	  // Write output and close workbook
 	  public static void writeTooutputFile(Workbook workbook) throws IOException {
 			try {
-				FileOutputStream outFile = new FileOutputStream(new File("C:\\selenium\\eResidue_CV_eDocs\\eResidue_eDocs_TestCase_result.xlsx"));
+				FileOutputStream outFile = new FileOutputStream(new File(Constant.EXCEL_PATH_Result));
 				workbook.write(outFile);
 				outFile.close();
 			} catch (Exception e) {

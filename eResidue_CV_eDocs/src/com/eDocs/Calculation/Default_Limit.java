@@ -1,4 +1,4 @@
-package com.eResidue.Calculation;
+package com.eDocs.Calculation;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class Default_Limit {
 	@Test(priority=1)
 	public void UniversalSettings() throws IOException, InterruptedException,ClassNotFoundException {
 		//System.setProperty("webdriver.Chrome.driver","C:\\selenium\\Testing\\chromedriver.exe");
-		System.setProperty("webdriver.gecko.driver","C:\\selenium\\Testing\\geckodriver.exe");
+		System.setProperty("webdriver.gecko.driver","C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe");
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 
 		capabilities.setCapability("marionette", true);
@@ -33,6 +33,13 @@ public class Default_Limit {
 		driver.findElement(By.id("submitbtn")).click();
 		Thread.sleep(1000);
 		driver.switchTo().alert().accept();
+		if (driver.getTitle().equalsIgnoreCase("Report Tracker - eResidue") == false) {
+			Thread.sleep(1000);
+			String pop = driver.getWindowHandle();
+			driver.switchTo().window(pop);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath(".//*[@id='loginForm']/div[3]/div/input[2]")).click();
+		}
 		// ForceLogin
 		if (driver.findElement(By.className("top-message")).getText()
 				.equalsIgnoreCase("Invalid credentials!")) {

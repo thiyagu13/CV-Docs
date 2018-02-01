@@ -3,15 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eResidue.Equipment.Equipment_Name">
+      <class name="com.eDocs.Calculation.SolidCalculation">
         <methods>
-          <include name="name_specialChar"/>
-          <include name="name_empty"/>
-          <include name="name_duplicate"/>
-          <include name="name_mandatory"/>
-          <include name="name_maxLength"/>
+          <include name="P1A1_P2_Solid"/>
         </methods>
-      </class> <!-- com.eResidue.Equipment.Equipment_Name -->
+      </class> <!-- com.eDocs.Calculation.SolidCalculation -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

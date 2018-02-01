@@ -1,11 +1,11 @@
-package com.eResidue.Equipment;
+package com.eDocs.Equipment;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.eResidue.Utils.Constant;
+import com.eDocs.Utils.Constant;
 
 
 public class ScreenshotInResultsTest {

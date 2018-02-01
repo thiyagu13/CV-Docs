@@ -1,4 +1,4 @@
-package com.eResidue.TestSuitebackup;
+package com.eDocs.TestSuitebackup;
 
 
 import java.io.File;

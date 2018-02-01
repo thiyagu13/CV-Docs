@@ -3,8 +3,8 @@
 <suite name="Suite">
   <test name="Test">
     <classes>
-      <class name="com.eResidue.Calculation.Default_Limit"/>
-      <class name="com.eResidue.Calculation.SolidCalculation"/>
+      <class name="com.eDocs.Calculation.Default_Limit"/>
+      <class name="com.eDocs.Calculation.SolidCalculation"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

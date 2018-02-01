@@ -2,22 +2,22 @@
 <testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="33323" started-at="2018-01-22T13:16:40Z" finished-at="2018-01-22T13:17:14Z">
+  <suite name="Suite" duration-ms="26145" started-at="2018-02-01T10:49:09Z" finished-at="2018-02-01T10:49:35Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="33323" started-at="2018-01-22T13:16:40Z" finished-at="2018-01-22T13:17:14Z">
-      <class name="com.eResidue.Calculation.Default_Limit">
-        <test-method status="PASS" signature="UniversalSettings()[pri:1, instance:com.eResidue.Calculation.Default_Limit@239963d8]" name="UniversalSettings" duration-ms="24165" started-at="2018-01-22T18:46:40Z" finished-at="2018-01-22T18:47:04Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- UniversalSettings -->
-      </class> <!-- com.eResidue.Calculation.Default_Limit -->
-      <class name="com.eResidue.Calculation.SolidCalculation">
-        <test-method status="PASS" signature="P1A1_P2_Solid()[pri:1, instance:com.eResidue.Calculation.SolidCalculation@31ef45e3]" name="P1A1_P2_Solid" duration-ms="9124" started-at="2018-01-22T18:47:04Z" finished-at="2018-01-22T18:47:14Z">
+    <test name="Test" duration-ms="26145" started-at="2018-02-01T10:49:09Z" finished-at="2018-02-01T10:49:35Z">
+      <class name="com.eDocs.Calculation.SolidCalculation">
+        <test-method status="PASS" signature="P1A1_P2_Solid()[pri:1, instance:com.eDocs.Calculation.SolidCalculation@31ef45e3]" name="P1A1_P2_Solid" duration-ms="5273" started-at="2018-02-01T16:19:30Z" finished-at="2018-02-01T16:19:35Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- P1A1_P2_Solid -->
-      </class> <!-- com.eResidue.Calculation.SolidCalculation -->
+      </class> <!-- com.eDocs.Calculation.SolidCalculation -->
+      <class name="com.eDocs.Calculation.Default_Limit">
+        <test-method status="PASS" signature="UniversalSettings()[pri:1, instance:com.eDocs.Calculation.Default_Limit@239963d8]" name="UniversalSettings" duration-ms="20847" started-at="2018-02-01T16:19:09Z" finished-at="2018-02-01T16:19:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UniversalSettings -->
+      </class> <!-- com.eDocs.Calculation.Default_Limit -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>

@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test name="Test(failed)">
     <classes>
-      <class name="com.eResidue.Calculation.SolidCalculation">
+      <class name="com.eDocs.Calculation.SolidCalculation">
         <methods>
           <include name="P1A1_P2_Solid"/>
         </methods>
-      </class> <!-- com.eResidue.Calculation.SolidCalculation -->
+      </class> <!-- com.eDocs.Calculation.SolidCalculation -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

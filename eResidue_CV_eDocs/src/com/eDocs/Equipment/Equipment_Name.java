@@ -1,4 +1,4 @@
-package com.eResidue.Equipment;
+package com.eDocs.Equipment;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
-import com.eResidue.Utils.Constant;
-import com.eResidue.Utils.Utils;
+import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Utils;
 
 import jxl.write.WriteException;
 

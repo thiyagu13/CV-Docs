@@ -1,4 +1,4 @@
-package com.eResidue.result;
+package com.eDocs.result;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -8,8 +8,8 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.TestListenerAdapter;
 
-import com.eResidue.Utils.Constant;
-import com.eResidue.Utils.Utils;
+import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Utils;
 
 import java.io.File;
 import java.io.PrintWriter;

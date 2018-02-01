@@ -1,4 +1,4 @@
-package com.eResidue.Calculation;
+package com.eDocs.Calculation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -13,9 +15,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.annotations.Test;
 
-import com.eResidue.Utils.Constant;
-import com.eResidue.Utils.Utils;
-
+import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Utils;
 public class SolidCalculation {
 	
 	public boolean no_default = false;
@@ -53,8 +54,29 @@ public class SolidCalculation {
 		}
 	}
 	
+	/*//Get value from universal settings
+	public double swabArea() throws ClassNotFoundException, SQLException {
+		Statement stmt = Utils.db_connect();// Create Statement Object
+		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
+		while (residueLimit.next()) {	swabSurfaceArea = residueLimit.getFloat(19); }
+		return swabSurfaceArea;
+	}//Get value from universal settings
+	public double swabAmount() throws ClassNotFoundException, SQLException {
+		Statement stmt = Utils.db_connect();// Create Statement Object
+		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
+		while (residueLimit.next()) {	swabAmount = residueLimit.getFloat(21); }
+		return swabAmount;
+	}*/
+	/*public double eqRinseVolume() throws ClassNotFoundException, SQLException {//Get value from universal settings
+		Statement stmt = Utils.db_connect();// Create Statement Object
+		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
+		while (residueLimit.next()) {	rinsevolume = residueLimit.getFloat(24); }
+		return rinsevolume;
+	}*/
 	
-	double value_L1,value_L2,value_L3,Solid_Total_surface_area,Solid_swab_area=40,Solid_desorption_solvent=20,maxDD,minBatch,Solid_Expec_Value_L2,Solid_Expec_Value_L3, Solid_Expec_Value_L4a, Solid_Expec_Value_L4b;
+	
+	double value_L1,value_L2,value_L3,Solid_Total_surface_area,maxDD,minBatch,Solid_Expec_Value_L2,Solid_Expec_Value_L3, Solid_Expec_Value_L4a, Solid_Expec_Value_L4b,Solid_Expec_Value_L1,swabSurfaceArea,swabAmount,rinsevolume
+			,L4cEquipment;
 
 	@Test(priority=1) // Product P1 Active1 to P2
 	public void P1A1_P2_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
@@ -62,7 +84,7 @@ public class SolidCalculation {
 		defaultValueSet();
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
-		XSSFSheet sheet = workbook.getSheetAt(1);
+		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				// Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+sheet.getRow(12).getCell(1).getStringCellValue()+"'"); // get next prod name from excel and find out in db
@@ -72,8 +94,7 @@ public class SolidCalculation {
 				Solid_Total_surface_area = sheet.getRow(28).getCell(9).getNumericCellValue(); 
 				value_L3 = value_L2 / Solid_Total_surface_area; // Calculated L3 value
 				System.out.println("Calculated L3: "+value_L3);
-				System.out.println("Test");
-				System.out.println("Test");
+				
 		if(no_default) // No Default limit
 		{	
 			no_defaultMethod();
@@ -90,19 +111,96 @@ public class SolidCalculation {
 		{	
 			defaultL1L3Method();
 		}  
+		System.out.println("L0 value: "+Calculate_L0_Solid.calculate_P1A1_L0());
+		System.out.println("L1 value: "+Solid_Expec_Value_L1);
 		System.out.println("L2 value: "+Solid_Expec_Value_L2);
 		System.out.println("L3 value: "+Solid_Expec_Value_L3);
-		System.out.println("L4a value: "+Solid_Expec_Value_L4a);
-		System.out.println("L4b value: "+Solid_Expec_Value_L4b);
+		
+		int getprodID;
+		float SFArea = 0,rinsevolume=0,swabarea = 0,swabamount=0;
+		String eqname = null;
+		//Get no of used Equipment in the product
+		ResultSet productID = stmt.executeQuery("Select * from product where name ='P11'"); // get product name id
+		try {
+		while (productID.next()) {	getprodID = productID.getInt(1);
+		System.out.println("PRoduct id" +getprodID);
+		//equipment set id
+		ResultSet productSetEqID = stmt.executeQuery("Select * from product_equipment_set_equipments where product_id='" + getprodID + "'"); // get equipment id
+		Set<Integer> set = new HashSet<>(); // store multiple equipment id
+		    while (productSetEqID.next()) {
+		      set.add(productSetEqID.getInt(4));
+		    }
+		    int i =94; 
+		    for (Integer equipmentID:set) //get id from set
+		    {
+		    ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "'"); // get product name id
+		    System.out.println("Equipment ID"+equipmentID);// print equipment id
+		    while(EquipID.next()) {  // print name and sf value from equipment table
+		    	 eqname = EquipID.getString(9); // get name from database
+				 SFArea = EquipID.getFloat(13); // get SF value from database
+				 rinsevolume = EquipID.getFloat(17); // get SF value from database
+				 swabarea = EquipID.getFloat(15); // get SF value from database
+				 swabamount = EquipID.getFloat(16);
+				 System.out.println("Name: "+ eqname+ " SFA: " + SFArea+" Rinse: " + rinsevolume);
+		    	 Solid_Expec_Value_L4a =  Solid_Expec_Value_L3 * swabarea;
+		    	 Solid_Expec_Value_L4b =  Solid_Expec_Value_L4a/ swabamount;
+		    	 L4cEquipment = (Solid_Expec_Value_L3 * SFArea) /(rinsevolume * 1000);//Calculate L4c equipment value
+		    	 System.out.println("L4c Equipment: " +L4cEquipment);
+		    	 // Print Expected L4a, L4b, L4c value
+		    	 	Cell equipName = sheet.getRow(i).getCell(1);//cell to print name 
+		    		equipName.setCellValue(eqname); // print equipment name(used in the product) in excel
+		    		Cell equipSF = sheet.getRow(i).getCell(2);//cell to print equipment surface area 
+		    		equipSF.setCellValue(SFArea); // print all the equipment surface area(used in the product) in excel
+		    		Cell equipRinse = sheet.getRow(i).getCell(3);//cell to print equipment surface area 
+		    		equipRinse.setCellValue(rinsevolume); // print all the equipment surface area(used in the product) in excel
+		    		Cell L4aEquip = sheet.getRow(i).getCell(4);//cell to print L4a value 
+		    		L4aEquip.setCellValue(Solid_Expec_Value_L4a); // print all the equipment surface area(used in the product) in excel
+		    		Cell L4bEquip = sheet.getRow(i).getCell(5);//cell to print L4b value
+		    		L4bEquip.setCellValue(Solid_Expec_Value_L4b); // print all the equipment surface area(used in the product) in excel
+		    		Cell L4cEquip = sheet.getRow(i).getCell(6);//cell to print L4b value
+		    		L4cEquip.setCellValue(L4cEquipment); // print all the equipment surface area(used in the product) in excel
+		    		i++;
+		    		System.out.println("Print:"+i);
+		    } //closing equipmentID while loop
+		    } //closing for loop
+		    System.out.println("Size: "+set.size());
+		    
+		    /*int j =94;
+		    	 for( int i:set)
+		    	for( int i=94:i<equipmentID;i++)
+		    	 {
+		    		System.out.println("Print ID:" +i);
+		    		ResultSet EquipmentID = stmt.executeQuery("Select * from equipment where id= '" + i + "'"); 
+		    		
+		    		while(EquipmentID.next())
+		    		{
+		    			j++;
+		    		String eqpname = EquipmentID.getString(9); // get name from database
+		    		Cell equipName = sheet.getRow(j).getCell(1); 
+		    		equipName.setCellValue(eqpname); // print expected L4a result into excel 
+		    		System.out.println("for loop eq name: "+eqpname);
+		    		}
+		    	 }*/
+			} // closing for productID while loop 
+			} // try close
+		
+		catch(Exception e)
+		{
+			System.out.println("Error");
+		}
+		/*Cell Value_L0 = sheet.getRow(42).getCell(3); 
+		Value_L0.setCellValue(Calculate_L0_Solid.calculate_P1A1_L0()); // print expected L0 result into excel*/	
+		Cell Value_L1 = sheet.getRow(42).getCell(4); 
+		Value_L1.setCellValue(Solid_Expec_Value_L1); // print expected L0 result into excel
 		Cell Solid_expec_Value_L2_print = sheet.getRow(42).getCell(5); 
 		Solid_expec_Value_L2_print.setCellValue(Solid_Expec_Value_L2); // print expected L2 result into excel
 		Cell Solid_expec_Value_L3_print = sheet.getRow(42).getCell(6); 
 		Solid_expec_Value_L3_print.setCellValue(Solid_Expec_Value_L3); // print expected L3 result into excel
-		Cell Solid_expec_Value_L4a_print = sheet.getRow(42).getCell(8); 
+		/*Cell Solid_expec_Value_L4a_print = sheet.getRow(42).getCell(8); 
 		Solid_expec_Value_L4a_print.setCellValue(Solid_Expec_Value_L4a); // print expected L4a result into excel
 		Cell Solid_expec_Value_L4b_print = sheet.getRow(42).getCell(9); 
 		Solid_expec_Value_L4b_print.setCellValue(Solid_Expec_Value_L4b); // print expected L4b result into excel
-		
+		*/		
 		// end - Default L1 and L3 limit
 		// Get Limit Result from db
 		/* ResultSet result = stmt.executeQuery("select * from calculation where name = '"+sheet.getRow(5).getCell(2)+"'");
@@ -144,84 +242,76 @@ public class SolidCalculation {
 		}
 	
 
+	
 	// method for when default limit option: no default option
-	public void no_defaultMethod()
+	public void no_defaultMethod() throws ClassNotFoundException, SQLException
 	{  
 		System.out.println("No default true");
+		Solid_Expec_Value_L1 = value_L1;
 		Solid_Expec_Value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value 
 		Solid_Expec_Value_L3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value
-		Solid_Expec_Value_L4a = Solid_Expec_Value_L3 *Solid_swab_area ; // Calculated L4a value
-		Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 	}
 
 	// method for when default limit option: Default L1
-	public void defaultL1Method()
+	public void defaultL1Method() throws ClassNotFoundException, SQLException
 	{
 		System.out.println("Defaut L1 Value true");
 		if(value_L1<default_l1_val) // Low L1 value and high default l1 value
 		{	// Formula for L2 
+			Solid_Expec_Value_L1 = value_L1;
 			Solid_Expec_Value_L2 = value_L2; // Roundoff
 			Solid_Expec_Value_L3 = value_L3; // Roundoff
-			Solid_Expec_Value_L4a = Solid_Expec_Value_L3 *Solid_swab_area ; // Calculated L4a value
-			Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 		}else {	// high L1 value and low default l1 value
 			System.out.println("use Default L1 Value: " +default_l1_val);
+			Solid_Expec_Value_L1 = default_l1_val;
 			Solid_Expec_Value_L2 = default_l1_val * minBatch * 1000 ; // Calculated L2 Value for same product
 			Solid_Expec_Value_L3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value
-			Solid_Expec_Value_L4a = Solid_Expec_Value_L3 * Solid_swab_area ; // Calculated L4a value
-			Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 			 }
 	}
 	// method for when default limit option: Default L3
-	public void defaultL3Method()
+	public void defaultL3Method() throws ClassNotFoundException, SQLException
 	{
 
 		if(value_L3<default_l3_val) // Low L3 value and high default l3 value
 		{
+			Solid_Expec_Value_L1 = value_L1;
 			Solid_Expec_Value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value for same product
 			Solid_Expec_Value_L3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value
-			Solid_Expec_Value_L4a = Solid_Expec_Value_L3 *Solid_swab_area ; // Calculated L4a value
-			Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 		}
 		else {	// high L3 value and low default l3 value
+			Solid_Expec_Value_L1 = value_L1;
 			Solid_Expec_Value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value for same product
 			Solid_Expec_Value_L3 = default_l3_val; // Calculated L3 value
-			Solid_Expec_Value_L4a = Solid_Expec_Value_L3 * Solid_swab_area ; // Calculated L4a value
-			Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 		}
 	}
 	
 	// method for when default limit option: Default L1 and L3
-	public void defaultL1L3Method()
+	public void defaultL1L3Method() throws ClassNotFoundException, SQLException
 	{
 		if(value_L1>default_l1l3_l1)
 			{	// Formula for L2 
+				Solid_Expec_Value_L1 = default_l1l3_l1;
 				Solid_Expec_Value_L2  = default_l1l3_l1 * minBatch * 1000 ; // Calculated L2 Value for same product
-				Solid_Expec_Value_L3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value using default L1 value
+				double valL3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value using default L1 value
 				if(Solid_Expec_Value_L3<default_l1l3_l3)
 				{
-				Solid_Expec_Value_L4a = Solid_Expec_Value_L3 *Solid_swab_area ; // Calculated L4a value
-				Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
+				Solid_Expec_Value_L3 = valL3;
 				} else
 				{	//double L3 = default_l1l3_l3 / Solid_Total_surface_area;
 					Solid_Expec_Value_L3 = default_l1l3_l3; 
-					Solid_Expec_Value_L4a = default_l1l3_l3 *Solid_swab_area ; // Calculated L4a value
-					Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 				}
 			}
 		if(value_L1<default_l1l3_l1)
 		{		// Formula for L2 
+			Solid_Expec_Value_L1 = value_L1;
 			Solid_Expec_Value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value for same product
-			Solid_Expec_Value_L3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value using default L1 value
+			double valL3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value using default L1 value
 			if(Solid_Expec_Value_L3<default_l1l3_l3)
 			{   
-				Solid_Expec_Value_L4a = Solid_Expec_Value_L3 *Solid_swab_area ; // Calculated L4a value
-				Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
+				Solid_Expec_Value_L3 = valL3;
 			} else
 			{	//double L3 = default_l1l3_l3 / Solid_Total_surface_area;
 				Solid_Expec_Value_L3 = default_l1l3_l3; 
-				Solid_Expec_Value_L4a = default_l1l3_l3 *Solid_swab_area ; // Calculated L4a value
-				Solid_Expec_Value_L4b = Solid_Expec_Value_L4a / Solid_desorption_solvent; // Calculated L4b value
 			}
 		}		
 	}

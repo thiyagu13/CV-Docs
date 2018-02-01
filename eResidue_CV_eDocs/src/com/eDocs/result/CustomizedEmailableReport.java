@@ -1,4 +1,4 @@
-package com.eResidue.result;
+package com.eDocs.result;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
