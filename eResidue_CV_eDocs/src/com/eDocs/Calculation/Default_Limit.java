@@ -2,6 +2,9 @@ package com.eDocs.Calculation;
 
 import java.io.IOException;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,16 +26,21 @@ public class Default_Limit {
 		
 		driver = new FirefoxDriver(capabilities);
 		// Open the application
-		driver.get("http://192.168.1.111:8081/login");
+		driver.get("http://192.168.1.46:8072/login");
 		Thread.sleep(1000);
-		driver.switchTo().alert().accept();
+		//driver.switchTo().alert().accept();
 		// Login
-		driver.findElement(By.id("username")).sendKeys("eresiduetest1");
-		driver.findElement(By.id("password")).sendKeys("quascenta");
+		/*JOptionPane.showInputDialog("What is your name?", null);*/
+		/*JFrame frame = new JFrame("Button Popup Sample");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.id("password")).sendKeys("123456");
 		Thread.sleep(3000);
-		driver.findElement(By.id("submitbtn")).click();
+		driver.findElement(By.id("loginsubmit")).click();
 		Thread.sleep(1000);
-		driver.switchTo().alert().accept();
+		driver.get("http://192.168.1.46:8072/residue-limit");
+		
+		/*//driver.switchTo().alert().accept();
 		if (driver.getTitle().equalsIgnoreCase("Report Tracker - eResidue") == false) {
 			Thread.sleep(1000);
 			String pop = driver.getWindowHandle();
@@ -55,12 +63,12 @@ public class Default_Limit {
 				driver.findElement(By.id("forcelogin")).click();
 			}
 		}
-		Thread.sleep(2000);
+		Thread.sleep(1000);*/
 		
-		
-		// mouse over on Settings menu
+		/*// mouse over on Settings menu
 		WebElement f = driver.findElement(By.xpath(".//*[@id='settings']"));
 		Actions a1 = new Actions(driver);
+		Thread.sleep(300);
 		a1.moveToElement(f).perform();
 		Thread.sleep(1000);
 		// select Universal Settings option
@@ -69,7 +77,7 @@ public class Default_Limit {
 		System.out.println(driver.getTitle());
 		Thread.sleep(500);
 		// select Limit Definition Tab
-		driver.findElement(By.linkText("Limit Definition")).click();
+		driver.findElement(By.linkText("Limit Definition")).click();*/
 	
 		defaultmethod();
 	//	System.out.println("defaultmethod option selected---->"+defaultmethod());
@@ -79,7 +87,7 @@ public class Default_Limit {
 			
 		for (int i = 1; i <=4; i++) 
 		{
-			WebElement radiobutton = driver.findElement(By.id("default_value_"+i));
+			WebElement radiobutton = driver.findElement(By.id("default"+i));
 			String str2;
 			if (radiobutton.isSelected()) 
 			{
@@ -96,7 +104,7 @@ public class Default_Limit {
 				if(str2.equals("2"))
 				{
 					//System.out.println("'Use a default value for L1' is selected =---->");
-					WebElement radiobutton2 = driver.findElement(By.id("default_value_l1"));
+					WebElement radiobutton2 = driver.findElement(By.id("defaultL1Default"));
 					{
 						if (radiobutton2.isSelected()) 
 						{
@@ -106,7 +114,7 @@ public class Default_Limit {
 						return "Default_L1@@"+de_L1_unitCon;
 						}
 					else{
-						String de_L1 = driver.findElement(By.id("default_L1_other")).getAttribute("value");
+						String de_L1 = driver.findElement(By.id("defautL1OthersValue")).getAttribute("value");
 						String de_L1_unitCon = Double.toString(Double.parseDouble(de_L1) * 0.001); // For unit conversion (ppm to mg/g)
 						//System.out.println("Use a default value for L1="+de_L1+"ppm (other)");
 						return "Default_L1@@"+de_L1_unitCon;
@@ -119,7 +127,7 @@ public class Default_Limit {
 				if(str2.equals("3"))
 				{
 					//System.out.println("'Use a default value for L3' is selected =---->");
-					WebElement radiobutton3 = driver.findElement(By.id("default_value_l3"));
+					WebElement radiobutton3 = driver.findElement(By.id("defaultL3Default"));
 					{
 						if (radiobutton3.isSelected()) 
 						{
@@ -128,7 +136,7 @@ public class Default_Limit {
 						return "Default_L3@@"+de_L3;
 						}
 					else{
-						String de_L3 = driver.findElement(By.id("default_L3_other")).getAttribute("value");
+						String de_L3 = driver.findElement(By.id("defautL3OthersValue")).getAttribute("value");
 						System.out.println("Use a default value for L3="+de_L3+"mg/sq.cm (other)");
 						return "Default_L3@@"+de_L3;
 						}
@@ -139,12 +147,12 @@ public class Default_Limit {
 				if(str2.equals("4"))
 				{
 					//System.out.println("'Use a default value for both L1 and L3' is selected=---->");
-					WebElement defaultL1 = driver.findElement(By.id("default_value_l1_2"));
-					WebElement defaultL3 = driver.findElement(By.id("default_value_l3_2"));
-					WebElement defaultL1_other_option = driver.findElement(By.id("default_value_l1_2_other"));
-					WebElement defaultL1_other_value = driver.findElement(By.id("default_L1_other1"));
-					WebElement defaultL3_other_option = driver.findElement(By.id("default_value_l3_2_other"));
-					WebElement defaultL3_other_value = driver.findElement(By.id("default_L3_other1"));
+					WebElement defaultL1 = driver.findElement(By.id("defaultBothL1Default"));
+					WebElement defaultL3 = driver.findElement(By.id("defaultBothL3Default"));
+					WebElement defaultL1_other_option = driver.findElement(By.id("defaultBothL1Other"));
+					WebElement defaultL1_other_value = driver.findElement(By.id("defautBothL1OthersValue"));
+					WebElement defaultL3_other_option = driver.findElement(By.id("defaultBothL3Other"));
+					WebElement defaultL3_other_value = driver.findElement(By.id("defautBothL3OthersValue"));
 					{
 						if (defaultL1.isSelected() &&defaultL3.isSelected()) // default L1=10 ppm and Default L3 = 0.004 mg/sq.cm
 						{

@@ -23,7 +23,7 @@ public class Constant {
 	static Utils WD = new Utils();
 	public static WebDriver driver = WD.getWebDriver();
 
-	public static final String dbUrl = "jdbc:mysql://localhost:3306/selenium";
+	public static final String dbUrl = "jdbc:mysql://localhost:3306/eDocs_calculation";
 	
 	public static final String username = "root";
 	
