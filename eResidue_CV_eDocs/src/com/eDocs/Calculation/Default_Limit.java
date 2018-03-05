@@ -26,7 +26,7 @@ public class Default_Limit {
 		
 		driver = new FirefoxDriver(capabilities);
 		// Open the application
-		driver.get("http://192.168.1.46:8072/login");
+		driver.get("http://localhost:8091/calculation/login");
 		Thread.sleep(1000);
 		//driver.switchTo().alert().accept();
 		// Login
@@ -38,7 +38,7 @@ public class Default_Limit {
 		Thread.sleep(3000);
 		driver.findElement(By.id("loginsubmit")).click();
 		Thread.sleep(1000);
-		driver.get("http://192.168.1.46:8072/residue-limit");
+		driver.get("http://localhost:8091/calculation/residue-limit");
 		
 		/*//driver.switchTo().alert().accept();
 		if (driver.getTitle().equalsIgnoreCase("Report Tracker - eResidue") == false) {
@@ -92,11 +92,9 @@ public class Default_Limit {
 			if (radiobutton.isSelected()) 
 			{
 				str2 = radiobutton.getAttribute("Value"); 
-			//	System.out.println(str2+" - radio button is Selected");
 				
 				//First Radio button is selected
 				if(str2.equals("1")){
-										//System.out.println("'No default used. Use calculated value' is selected =---->");
 					return "No_Default";
 				}
 				
@@ -110,13 +108,11 @@ public class Default_Limit {
 						{
 						String de_L1 = radiobutton2.getAttribute("Value"); 
 						String de_L1_unitCon = Double.toString(Double.parseDouble(de_L1) * 0.001); // For unit conversion (ppm to mg/g)
-						//System.out.println("Use a default value for L1="+de_L1_unitCon+"ppm");
 						return "Default_L1@@"+de_L1_unitCon;
 						}
 					else{
 						String de_L1 = driver.findElement(By.id("defautL1OthersValue")).getAttribute("value");
 						String de_L1_unitCon = Double.toString(Double.parseDouble(de_L1) * 0.001); // For unit conversion (ppm to mg/g)
-						//System.out.println("Use a default value for L1="+de_L1+"ppm (other)");
 						return "Default_L1@@"+de_L1_unitCon;
 						}
 					}
@@ -126,7 +122,6 @@ public class Default_Limit {
 				//Third Radio button is selected
 				if(str2.equals("3"))
 				{
-					//System.out.println("'Use a default value for L3' is selected =---->");
 					WebElement radiobutton3 = driver.findElement(By.id("defaultL3Default"));
 					{
 						if (radiobutton3.isSelected()) 
@@ -146,7 +141,6 @@ public class Default_Limit {
 				//Fourth Radio button is selected
 				if(str2.equals("4"))
 				{
-					//System.out.println("'Use a default value for both L1 and L3' is selected=---->");
 					WebElement defaultL1 = driver.findElement(By.id("defaultBothL1Default"));
 					WebElement defaultL3 = driver.findElement(By.id("defaultBothL3Default"));
 					WebElement defaultL1_other_option = driver.findElement(By.id("defaultBothL1Other"));

@@ -5,7 +5,7 @@
     <classes>
       <class name="com.eDocs.Calculation.SolidCalculation">
         <methods>
-          <include name="P1_P1A1_Solid"/>
+          <include name="P4_Active2_Solid"/>
         </methods>
       </class> <!-- com.eDocs.Calculation.SolidCalculation -->
     </classes>
