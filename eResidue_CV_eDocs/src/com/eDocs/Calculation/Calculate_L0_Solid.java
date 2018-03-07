@@ -10,20 +10,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.testng.annotations.Parameters;
+
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 
 public class Calculate_L0_Solid {
 	
 
-	public static String productName1 = "P11";
-	public static String productName2 = "P22";
-	public static String productName3 = "P33";
-	public static String productName4 = "P44";
+	/*public static String productName1 = Constant.productName1;
+	public static String productName2 = Constant.productName2;
+	public static String productName3 = Constant.productName3;
+	public static String productName4 = Constant.productName4;*/
 	
 	
+	@Parameters({"productName1","productName2","productName3","productName4"})
 	//current product productName1 with first API
-	public static double calculate_P1_active1_L0() throws SQLException, ClassNotFoundException, IOException {
+	public static double calculate_P1_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 			double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 			int Basislimitoption=0;
 			//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -131,9 +134,9 @@ public class Calculate_L0_Solid {
 
 	
 	
-
 	//current product productname1 with second API
-	public static double calculate_P1_active2_L0() throws SQLException, ClassNotFoundException, IOException {
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public static double calculate_P1_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 		int Basislimitoption=0;
 		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -241,9 +244,9 @@ public class Calculate_L0_Solid {
 
 	
 	
-	
 	//current product productName2 with first API
-		public static double calculate_P2_active1_L0() throws SQLException, ClassNotFoundException, IOException {
+	@Parameters({"productName1","productName2","productName3","productName4"})
+		public static double calculate_P2_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 				int Basislimitoption=0;
 				//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -352,9 +355,9 @@ public class Calculate_L0_Solid {
 	
 	
 	
-	
-		//current product productname2 with second API
-		public static double calculate_P2_active2_L0() throws SQLException, ClassNotFoundException, IOException {
+	//current product productname2 with second API
+	@Parameters({"productName1","productName2","productName3","productName4"})
+		public static double calculate_P2_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 			double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 			int Basislimitoption=0;
 			//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -463,9 +466,9 @@ public class Calculate_L0_Solid {
 	
 	
 	
-
 		//current product productName3 with first API
-			public static double calculate_P3_active1_L0() throws SQLException, ClassNotFoundException, IOException {
+	@Parameters({"productName1","productName2","productName3","productName4"})
+			public static double calculate_P3_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 					double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 					int Basislimitoption=0;
 					//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -576,7 +579,8 @@ public class Calculate_L0_Solid {
 		
 		
 			//current product productname3 with second API
-			public static double calculate_P3_active2_L0() throws SQLException, ClassNotFoundException, IOException {
+			@Parameters({"productName1","productName2","productName3","productName4"})
+			public static double calculate_P3_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 				int Basislimitoption=0;
 				//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -687,7 +691,8 @@ public class Calculate_L0_Solid {
 	
 
 			//current product productName4 with first API
-				public static double calculate_P4_active1_L0() throws SQLException, ClassNotFoundException, IOException {
+			@Parameters({"productName1","productName2","productName3","productName4"})
+				public static double calculate_P4_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 						double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 						int Basislimitoption=0;
 						//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -798,7 +803,8 @@ public class Calculate_L0_Solid {
 			
 			
 				//current product productname4 with second API
-				public static double calculate_P4_active2_L0() throws SQLException, ClassNotFoundException, IOException {
+			@Parameters({"productName1","productName2","productName3","productName4"})
+				public static double calculate_P4_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 					double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 					int Basislimitoption=0;
 					//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
@@ -911,7 +917,8 @@ public class Calculate_L0_Solid {
 	
 	
 	//if grouping approach
-			public static double groupingApproach_L0_p11() throws IOException, ClassNotFoundException, SQLException 
+			@Parameters({"productName1","productName2","productName3","productName4"})
+			public static double groupingApproach_L0_p11(String productName1,String productName2,String productName3,String productName4) throws IOException, ClassNotFoundException, SQLException 
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
@@ -1090,7 +1097,8 @@ public class Calculate_L0_Solid {
 			
 	
 			//if grouping approach - product2
-			public static double groupingApproach_L0_p22() throws IOException, ClassNotFoundException, SQLException 
+			@Parameters({"productName1","productName2","productName3","productName4"})
+			public static double groupingApproach_L0_p22(String productName1,String productName2,String productName3,String productName4) throws IOException, ClassNotFoundException, SQLException 
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
@@ -1265,7 +1273,8 @@ public class Calculate_L0_Solid {
 	
 			
 			//if grouping approach - product2
-			public static double groupingApproach_L0_p33() throws IOException, ClassNotFoundException, SQLException 
+			@Parameters({"productName1","productName2","productName3","productName4"})
+			public static double groupingApproach_L0_p33(String productName1,String productName2,String productName3,String productName4) throws IOException, ClassNotFoundException, SQLException 
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
@@ -1440,7 +1449,8 @@ public class Calculate_L0_Solid {
 	
 	
 			//if grouping approach - product4
-			public static double groupingApproach_L0_p44() throws IOException, ClassNotFoundException, SQLException 
+			@Parameters({"productName1","productName2","productName3","productName4"})
+			public static double groupingApproach_L0_p44(String productName1,String productName2,String productName3,String productName4) throws IOException, ClassNotFoundException, SQLException 
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;

@@ -2,9 +2,18 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
   <test name="Test">
+  
+  <!--Below four  product used for calculation -->
+  <parameter name = "productName1" value= "P11"/>
+  <parameter name = "productName2" value= "P22"/>
+  <parameter name = "productName3" value= "P33"/>
+  <parameter name = "productName4" value= "P44"/>
+  
     <classes>
       <class name="com.eDocs.Calculation.Default_Limit"/>
       <class name="com.eDocs.Calculation.SolidCalculation"/>
     </classes>
+    
+    
   </test> <!-- Test -->
 </suite> <!-- Suite -->

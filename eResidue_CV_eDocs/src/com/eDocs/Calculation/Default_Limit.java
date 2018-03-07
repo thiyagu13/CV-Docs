@@ -1,6 +1,14 @@
 package com.eDocs.Calculation;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,6 +20,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
+
+import com.eDocs.Utils.Utils;
 
 public class Default_Limit {
 	public static WebDriver driver;
@@ -195,6 +205,116 @@ public class Default_Limit {
 			} 
 
 		return null;
+		}
+		
+		
+		
+		
+		public static float getMaxDose(String CurrentproductName) throws ClassNotFoundException, SQLException
+		{
+			Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrentproductName + "'");// Execute the SQL Query to find prod id from product table
+			//Get product id 
+			int prodname_id = 0;
+			while (getprodname_id.next()) 
+				{
+				prodname_id = getprodname_id.getInt(1); // get name id from product table
+				}
+			//Get highest dose of active value
+		    Set<Integer> basisofcalIDs  = new HashSet<>();
+		    ResultSet basisofcalID = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id = "+prodname_id+"");
+		    while(basisofcalID.next())
+		    {
+		    	basisofcalIDs.add(basisofcalID.getInt(2)); // get health based value
+		    }
+		    
+		    List<Float> getdoseofActive  = new ArrayList<>();
+		    for(int basisofcal:basisofcalIDs)
+		    {
+		    	ResultSet doseofActive = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id = "+basisofcal+ "");
+			    while(doseofActive.next())
+			    {
+			    	getdoseofActive.add(doseofActive.getFloat(7)); // get health based value
+			    }
+		    }
+		    System.out.println("getdoseofActive" +getdoseofActive);
+		    
+		    Float getmaxDoseofActive = Collections.max(getdoseofActive);
+		    System.out.println("getminDoseofActive" +getmaxDoseofActive);
+		    
+			return getmaxDoseofActive;
+		}
+		
+		
+		
+		
+		
+		
+		
+		public static boolean groupingApproachDefaultL1(String CurrentproductName) throws ClassNotFoundException, SQLException
+		{
+
+			Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrentproductName + "'");// Execute the SQL Query to find prod id from product table
+			int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
+			//Get product id 
+			while (getprodname_id.next()) 
+				{
+				prodname_id = getprodname_id.getInt(1); // get name id from product table
+				}
+				//get active id
+				ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+				List<Integer> active = new ArrayList<>(); // store multiple equipment id
+			    	while (getactiveID.next()) 
+			    	{
+			    	active.add(getactiveID.getInt(2)); // get health based value
+			    	}
+			    //get lowest solubility within api from product
+			    List<Float> Solubilities = new ArrayList<>(); // store multiple equipment id
+			    List<Float> ADE = new ArrayList<>(); // store multiple equipment id
+			    	for(int activeID:active)
+			    	{
+			    		ResultSet getallActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+activeID+ "'");
+			    		while(getallActive.next())
+			    		{
+			    			Solubilities.add((float) getallActive.getFloat(9)); // get health based value
+			    			ADE.add((float) getallActive.getFloat(12)); // get health based value
+			    		}
+			    	}
+			    float minsolubility = Collections.min(Solubilities); // get minimum value from awithin active
+			    float minADE = Collections.min(ADE); // get minimum value from awithin active
+			    	
+			    // find minimum Solubility active id
+			    for(int listofactiveID:active)
+			    {
+			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && solubility_in_water= "+minsolubility+ "");
+			    while(getActive.next())
+			    {
+			    	System.out.println("pass");
+			    	lowestsolubilityID =getActive.getInt(1); // get health based value
+			    }
+			    } // end - get lowest solubility within api from product
+			    System.out.println("Lowest Solubility active id: "+lowestsolubilityID);
+			    
+			    // find minimum ADE active id
+			    for(int listofactiveID:active)
+			    {
+			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && lowest_route_of_admin_value LIKE "+minADE+"");
+			    while(getActive.next())
+			    {
+			    	System.out.println("pass");
+			    	lowestADEID =getActive.getInt(1); // get health based value
+			    }
+			    } // end - get lowest solubility within api from product
+			    System.out.println("Lowest ADE active id: "+lowestADEID);
+			
+			    
+			    if(lowestsolubilityID==lowestADEID)
+			    {
+			    	return true;
+			    }else {
+			    	return false;
+			    }
 		}
 		
 		

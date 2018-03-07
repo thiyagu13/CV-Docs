@@ -13,10 +13,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections4.bag.SynchronizedSortedBag;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
@@ -32,18 +34,16 @@ public class SolidCalculation {
 	public boolean default_l1 = false;
 	public boolean default_l1_l3 = false;
 	
-	//public boolean limitbasedonLowestL0 = false;
-	//public boolean activeGroupingApproach = true;
-	int LimitDeterminationOption;
 	
-	public static String productName1 = "P11";
-	public static String productName2 = "P22";
-	public static String productName3 = "P33";
-	public static String productName4 = "P44";
+	//public static String productName1 = Constant.productName1;
+	//public static String productName2 = Constant.productName2;
+	//public static String productName3 = Constant.productName3;
+	//public static String productName4 = Constant.productName4;
 	
 	
 	public int limitDetermination() throws ClassNotFoundException, SQLException
 	{
+		int LimitDeterminationOption = 0;
 		Statement stmt = Utils.db_connect();// Create Statement Object
 		ResultSet LimitDetermination = stmt.executeQuery("SELECT * FROM residue_limit");
 		while (LimitDetermination.next()) 
@@ -54,8 +54,9 @@ public class SolidCalculation {
 		return LimitDeterminationOption;
 	}
 
+	
 	//default limit option
-	public void defaultValueSet()	{
+	public void defaultValueSet(String CurrenProductName) throws ClassNotFoundException, SQLException	{
 		if(Default_Limit.defaultmethod().equalsIgnoreCase("No_Default")) {
 			no_default = true;
 		}else if(Default_Limit.defaultmethod().contains("Default_L1@@")) {
@@ -63,6 +64,17 @@ public class SolidCalculation {
 			default_l1_val = Double.parseDouble(a[1]);
 			default_l1 = true;
 			System.out.println("default_l1_val---->"+default_l1_val+"---->default_l1---->"+default_l1);
+			
+			System.out.println("limitDetermination-->"+limitDetermination());
+			if(limitDetermination()==1) //grouping approach true and default l1 - it will apply
+			{
+				if(Default_Limit.groupingApproachDefaultL1(CurrenProductName)==true)
+				{
+					default_l1_val = default_l1_val / Default_Limit.getMaxDose(CurrenProductName);
+					System.out.println("default_l1_val---->"+default_l1_val);
+				}
+			}
+			
 			
 		}else if(Default_Limit.defaultmethod().contains("Default_L3@@")) {
 			String[] a = Default_Limit.defaultmethod().split("@@");
@@ -76,6 +88,15 @@ public class SolidCalculation {
 			default_l1l3_l1 = Double.parseDouble(a[1]);
 			default_l1l3_l3 = Double.parseDouble(a[2]);
 			default_l1_l3 = true;
+			System.out.println("limitDetermination-->"+limitDetermination());
+			if(limitDetermination()==1) //grouping approach true and default l1 - it will apply
+			{
+				if(Default_Limit.groupingApproachDefaultL1(CurrenProductName)==true)
+				{
+					default_l1l3_l1 = default_l1l3_l1 / Default_Limit.getMaxDose(CurrenProductName);
+					System.out.println("default_l1l3_l1---->"+default_l1l3_l1);
+				}
+			}
 			System.out.println("4: default_l1_val---->"+default_l1l3_l1+"---->default_l3---->"+default_l1l3_l3 +"Default L1 and L3 option: "+default_l1_l3);
 		}
 	}
@@ -140,16 +161,17 @@ public class SolidCalculation {
 
 	
 	@Test(priority=1) // Current ProductName with First Active
-	public void P1_Active1_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P1_Active1_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		String CurrenProductName = productName1; // current product name
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				String CurrenProductName = productName1; // current product name
 				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName2);
@@ -171,16 +193,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P1_active1_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P1_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P1_active1_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P1_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p11() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p11()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				
@@ -510,18 +532,19 @@ public class SolidCalculation {
 
 	
 	
-	
 	@Test(priority=2) // Product P1 Active1 to P2
-	public void P1_Active2_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P1_Active2_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		String CurrenProductName = productName1;
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				String CurrenProductName = productName1;
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName2);
 				 productList.add(productName3);
@@ -539,17 +562,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P1_active2_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P1_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P1_active2_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P1_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p11() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p11() ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
@@ -879,19 +902,20 @@ public class SolidCalculation {
 	
 	
 	
-	
 
 	@Test(priority=3) // Current ProductName with First Active
-	public void P2_Active1_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P2_Active1_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		 String CurrenProductName= productName2;
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				 String CurrenProductName= productName2;
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName1);
 				 productList.add(productName3);
@@ -909,16 +933,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P2_active1_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P2_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P2_active1_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P2_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p22() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p22()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				//Solid_Total_surface_area = sheet.getRow(30).getCell(column).getNumericCellValue(); 
@@ -1244,19 +1268,20 @@ public class SolidCalculation {
 	
 	
 	
-	
 
 	@Test(priority=4) // current productname P2 with second active
-	public void P2_Active2_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P2_Active2_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		 String CurrenProductName = productName2; 
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				 String CurrenProductName = productName2; 
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName1);
 				 productList.add(productName3);
@@ -1274,17 +1299,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P2_active2_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P2_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P2_active2_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P2_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p22() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p22() ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
@@ -1610,18 +1635,19 @@ public class SolidCalculation {
 		}// closing P1A1 calculation
 
 	
-	
 	@Test(priority=5) // Current ProductName with First Active
-	public void P3_Active1_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P3_Active1_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		 String CurrenProductName = productName3;
+		 defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				 String CurrenProductName = productName3;
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName1);
 				 productList.add(productName2);
@@ -1639,16 +1665,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P3_active1_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P3_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P3_active1_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P3_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p33() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p33()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				int sharedORLowest=0;
@@ -1973,20 +1999,20 @@ public class SolidCalculation {
 
 	
 	
-	
-	
 
 	@Test(priority=6) // current productname P2 with second active
-	public void P3_Active2_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P3_Active2_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		 String CurrenProductName= productName3;
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 					int nextProdID=0;
-				 String CurrenProductName= productName3;
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName1);
 				 productList.add(productName2);
@@ -2004,17 +2030,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P3_active2_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P3_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P3_active2_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P3_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p33() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p33() ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
@@ -2341,19 +2367,20 @@ public class SolidCalculation {
 
 	
 	
-	
 
 	@Test(priority=7) // Current ProductName with First Active
-	public void P4_Active1_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P4_Active1_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		 String CurrenProductName = productName4;
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				 String CurrenProductName = productName4;
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName1);
 				 productList.add(productName2);
@@ -2372,16 +2399,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P4_active1_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P4_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P4_active1_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P4_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p44() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p44()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				int sharedORLowest=0;
@@ -2706,19 +2733,20 @@ public class SolidCalculation {
 	
 	
 	
-	
 
 	@Test(priority=8) // current productname P2 with second active
-	public void P4_Active2_Solid() throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	@Parameters({"productName1","productName2","productName3","productName4"})
+	public void P4_Active2_Solid(String productName1,String productName2,String productName3,String productName4) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
-		defaultValueSet();
+		String CurrenProductName = productName4;
+		defaultValueSet(CurrenProductName);
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
 				Statement stmt = Utils.db_connect();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
-				String CurrenProductName = productName4;
+				
 				 Set<String> productList = new HashSet<>(); 
 				 productList.add(productName1);
 				 productList.add(productName2);
@@ -2736,17 +2764,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P4_active2_L0() / maxDD;
+				value_L1 = Calculate_L0_Solid.calculate_P4_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P4_active2_L0()); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P4_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p44() / maxDD;
+				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p44() ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value

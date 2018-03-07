@@ -2,12 +2,28 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test name="Test(failed)">
+    <parameter name="productName1" value="P11"/>
+    <parameter name="productName2" value="P22"/>
+    <parameter name="productName3" value="P33"/>
+    <parameter name="productName4" value="P44"/>
     <classes>
       <class name="com.eDocs.Calculation.SolidCalculation">
         <methods>
-          <include name="P4_Active2_Solid"/>
+          <include name="P2_Active1_Solid" invocation-numbers="0"/>
+          <include name="P3_Active2_Solid" invocation-numbers="0"/>
+          <include name="P4_Active2_Solid" invocation-numbers="0"/>
+          <include name="P1_Active2_Solid" invocation-numbers="0"/>
+          <include name="P3_Active1_Solid" invocation-numbers="0"/>
+          <include name="P4_Active1_Solid" invocation-numbers="0"/>
+          <include name="P1_Active1_Solid" invocation-numbers="0"/>
+          <include name="P2_Active2_Solid" invocation-numbers="0"/>
         </methods>
       </class> <!-- com.eDocs.Calculation.SolidCalculation -->
+      <class name="com.eDocs.Calculation.Default_Limit">
+        <methods>
+          <include name="UniversalSettings"/>
+        </methods>
+      </class> <!-- com.eDocs.Calculation.Default_Limit -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

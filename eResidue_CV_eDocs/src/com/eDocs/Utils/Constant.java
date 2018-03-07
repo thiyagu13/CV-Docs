@@ -28,4 +28,14 @@ public class Constant {
 	public static final String username = "root";
 	
 	public static final String password = "root123";	
+	
+	public static final String productName1 = "P11";
+	public static final String productName2 = "P22";
+	public static final String productName3 = "P33";
+	public static final String productName4 = "P44";
+	
+	
+	
+	
+	
 }
