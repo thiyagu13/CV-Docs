@@ -17,10 +17,12 @@ public class Constant {
 
 	// Excel path - get input data from excel sheet
 	public static String EXCEL_PATH = "C:\\selenium\\eResidue_CV_eDocs\\eResidue_eDocs_TestCase.xlsx";
-	public static String EXCEL_PATH_Result = "C:\\selenium\\eResidue_CV_eDocs\\eResidue_eDocs_TestCase_Result.xlsx";
+	
+	public static String EXCEL_PATH_Result = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\eResidue_eDocs_TestCase_result.xlsx";
 
 	// Call web driver
 	static Utils WD = new Utils();
+	
 	public static WebDriver driver = WD.getWebDriver();
 
 	public static final String dbUrl = "jdbc:mysql://localhost:3306/selenium";
@@ -29,10 +31,10 @@ public class Constant {
 	
 	public static final String password = "root123";	
 	
-	public static final String productName1 = "P11";
-	public static final String productName2 = "P22";
-	public static final String productName3 = "P33";
-	public static final String productName4 = "P44";
+	public static final String equipment_Properties_Path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties";
+	
+	public static final String product_Properties_Path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties";
+	
 	
 	
 	

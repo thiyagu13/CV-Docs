@@ -1,227 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="9" passed="9">
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="35684" started-at="2018-03-07T11:40:17Z" finished-at="2018-03-07T11:40:53Z">
+  <suite name="Default suite" duration-ms="16977" started-at="2018-03-08T06:40:49Z" finished-at="2018-03-08T06:41:06Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="35684" started-at="2018-03-07T11:40:17Z" finished-at="2018-03-07T11:40:53Z">
-      <class name="com.eDocs.Calculation.SolidCalculation">
-        <test-method status="PASS" signature="P1_Active1_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P1_Active1_Solid" duration-ms="6766" started-at="2018-03-07T17:10:31Z" finished-at="2018-03-07T17:10:38Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
+    <test name="Default test" duration-ms="16977" started-at="2018-03-08T06:40:49Z" finished-at="2018-03-08T06:41:06Z">
+      <class name="com.eDocs.Calculation.NewTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.Calculation.NewTest@13deb50e]" name="setUp" is-config="true" duration-ms="13987" started-at="2018-03-08T12:10:49Z" finished-at="2018-03-08T12:11:03Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- P1_Active1_Solid -->
-        <test-method status="PASS" signature="P1_Active2_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P1_Active2_Solid" duration-ms="2398" started-at="2018-03-07T17:10:38Z" finished-at="2018-03-07T17:10:40Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="equipment()[pri:0, instance:com.eDocs.Calculation.NewTest@13deb50e]" name="equipment" duration-ms="2062" started-at="2018-03-08T12:11:03Z" finished-at="2018-03-08T12:11:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- P1_Active2_Solid -->
-        <test-method status="PASS" signature="P2_Active1_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:3, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P2_Active1_Solid" duration-ms="2224" started-at="2018-03-07T17:10:40Z" finished-at="2018-03-07T17:10:42Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- equipment -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.eDocs.Calculation.NewTest@13deb50e]" name="tearDown" is-config="true" duration-ms="906" started-at="2018-03-08T12:11:05Z" finished-at="2018-03-08T12:11:06Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- P2_Active1_Solid -->
-        <test-method status="PASS" signature="P2_Active2_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:4, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P2_Active2_Solid" duration-ms="2082" started-at="2018-03-07T17:10:42Z" finished-at="2018-03-07T17:10:44Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- P2_Active2_Solid -->
-        <test-method status="PASS" signature="P3_Active1_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:5, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P3_Active1_Solid" duration-ms="2196" started-at="2018-03-07T17:10:44Z" finished-at="2018-03-07T17:10:47Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- P3_Active1_Solid -->
-        <test-method status="PASS" signature="P3_Active2_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:6, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P3_Active2_Solid" duration-ms="2061" started-at="2018-03-07T17:10:47Z" finished-at="2018-03-07T17:10:49Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- P3_Active2_Solid -->
-        <test-method status="PASS" signature="P4_Active1_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:7, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P4_Active1_Solid" duration-ms="2235" started-at="2018-03-07T17:10:49Z" finished-at="2018-03-07T17:10:51Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- P4_Active1_Solid -->
-        <test-method status="PASS" signature="P4_Active2_Solid(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:8, instance:com.eDocs.Calculation.SolidCalculation@553f17c]" name="P4_Active2_Solid" duration-ms="2080" started-at="2018-03-07T17:10:51Z" finished-at="2018-03-07T17:10:53Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[P11]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[P22]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[P33]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[P44]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- P4_Active2_Solid -->
-      </class> <!-- com.eDocs.Calculation.SolidCalculation -->
-      <class name="com.eDocs.Calculation.Default_Limit">
-        <test-method status="PASS" signature="UniversalSettings()[pri:1, instance:com.eDocs.Calculation.Default_Limit@3c0ecd4b]" name="UniversalSettings" duration-ms="13585" started-at="2018-03-07T17:10:17Z" finished-at="2018-03-07T17:10:31Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- UniversalSettings -->
-      </class> <!-- com.eDocs.Calculation.Default_Limit -->
-    </test> <!-- Test -->
-  </suite> <!-- Suite -->
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.eDocs.Calculation.NewTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
 </testng-results>
