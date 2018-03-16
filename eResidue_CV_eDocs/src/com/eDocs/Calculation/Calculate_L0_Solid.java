@@ -14,6 +14,7 @@ import org.testng.annotations.Parameters;
 
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
+import com.mysql.jdbc.Connection;
 
 public class Calculate_L0_Solid {
 	
@@ -29,9 +30,9 @@ public class Calculate_L0_Solid {
 	public static double calculate_P1_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 			double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 			int Basislimitoption=0;
-			//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-		//	XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-			Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+			//database connection
+			Connection connection = Utils.db_connect();
+			Statement stmt = (Statement) connection.createStatement();
 			// get current product name id from product table // for finding dose based and health flag
 			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName1 + "'");// Execute the SQL Query to find prod id from product table
 			int prodname_id = 0;
@@ -128,6 +129,7 @@ public class Calculate_L0_Solid {
 							System.out.println("Print health L0: "+L0);
 							return L0;
 						}
+						connection.close();
 			//writeTooutputFile(workbook); // write output into work sheet
 			return L0; // return that L0 in this method
 		} //closing calculate_P1_active1_L0
@@ -139,9 +141,9 @@ public class Calculate_L0_Solid {
 	public static double calculate_P1_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 		int Basislimitoption=0;
-		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-		//XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-		Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
 		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName1 + "'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
@@ -238,7 +240,8 @@ public class Calculate_L0_Solid {
 						System.out.println("Print health L0: "+L0);
 						return L0;
 					}
-		//writeTooutputFile(workbook); // write output into work sheet
+					
+					connection.close();
 		return L0; // return that L0 in this method
 	} //closing calculate_P1_active1_L0
 
@@ -249,9 +252,9 @@ public class Calculate_L0_Solid {
 		public static double calculate_P2_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 				int Basislimitoption=0;
-				//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-			//	XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-				Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+				//database connection
+				Connection connection = Utils.db_connect();
+				Statement stmt = (Statement) connection.createStatement();
 				// get current product name id from product table // for finding dose based and health flag
 				ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName2 + "'");// Execute the SQL Query to find prod id from product table
 				int prodname_id = 0;
@@ -348,7 +351,7 @@ public class Calculate_L0_Solid {
 								System.out.println("Print health L0: "+L0);
 								return L0;
 							}
-				//writeTooutputFile(workbook); // write output into work sheet
+							connection.close();
 				return L0; // return that L0 in this method
 			} //closing calculate_P1_active1_L0
 	
@@ -360,9 +363,9 @@ public class Calculate_L0_Solid {
 		public static double calculate_P2_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 			double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 			int Basislimitoption=0;
-			//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-			//XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-			Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+			//database connection
+			Connection connection = Utils.db_connect();
+			Statement stmt = (Statement) connection.createStatement();
 			// get current product name id from product table // for finding dose based and health flag
 			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName2 + "'");// Execute the SQL Query to find prod id from product table
 			int prodname_id = 0;
@@ -459,7 +462,7 @@ public class Calculate_L0_Solid {
 							System.out.println("Print health L0: "+L0);
 							return L0;
 						}
-			//writeTooutputFile(workbook); // write output into work sheet
+						connection.close();
 			return L0; // return that L0 in this method
 		} //closing calculate_P1_active1_L0
 	
@@ -471,9 +474,9 @@ public class Calculate_L0_Solid {
 			public static double calculate_P3_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 					double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 					int Basislimitoption=0;
-					//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-				//	XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-					Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+					//database connection
+					Connection connection = Utils.db_connect();
+					Statement stmt = (Statement) connection.createStatement();
 					// get current product name id from product table // for finding dose based and health flag
 					ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName3 + "'");// Execute the SQL Query to find prod id from product table
 					int prodname_id = 0;
@@ -570,7 +573,7 @@ public class Calculate_L0_Solid {
 									System.out.println("Print health L0: "+L0);
 									return L0;
 								}
-					//writeTooutputFile(workbook); // write output into work sheet
+								connection.close();
 					return L0; // return that L0 in this method
 				} //closing calculate_P1_active1_L0
 		
@@ -583,9 +586,9 @@ public class Calculate_L0_Solid {
 			public static double calculate_P3_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 				int Basislimitoption=0;
-				//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-				//XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-				Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+				//database connection
+				Connection connection = Utils.db_connect();
+				Statement stmt = (Statement) connection.createStatement();
 				// get current product name id from product table // for finding dose based and health flag
 				ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName3 + "'");// Execute the SQL Query to find prod id from product table
 				int prodname_id = 0;
@@ -682,7 +685,7 @@ public class Calculate_L0_Solid {
 								System.out.println("Print health L0: "+L0);
 								return L0;
 							}
-				//writeTooutputFile(workbook); // write output into work sheet
+							connection.close();
 				return L0; // return that L0 in this method
 			} //closing calculate_P1_active1_L0
 		
@@ -695,9 +698,9 @@ public class Calculate_L0_Solid {
 				public static double calculate_P4_active1_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 						double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 						int Basislimitoption=0;
-						//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-					//	XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-						Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+						//database connection
+						Connection connection = Utils.db_connect();
+						Statement stmt = (Statement) connection.createStatement();
 						// get current product name id from product table // for finding dose based and health flag
 						ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName4 + "'");// Execute the SQL Query to find prod id from product table
 						int prodname_id = 0;
@@ -794,7 +797,7 @@ public class Calculate_L0_Solid {
 										System.out.println("Print health L0: "+L0);
 										return L0;
 									}
-						//writeTooutputFile(workbook); // write output into work sheet
+									connection.close();
 						return L0; // return that L0 in this method
 					} //closing calculate_P1_active1_L0
 			
@@ -807,9 +810,9 @@ public class Calculate_L0_Solid {
 				public static double calculate_P4_active2_L0(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException {
 					double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 					int Basislimitoption=0;
-					//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); // Create workbook
-					//XSSFSheet sheet = workbook.getSheet("Solid_Calculation"); //get sheet from workbook
-					Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+					//database connection
+					Connection connection = Utils.db_connect();
+					Statement stmt = (Statement) connection.createStatement();
 					// get current product name id from product table // for finding dose based and health flag
 					ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName4 + "'");// Execute the SQL Query to find prod id from product table
 					int prodname_id = 0;
@@ -906,7 +909,7 @@ public class Calculate_L0_Solid {
 									System.out.println("Print health L0: "+L0);
 									return L0;
 								}
-					//writeTooutputFile(workbook); // write output into work sheet
+								connection.close();
 					return L0; // return that L0 in this method
 				} //closing calculate_P1_active1_L0
 			
@@ -922,7 +925,9 @@ public class Calculate_L0_Solid {
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
-				Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+				//database connection
+				Connection connection = Utils.db_connect();
+				Statement stmt = (Statement) connection.createStatement();
 				ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName1 + "'");// Execute the SQL Query to find prod id from product table
 				int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 				//Get product id 
@@ -1088,6 +1093,7 @@ public class Calculate_L0_Solid {
 							System.out.println("Print dose L0: "+doseL0);
 							System.out.println("Print health L0: "+healthL0);
 							System.out.println("Print  L0: "+L0);
+							connection.close();
 				return L0; // return that L0 in this method
 			} 
 			
@@ -1102,7 +1108,9 @@ public class Calculate_L0_Solid {
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
-				Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+				//database connection
+				Connection connection = Utils.db_connect();
+				Statement stmt = (Statement) connection.createStatement();
 				ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName2 + "'");// Execute the SQL Query to find prod id from product table
 				int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 				//Get product id 
@@ -1268,6 +1276,7 @@ public class Calculate_L0_Solid {
 							System.out.println("Print dose L0: "+doseL0);
 							System.out.println("Print health L0: "+healthL0);
 							System.out.println("Print  L0: "+L0);
+							connection.close();
 				return L0; // return that L0 in this method
 			} 
 	
@@ -1278,7 +1287,9 @@ public class Calculate_L0_Solid {
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
-				Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+				//database connection
+				Connection connection = Utils.db_connect();
+				Statement stmt = (Statement) connection.createStatement();
 				ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName3 + "'");// Execute the SQL Query to find prod id from product table
 				int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 				//Get product id 
@@ -1444,6 +1455,7 @@ public class Calculate_L0_Solid {
 							System.out.println("Print dose L0: "+doseL0);
 							System.out.println("Print health L0: "+healthL0);
 							System.out.println("Print  L0: "+L0);
+							connection.close();
 				return L0; // return that L0 in this method
 			} 
 	
@@ -1454,7 +1466,9 @@ public class Calculate_L0_Solid {
 			{
 				double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,doseL0=0,healthL0 = 0;
 				int Basislimitoption = 0;
-				Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+				//database connection
+				Connection connection = Utils.db_connect();
+				Statement stmt = (Statement) connection.createStatement();
 				ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + productName4 + "'");// Execute the SQL Query to find prod id from product table
 				int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 				//Get product id 
@@ -1620,6 +1634,7 @@ public class Calculate_L0_Solid {
 							System.out.println("Print dose L0: "+doseL0);
 							System.out.println("Print health L0: "+healthL0);
 							System.out.println("Print  L0: "+L0);
+							connection.close();
 				return L0; // return that L0 in this method
 			} 		
 			

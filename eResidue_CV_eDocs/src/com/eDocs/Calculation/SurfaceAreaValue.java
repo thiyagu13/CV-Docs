@@ -15,6 +15,7 @@ import java.util.Set;
 import org.apache.poi.ss.usermodel.Workbook;
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
+import com.mysql.jdbc.Connection;
 
 public class SurfaceAreaValue {
 	
@@ -48,8 +49,9 @@ public class SurfaceAreaValue {
 	public static double actualSharedbetween2(String currentproductname,String nextproductname) throws SQLException, ClassNotFoundException
 	{
 		int currentproductID = 0,nextproductID = 0,currentproductsetcount = 0,nextproductsetcount = 0;
-		Statement stmt = Utils.db_connect();// Create Statement Object
-		
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();		
 		//current product equipment set
 		List<Integer> Currentsetcount = new ArrayList<>();
 		ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + currentproductname + "'"); // get product name id
@@ -260,8 +262,9 @@ public class SurfaceAreaValue {
 	    }
 	    float actualsharedbetween2 = Collections.max(TotalactualshreadList);
 	    System.out.println("Maximum shared SF value:" +actualsharedbetween2);
-	    
+	    connection.close();
 	    return actualsharedbetween2; 
+	  
 	   	}
 			
 			
@@ -273,8 +276,9 @@ public class SurfaceAreaValue {
 								{
 
 									int currentproductID = 0,nextproductID = 0,currentproductsetcount = 0,nextproductsetcount = 0;
-									Statement stmt = Utils.db_connect();// Create Statement Object
-									
+									//database connection
+									Connection connection = Utils.db_connect();
+									Statement stmt = (Statement) connection.createStatement();
 									//current product equipment set
 									List<Integer> Currentsetcount = new ArrayList<>();
 									ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + currentproductname + "'"); // get product name id
@@ -499,6 +503,7 @@ public class SurfaceAreaValue {
 								    float lowestTrainbetween2 = Collections.max(Lowestvalue);
 								    System.out.println("Largest value is : "+lowestTrainbetween2);
 								    
+								    connection.close();
 								    return lowestTrainbetween2;
 								   	}
 	

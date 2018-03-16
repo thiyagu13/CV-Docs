@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -138,23 +139,60 @@ public class Utils {
 		
 		
 		
-		public static Statement db_connect() throws SQLException, ClassNotFoundException {
+		public static Connection db_connect() throws SQLException, ClassNotFoundException {
 			// Load mysql jdbc driver
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// Create Connection to DB
-			Connection con = (Connection) DriverManager.getConnection(Constant.dbUrl, Constant.username, Constant.password);
+			Connection connection = (Connection) DriverManager.getConnection(Constant.dbUrl, Constant.username, Constant.password);
 
 			// Create Statement Object
-					Statement stmt = (Statement) con.createStatement();
-			return stmt;
+					//Statement stmt = (Statement) connection.createStatement();
+			return connection;
 			
 		}
 		
 		
+	
 		
 		
-		
+		public static String toOptimizeDecimalPlacesRoundedOff(double valueDouble) {
+
+	        /** The PdfTemplate with the total number of pages. */
+	        /*
+	         * Double roundedValue = Math.round(valueDouble * 100.0) / 100.0; return
+	         * roundedValue.toString();
+	         */
+	        if (0.00 >= valueDouble)
+	            return "";
+
+	        BigDecimal value = BigDecimal.valueOf(valueDouble);
+
+	        if (value.compareTo(new BigDecimal(100)) >= 0) {
+	            return value.setScale(3, BigDecimal.ROUND_HALF_UP).toString();
+	        } else if (value.compareTo(new BigDecimal(10)) >= 0) {
+	            return value.setScale(3, BigDecimal.ROUND_HALF_UP).toString();
+	        } else if (value.compareTo(new BigDecimal(1)) >= 0) {
+	            return value.setScale(3, BigDecimal.ROUND_HALF_UP).toString();
+	        } else {
+	            int zeros = 0;
+	            BigDecimal valueTest = value;
+	            while (valueTest.compareTo(new BigDecimal(1)) < 0) {
+	                valueTest = valueTest.multiply(new BigDecimal(10));
+	                zeros++;
+	                if (zeros == 10) {
+	                    break;
+	                }
+	            }
+	            zeros += 2;
+
+	            if (value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString().contains("E")) {
+	                return value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString().replace("E", " x 10<sup>") + "</sup>";
+	            }
+
+	            return value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString();
+	        }
+	    }
 	  
 	 
 

@@ -23,6 +23,7 @@ import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
+import com.mysql.jdbc.Connection;
 public class SolidCalculation {
 	
 	public boolean no_default = false;
@@ -44,13 +45,15 @@ public class SolidCalculation {
 	public int limitDetermination() throws ClassNotFoundException, SQLException
 	{
 		int LimitDeterminationOption = 0;
-		Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 		ResultSet LimitDetermination = stmt.executeQuery("SELECT * FROM residue_limit");
 		while (LimitDetermination.next()) 
 		{
 			LimitDeterminationOption = LimitDetermination.getInt(10);
 		}
-		System.out.println("LimitDeterminationOption"+LimitDeterminationOption);
+		System.out.println("LimitDeterminationOption-->"+LimitDeterminationOption);
+		connection.close();
 		return LimitDeterminationOption;
 	}
 
@@ -104,7 +107,8 @@ public class SolidCalculation {
 	
 	//Get swab area value from universal settings
 	public double swabArea() throws ClassNotFoundException, SQLException {
-		Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
 		while (residueLimit.next()) 
 		{	
@@ -114,12 +118,14 @@ public class SolidCalculation {
 			swabSurfaceArea = residueLimit.getFloat(19);
 		}
 		}
+		connection.close();
 		return swabSurfaceArea;
 	}
 	
 	//Get swab amount value from universal settings
 	public double swabAmount() throws ClassNotFoundException, SQLException {
-		Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
 		while (residueLimit.next()) 
 		{
@@ -129,13 +135,16 @@ public class SolidCalculation {
 			swabAmount = residueLimit.getFloat(21);
 		}
 		}
+		connection.close();
 		return swabAmount;
+		
 	}
 	String sampling_methodOption;
 	int RinseSampling;
 	//Get equipment rinse volume from universal settings
 	public double eqRinseVolume() throws ClassNotFoundException, SQLException {//Get value from universal settings
-		Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
 		while (residueLimit.next()) 
 		{	
@@ -147,6 +156,7 @@ public class SolidCalculation {
 				rinsevolume = residueLimit.getFloat(24); 
 			}
 		}
+		connection.close();
 		return rinsevolume;
 	}
 	
@@ -169,7 +179,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -461,7 +472,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(41).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -510,9 +521,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(9).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(10).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(11).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(12);
 				verify_result.setCellValue("Pass");
@@ -527,6 +538,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
@@ -541,7 +553,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -829,7 +842,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(45).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -879,9 +892,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(22).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(23).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(24).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(25);
 				verify_result.setCellValue("Pass");
@@ -896,6 +909,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
@@ -912,7 +926,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -1196,7 +1211,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(49).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -1245,9 +1260,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(9).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(10).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(11).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(12);
 				verify_result.setCellValue("Pass");
@@ -1262,6 +1277,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
@@ -1278,7 +1294,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -1564,7 +1581,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(53).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -1614,9 +1631,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(22).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(23).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(24).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(25);
 				verify_result.setCellValue("Pass");
@@ -1631,6 +1648,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
@@ -1644,7 +1662,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -1928,7 +1947,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(57).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -1977,9 +1996,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(9).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(10).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(11).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(12);
 				verify_result.setCellValue("Pass");
@@ -1994,6 +2013,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
@@ -2009,7 +2029,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 					int nextProdID=0;
 				
@@ -2295,7 +2316,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(61).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -2345,9 +2366,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(22).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(23).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(24).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(25);
 				verify_result.setCellValue("Pass");
@@ -2362,6 +2383,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}
 
@@ -2377,7 +2399,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -2661,7 +2684,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(65).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -2710,9 +2733,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(9).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(10).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(11).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(12);
 				verify_result.setCellValue("Pass");
@@ -2727,6 +2750,7 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
@@ -2743,7 +2767,8 @@ public class SolidCalculation {
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("Solid_Calculation");
-				Statement stmt = Utils.db_connect();// Create Statement Object
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
 				int nextProdID=0;
 				
@@ -3029,7 +3054,7 @@ public class SolidCalculation {
 					printL3_result.setCellValue(LowestoneActualResult);
 						
 				//Compare both expected and actual result - applied round off for comparison
-				if(toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
+				if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
 				{
 					Cell printlowestL3 = sheet.getRow(69).getCell(13);
 					printlowestL3.setCellValue("Pass");
@@ -3079,9 +3104,9 @@ public class SolidCalculation {
 			double AL4a = sheet.getRow(k).getCell(22).getNumericCellValue();
 			double AL4b = sheet.getRow(k).getCell(23).getNumericCellValue();
 			double AL4c = sheet.getRow(k).getCell(24).getNumericCellValue();
-			if(toOptimizeDecimalPlacesRoundedOff(EL4a).equals(toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					toOptimizeDecimalPlacesRoundedOff(EL4b).equals(toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-							toOptimizeDecimalPlacesRoundedOff(EL4c).equals(toOptimizeDecimalPlacesRoundedOff(AL4c)))
+			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
 			{
 				Cell verify_result = sheet.getRow(k).getCell(25);
 				verify_result.setCellValue("Pass");
@@ -3096,48 +3121,13 @@ public class SolidCalculation {
 			}
 		
 		writeTooutputFile(workbook); // write output into work sheet
+		connection.close();
 		Thread.sleep(800);
 		}// closing P1A1 calculation
 
 	
 	
-	public String toOptimizeDecimalPlacesRoundedOff(double valueDouble) {
-
-        /** The PdfTemplate with the total number of pages. */
-        /*
-         * Double roundedValue = Math.round(valueDouble * 100.0) / 100.0; return
-         * roundedValue.toString();
-         */
-        if (0.00 >= valueDouble)
-            return "";
-
-        BigDecimal value = BigDecimal.valueOf(valueDouble);
-
-        if (value.compareTo(new BigDecimal(100)) >= 0) {
-            return value.setScale(3, BigDecimal.ROUND_HALF_UP).toString();
-        } else if (value.compareTo(new BigDecimal(10)) >= 0) {
-            return value.setScale(3, BigDecimal.ROUND_HALF_UP).toString();
-        } else if (value.compareTo(new BigDecimal(1)) >= 0) {
-            return value.setScale(3, BigDecimal.ROUND_HALF_UP).toString();
-        } else {
-            int zeros = 0;
-            BigDecimal valueTest = value;
-            while (valueTest.compareTo(new BigDecimal(1)) < 0) {
-                valueTest = valueTest.multiply(new BigDecimal(10));
-                zeros++;
-                if (zeros == 10) {
-                    break;
-                }
-            }
-            zeros += 2;
-
-            if (value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString().contains("E")) {
-                return value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString().replace("E", " x 10<sup>") + "</sup>";
-            }
-
-            return value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString();
-        }
-    }
+	
 	
 	
 	

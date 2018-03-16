@@ -22,6 +22,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Utils;
+import com.mysql.jdbc.Connection;
 
 public class Default_Limit {
 	public static WebDriver driver;
@@ -36,7 +37,7 @@ public class Default_Limit {
 		
 		driver = new FirefoxDriver(capabilities);
 		// Open the application
-		driver.get("http://localhost:8091/calculation/login");
+		driver.get("http://192.168.1.111:8090/login");
 		Thread.sleep(1000);
 		//driver.switchTo().alert().accept();
 		// Login
@@ -48,7 +49,7 @@ public class Default_Limit {
 		Thread.sleep(3000);
 		driver.findElement(By.id("loginsubmit")).click();
 		Thread.sleep(1000);
-		driver.get("http://localhost:8091/calculation/residue-limit");
+		driver.get("http://192.168.1.111:8090/residue-limit");
 		
 		/*//driver.switchTo().alert().accept();
 		if (driver.getTitle().equalsIgnoreCase("Report Tracker - eResidue") == false) {
@@ -212,7 +213,9 @@ public class Default_Limit {
 		
 		public static float getMaxDose(String CurrentproductName) throws ClassNotFoundException, SQLException
 		{
-			Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+			//database connection
+			Connection connection = Utils.db_connect();
+			Statement stmt = (Statement) connection.createStatement();
 			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrentproductName + "'");// Execute the SQL Query to find prod id from product table
 			//Get product id 
 			int prodname_id = 0;
@@ -242,6 +245,7 @@ public class Default_Limit {
 		    Float getmaxDoseofActive = Collections.max(getdoseofActive);
 		    System.out.println("getminDoseofActive" +getmaxDoseofActive);
 		    
+		    connection.close();
 			return getmaxDoseofActive;
 		}
 		
@@ -253,8 +257,9 @@ public class Default_Limit {
 		
 		public static boolean groupingApproachDefaultL1(String CurrentproductName) throws ClassNotFoundException, SQLException
 		{
-
-			Statement stmt = Utils.db_connect();// Create Statement Object (Database Connection)
+			//database connection
+			Connection connection = Utils.db_connect();
+			Statement stmt = (Statement) connection.createStatement();
 			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrentproductName + "'");// Execute the SQL Query to find prod id from product table
 			int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 			//Get product id 
@@ -309,6 +314,7 @@ public class Default_Limit {
 			    System.out.println("Lowest ADE active id: "+lowestADEID);
 			
 			    
+			    connection.close();
 			    if(lowestsolubilityID==lowestADEID)
 			    {
 			    	return true;
