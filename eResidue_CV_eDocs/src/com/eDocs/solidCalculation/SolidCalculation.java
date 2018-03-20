@@ -1,4 +1,4 @@
-package com.eDocs.Calculation;
+package com.eDocs.solidCalculation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -204,16 +204,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P1_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P1_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P1_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P1_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				
@@ -575,17 +575,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P1_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P1_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P1_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P1_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p11(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
@@ -948,16 +948,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P2_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P2_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P2_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P2_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				//Solid_Total_surface_area = sheet.getRow(30).getCell(column).getNumericCellValue(); 
@@ -1316,17 +1316,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P2_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P2_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P2_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P2_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p22(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
@@ -1684,16 +1684,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P3_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P3_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P3_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P3_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				int sharedORLowest=0;
@@ -2051,17 +2051,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P3_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P3_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P3_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P3_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p33(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
@@ -2422,16 +2422,16 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P4_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P4_active1_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P4_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P4_active1_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				int sharedORLowest=0;
@@ -2789,17 +2789,17 @@ public class SolidCalculation {
 				if(limitDetermination()==2)
 				{
 				System.out.println("Lowest Limit");
-				value_L1 = Calculate_L0_Solid.calculate_P4_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.calculate_P4_active2_L0(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.calculate_P4_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.calculate_P4_active2_L0(productName1, productName2, productName3, productName4)); // print expected L0 result into excel
 				
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) / maxDD;
+				value_L1 = L0forSolid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
-				Solid_expec_Value_L0_print.setCellValue(Calculate_L0_Solid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0forSolid.groupingApproach_L0_p44(productName1, productName2, productName3, productName4) ); // print expected L0 result into excel
 				
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value

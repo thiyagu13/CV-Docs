@@ -10,8 +10,8 @@
   <parameter name = "productName4" value= "P4"/>
   
     <classes>
-      <class name="com.eDocs.Calculation.Default_Limit"/>
-      <class name="com.eDocs.Calculation.SolidCalculation"/>
+      <class name="com.eDocs.solidCalculation.Default_Limit"/>
+      <class name="com.eDocs.solidCalculation.SolidCalculation"/>
     </classes>
     
     

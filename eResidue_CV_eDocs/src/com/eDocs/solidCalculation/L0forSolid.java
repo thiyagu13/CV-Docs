@@ -1,4 +1,4 @@
-package com.eDocs.Calculation;
+package com.eDocs.solidCalculation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +16,7 @@ import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
-public class Calculate_L0_Solid {
+public class L0forSolid {
 	
 
 	/*public static String productName1 = Constant.productName1;

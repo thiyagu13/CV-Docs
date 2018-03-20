@@ -1,4 +1,4 @@
-package com.eDocs.Calculation;
+package com.eDocs.solidCalculation;
 
 import java.io.IOException;
 import java.sql.ResultSet;
