@@ -7,7 +7,7 @@ public class Constant {
 	public static String GECKO_DRIVER = "webdriver.gecko.driver";
 
 	// Selenium getcko driver .exe path
-	public static String GECKO_DRIVER_PATH = "C:\\selenium\\eResidue_CV_eDocs\\geckodriver.exe";
+	public static String GECKO_DRIVER_PATH = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe";
 
 	// Site URL
 	public static String URL = "https://www.google.co.in";
@@ -16,7 +16,7 @@ public class Constant {
 	public static final String SCREENSHOT_FOLDER = ".\\Screenshot\\";
 
 	// Excel path - get input data from excel sheet
-	public static String EXCEL_PATH = ":\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\eResidue_eDocs_TestCase.xlsx";
+	public static String EXCEL_PATH = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\eResidue_eDocs_TestCase.xlsx";
 	
 	public static String EXCEL_PATH_Result = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\eResidue_eDocs_TestCase_result.xlsx";
 

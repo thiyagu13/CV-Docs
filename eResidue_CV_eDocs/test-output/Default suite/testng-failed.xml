@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.Calculation.L0ProductTypes">
+      <class name="com.eDocs.solidCalculation.microbialCalculation">
         <methods>
-          <include name="L0"/>
+          <include name="test"/>
         </methods>
-      </class> <!-- com.eDocs.Calculation.L0ProductTypes -->
+      </class> <!-- com.eDocs.solidCalculation.microbialCalculation -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

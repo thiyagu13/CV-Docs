@@ -2,23 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test name="Test(failed)">
-    <parameter name="productName1" value="patch"/>
-    <parameter name="productName2" value="Transdermal Patch"/>
-    <parameter name="productName3" value="Patch1"/>
-    <parameter name="productName4" value="Patch2"/>
     <classes>
-      <class name="com.eDocs.patchCalculation.PatchCalculation">
+      <class name="com.eDocs.Test.Calculation">
         <methods>
-          <include name="P4_Active2_patch" invocation-numbers="0"/>
-          <include name="P3_Active1_patch" invocation-numbers="0"/>
-          <include name="P1_Active1_patch" invocation-numbers="0"/>
-          <include name="P3_Active2_patch" invocation-numbers="0"/>
-          <include name="P2_Active1_patch" invocation-numbers="0"/>
-          <include name="P1_Active2_patch" invocation-numbers="0"/>
-          <include name="P2_Active2_patch" invocation-numbers="0"/>
-          <include name="P4_Active1_patch" invocation-numbers="0"/>
+          <include name="test"/>
         </methods>
-      </class> <!-- com.eDocs.patchCalculation.PatchCalculation -->
+      </class> <!-- com.eDocs.Test.Calculation -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

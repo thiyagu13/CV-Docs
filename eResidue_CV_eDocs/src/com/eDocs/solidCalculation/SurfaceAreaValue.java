@@ -221,6 +221,10 @@ public class SurfaceAreaValue {
         //database connection
         Connection connection = Utils.db_connect();
         Statement stmt = connection.createStatement();
+        
+       System.out.println("currentproductname-->" +currentproductname);
+        System.out.println("nextproductname-->" +nextproductname);
+        
         //current product equipment set
         List<Integer> Currentsetcount = new ArrayList<>();
         ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + currentproductname + "'"); // get product name id
@@ -375,17 +379,16 @@ public class SurfaceAreaValue {
                 }
             }
             //end: check if only equipment train used in the product -current product
-            int equiptotalSF = 0;
+            float equiptotalSF = 0;
             for (int geteqID : equipments) //get equipment surface area
             {
                 ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + geteqID + "'"); // get product name id
                 while (eqSF.next()) {
-                    equiptotalSF = equiptotalSF + eqSF.getInt(13);
+                    equiptotalSF = equiptotalSF + eqSF.getFloat(13);
+                    
                 }
             }
-            System.out.println("equiptotalSF  "+equiptotalSF);
             nextProdeqSettotalSF.add((float) equiptotalSF);
-            System.out.println("nextProdeqSettotalSF  "+nextProdeqSettotalSF);
         }
         System.out.println("nextProdeqSettotalSF-- " + nextProdeqSettotalSF);
         ArrayList<Float> Lowestvalue = new ArrayList<>(); //storing comparison output
@@ -400,6 +403,8 @@ public class SurfaceAreaValue {
         return lowestTrainbetween2;
     }
 
+    
+    
     public static void writeTooutputFile(Workbook workbook) throws IOException {
         try {
             FileOutputStream outFile = new FileOutputStream(new File(Constant.EXCEL_PATH_Result));

@@ -109,13 +109,13 @@ public class SolidCalculation {
 	public double swabArea() throws ClassNotFoundException, SQLException {
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
+		ResultSet residueLimit = stmt.executeQuery("SELECT definded_for_each_equip_loc_for_surface_area_sampled_flag,value_for_same_products_for_surface_area_sampled FROM residue_limit");
 		while (residueLimit.next()) 
 		{	
-		int definded_for_each_equip_loc_for_surface_area_sampled_flag = residueLimit.getInt(20);
+		int definded_for_each_equip_loc_for_surface_area_sampled_flag = residueLimit.getInt(1);
 		if(definded_for_each_equip_loc_for_surface_area_sampled_flag==0)
 		{
-			swabSurfaceArea = residueLimit.getFloat(19);
+			swabSurfaceArea = residueLimit.getFloat(2);
 		}
 		}
 		connection.close();
@@ -126,13 +126,13 @@ public class SolidCalculation {
 	public double swabAmount() throws ClassNotFoundException, SQLException {
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
+		ResultSet residueLimit = stmt.executeQuery("SELECT definded_for_each_equip_loc_for_solvent_used_flag,value_for_same_products_for_solvent_used FROM residue_limit");
 		while (residueLimit.next()) 
 		{
-			int definded_for_each_equip_loc_for_solvent_used_flag = residueLimit.getInt(22);
+			int definded_for_each_equip_loc_for_solvent_used_flag = residueLimit.getInt(1);
 		if(definded_for_each_equip_loc_for_solvent_used_flag==0)
 		{
-			swabAmount = residueLimit.getFloat(21);
+			swabAmount = residueLimit.getFloat(2);
 		}
 		}
 		connection.close();
@@ -145,15 +145,15 @@ public class SolidCalculation {
 	public double eqRinseVolume() throws ClassNotFoundException, SQLException {//Get value from universal settings
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet residueLimit = stmt.executeQuery("SELECT * FROM residue_limit");
+		ResultSet residueLimit = stmt.executeQuery("SELECT defined_for_each_equip_or_train_loc_flag,sampling_method,rinse_sampling_option,same_for_all_equip_value_for_rinse_volume FROM residue_limit");
 		while (residueLimit.next()) 
 		{	
-			int defined_for_each_equip_or_train_loc_flag = residueLimit.getInt(25);
-			sampling_methodOption = residueLimit.getString(16);
-			RinseSampling = residueLimit.getInt(23);
+			int defined_for_each_equip_or_train_loc_flag = residueLimit.getInt(1);
+			sampling_methodOption = residueLimit.getString(2);
+			RinseSampling = residueLimit.getInt(3);
 			if(defined_for_each_equip_or_train_loc_flag==0)
 			{
-				rinsevolume = residueLimit.getFloat(24); 
+				rinsevolume = residueLimit.getFloat(4); 
 			}
 		}
 		connection.close();

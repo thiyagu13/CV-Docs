@@ -92,6 +92,8 @@ public class Default_Limit {
 	
 		defaultmethod();
 	//	System.out.println("defaultmethod option selected---->"+defaultmethod());
+		//Thread.sleep(10000);
+		//driver.close();
 	}
 		public static String defaultmethod()
 		{

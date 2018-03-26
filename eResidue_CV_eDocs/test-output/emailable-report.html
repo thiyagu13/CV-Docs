@@ -9,81 +9,10 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="7">Suite</th></tr>
-<tr><td><a href="#t0">Test</a></td><td class="num">1</td><td class="num">0</td><td class="num attn">8</td><td class="num">22,031</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">95,752</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="8">com.eDocs.patchCalculation.PatchCalculation</td><td><a href="#m0">P1_Active1_patch</a></td><td rowspan="1">1521557850986</td><td rowspan="1">5981</td></tr><tr class="failedeven"><td><a href="#m1">P1_Active2_patch</a></td><td rowspan="1">1521557856971</td><td rowspan="1">418</td></tr><tr class="failedeven"><td><a href="#m2">P2_Active1_patch</a></td><td rowspan="1">1521557857394</td><td rowspan="1">269</td></tr><tr class="failedeven"><td><a href="#m3">P2_Active2_patch</a></td><td rowspan="1">1521557857666</td><td rowspan="1">269</td></tr><tr class="failedeven"><td><a href="#m4">P3_Active1_patch</a></td><td rowspan="1">1521557857938</td><td rowspan="1">292</td></tr><tr class="failedeven"><td><a href="#m5">P3_Active2_patch</a></td><td rowspan="1">1521557858233</td><td rowspan="1">255</td></tr><tr class="failedeven"><td><a href="#m6">P4_Active1_patch</a></td><td rowspan="1">1521557858490</td><td rowspan="1">199</td></tr><tr class="failedeven"><td><a href="#m7">P4_Active2_patch</a></td><td rowspan="1">1521557858691</td><td rowspan="1">220</td></tr><tr><th colspan="4">Test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">com.eDocs.solidCalculation.Default_Limit</td><td><a href="#m8">UniversalSettings</a></td><td rowspan="1">1521557836906</td><td rowspan="1">14072</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">com.eDocs.Test.Calculation</td><td><a href="#m0">test</a></td><td rowspan="1">1522075136251</td><td rowspan="1">95726</td></tr></tbody>
 </table>
-<h2>Test</h2><h3 id="m0">com.eDocs.patchCalculation.PatchCalculation#P1_Active1_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">java.util.NoSuchElementException
-	at java.util.ArrayList$Itr.next(ArrayList.java:839)
-	at java.util.Collections.min(Collections.java:656)
-	at com.eDocs.patchCalculation.PatchCalculation.P1_Active1_patch(PatchCalculation.java:476)
-... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">com.eDocs.patchCalculation.PatchCalculation#P1_Active2_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
-	at java.util.ArrayList.rangeCheck(ArrayList.java:638)
-	at java.util.ArrayList.get(ArrayList.java:414)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P1_active2_L0(L0forpatch.java:152)
-	at com.eDocs.patchCalculation.PatchCalculation.P1_Active2_patch(PatchCalculation.java:586)
-... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">com.eDocs.patchCalculation.PatchCalculation#P2_Active1_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;min_no_ofpatches_worn_at_one_time&apos; in &apos;field list&apos;
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
-	at com.mysql.jdbc.Util.getInstance(Util.java:386)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3609)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3541)
-	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2002)
-	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2163)
-	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2618)
-	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2568)
-	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1557)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P2_active1_L0(L0forpatch.java:250)
-	at com.eDocs.patchCalculation.PatchCalculation.P2_Active1_patch(PatchCalculation.java:959)
-... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m3">com.eDocs.patchCalculation.PatchCalculation#P2_Active2_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
-	at java.util.ArrayList.rangeCheck(ArrayList.java:638)
-	at java.util.ArrayList.get(ArrayList.java:414)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P2_active2_L0(L0forpatch.java:347)
-	at com.eDocs.patchCalculation.PatchCalculation.P2_Active2_patch(PatchCalculation.java:1327)
-... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m4">com.eDocs.patchCalculation.PatchCalculation#P3_Active1_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;min_no_ofpatches_worn_at_one_time&apos; in &apos;field list&apos;
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
-	at com.mysql.jdbc.Util.getInstance(Util.java:386)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3609)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3541)
-	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2002)
-	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2163)
-	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2618)
-	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2568)
-	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1557)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P3_active1_L0(L0forpatch.java:446)
-	at com.eDocs.patchCalculation.PatchCalculation.P3_Active1_patch(PatchCalculation.java:1695)
-... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m5">com.eDocs.patchCalculation.PatchCalculation#P3_Active2_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
-	at java.util.ArrayList.rangeCheck(ArrayList.java:638)
-	at java.util.ArrayList.get(ArrayList.java:414)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P3_active2_L0(L0forpatch.java:545)
-	at com.eDocs.patchCalculation.PatchCalculation.P3_Active2_patch(PatchCalculation.java:2062)
-... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m6">com.eDocs.patchCalculation.PatchCalculation#P4_Active1_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column &apos;min_no_ofpatches_worn_at_one_time&apos; in &apos;field list&apos;
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:411)
-	at com.mysql.jdbc.Util.getInstance(Util.java:386)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3609)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3541)
-	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2002)
-	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2163)
-	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2618)
-	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2568)
-	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1557)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P4_active1_L0(L0forpatch.java:644)
-	at com.eDocs.patchCalculation.PatchCalculation.P4_Active1_patch(PatchCalculation.java:2433)
-... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m7">com.eDocs.patchCalculation.PatchCalculation#P4_Active2_patch</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th><th>Parameter #3</th><th>Parameter #4</th></tr><tr class="param stripe"><td>patch</td><td>Transdermal Patch</td><td>Patch1</td><td>Patch2</td></tr><tr><th colspan="4">Exception</th></tr><tr><td colspan="4"><div class="stacktrace">java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
-	at java.util.ArrayList.rangeCheck(ArrayList.java:638)
-	at java.util.ArrayList.get(ArrayList.java:414)
-	at com.eDocs.patchCalculation.L0forpatch.calculate_P4_active2_L0(L0forpatch.java:742)
-	at com.eDocs.patchCalculation.PatchCalculation.P4_Active2_patch(PatchCalculation.java:2800)
-... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m8">com.eDocs.solidCalculation.Default_Limit#UniversalSettings</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Test</h2><h3 id="m0">com.eDocs.Test.Calculation#test</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>
