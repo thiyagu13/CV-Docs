@@ -529,99 +529,96 @@ public class Calculation {
 					// Print Actual result to excel
 					if(ActualL0Result==0)
 							{
-							Cell print_actual_L0 = sheet.getRow(row).getCell(8); 
+							Cell print_actual_L0 = sheet.getRow(row).getCell(7); 
 							print_actual_L0.setCellValue("NA"); // print actual L0 result into excel
 							}else {
-							Cell print_actual_L0 = sheet.getRow(row).getCell(8); 
+							Cell print_actual_L0 = sheet.getRow(row).getCell(7); 
 							print_actual_L0.setCellValue(ActualL0Result); // print actual L0 result into excel
 							}			
 					if(ActualL1Result==0)
 					{
-						Cell print_actual_L1 = sheet.getRow(row).getCell(9); 
+						Cell print_actual_L1 = sheet.getRow(row).getCell(8); 
 						print_actual_L1.setCellValue("NA"); // print actual L1 result into excel
 					}else {
-						Cell print_actual_L1 = sheet.getRow(row).getCell(9); 
+						Cell print_actual_L1 = sheet.getRow(row).getCell(8); 
 						print_actual_L1.setCellValue(ActualL1Result); // print actual L1 result into excel
 					}		
 					if(ActualL2Result==0)
 					{
-						Cell print_actual_L2 = sheet.getRow(row).getCell(10); 
+						Cell print_actual_L2 = sheet.getRow(row).getCell(9); 
 						print_actual_L2.setCellValue("NA"); // print actual L2 result into excel
 					}else {
-						Cell print_actual_L2 = sheet.getRow(row).getCell(10); 
+						Cell print_actual_L2 = sheet.getRow(row).getCell(9); 
 						print_actual_L2.setCellValue(ActualL2Result); // print actual L2 result into excel
 					}
 					if(ActualL3Result==0)
 					{
 						System.out.println("Zero");
-						Cell print_actual_L3 = sheet.getRow(row).getCell(11); 
+						Cell print_actual_L3 = sheet.getRow(row).getCell(10); 
 						print_actual_L3.setCellValue("NA"); // print actual L3 result into excel
 					}else {
 						System.out.println("Not Zero");
-						Cell print_actual_L3 = sheet.getRow(row).getCell(11); 
+						Cell print_actual_L3 = sheet.getRow(row).getCell(10); 
 						print_actual_L3.setCellValue(ActualL3Result); // print actual L3 result into excel
 					}
 					if(ActualL3Result!=0) {
 					LowestActualL3.add((float) ActualL3Result);	
 					}
-						
 				
+				if(ActualL3Result==0) // this condition for if actual result not lowest(if zero)
+				{
+					System.out.println("No Result");
+				}
+				else 
+				{
+					if(Utils.toOptimizeDecimalPlacesRoundedOff(Solid_Expec_Value_L3).equals(Utils.toOptimizeDecimalPlacesRoundedOff(ActualL3Result)))
+					{
+						Cell printlowestL3 = sheet.getRow(row).getCell(11);
+						printlowestL3.setCellValue("Pass");
+						printlowestL3.setCellStyle(Utils.style(workbook, "Pass")); // for print green font				
+					}else
+					{
+						Cell printlowestL3 = sheet.getRow(row).getCell(11);
+						printlowestL3.setCellValue("Fail");
+						printlowestL3.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+					}
+				}
+					
+						
 		row++;	
 		column++;
 		} //closing else loop (other product result loop)	
 		}//closing next product iteration
 		
-		
+		 
 		//Expected Lowest L3 for current product iteration 
 		float LowestoneExpectedL3 = Collections.min(LowestExpectL3);
 		System.out.println("Expected Lowest ExpectL3: "+LowestoneExpectedL3);
-		
+		/*
 		//Actual Lowest L3 for current product iteration
 		float LowestoneActualResult = Collections.min(LowestActualL3);
-		System.out.println("LowestoneActualResult: "+LowestoneActualResult);
-						
-		/*//Compare both expected and actual result - applied round off for comparison
-		if(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneActualResult).equals(Utils.toOptimizeDecimalPlacesRoundedOff(LowestoneExpectedL3)) )
-		{
-			System.out.println("=========================>Pass");
-			Cell printlowestL3 = sheet.getRow(row).getCell(13);
-			printlowestL3.setCellValue("Pass");
-			printlowestL3.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
-		}else
-		{	
-			System.out.println("=========================>Fail");
-			Cell printlowestL3 = sheet.getRow(row).getCell(13);
-			printlowestL3.setCellValue("Fail");
-			printlowestL3.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
-		}*/
-		
-		
-		
-		
-		
-		
-		
-		
+		System.out.println("LowestoneActualResult: "+LowestoneActualResult);*/
+			
 		float SFArea = 0,rinsevolume=0,swabarea = 0,swabamount=0;
 		String eqname = null;
 
 			//Expected L4a, L4b, L4c Value 
-			//equipment set id
+			/*//equipment set id
 			ResultSet productSetEqID = stmt.executeQuery("Select * from product_equipment_set_equipments where product_id='" + getprodID + "'"); // get equipment id
 			Set<Integer> set = new HashSet<>(); // store multiple equipment id
 		    while (productSetEqID.next()) 
 		    {
 		      set.add(productSetEqID.getInt(4));
-		    }
+		    }*/
 		    
-		    for (Integer equipmentID:set) //get id from set
+		    System.out.println("Current product Equipment ID--------->"+getEquipment(CurrenProductName));
+		    
+		    for (Integer equipmentID:getEquipment(CurrenProductName)) //get id from set
 		    {
 		    	String space =" ";
 		    	Cell ActiveName = sheet.getRow(L4Row).getCell(16);
 				ActiveName.setCellValue(prodname+space+activename); // print active name into excel
 		    	System.out.println("getprodID--->"+getprodID);
-		    	System.out.println("set equipmentID--->"+set);
-
 		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "'"); // get product name id
 		    		// print
 		    	 while(EquipID.next()) {  // print name and sf value from equipment table
@@ -698,25 +695,76 @@ public class Calculation {
 		    			// Actual Result for L4a, L4b, L4c
 		    			float Ac_L4a = 0,Ac_L4b = 0,Ac_L4c = 0;
 		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "' && active_ingredient_id='"+  activeID+ "' && equipment_id='"+equipmentID+"'");
-		    					while (ActualequipResult.next()) {
+		    		while (ActualequipResult.next()) 
+		    		{
 		    					 Ac_L4a = ActualequipResult.getFloat(5); 
 		    					 Ac_L4b = ActualequipResult.getFloat(6);
 		    					 Ac_L4c = ActualequipResult.getFloat(7);
 		    			    System.out.println("L4a "+Ac_L4a+"L4b "+Ac_L4a+"L4c "+Ac_L4c);
-		    				Cell L4aEquipactual = sheet.getRow(L4Row).getCell(25);//cell to print L4a value 
-		    				L4aEquipactual.setCellValue(Ac_L4a); // print all the equipment surface area(used in the product) in excel
-		    	    		Cell L4bEquipactual = sheet.getRow(L4Row).getCell(26);//cell to print L4b value
-		    	    		L4bEquipactual.setCellValue(Ac_L4b); // print all the equipment surface area(used in the product) in excel
+		    				
+		    			    if(Ac_L4a!=0)
+		    			    {
+		    			    	Cell L4aEquipactual = sheet.getRow(L4Row).getCell(25);//cell to print L4a value 
+		    			    	L4aEquipactual.setCellValue(Ac_L4a); // print all the equipment surface area(used in the product) in excel
+		    			    }else
+		    			    {
+		    			    	Cell L4aEquipactual = sheet.getRow(L4Row).getCell(25);//cell to print L4a value 
+		    			    	L4aEquipactual.setCellValue("NA"); 
+		    			    }
+		    			    
+		    			    if(Ac_L4b!=0)
+		    			    {
+		    			    	Cell L4bEquipactual = sheet.getRow(L4Row).getCell(26);//cell to print L4b value
+		    			    	L4bEquipactual.setCellValue(Ac_L4b); // print all the equipment surface area(used in the product) in excel
+		    			    }else
+		    			    {
+		    			    	Cell L4bEquipactual = sheet.getRow(L4Row).getCell(26);//cell to print L4b value
+		    			    	L4bEquipactual.setCellValue("NA"); 
+		    			    }
+		    			    
 		    	    		if(sampling_methodOption.equals("1,2")&& RinseSampling==1) // if rinse enabled in sampling
-		        			{	    		
+		        			{
+		    	    			if(Ac_L4c!=0)
+			    			    {
+		    	    				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
+		    	    				L4cEquipactual.setCellValue(Ac_L4c); // print all the equipment surface area(used in the product) in excel
+			    			    }
+		    	    			else
+		    	    			{
+		    	    				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
+		    	    				L4cEquipactual.setCellValue("NA");
+		    	    			}
+		    			    }
+		        			else 
+		        			{
 		        				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
-		        				L4cEquipactual.setCellValue(Ac_L4c); // print all the equipment surface area(used in the product) in excel
+		        				L4cEquipactual.setCellValue("NA"); // print all the equipment surface area(used in the product) in excel 
 		        			}
-		        			else {
-		        				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
-		        				L4cEquipactual.setCellValue(0); // print all the equipment surface area(used in the product) in excel 
-		        				}
-		    					}//closing ActualequipResult while loop  			
+		    		}//closing ActualequipResult while loop  		
+		    					
+		    					
+		    					// check expected L4a,L4b,L4c and actual L4a,L4b,L4c 	
+		    					double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
+		    					double EL4b = sheet.getRow(L4Row).getCell(23).getNumericCellValue();
+		    					double EL4c = sheet.getRow(L4Row).getCell(24).getNumericCellValue();
+		    					double AL4a = sheet.getRow(L4Row).getCell(25).getNumericCellValue();
+		    					double AL4b = sheet.getRow(L4Row).getCell(26).getNumericCellValue();
+		    					double AL4c = sheet.getRow(L4Row).getCell(27).getNumericCellValue();
+		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
+		    					{
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Pass");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
+		    					}else
+		    					{	
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Fail");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+		    					}
+		    				
+		    					
 		    	L4Row++;
 		    	} //closing for equipment ID loop
 		       L4Row++; // Leave one row for each product
@@ -846,6 +894,108 @@ public class Calculation {
 	
 	
 	
+	//get current product equipment ID
+	public static Set<Integer> getEquipment(String CurrenProductName) throws SQLException, ClassNotFoundException  
+	{
+        int currentproductID = 0, currentproductsetcount = 0;
+        //database connection
+        Connection connection = Utils.db_connect();
+        Statement stmt = connection.createStatement();
+        
+        //current product equipment set
+        // List<Integer> Currentsetcount = new ArrayList<>();
+        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + CurrenProductName + "'"); // get product name id
+        while (currentprod.next()) {
+            currentproductID = currentprod.getInt(1);
+           // Currentsetcount.add(currentprod.getInt(33));
+            currentproductsetcount = currentprod.getInt(33);
+        }
+        Set<Integer> currentequipmentID = new HashSet<>();
+        for (int i = 1; i <= currentproductsetcount; i++) 
+        { 
+ //check if only equipmnet used in the product
+            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "'"); // get product name id
+            while (getequipfromset.next()) 
+            {
+                System.out.println("ony equipment selected");
+                currentequipmentID.add(getequipfromset.getInt(4));
+            }
+ //check if only equipment group used in the product -current product
+           
+            List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
+            // List<Integer> equipmentgroup = new ArrayList<>();
+            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + ""); // get product name id
+            while (getequipgrpfromset.next()) {
+                System.out.println("ony equipment group selected");
+                eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
+            }
+            for (int id : eqgroupIDs) // iterate group id one by one 
+            {
+                int equipmentusedcount = 0;
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + ""); // get product name id
+                while (geteqcountfromgrpID.next()) 
+                {
+                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
+                }
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+                while (geteqfromgrpID.next()) 
+                {
+                    currentequipmentID.add(geteqfromgrpID.getInt(2));
+                }
+                //  currentequipmentID.addAll(equipmentgroup);
+            }
+            
+//end: check if only equipment group used in the product -current product
+//check if only equipment train used in the product -current product
+            int gettrainID = 0;
+            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + ""); // get product name id
+            while (getequiptrainIDfromset.next()) {
+                System.out.println("ony equipment train selected");
+                gettrainID = getequiptrainIDfromset.getInt(4);
+            }
+            // if train used only equipmeans used the below query
+            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
+            while (eqfromtrain.next()) {
+                currentequipmentID.add(eqfromtrain.getInt(2));
+            }
+            // if train used group means - use the below query
+            Set<Integer> groupIDs = new HashSet<>();
+            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
+            while (eqfromtraingroup.next()) {
+                groupIDs.add(eqfromtraingroup.getInt(1));
+            }
+            for (int id : groupIDs) // iterate group id one by one (from train)
+            {
+                //Set<Integer> equipID = new HashSet();
+                int equipmentusedcount = 0;
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
+                while (geteqcountfromgrpID.next()) {
+                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
+                }
+                System.out.println("Train group count"+equipmentusedcount);
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+                while (geteqfromgrpID.next()) {
+                    currentequipmentID.add(geteqfromgrpID.getInt(2));
+                }
+            }
+            
+//end: check if only equipment train used in the product -current product    
+        }
+
+        System.out.println("currentequipmentID-->"+currentequipmentID);
+        connection.close();
+        return currentequipmentID;
+        
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -870,5 +1020,8 @@ public class Calculation {
 	    } 
 	    return minValue; 
 	  } 
+	  
+	  
+	  
 	
 }

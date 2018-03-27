@@ -121,7 +121,7 @@ public class SurfaceAreaValue {
                 int equipmentusedcount = 0;
                 ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + id + ""); // get product name id
                 while (geteqcountfromgrpID.next()) {
-                    equipmentusedcount = geteqcountfromgrpID.getInt(4);
+                    equipmentusedcount = geteqcountfromgrpID.getInt(3);
                 }
                 ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
@@ -175,7 +175,7 @@ public class SurfaceAreaValue {
                 }
                 // if train used group means - use the below query
                 Set<Integer> nextprodgroupIDs = new HashSet<>();
-                ResultSet eqfromtraingroupNextProd = stmt.executeQuery("SELECT * FROM equipment_train_group where train_id=" + nextprodtrainID + ""); // get product name id
+                ResultSet eqfromtraingroupNextProd = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + nextprodtrainID + ""); // get product name id
                 while (eqfromtraingroupNextProd.next()) {
                     nextprodgroupIDs.add(eqfromtraingroupNextProd.getInt(2));
                 }
@@ -183,9 +183,9 @@ public class SurfaceAreaValue {
                 {
                     //Set<Integer> equipID = new HashSet();
                     int equipmentusedcount = 0;
-                    ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + ids + ""); // get product name id
+                    ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + ids + ""); // get product name id
                     while (geteqcountfromgrpID.next()) {
-                        equipmentusedcount = geteqcountfromgrpID.getInt(4);
+                        equipmentusedcount = geteqcountfromgrpID.getInt(1);
                     }
                     ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                     while (geteqfromgrpID.next()) {
@@ -288,17 +288,17 @@ public class SurfaceAreaValue {
             }
             // if train used group means - use the below query
             Set<Integer> groupIDs = new HashSet<>();
-            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT * FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
+            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
             while (eqfromtraingroup.next()) {
-                groupIDs.add(eqfromtraingroup.getInt(2));
+                groupIDs.add(eqfromtraingroup.getInt(1));
             }
             for (int id : groupIDs) // iterate group id one by one (from train)
             {
                 //Set<Integer> equipID = new HashSet();
                 int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + id + ""); // get product name id
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
                 while (geteqcountfromgrpID.next()) {
-                    equipmentusedcount = geteqcountfromgrpID.getInt(4);
+                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
                 }
                 ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
@@ -371,7 +371,7 @@ public class SurfaceAreaValue {
                 int equipmentusedcount = 0;
                 ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + ids + ""); // get product name id
                 while (geteqcountfromgrpID.next()) {
-                    equipmentusedcount = geteqcountfromgrpID.getInt(4);
+                    equipmentusedcount = geteqcountfromgrpID.getInt(3);
                 }
                 ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
