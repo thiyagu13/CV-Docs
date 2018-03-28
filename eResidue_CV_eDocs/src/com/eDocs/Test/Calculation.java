@@ -69,9 +69,7 @@ public class Calculation {
 	
 	//default limit option
 	public void defaultValueSet(String CurrenProductName) throws ClassNotFoundException, SQLException, IOException, InterruptedException	{
-		System.out.println("Entered------------------->");
-		//System.out.println("Default.defaultmethod()--->"+Default.UniversalSettings());
-		//System.out.println("Default.defaultmethod()--->"+Default.defaultmethod());
+		
 		if(Default.UniversalSettings().equalsIgnoreCase("No_Default")) {
 			no_default = true;
 			System.out.println("no_default  "+no_default);
@@ -174,18 +172,8 @@ public class Calculation {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	WebDriver driver;
-	
-	
-	
-	@Test
+		@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException
 	{
 		
@@ -337,13 +325,7 @@ public class Calculation {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	double value_L1,value_L2,value_L3,Solid_Total_surface_area,maxDD,minBatch,Solid_Expec_Value_L2,Solid_Expec_Value_L3, Solid_Expec_Value_L4a, Solid_Expec_Value_L4b,Solid_Expec_Value_L1,swabSurfaceArea,swabAmount,rinsevolume
 			,L4cEquipment;
@@ -353,10 +335,7 @@ public class Calculation {
 		
 		System.out.println("CurrenProduct   "+CurrenProduct);
 		System.out.println("Nextprod   "+Nextprod);
-		//defaultValueSet("P1");
-		//String CurrenProduct = CurrenProductName; // current product name
-		//defaultValueSet(CurrenProduct);
-		//XSSFWorkbook workbook;
+		
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
 		XSSFSheet sheet = workbook.getSheet("test");
 		Connection connection = Utils.db_connect();
@@ -372,14 +351,12 @@ public class Calculation {
 		  		nextproductlist.addAll(Nextprod);
 	  		
 				//List<Float> LowestExpectL3 = new ArrayList<>();
-				int row=41,column=9; //excel row and column
-				//int L4Row =41; 
-				 int L4Row =41;
+				int row=41,column=9; //excel row and column		
+				int L4Row =41;
 		for(String CurrenProductName : currentproductlist) // Current product list
 		{
 				System.out.println("CurrenProductName-->"+CurrenProductName);
-				
-				
+			
 				int getprodID = 0;
 				String prodname = null,activename = null;
 				
@@ -405,8 +382,7 @@ public class Calculation {
 		{
 					System.out.println("Active List----> "+activelist);
 					// get active name ,prod name and print in excel
-					 ResultSet active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+ activeID + "'");
-						 
+					 ResultSet active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+ activeID + "'");	 
 						 while (active.next()) 
 						 {
 							// String activename = active.getString(2);
@@ -416,12 +392,12 @@ public class Calculation {
 								 String space = " ";
 								 //prodname+=space+activename; //print product with active name
 								 System.out.println("Äctive name ------->"+prodname+space+activename);
-								 Cell ActiveName = sheet.getRow(row).getCell(1);
+								 Cell ActiveName = sheet.getRow(row).getCell(3);
 								 ActiveName.setCellValue(prodname+space+activename); // print active name into excel
 							 }else 
 							 {
 								 System.out.println("prodname name ------->"+prodname);
-								 Cell prodName1 = sheet.getRow(row).getCell(1);
+								 Cell prodName1 = sheet.getRow(row).getCell(3);
 								 prodName1.setCellValue(prodname); // print active name into excel
 							 }
 						 }
@@ -448,31 +424,31 @@ public class Calculation {
 				System.out.println("Lowest Limit");
 				System.out.println("activeID--->"+activeID);
 				value_L1 = L0.calculate_P1_active1_L0(activeID, CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 				Solid_expec_Value_L0_print.setCellValue(L0.calculate_P1_active1_L0(activeID,CurrenProductName)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
 				value_L1 = L0.groupingApproach_L0_p11(CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(3); 
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0_p11(CurrenProductName)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				
 				//find surface area option in residue limit whether shared or lowest
 				int sharedORLowest=0;
-				ResultSet surfaceAreaOption = stmt.executeQuery("Select * from residue_limit"); // get equipment id
+				ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit"); // get equipment id
 			    while (surfaceAreaOption.next()) 
 			    {
-			      sharedORLowest =surfaceAreaOption.getInt(15);
+			      sharedORLowest =surfaceAreaOption.getInt(1);
 			    }
 			    if(sharedORLowest==0)
 			    {
 			    	System.out.println("SF shread");
 			    	Solid_Total_surface_area =  SurfaceAreaValue.actualSharedbetween2(CurrenProductName,NextprodName); // Calculated L3 for actual shared
-			    	Cell printsurfaceareaUsed = sheet.getRow(28).getCell(column); 
-			    	printsurfaceareaUsed.setCellValue(SurfaceAreaValue.actualSharedbetween2(CurrenProductName,NextprodName)); // print surface area
+			    	//Cell printsurfaceareaUsed = sheet.getRow(28).getCell(column); 
+			    	//printsurfaceareaUsed.setCellValue(SurfaceAreaValue.actualSharedbetween2(CurrenProductName,NextprodName)); // print surface area
 			    }else
 			    {
 			    	System.out.println("SF lowest");
@@ -498,13 +474,13 @@ public class Calculation {
 		{	
 			defaultL1L3Method();
 		} 
-		Cell nextprodname = sheet.getRow(row).getCell(2); 
+		Cell nextprodname = sheet.getRow(row).getCell(4); 
 		nextprodname.setCellValue(nprodname ); // print next product name
-		Cell Solid_expec_Value_L1_print = sheet.getRow(row).getCell(4); 
+		Cell Solid_expec_Value_L1_print = sheet.getRow(row).getCell(6); 
 		Solid_expec_Value_L1_print.setCellValue(Solid_Expec_Value_L1 ); // print expected L0 result into excel
-		Cell Solid_expec_Value_L2_print = sheet.getRow(row).getCell(5); 
+		Cell Solid_expec_Value_L2_print = sheet.getRow(row).getCell(7); 
 		Solid_expec_Value_L2_print.setCellValue(Solid_Expec_Value_L2); // print expected L2 result into excel
-		Cell Solid_expec_Value_L3_print = sheet.getRow(row).getCell(6); 
+		Cell Solid_expec_Value_L3_print = sheet.getRow(row).getCell(8); 
 		Solid_expec_Value_L3_print.setCellValue(Solid_Expec_Value_L3); // print expected L3 result into excel
 		System.out.println("Expected L1: "+Solid_Expec_Value_L1);
 		System.out.println("Expected L2: "+Solid_Expec_Value_L2);
@@ -529,36 +505,36 @@ public class Calculation {
 					// Print Actual result to excel
 					if(ActualL0Result==0)
 							{
-							Cell print_actual_L0 = sheet.getRow(row).getCell(7); 
+							Cell print_actual_L0 = sheet.getRow(row).getCell(9); 
 							print_actual_L0.setCellValue("NA"); // print actual L0 result into excel
 							}else {
-							Cell print_actual_L0 = sheet.getRow(row).getCell(7); 
+							Cell print_actual_L0 = sheet.getRow(row).getCell(9); 
 							print_actual_L0.setCellValue(ActualL0Result); // print actual L0 result into excel
 							}			
 					if(ActualL1Result==0)
 					{
-						Cell print_actual_L1 = sheet.getRow(row).getCell(8); 
+						Cell print_actual_L1 = sheet.getRow(row).getCell(10); 
 						print_actual_L1.setCellValue("NA"); // print actual L1 result into excel
 					}else {
-						Cell print_actual_L1 = sheet.getRow(row).getCell(8); 
+						Cell print_actual_L1 = sheet.getRow(row).getCell(10); 
 						print_actual_L1.setCellValue(ActualL1Result); // print actual L1 result into excel
 					}		
 					if(ActualL2Result==0)
 					{
-						Cell print_actual_L2 = sheet.getRow(row).getCell(9); 
+						Cell print_actual_L2 = sheet.getRow(row).getCell(11); 
 						print_actual_L2.setCellValue("NA"); // print actual L2 result into excel
 					}else {
-						Cell print_actual_L2 = sheet.getRow(row).getCell(9); 
+						Cell print_actual_L2 = sheet.getRow(row).getCell(11); 
 						print_actual_L2.setCellValue(ActualL2Result); // print actual L2 result into excel
 					}
 					if(ActualL3Result==0)
 					{
 						System.out.println("Zero");
-						Cell print_actual_L3 = sheet.getRow(row).getCell(10); 
+						Cell print_actual_L3 = sheet.getRow(row).getCell(12); 
 						print_actual_L3.setCellValue("NA"); // print actual L3 result into excel
 					}else {
 						System.out.println("Not Zero");
-						Cell print_actual_L3 = sheet.getRow(row).getCell(10); 
+						Cell print_actual_L3 = sheet.getRow(row).getCell(12); 
 						print_actual_L3.setCellValue(ActualL3Result); // print actual L3 result into excel
 					}
 					if(ActualL3Result!=0) {
@@ -573,12 +549,12 @@ public class Calculation {
 				{
 					if(Utils.toOptimizeDecimalPlacesRoundedOff(Solid_Expec_Value_L3).equals(Utils.toOptimizeDecimalPlacesRoundedOff(ActualL3Result)))
 					{
-						Cell printlowestL3 = sheet.getRow(row).getCell(11);
+						Cell printlowestL3 = sheet.getRow(row).getCell(13);
 						printlowestL3.setCellValue("Pass");
 						printlowestL3.setCellStyle(Utils.style(workbook, "Pass")); // for print green font				
 					}else
 					{
-						Cell printlowestL3 = sheet.getRow(row).getCell(11);
+						Cell printlowestL3 = sheet.getRow(row).getCell(13);
 						printlowestL3.setCellValue("Fail");
 						printlowestL3.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
 					}
@@ -601,16 +577,7 @@ public class Calculation {
 			
 		float SFArea = 0,rinsevolume=0,swabarea = 0,swabamount=0;
 		String eqname = null;
-
-			//Expected L4a, L4b, L4c Value 
-			/*//equipment set id
-			ResultSet productSetEqID = stmt.executeQuery("Select * from product_equipment_set_equipments where product_id='" + getprodID + "'"); // get equipment id
-			Set<Integer> set = new HashSet<>(); // store multiple equipment id
-		    while (productSetEqID.next()) 
-		    {
-		      set.add(productSetEqID.getInt(4));
-		    }*/
-		    
+	    
 		    System.out.println("Current product Equipment ID--------->"+getEquipment(CurrenProductName));
 		    
 		    for (Integer equipmentID:getEquipment(CurrenProductName)) //get id from set
@@ -773,41 +740,7 @@ public class Calculation {
 		       
 				} // Closing active iteration
 				} // Closing current product iteration
-		   
-		   
-				
-				
-		   /*
-		  	 
-				
 			
-			
-			// check expected L4a,L4b,L4c and actual L4a,L4b,L4c 
-			int k= 81;
-			for(Integer ss:set)
-			{
-			double EL4a = sheet.getRow(k).getCell(6).getNumericCellValue();
-			double EL4b = sheet.getRow(k).getCell(7).getNumericCellValue();
-			double EL4c = sheet.getRow(k).getCell(8).getNumericCellValue();
-			double AL4a = sheet.getRow(k).getCell(9).getNumericCellValue();
-			double AL4b = sheet.getRow(k).getCell(10).getNumericCellValue();
-			double AL4c = sheet.getRow(k).getCell(11).getNumericCellValue();
-			if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
-					Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
-					Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
-			{
-				Cell verify_result = sheet.getRow(k).getCell(12);
-				verify_result.setCellValue("Pass");
-				verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
-			}else
-			{	
-				Cell verify_result = sheet.getRow(k).getCell(12);
-				verify_result.setCellValue("Fail");
-				verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
-			}
-			k++;
-			}*/
-		
 		writeTooutputFile(workbook); // write output into work sheet
 		connection.close();
 		Thread.sleep(800);
@@ -987,15 +920,6 @@ public class Calculation {
         return currentequipmentID;
         
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
