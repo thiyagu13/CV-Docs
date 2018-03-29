@@ -308,13 +308,13 @@ public class Calculation {
   		currentproductlist.add("P1");
   		currentproductlist.add("P2");
   		currentproductlist.add("P3");
-  		currentproductlist.add("P4");
+  		currentproductlist.add("train product");
   		
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.add("P1");
 		nextproductlist.add("P2");
 		nextproductlist.add("P3");
-		nextproductlist.add("P4");
+		nextproductlist.add("train product");
 		
 		
 		//System.out.println("currentproductlist   "+currentproductlist);
@@ -655,175 +655,11 @@ public class Calculation {
 		    			}
 		    			
 		    }//closing ExpectedequipResult while loop 
-		    			/*if(sampling_methodOption.equals("1,2") && RinseSampling==2) // if rinse enabled in sampling
-		    			{
-		    			
-		    				//getEquipmentTrain(CurrenProductName,LowestoneExpectedL3);		    	
-		    		        List<Object> setlist = new ArrayList<>();
-		    		        List<Float> equipSetTotalSF = new ArrayList<>();
-		    		        List<Object> equipSetNamelist = new ArrayList<>();
-		    		        
-		    		        	
-		    		        
-		    		        for (int i = 1; i <= currentproductsetcount; i++) 
-		    		        { 
-		    		        	List<Integer> currentequipmentID = new ArrayList<>();
-		    		        	 
-		    		 //check if only equipmnet used in the product
-		    		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + getprodID + "' && set_id ='" + i + "'"); // get product name id
-		    		            while (getequipfromset.next()) 
-		    		            {
-		    		                System.out.println("ony equipment selected");
-		    		                currentequipmentID.add(getequipfromset.getInt(4));
-		    		            }
-		    		 //check if only equipment group used in the product -current product
-		    		           
-		    		            List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
-		    		            // List<Integer> equipmentgroup = new ArrayList<>();
-		    		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
-		    		            while (getequipgrpfromset.next()) {
-		    		                System.out.println("ony equipment group selected");
-		    		                eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
-		    		            }
-		    		            for (int id : eqgroupIDs) // iterate group id one by one 
-		    		            {
-		    		                int equipmentusedcount = 0;
-		    		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && group_id=" + id + ""); // get product name id
-		    		                while (geteqcountfromgrpID.next()) 
-		    		                {
-		    		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
-		    		                }
-		    		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-		    		                while (geteqfromgrpID.next()) 
-		    		                {
-		    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
-		    		                }
-		    		                //  currentequipmentID.addAll(equipmentgroup);
-		    		            }
-		    		            
-		    		//end: check if only equipment group used in the product -current product
-		    		//check if only equipment train used in the product -current product
-		    		            int gettrainID = 0;
-		    		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
-		    		            while (getequiptrainIDfromset.next()) {
-		    		                System.out.println("ony equipment train selected");
-		    		                gettrainID = getequiptrainIDfromset.getInt(4);
-		    		            }
-		    		            // if train used only equipmeans used the below query
-		    		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
-		    		            while (eqfromtrain.next()) {
-		    		                currentequipmentID.add(eqfromtrain.getInt(2));
-		    		            }
-		    		            // if train used group means - use the below query
-		    		            Set<Integer> groupIDs = new HashSet<>();
-		    		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
-		    		            while (eqfromtraingroup.next()) {
-		    		                groupIDs.add(eqfromtraingroup.getInt(1));
-		    		            }
-		    		            for (int id : groupIDs) // iterate group id one by one (from train)
-		    		            {
-		    		                //Set<Integer> equipID = new HashSet();
-		    		                int equipmentusedcount = 0;
-		    		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
-		    		                while (geteqcountfromgrpID.next()) {
-		    		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
-		    		                }
-		    		                System.out.println("Train group count"+equipmentusedcount);
-		    		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-		    		                while (geteqfromgrpID.next()) {
-		    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
-		    		                }
-		    		            }
-		    		            
-		    		//end: check if only equipment train used in the product -current product 
-		    		           
-		    		            List<String>  eqnamelist = new ArrayList<>();
-		    		            String equipmentName =null;
-		    	            	float surfaceArea = 0;
-		    		            for(Integer eqid:currentequipmentID)
-		    		            {
-		    		            	
-		    		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
-		    		            	while(getequipdetails.next())
-		    		            	{
-		    		            		eqnamelist.add(getequipdetails.getString(1));
-		    		            		//equipmentName = getequipdetails.getString(1);	            		
-		    		            		surfaceArea = surfaceArea + getequipdetails.getFloat(2);
-		    		            	}
-		    		            	
-		    		            }
-		    		            System.out.println("Equipment Name Setlist-> "+eqnamelist);
-		    		            setlist.add(currentequipmentID);
-		    		            equipSetTotalSF.add(surfaceArea);
-		    		            equipSetNamelist.add(eqnamelist);
-		    		            
-		    		            
-		    		           
-		    			        // Get Train rinse volume for each set
-		    			        		Integer trainID = null ;
-		    			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + TrainRow + " && set_id="+i+"");
-		    				         	while(set.next())
-		    				         	{
-		    				         		trainID = set.getInt(1);       		
-		    				         	}
-		    			      
-		    				        float TrainRinsevolume=0;
-		    			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+"");
-		    			         	while(eqtrain.next())
-		    			         	{
-		    			         		TrainRinsevolume = eqtrain.getFloat(1);       		
-		    			         	}
-		    			      
-		    			         	Calculation getrinsevolume = new Calculation();
-		    			         	getrinsevolume.eqRinseVolume();
-		    			         	
-		    			         	System.out.println("getrinsevolume.eqRinseVolume() "+getrinsevolume.eqRinseVolume());
-		    			         // equipment rinse volume()
-		    						 if(getrinsevolume.eqRinseVolume()==0) //check rinset from univ setting or each equipment
-		    						 {
-		    							 L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
-		    							 Cell productname = sheet.getRow(TrainRow).getCell(30);
-		    				    		 productname.setCellValue(prodname+space+activename); // print product name into excel
-		    							 
-		    							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
-		    							 equipRinse.setCellValue(TrainRinsevolume); 
-		    							 
-		    							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
-		    							 trainL4c.setCellValue(L4cTrain); 		
-		    							 System.out.println("L4cTrain"+L4cTrain);
-		    						 }else {
-		    							 L4cTrain = (float) ((LowestoneExpectedL3 *  surfaceArea) / (getrinsevolume.eqRinseVolume() * 1000)) ;
-		    							 Cell productname = sheet.getRow(TrainRow).getCell(30);
-		    				    		 productname.setCellValue(prodname+space+activename); // print product name into excel
-		    							 
-		    							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
-		    							 equipRinse.setCellValue(getrinsevolume.eqRinseVolume()); 
-		    							 
-		    							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
-		    							 trainL4c.setCellValue(L4cTrain); 		
-		    							 System.out.println("L4cTrain"+L4cTrain);
-		    						 }
-		    						 
-		    			         	System.out.println("surfaceArea: "+surfaceArea);
-		    			         	System.out.println("TrainRinsevolume: "+TrainRinsevolume);
-		    			 	     //   L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
-		    			 	        System.out.println("L4cTrain "+L4cTrain);      
-		    			 	        
-		    			 	       TrainRow++;
-		    			 	      System.out.println("loop end------------------>");
-		    		        }
-		    		        TrainRow++;
-		    		System.out.println("Train end------------------>");
-		    			}*/ // closing train loop
-		    			/*else {
-		    				Cell L4cEquip = sheet.getRow(L4Row).getCell(24);
-		    				L4cEquip.setCellValue(0); 
-		    				}*/
-		    			
-		    	// }//closing ExpectedequipResult while loop 
 		    			
 		    	 
-		    			// Actual Result for L4a, L4b, L4c
+		    	 
+		    	 
+		 // Actual Result for L4a, L4b, L4c
 		    			float Ac_L4a = 0,Ac_L4b = 0,Ac_L4c = 0;
 		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "' && active_ingredient_id='"+  activeID+ "' && equipment_id='"+equipmentID+"'");
 		    		while (ActualequipResult.next()) 
@@ -866,12 +702,12 @@ public class Calculation {
 		    	    				L4cEquipactual.setCellValue("NA");
 		    	    			}
 		    			    }
-		    	    		if(sampling_methodOption.equals("1,2") && RinseSampling==2) // if rinse enabled in sampling
+		    	    		/*if(sampling_methodOption.equals("1,2") && RinseSampling==2) // if rinse enabled in sampling
 			    			{
 		  
 		    	    			Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
 		        				L4cEquipactual.setCellValue("NA");		        				
-			    			}
+			    			}*/
 		        			/*else 
 		        			{
 		        				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
@@ -891,6 +727,26 @@ public class Calculation {
 		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
 		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
 		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
+		    					{
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Pass");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
+		    					}else
+		    					{	
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Fail");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+		    					}
+        			}
+		    		if(sampling_methodOption.equals("1") || (sampling_methodOption.equals("1,2")&& RinseSampling==2)) // if rinse enabled in sampling
+        			{
+		    					// check expected L4a,L4b,L4c and actual L4a,L4b,L4c 	
+		    					double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
+		    					double EL4b = sheet.getRow(L4Row).getCell(23).getNumericCellValue();	    					
+		    					double AL4a = sheet.getRow(L4Row).getCell(25).getNumericCellValue();
+		    					double AL4b = sheet.getRow(L4Row).getCell(26).getNumericCellValue();		    					
+		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)))
 		    					{
 		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
 		    						verify_result.setCellValue("Pass");
@@ -991,18 +847,49 @@ public class Calculation {
    		            
    		//end: check if only equipment train used in the product -current product 
    		           
-   		            List<String>  eqnamelist = new ArrayList<>();
-   		            String equipmentName =null;
-   	            	float surfaceArea = 0;
+   		            List<String>  eqnamelist = new ArrayList<>();  		          
+   	            	float surfaceArea = 0,equipmentTotalSF=0;
    		            for(Integer eqid:currentequipmentID)
    		            {
+   		            	//------------->if equipment reused in equipment train
+   		                Integer equipreusedID=0,equipment_used_count=0;   
+   		                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+""); // get product name id
+   		                if(equipreused!=null)
+   		                {
+   		                	while (equipreused.next()) 
+   		                	{
+   		                		equipreusedID = equipreused.getInt(1);
+   		                		equipment_used_count = equipreused.getInt(2);
+   		                		// currentequipmentID.add(equipreused.getInt(2));
+   		                	}
+   		                	System.out.println("equipment_used_count"+equipment_used_count);
+   		                //get eqiupment surface area (for reused equipment)
+   		                	
+   		                	float equipSF=0;
+   		                	String equipreusedName =null;
+   		                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + ""); // get product name id
+   		                	while (equipreusedSf.next()) 
+   		                	{
+   		                		equipSF = equipreusedSf.getFloat(1);
+   		                		equipreusedName = equipreusedSf.getString(2);	                	  		                		
+   		                	}
+   		                
+   		                equipmentTotalSF = equipSF * equipment_used_count;
+   		                System.out.println(" ------>equipment reused-"+equipmentTotalSF);	
+   		                } //<------------------ending if equipment reused in equipment train
+   		                
    		            	
    		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
    		            	while(getequipdetails.next())
    		            	{
-   		            		eqnamelist.add(getequipdetails.getString(1));
-   		            		//equipmentName = getequipdetails.getString(1);	            		
-   		            		surfaceArea = surfaceArea + getequipdetails.getFloat(2);
+   		            		if(equipment_used_count==0)
+   		                	{
+   		            			eqnamelist.add(getequipdetails.getString(1));
+   		                	}else 
+   		                	{
+   		                		eqnamelist.add(getequipdetails.getString(1)+"("+equipment_used_count+")");	
+   		                	}
+   		            		surfaceArea = (surfaceArea + getequipdetails.getFloat(2) + equipmentTotalSF);
    		            	}
    		            	
    		            }
@@ -1014,7 +901,9 @@ public class Calculation {
    		            setlist.add(currentequipmentID);
    		            equipSetTotalSF.add(surfaceArea);
    		            equipSetNamelist.add(eqnamelist);
-   		            
+   		            System.out.println("Equipment Set List: "+setlist);
+   		            System.out.println("Equipment Set equipSetTotalSF: "+equipSetTotalSF);
+   		            System.out.println("Equipment Set equipSetNamelist: "+equipSetNamelist);
    		            
    		           
    			        // Get Train rinse volume for each set
@@ -1066,39 +955,59 @@ public class Calculation {
    							 System.out.println("L4cTrain"+L4cTrain);
    						 }
    						 
-   			         	System.out.println("surfaceArea: "+surfaceArea);
-   			         	System.out.println("TrainRinsevolume: "+TrainRinsevolume);
-   			 	     //   L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
-   			 	        System.out.println("L4cTrain "+L4cTrain);      
-   			 	        
-   			 	       TrainRow++;
-   			 	      System.out.println("loop end------------------>");
-   		        }
+   		       
+   		        
+//L4c Train Result (Opening Actual actual L4c Train Result)
+ 		       
+   			 	    float actualTrainL4c = 0;
+   			    	ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && active_ingredient_id="+activeID+"  && train_id="+trainID+"");
+   			       	while(actualTrainresult.next())
+   			      	{
+   			       		actualTrainL4c = actualTrainresult.getFloat(1);       		
+   			       	}	
+   			    		
+   			       	if(actualTrainL4c==0)
+   			       	{
+   			       		Cell actualL4c = sheet.getRow(TrainRow).getCell(34);
+   			       		actualL4c.setCellValue("NA"); 
+   			       	}else
+   			       	{
+   			       		Cell actualL4c = sheet.getRow(TrainRow).getCell(34);
+			       		actualL4c.setCellValue(actualTrainL4c); 
+   			       	}
+   			    	
+   				
+   			       	//L4c Train Result status
+   			    if(sampling_methodOption.equals("1,2")&& RinseSampling==2) // if rinse enabled in sampling
+     			{
+		    					// check expected L4c and actual L4c 	
+		    					
+		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(L4cTrain).equals(Utils.toOptimizeDecimalPlacesRoundedOff(actualTrainL4c)))
+		    					{
+		    						Cell verify_result = sheet.getRow(TrainRow).getCell(35);
+		    						verify_result.setCellValue("Pass");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
+		    					}else
+		    					{	
+		    						Cell verify_result = sheet.getRow(TrainRow).getCell(35);
+		    						verify_result.setCellValue("Fail");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+		    					}
+     			} // closing L4c Train result Status
+   			    
+   			 
+		 	       TrainRow++;
+		 	      System.out.println("loop end------------------>");
+   		        
+   		     } // Closing no of set count presented in the current product for loop
    		        TrainRow++;
    		        System.out.println("Train end------------------>");
    		        
-   		        
-   		  /* //L4c Train Result (Opening Actual actual L4c Train Result)
- 		       
-   			    if(sampling_methodOption.equals("1,2")&& RinseSampling==2) // if rinse enabled in sampling
-   	   			{
-   			    	  	ResultSet set = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= "+getprodID+" && active_ingredient_id="+activeID+"  && train_id="+trainID+"");
-   			       	while(set.next())
-   			      	{
-   			       		trainID = set.getInt(1);       		
-   			       	}	
-   			    		
-   			 	
-   			    	
-   				}     
-   		        */
-   		        
-   		        
-   			    
-   			    
-   		        
-   		        
+  // Ending actual result L4c     
    			} // L4c Train Result (closing Expected actual L4c Train Result)		           
+		       
+		       
+		       
 		       
 				} // Closing current product active iteration
 				} // Closing current product iteration

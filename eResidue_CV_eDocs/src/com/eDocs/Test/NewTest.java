@@ -28,7 +28,7 @@ public class NewTest {
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException 
 	{
-		String CurrenProductName= "train product";
+		String CurrenProductName= "P1";
 		float LowestoneExpectedL3 = (float) 10.0;
 		float Rinsevolume =  10;
 		
@@ -114,12 +114,17 @@ public class NewTest {
 	            while (eqfromtrain.next()) {
 	                currentequipmentID.add(eqfromtrain.getInt(2));
 	            }
+	            
+	           System.out.println("gettrainID-->"+gettrainID); 
+                
 	            // if train used group means - use the below query
 	            Set<Integer> groupIDs = new HashSet<>();
 	            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
 	            while (eqfromtraingroup.next()) {
 	                groupIDs.add(eqfromtraingroup.getInt(1));
 	            }
+
+                
 	            for (int id : groupIDs) // iterate group id one by one (from train)
 	            {
 	                //Set<Integer> equipID = new HashSet();
@@ -130,33 +135,70 @@ public class NewTest {
 	                }
 	                System.out.println("Train group count"+equipmentusedcount);
 	                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-	                while (geteqfromgrpID.next()) {
+	                while (geteqfromgrpID.next()) 
+	                {
 	                    currentequipmentID.add(geteqfromgrpID.getInt(2));
 	                }
+    
 	            }
 	            
 	//end: check if only equipment train used in the product -current product 
 	           
-	            List<String>  eqnamelist = new ArrayList<>();
-	            String equipmentName =null;
+	            List<String>  eqnamelist = new ArrayList<>();	          
             	float surfaceArea = 0;
+            	float equipmentTotalSF=0;
 	            for(Integer eqid:currentequipmentID)
 	            {
+	            	//------------->if equipment reused in equipment train
+	                Integer equipreusedID=0,equipment_used_count=0;   
+	                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+""); // get product name id
+	                if(equipreused!=null)
+	                {
+	                	while (equipreused.next()) 
+	                	{
+	                		equipreusedID = equipreused.getInt(1);
+	                		equipment_used_count = equipreused.getInt(2);
+	                		// currentequipmentID.add(equipreused.getInt(2));
+	                	}
+	                	System.out.println("equipment_used_count"+equipment_used_count);
+	                //get eqiupment surface area (for reused equipment)
+	                	
+	                	float equipSF=0;
+	                	String equipreusedName =null;
+	                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + ""); // get product name id
+	                	while (equipreusedSf.next()) 
+	                	{
+	                		equipSF = equipreusedSf.getFloat(1);
+	                		equipreusedName = equipreusedSf.getString(2);	                	
+	                		//equipment_used_count = equipreusedSf.getInt(1);
+	                		//currentequipmentID.add(equipreusedSf.getInt(2));
+	                	}
+	                
+	                equipmentTotalSF = equipSF * equipment_used_count;
+	                System.out.println(" ------>equipment reused-"+equipmentTotalSF);	
+	                } //<------------------ending if equipment reused in equipment train
 	            	
+	                
 	            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
 	            	while(getequipdetails.next())
 	            	{
-	            		eqnamelist.add(getequipdetails.getString(1));
-	            		//equipmentName = getequipdetails.getString(1);	            		
-	            		surfaceArea = surfaceArea + getequipdetails.getFloat(2);
+	            		if(equipment_used_count==0)
+	                	{
+	            			eqnamelist.add(getequipdetails.getString(1));
+	                	}else 
+	                	{
+	                		eqnamelist.add(getequipdetails.getString(1)+"("+equipment_used_count+")");	
+	                	}
+	            		surfaceArea = (surfaceArea + getequipdetails.getFloat(2) + equipmentTotalSF);
 	            	}
-	            	//System.out.println("Equipment Name Setlist-> "+eqnamelist);
 	            }
+	            
 	            System.out.println("Equipment Name Setlist-> "+eqnamelist);
 	            setlist.add(currentequipmentID);
 	            equipSetTotalSF.add(surfaceArea);
 	            equipSetNamelist.add(eqnamelist);
-	          //  System.out.println("equipSetNamelist-> "+equipSetNamelist);
+	            System.out.println("surfaceArea-->"+surfaceArea);
+	            System.out.println("equipSetTotalSF-> "+surfaceArea);
 	            
 	           
 		        // Get Train rinse volume for each set
@@ -184,6 +226,9 @@ public class NewTest {
 						 L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
 						 Cell equipRinse = sheet.getRow(L4Row).getCell(32);
 						 equipRinse.setCellValue(TrainRinsevolume); 
+						 
+						 // Cell trainL4c = sheet.getRow(L4Row).getCell(33);
+						 //trainL4c.setCellValue(eqnamelist); 
 						 
 						 Cell trainL4c = sheet.getRow(L4Row).getCell(33);
 						 trainL4c.setCellValue(L4cTrain); 		
