@@ -10,24 +10,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.Test;
-
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
 public class Default {
 	public static WebDriver driver;
 	
-	//@Test(priority=1)
+	
 	public static String UniversalSettings() throws IOException, InterruptedException,ClassNotFoundException {
 		//System.setProperty("webdriver.Chrome.driver","C:\\selenium\\Testing\\chromedriver.exe");
 		System.setProperty("webdriver.gecko.driver","C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe");
@@ -39,11 +33,6 @@ public class Default {
 		// Open the application
 		driver.get("http://192.168.1.111:8090/login");
 		Thread.sleep(1000);
-		//driver.switchTo().alert().accept();
-		// Login
-		/*JOptionPane.showInputDialog("What is your name?", null);*/
-		/*JFrame frame = new JFrame("Button Popup Sample");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 		driver.findElement(By.id("username")).sendKeys("admin");
 		driver.findElement(By.id("password")).sendKeys("123456");
 		Thread.sleep(3000);
@@ -91,10 +80,9 @@ public class Default {
 		driver.findElement(By.linkText("Limit Definition")).click();*/
 	
 		defaultmethod();
-	//	System.out.println("defaultmethod option selected---->"+defaultmethod());
+		//System.out.println("defaultmethod option selected---->"+defaultmethod());
 		//Thread.sleep(10000);
 		//driver.close();
-		System.out.println("defaultmethod()------->"+defaultmethod());
 		return defaultmethod();
 	}
 		public static String defaultmethod()
@@ -229,19 +217,19 @@ public class Default {
 				}
 			//Get highest dose of active value
 		    Set<Integer> basisofcalIDs  = new HashSet<>();
-		    ResultSet basisofcalID = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id = "+prodname_id+"");
+		    ResultSet basisofcalID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = "+prodname_id+"");
 		    while(basisofcalID.next())
 		    {
-		    	basisofcalIDs.add(basisofcalID.getInt(2)); // get health based value
+		    	basisofcalIDs.add(basisofcalID.getInt(1)); // get health based value
 		    }
 		    
 		    List<Float> getdoseofActive  = new ArrayList<>();
 		    for(int basisofcal:basisofcalIDs)
 		    {
-		    	ResultSet doseofActive = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id = "+basisofcal+ "");
+		    	ResultSet doseofActive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id = "+basisofcal+ "");
 			    while(doseofActive.next())
 			    {
-			    	getdoseofActive.add(doseofActive.getFloat(7)); // get health based value
+			    	getdoseofActive.add(doseofActive.getFloat(1)); // get health based value
 			    }
 		    }
 		    System.out.println("getdoseofActive" +getdoseofActive);

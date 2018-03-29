@@ -3,7 +3,6 @@ package com.eDocs.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections4.bag.SynchronizedSortedBag;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -24,18 +22,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
-import com.eDocs.solidCalculation.Default_Limit;
 import com.eDocs.solidCalculation.SurfaceAreaValue;
 import com.mysql.jdbc.Connection;
-public class Calculation {
+public class ResidueCalculation {
 	
 	public boolean no_default = false;
 	public double default_l1_val;
@@ -316,10 +310,10 @@ public class Calculation {
 		nextproductlist.add("P3");
 		nextproductlist.add("train product");*/
 		
-		
+		Thread.sleep(1000);
 		//System.out.println("currentproductlist   "+currentproductlist);
 		//System.out.println("nextproductlist   "+nextproductlist);
-		P1_Active1_Solid(currentproductlist, nextproductlist);
+		calculation(currentproductlist, nextproductlist);
 		
 		//writeTooutputFile(workbook); // write output into work sheet
 	}
@@ -331,7 +325,7 @@ public class Calculation {
 			,L4cEquipment;
 	float L4cTrain=0;
 
-	public void P1_Active1_Solid(List<String> CurrenProduct,List<String> Nextprod) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
+	public void calculation(List<String> CurrenProduct,List<String> Nextprod) throws IOException, InterruptedException, SQLException, ClassNotFoundException 
 	{
 		
 		System.out.println("CurrenProduct   "+CurrenProduct);
@@ -359,14 +353,14 @@ public class Calculation {
 				System.out.println("CurrenProductName-->"+CurrenProductName);
 			
 				int getprodID = 0,currentproductsetcount = 0;
-				String prodname = null,activename = null;
+				String cprodname = null,activename = null;
 				
 				//Get  Current product details
 						ResultSet productID = stmt.executeQuery("Select * from product where name = '" + CurrenProductName + "'"); // get product name id
 							while (productID.next()) 
 							{
 								getprodID = productID.getInt(1);
-								prodname = productID.getString(2); // get name id from product table
+								cprodname = productID.getString(2); // get name id from product table
 								 currentproductsetcount = productID.getInt(33); 
 							} // closing for productID while loop 
 							
@@ -379,7 +373,9 @@ public class Calculation {
 				{
 				activelist.add(prod_active_relation.getInt(2));
 				}
-				
+			
+	if(limitDetermination()==2)//Start:  Lowest based on lowest amongst all actives within a product
+	{
 		for(Integer activeID:activelist) // iterate active presented in the current product
 		{
 					System.out.println("Active List----> "+activelist);
@@ -393,20 +389,20 @@ public class Calculation {
 							 {
 								 String space = " ";
 								 //prodname+=space+activename; //print product with active name
-								 System.out.println("Äctive name ------->"+prodname+space+activename);
+								 System.out.println("Äctive name ------->"+cprodname+space+activename);
 								 Cell ActiveName = sheet.getRow(row).getCell(3);
-								 ActiveName.setCellValue(prodname+space+activename); // print active name into excel
+								 ActiveName.setCellValue(cprodname+space+activename); // print active name into excel
 							 }else 
 							 {
-								 System.out.println("prodname name ------->"+prodname);
+								 System.out.println("prodname name ------->"+cprodname);
 								 Cell prodName1 = sheet.getRow(row).getCell(3);
-								 prodName1.setCellValue(prodname); // print active name into excel
+								 prodName1.setCellValue(cprodname); // print product name into excel
 							 }
 						 }
 				
 				defaultValueSet(CurrenProductName);
 				List<Float> LowestExpectL3 = new ArrayList<>();
-				 List<Float> LowestActualL3 = new ArrayList<>(); 
+				List<Float> LowestActualL3 = new ArrayList<>(); 
 				
 		for(String NextprodName : nextproductlist)  // Next product list
 		{
@@ -425,16 +421,16 @@ public class Calculation {
 				{
 				System.out.println("Lowest Limit");
 				System.out.println("activeID--->"+activeID);
-				value_L1 = L0.calculate_P1_active1_L0(activeID, CurrenProductName) / maxDD;
+				value_L1 = L0.L0forSOLID(activeID, CurrenProductName) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.calculate_P1_active1_L0(activeID,CurrenProductName)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
 				System.out.println("grouping approach");
-				value_L1 = L0.groupingApproach_L0_p11(CurrenProductName) / maxDD;
+				value_L1 = L0.groupingApproach_L0(CurrenProductName) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0_p11(CurrenProductName)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0(CurrenProductName)); // print expected L0 result into excel
 				}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				
@@ -586,7 +582,7 @@ public class Calculation {
 		    {
 		    	String space =" ";
 		    	Cell ActiveName = sheet.getRow(L4Row).getCell(16);
-				ActiveName.setCellValue(prodname+space+activename); // print active name into excel
+				ActiveName.setCellValue(cprodname+space+activename); // print active name into excel
 		    	System.out.println("getprodID--->"+getprodID);
 		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "'"); // get product name id
 		    		// print
@@ -921,17 +917,17 @@ public class Calculation {
    			         		TrainRinsevolume = eqtrain.getFloat(1);       		
    			         	}
    			      
-   			         	Calculation getrinsevolume = new Calculation();
-   			         	getrinsevolume.eqRinseVolume();
+   			         	//Calculation getrinsevolume = new Calculation();
+   			         	//getrinsevolume.eqRinseVolume();hjk
    			         	
-   			         	System.out.println("getrinsevolume.eqRinseVolume() "+getrinsevolume.eqRinseVolume());
+   			         	//System.out.println("getrinsevolume.eqRinseVolume() "+getrinsevolume.eqRinseVolume());
    			         // equipment rinse volume()
    			         	String space =" ";
-   						 if(getrinsevolume.eqRinseVolume()==0) //check rinset from univ setting or each equipment
+   						 if(eqRinseVolume()==0) //check rinset from univ setting or each equipment
    						 {
    							 L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
    							 Cell productname = sheet.getRow(TrainRow).getCell(30);
-   				    		 productname.setCellValue(prodname+space+activename); // print product name into excel
+   				    		 productname.setCellValue(cprodname+space+activename); // print product name into excel
    							   				    								
 							 String TrainequipmentName ="" ;							 
 					         	for(String list:eqnamelist)
@@ -948,9 +944,9 @@ public class Calculation {
    							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
    							 trainL4c.setCellValue(L4cTrain); 		  							
    						 }else {
-   							 L4cTrain = (float) ((LowestoneExpectedL3 *  surfaceArea) / (getrinsevolume.eqRinseVolume() * 1000)) ;
+   							 L4cTrain = (float) ((LowestoneExpectedL3 *  surfaceArea) / (eqRinseVolume() * 1000)) ;
    							 Cell productname = sheet.getRow(TrainRow).getCell(30);
-   				    		 productname.setCellValue(prodname+space+activename); // print product name into excel
+   				    		 productname.setCellValue(cprodname+space+activename); // print product name into excel
    									
 							 String TrainequipmentName ="" ;							
 					         	for(String list:eqnamelist)
@@ -962,7 +958,7 @@ public class Calculation {
 							 eqlist.setCellValue(TrainequipmentName); 	
 							 
    							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
-   							 equipRinse.setCellValue(getrinsevolume.eqRinseVolume()); 
+   							 equipRinse.setCellValue(eqRinseVolume()); 
    							 
    							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
    							 trainL4c.setCellValue(L4cTrain); 		   							 
@@ -1023,7 +1019,638 @@ public class Calculation {
 		       
 		       
 				} // Closing current product active iteration
-				} // Closing current product iteration
+		
+	}//End:  Lowest based on lowest amongst all actives within a product	
+		
+		
+	
+
+	if(limitDetermination()==1) // Start grouping approach
+	{
+		Cell prodName1 = sheet.getRow(row).getCell(3); // print current product name
+		prodName1.setCellValue(cprodname); 	
+		
+				defaultValueSet(CurrenProductName);
+				List<Float> LowestExpectL3 = new ArrayList<>();
+				List<Float> LowestActualL3 = new ArrayList<>(); 
+				
+		for(String NextprodName : nextproductlist)  // Next product list
+		{
+		
+			if(CurrenProductName.equals(NextprodName)) // if same product (e.g P1 ->P1)
+			{
+				System.out.println("-------------->Same Product");
+				
+			}else { // if other product (e.g P1 ->P2)
+				
+				System.out.println("prodName"+NextprodName);
+				String nprodname = null;	
+				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(8); minBatch = productdata.getFloat(9);   }
+
+				
+				value_L1 = L0.groupingApproach_L0(CurrenProductName) / maxDD;
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0(CurrenProductName)); // print expected L0 result into excel
+				//}
+				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
+				
+				//find surface area option in residue limit whether shared or lowest
+				int sharedORLowest=0;
+				ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit"); // get equipment id
+			    while (surfaceAreaOption.next()) 
+			    {
+			      sharedORLowest =surfaceAreaOption.getInt(1);
+			    }
+			    if(sharedORLowest==0)
+			    {
+			    	System.out.println("SF shread");
+			    	Solid_Total_surface_area =  SurfaceAreaValue.actualSharedbetween2(CurrenProductName,NextprodName); // Calculated L3 for actual shared
+			    	
+			    }else
+			    {
+			    	System.out.println("SF lowest");
+			       	Solid_Total_surface_area =  SurfaceAreaValue.lowestTrainbetween2(CurrenProductName,NextprodName); // Calculated L3 for lowest train between two
+			     	
+			    }
+			    value_L3 = value_L2 / Solid_Total_surface_area;
+				
+		if(no_default) // No Default limit
+		{	
+			no_defaultMethod();
+		}
+		if(default_l1) // Default limit for L1 value
+		{
+			defaultL1Method();
+		}
+		if(default_l3) // Default limit for L3 value
+		{
+			defaultL3Method();
+		}
+		if(default_l1_l3)// Default limit for L1 and L3
+		{	
+			defaultL1L3Method();
+		} 
+		
+		Cell nextprodname = sheet.getRow(row).getCell(4); 
+		nextprodname.setCellValue(nprodname ); // print next product name
+		Cell Solid_expec_Value_L1_print = sheet.getRow(row).getCell(6); 
+		Solid_expec_Value_L1_print.setCellValue(Solid_Expec_Value_L1 ); // print expected L0 result into excel
+		Cell Solid_expec_Value_L2_print = sheet.getRow(row).getCell(7); 
+		Solid_expec_Value_L2_print.setCellValue(Solid_Expec_Value_L2); // print expected L2 result into excel
+		Cell Solid_expec_Value_L3_print = sheet.getRow(row).getCell(8); 
+		Solid_expec_Value_L3_print.setCellValue(Solid_Expec_Value_L3); // print expected L3 result into excel
+		System.out.println("Expected L1: "+Solid_Expec_Value_L1);
+		System.out.println("Expected L2: "+Solid_Expec_Value_L2);
+		System.out.println("Expected L3: "+Solid_Expec_Value_L3);
+		LowestExpectL3.add((float) Solid_Expec_Value_L3); // get all Expected L3
+				
+		// Get Actual Result from DB
+			
+			 int actualnextProdID = 0;
+			 int actualresultrow = 41; 
+				 float ActualL0Result = 0,ActualL1Result = 0,ActualL2Result = 0,ActualL3Result = 0;
+				 ResultSet nextproductdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+					while (nextproductdata.next()) {	actualnextProdID = nextproductdata.getInt(1);    }
+					
+					System.out.println("actualnextProdID"+actualnextProdID);
+					ResultSet prod_cal = stmt.executeQuery("SELECT * FROM product_calculation where product_id= '" + getprodID + "'&& next_prod_ids='"+  actualnextProdID+"'"); /*"' && active_ingredient_id='"+activeID+ "'");*/
+					//While Loop to iterate through all data and print results
+					while (prod_cal.next()) {
+						 ActualL0Result = prod_cal.getFloat(3); ActualL1Result = prod_cal.getFloat(4); ActualL2Result = prod_cal.getFloat(5); ActualL3Result = prod_cal.getFloat(6);
+											}
+					// Print Actual result to excel
+					if(ActualL0Result==0)
+							{
+							Cell print_actual_L0 = sheet.getRow(row).getCell(9); 
+							print_actual_L0.setCellValue("NA"); // print actual L0 result into excel
+							}else {
+							Cell print_actual_L0 = sheet.getRow(row).getCell(9); 
+							print_actual_L0.setCellValue(ActualL0Result); // print actual L0 result into excel
+							}			
+					if(ActualL1Result==0)
+					{
+						Cell print_actual_L1 = sheet.getRow(row).getCell(10); 
+						print_actual_L1.setCellValue("NA"); // print actual L1 result into excel
+					}else {
+						Cell print_actual_L1 = sheet.getRow(row).getCell(10); 
+						print_actual_L1.setCellValue(ActualL1Result); // print actual L1 result into excel
+					}		
+					if(ActualL2Result==0)
+					{
+						Cell print_actual_L2 = sheet.getRow(row).getCell(11); 
+						print_actual_L2.setCellValue("NA"); // print actual L2 result into excel
+					}else {
+						Cell print_actual_L2 = sheet.getRow(row).getCell(11); 
+						print_actual_L2.setCellValue(ActualL2Result); // print actual L2 result into excel
+					}
+					if(ActualL3Result==0)
+					{
+						System.out.println("Zero");
+						Cell print_actual_L3 = sheet.getRow(row).getCell(12); 
+						print_actual_L3.setCellValue("NA"); // print actual L3 result into excel
+					}else {
+						System.out.println("Not Zero");
+						Cell print_actual_L3 = sheet.getRow(row).getCell(12); 
+						print_actual_L3.setCellValue(ActualL3Result); // print actual L3 result into excel
+					}
+					if(ActualL3Result!=0) {
+					LowestActualL3.add((float) ActualL3Result);	
+					}
+				
+				if(ActualL3Result==0) // this condition for if actual result not lowest(if zero)
+				{
+					System.out.println("No Result");
+				}
+				else 
+				{
+					if(Utils.toOptimizeDecimalPlacesRoundedOff(Solid_Expec_Value_L3).equals(Utils.toOptimizeDecimalPlacesRoundedOff(ActualL3Result)))
+					{
+						Cell printlowestL3 = sheet.getRow(row).getCell(13);
+						printlowestL3.setCellValue("Pass");
+						printlowestL3.setCellStyle(Utils.style(workbook, "Pass")); // for print green font				
+					}else
+					{
+						Cell printlowestL3 = sheet.getRow(row).getCell(13);
+						printlowestL3.setCellValue("Fail");
+						printlowestL3.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+					}
+				}
+					
+						
+		row++;	
+		column++;
+		} //closing else loop (other product result loop)	
+		}//closing next product iteration
+		
+		 
+		//Expected Lowest L3 for current product iteration 
+		float LowestoneExpectedL3 = Collections.min(LowestExpectL3);
+		System.out.println("Expected Lowest ExpectL3: "+LowestoneExpectedL3);
+		/*
+		//Actual Lowest L3 for current product iteration
+		float LowestoneActualResult = Collections.min(LowestActualL3);
+		System.out.println("LowestoneActualResult: "+LowestoneActualResult);*/
+			
+		float SFArea = 0,rinsevolume=0,swabarea = 0,swabamount=0;
+		String eqname = null;
+	    
+		    System.out.println("Current product Equipment ID--------->"+getEquipment(CurrenProductName));
+		    
+		    for (Integer equipmentID:getEquipment(CurrenProductName)) //get id from set
+		    {
+		    	String space =" ";
+		    	//Cell ActiveName = sheet.getRow(L4Row).getCell(16);
+				//ActiveName.setCellValue(prodname+space+activename); // print active name into excel
+				Cell currentpname = sheet.getRow(L4Row).getCell(16);
+				currentpname.setCellValue(cprodname); // print product name into excel
+				 
+		    	System.out.println("getprodID--->"+getprodID);
+		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "'"); // get product name id
+		    		// print
+		    	 while(EquipID.next()) {  // print name and sf value from equipment table
+		    	 eqname = EquipID.getString(9); // get name from database
+				 SFArea = EquipID.getFloat(13); // get SF value from database
+				 rinsevolume = EquipID.getFloat(17); // get SF value from database
+				 swabarea = EquipID.getFloat(15); // get SF value from database
+				 swabamount = EquipID.getFloat(16);
+				 
+				 System.out.println("swabArea-->"+swabArea());
+				 if(swabArea()==0) //check swab area from uni setting or each equipment
+				 {
+					 Solid_Expec_Value_L4a =  LowestoneExpectedL3 * swabarea;
+					 Cell equipswab = sheet.getRow(L4Row).getCell(19);//cell to print swab amount
+					 equipswab.setCellValue(swabarea); 
+					 System.out.println("Solid_Expec_Value_L4a: "+Solid_Expec_Value_L4a);
+				 }else {
+					 Solid_Expec_Value_L4a =  LowestoneExpectedL3 * swabArea();
+					 Cell equipswab = sheet.getRow(L4Row).getCell(19);//cell to print swab amount
+					 equipswab.setCellValue(swabArea()); 
+					 System.out.println("Solid_Expec_Value_L4a" +Solid_Expec_Value_L4a);
+					 }
+				 //swab amount
+				 if(swabAmount()==0) //check swab amount from univ setting or each equipment
+				 {
+					 Solid_Expec_Value_L4b =  Solid_Expec_Value_L4a/ swabamount;
+					 Cell equipRinse = sheet.getRow(L4Row).getCell(20);//cell to print swab amount
+					 equipRinse.setCellValue(swabamount); 
+					 System.out.println("Solid_Expec_Value_L4b: "+Solid_Expec_Value_L4b);
+				 }else {
+					 Solid_Expec_Value_L4b =  Solid_Expec_Value_L4a/ swabAmount();
+					 Cell equipRinse = sheet.getRow(L4Row).getCell(20);//cell to print swab amount
+					 equipRinse.setCellValue(swabAmount()); 
+					 System.out.println("Solid_Expec_Value_L4b: "+Solid_Expec_Value_L4b);
+				 }
+				// equipment rinse volume()
+				 if(eqRinseVolume()==0) //check rinset from univ setting or each equipment
+				 {
+					 L4cEquipment = (LowestoneExpectedL3 * SFArea) /(rinsevolume * 1000);//Calculate L4c equipment value
+					 Cell equipRinse = sheet.getRow(L4Row).getCell(21);//cell to print equipment rinse volume
+					 equipRinse.setCellValue(rinsevolume); // print all the equipment rinse volume(used in the product) in excel
+				 }else {
+					 L4cEquipment = (LowestoneExpectedL3 * SFArea) /(eqRinseVolume() * 1000);//Calculate L4c equipment value
+					 Cell equipRinse = sheet.getRow(L4Row).getCell(21);//cell to print equipment rinse volume 
+					 equipRinse.setCellValue(eqRinseVolume()); // print all the equipment rinse volume(used in the product) in excel
+					 System.out.println("L4cEquipment"+L4cEquipment);
+				 }
+		    	 // Print Expected L4a, L4b, L4c value
+		    	 	Cell equipName = sheet.getRow(L4Row).getCell(17);//cell to print name 
+		    		equipName.setCellValue(eqname); // print equipment name(used in the product) in excel
+		    		Cell equipSF = sheet.getRow(L4Row).getCell(18);//cell to print equipment surface area 
+		    		equipSF.setCellValue(SFArea); // print all the equipment surface area(used in the product) in excel
+		    		Cell L4aEquip = sheet.getRow(L4Row).getCell(22);//cell to print L4a value 
+		    		L4aEquip.setCellValue(Solid_Expec_Value_L4a); // print all the equipment surface area(used in the product) in excel
+		    		Cell L4bEquip = sheet.getRow(L4Row).getCell(23);//cell to print L4b value
+		    		L4bEquip.setCellValue(Solid_Expec_Value_L4b); // print all the equipment surface area(used in the product) in excel
+		    		
+		    		// check whether rinse enabled in universal settings
+		    		System.out.println("sampling_methodOption"+sampling_methodOption);
+		    		System.out.println("RinseSampling"+RinseSampling);
+		    			if(sampling_methodOption.equals("1,2") && RinseSampling==1) // if rinse enabled in sampling
+		    			{
+		    				Cell L4cEquip = sheet.getRow(L4Row).getCell(24);
+		    				L4cEquip.setCellValue(L4cEquipment); 
+		    			}
+		    			
+		    }//closing ExpectedequipResult while loop 
+		    			
+		    	 
+		    	 
+		    	 
+		 // Actual Result for L4a, L4b, L4c
+		    			float Ac_L4a = 0,Ac_L4b = 0,Ac_L4c = 0;
+		    					//ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "' && active_ingredient_id='"+  activeID+ "' && equipment_id='"+equipmentID+"'");
+		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "'&& equipment_id='"+equipmentID+"'");
+		    		while (ActualequipResult.next()) 
+		    		{
+		    					 Ac_L4a = ActualequipResult.getFloat(5); 
+		    					 Ac_L4b = ActualequipResult.getFloat(6);
+		    					 Ac_L4c = ActualequipResult.getFloat(7);
+		    			    System.out.println("L4a "+Ac_L4a+" L4b "+Ac_L4a+" L4c "+Ac_L4c);
+		    				
+		    			    if(Ac_L4a!=0)
+		    			    {
+		    			    	Cell L4aEquipactual = sheet.getRow(L4Row).getCell(25);//cell to print L4a value 
+		    			    	L4aEquipactual.setCellValue(Ac_L4a); // print all the equipment surface area(used in the product) in excel
+		    			    }else
+		    			    {
+		    			    	Cell L4aEquipactual = sheet.getRow(L4Row).getCell(25);//cell to print L4a value 
+		    			    	L4aEquipactual.setCellValue("NA"); 
+		    			    }
+		    			    
+		    			    if(Ac_L4b!=0)
+		    			    {
+		    			    	Cell L4bEquipactual = sheet.getRow(L4Row).getCell(26);//cell to print L4b value
+		    			    	L4bEquipactual.setCellValue(Ac_L4b); // print all the equipment surface area(used in the product) in excel
+		    			    }else
+		    			    {
+		    			    	Cell L4bEquipactual = sheet.getRow(L4Row).getCell(26);//cell to print L4b value
+		    			    	L4bEquipactual.setCellValue("NA"); 
+		    			    }
+		    			    
+		    	    		if(sampling_methodOption.equals("1,2")&& RinseSampling==1) // if rinse enabled in sampling
+		        			{
+		    	    			if(Ac_L4c!=0)
+			    			    {
+		    	    				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
+		    	    				L4cEquipactual.setCellValue(Ac_L4c); // print all the equipment surface area(used in the product) in excel
+			    			    }
+		    	    			else
+		    	    			{
+		    	    				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
+		    	    				L4cEquipactual.setCellValue("NA");
+		    	    			}
+		    			    }
+		    	    		/*if(sampling_methodOption.equals("1,2") && RinseSampling==2) // if rinse enabled in sampling
+			    			{
+		  
+		    	    			Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
+		        				L4cEquipactual.setCellValue("NA");		        				
+			    			}*/
+		        			/*else 
+		        			{
+		        				Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);//cell to print L4b value
+		        				L4cEquipactual.setCellValue("NA"); // print all the equipment surface area(used in the product) in excel 
+		        			}*/
+		    		}//closing ActualequipResult while loop  		
+		    					
+		    		if(sampling_methodOption.equals("1,2")&& RinseSampling==1) // if rinse enabled in sampling
+        			{
+		    					// check expected L4a,L4b,L4c and actual L4a,L4b,L4c 	
+		    					double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
+		    					double EL4b = sheet.getRow(L4Row).getCell(23).getNumericCellValue();
+		    					double EL4c = sheet.getRow(L4Row).getCell(24).getNumericCellValue();
+		    					double AL4a = sheet.getRow(L4Row).getCell(25).getNumericCellValue();
+		    					double AL4b = sheet.getRow(L4Row).getCell(26).getNumericCellValue();
+		    					double AL4c = sheet.getRow(L4Row).getCell(27).getNumericCellValue();
+		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)) &&
+		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4c).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c)))
+		    					{
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Pass");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
+		    					}else
+		    					{	
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Fail");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+		    					}
+        			}
+		    		if(sampling_methodOption.equals("1") || (sampling_methodOption.equals("1,2")&& RinseSampling==2)) // if rinse enabled in sampling
+        			{
+		    					// check expected L4a,L4b,L4c and actual L4a,L4b,L4c 	
+		    					double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
+		    					double EL4b = sheet.getRow(L4Row).getCell(23).getNumericCellValue();	    					
+		    					double AL4a = sheet.getRow(L4Row).getCell(25).getNumericCellValue();
+		    					double AL4b = sheet.getRow(L4Row).getCell(26).getNumericCellValue();		    					
+		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a)) && 
+		    							Utils.toOptimizeDecimalPlacesRoundedOff(EL4b).equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b)))
+		    					{
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Pass");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
+		    					}else
+		    					{	
+		    						Cell verify_result = sheet.getRow(L4Row).getCell(28);
+		    						verify_result.setCellValue("Fail");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+		    					}
+        			}	
+		    					
+		    	L4Row++;
+		    	} //closing for equipment ID loop
+		       L4Row++; // Leave one row for each product
+		        
+		  
+		       
+		       if(sampling_methodOption.equals("1,2") && RinseSampling==2) // if rinse enabled in sampling
+   				{
+   			
+   				//getEquipmentTrain(CurrenProductName,LowestoneExpectedL3);		    	
+   		        List<Object> setlist = new ArrayList<>();
+   		        List<Float> equipSetTotalSF = new ArrayList<>();
+   		        List<Object> equipSetNamelist = new ArrayList<>();
+   		        
+   		        	
+   		        
+   		        for (int i = 1; i <= currentproductsetcount; i++) 
+   		        { 
+   		        	List<Integer> currentequipmentID = new ArrayList<>();
+   		        	 
+   		 //check if only equipmnet used in the product
+   		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + getprodID + "' && set_id ='" + i + "'"); // get product name id
+   		            while (getequipfromset.next()) 
+   		            {
+   		                System.out.println("ony equipment selected");
+   		                currentequipmentID.add(getequipfromset.getInt(4));
+   		            }
+   		 //check if only equipment group used in the product -current product
+   		           
+   		            List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
+   		            // List<Integer> equipmentgroup = new ArrayList<>();
+   		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
+   		            while (getequipgrpfromset.next()) {
+   		                System.out.println("ony equipment group selected");
+   		                eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
+   		            }
+   		            for (int id : eqgroupIDs) // iterate group id one by one 
+   		            {
+   		                int equipmentusedcount = 0;
+   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && group_id=" + id + ""); // get product name id
+   		                while (geteqcountfromgrpID.next()) 
+   		                {
+   		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
+   		                }
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+   		                while (geteqfromgrpID.next()) 
+   		                {
+   		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
+   		                }
+   		                //  currentequipmentID.addAll(equipmentgroup);
+   		            }
+   		            
+   		//end: check if only equipment group used in the product -current product
+   		//check if only equipment train used in the product -current product
+   		            int gettrainID = 0;
+   		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
+   		            while (getequiptrainIDfromset.next()) {
+   		                System.out.println("ony equipment train selected");
+   		                gettrainID = getequiptrainIDfromset.getInt(4);
+   		            }
+   		            // if train used only equipmeans used the below query
+   		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
+   		            while (eqfromtrain.next()) {
+   		                currentequipmentID.add(eqfromtrain.getInt(2));
+   		            }
+   		            // if train used group means - use the below query
+   		            Set<Integer> groupIDs = new HashSet<>();
+   		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
+   		            while (eqfromtraingroup.next()) {
+   		                groupIDs.add(eqfromtraingroup.getInt(1));
+   		            }
+   		            for (int id : groupIDs) // iterate group id one by one (from train)
+   		            {
+   		                //Set<Integer> equipID = new HashSet();
+   		                int equipmentusedcount = 0;
+   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
+   		                while (geteqcountfromgrpID.next()) {
+   		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
+   		                }
+   		                System.out.println("Train group count"+equipmentusedcount);
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+   		                while (geteqfromgrpID.next()) {
+   		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
+   		                }
+   		            }
+   		            
+   		//end: check if only equipment train used in the product -current product 
+   		           
+   		            List<String>  eqnamelist = new ArrayList<>();  		          
+   	            	float surfaceArea = 0,equipmentTotalSF=0;
+   		            for(Integer eqid:currentequipmentID)
+   		            {
+   		            	//------------->if equipment reused in equipment train
+   		                Integer equipreusedID=0,equipment_used_count=0;   
+   		                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+""); // get product name id
+   		                if(equipreused!=null)
+   		                {
+   		                	while (equipreused.next()) 
+   		                	{
+   		                		equipreusedID = equipreused.getInt(1);
+   		                		equipment_used_count = equipreused.getInt(2);
+   		                		// currentequipmentID.add(equipreused.getInt(2));
+   		                	}
+   		                	System.out.println("equipment_used_count"+equipment_used_count);
+   		                //get eqiupment surface area (for reused equipment)
+   		                	
+   		                	float equipSF=0;
+   		                	String equipreusedName =null;
+   		                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + ""); // get product name id
+   		                	while (equipreusedSf.next()) 
+   		                	{
+   		                		equipSF = equipreusedSf.getFloat(1);
+   		                		equipreusedName = equipreusedSf.getString(2);	                	  		                		
+   		                	}
+   		                
+   		                equipmentTotalSF = equipSF * equipment_used_count;
+   		                System.out.println(" ------>equipment reused-"+equipmentTotalSF);	
+   		                } //<------------------ending if equipment reused in equipment train
+   		                
+   		            	
+   		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
+   		            	while(getequipdetails.next())
+   		            	{
+   		            		if(equipment_used_count==0)
+   		                	{
+   		            			eqnamelist.add(getequipdetails.getString(1));
+   		                	}else 
+   		                	{
+   		                		eqnamelist.add(getequipdetails.getString(1)+"("+equipment_used_count+")");	
+   		                	}
+   		            		surfaceArea = (surfaceArea + getequipdetails.getFloat(2) + equipmentTotalSF);
+   		            	}
+   		            	
+   		            }
+   		            System.out.println("Equipment Name Setlist-> "+eqnamelist);
+   		            
+   		           // Cell eqnamesetlist = sheet.getRow(TrainRow).getCell(32); //print train equipments in single cell
+					//eqnamesetlist.setCellValue(eqnamelist); 
+					
+   		            setlist.add(currentequipmentID);
+   		            equipSetTotalSF.add(surfaceArea);
+   		            equipSetNamelist.add(eqnamelist);
+   		            System.out.println("Equipment Set List: "+setlist);
+   		            System.out.println("Equipment Set equipSetTotalSF: "+equipSetTotalSF);
+   		            System.out.println("Equipment Set equipSetNamelist: "+equipSetNamelist);
+   		            
+   		           
+   			        // Get Train rinse volume for each set
+   			        		Integer trainID = null ;
+   			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + TrainRow + " && set_id="+i+"");
+   				         	while(set.next())
+   				         	{
+   				         		trainID = set.getInt(1);       		
+   				         	}
+   			      
+   				        float TrainRinsevolume=0;
+   			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+"");
+   			         	while(eqtrain.next())
+   			         	{
+   			         		TrainRinsevolume = eqtrain.getFloat(1);       		
+   			         	}
+   			      
+   			         	//Calculation getrinsevolume = new Calculation();
+   			         	//getrinsevolume.eqRinseVolume();hjk
+   			         	
+   			         	//System.out.println("getrinsevolume.eqRinseVolume() "+getrinsevolume.eqRinseVolume());
+   			         // equipment rinse volume()
+   			         	String space =" ";
+   						 if(eqRinseVolume()==0) //check rinset from univ setting or each equipment
+   						 {
+   							 L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
+   							 Cell productname = sheet.getRow(TrainRow).getCell(30);
+   				    		 productname.setCellValue(cprodname); // print product name into excel
+   							   				    								
+							 String TrainequipmentName ="" ;							 
+					         	for(String list:eqnamelist)
+					         	{
+					         		String comma =",";
+					         		TrainequipmentName = TrainequipmentName +list+comma;
+					         	}					         
+							 Cell eqlist = sheet.getRow(TrainRow).getCell(31); //print set list in each cell
+							 eqlist.setCellValue(TrainequipmentName); 	
+							 
+   							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
+  							 equipRinse.setCellValue(TrainRinsevolume); 
+  							 
+   							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
+   							 trainL4c.setCellValue(L4cTrain); 		  							
+   						 }else {
+   							 L4cTrain = (float) ((LowestoneExpectedL3 *  surfaceArea) / (eqRinseVolume() * 1000)) ;
+   							 Cell productname = sheet.getRow(TrainRow).getCell(30);
+   				    		 productname.setCellValue(cprodname); // print product name into excel
+   									
+							 String TrainequipmentName ="" ;							
+					         	for(String list:eqnamelist)
+					         	{
+					         		String comma =",";
+					         		TrainequipmentName = TrainequipmentName +list+comma;
+					         	}					         
+							 Cell eqlist = sheet.getRow(TrainRow).getCell(31); //print set list in each cell
+							 eqlist.setCellValue(TrainequipmentName); 	
+							 
+   							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
+   							 equipRinse.setCellValue(eqRinseVolume()); 
+   							 
+   							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
+   							 trainL4c.setCellValue(L4cTrain); 		   							 
+   						 }
+   						 
+   		       
+   		        
+//L4c Train Result (Opening Actual actual L4c Train Result)
+ 		       
+   			 	    float actualTrainL4c = 0;
+   			    	//ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && active_ingredient_id="+activeID+"  && train_id="+trainID+"");
+   			 	ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && train_id="+trainID+"");
+   			       	while(actualTrainresult.next())
+   			      	{
+   			       		actualTrainL4c = actualTrainresult.getFloat(1);       		
+   			       	}	
+   			    		
+   			       	if(actualTrainL4c==0)
+   			       	{
+   			       		Cell actualL4c = sheet.getRow(TrainRow).getCell(34);
+   			       		actualL4c.setCellValue("NA"); 
+   			       	}else
+   			       	{
+   			       		Cell actualL4c = sheet.getRow(TrainRow).getCell(34);
+			       		actualL4c.setCellValue(actualTrainL4c); 
+   			       	}
+   			    	
+   				
+   			       	//L4c Train Result status
+   			    if(sampling_methodOption.equals("1,2")&& RinseSampling==2) // if rinse enabled in sampling
+     			{
+		    					// check expected L4c and actual L4c 	
+		    					
+		    					if(Utils.toOptimizeDecimalPlacesRoundedOff(L4cTrain).equals(Utils.toOptimizeDecimalPlacesRoundedOff(actualTrainL4c)))
+		    					{
+		    						Cell verify_result = sheet.getRow(TrainRow).getCell(35);
+		    						verify_result.setCellValue("Pass");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Pass")); // for print green font
+		    					}else
+		    					{	
+		    						Cell verify_result = sheet.getRow(TrainRow).getCell(35);
+		    						verify_result.setCellValue("Fail");
+		    						verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+		    					}
+     			} // closing L4c Train result Status
+   			    
+   			 
+		 	       TrainRow++;
+		 	      System.out.println("loop end------------------>");
+   		        
+   		     } // Closing no of set count presented in the current product for loop
+   		        TrainRow++;
+   		        System.out.println("Train end------------------>");
+   		        
+  // Ending actual result L4c     
+   			} // L4c Train Result (closing Expected actual L4c Train Result)		           
+		       
+		       
+		       
+		       
+			//	} // Closing current product active iteration
+		
+	}//End:  Lowest based on lowest amongst all actives within a product	
+	/*<------------------------------------>	*/ // grouping approach
+	
+	
+	
+	
+} // Closing current product iteration
 			
 		writeTooutputFile(workbook); // write output into work sheet
 		connection.close();

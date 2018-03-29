@@ -28,16 +28,46 @@ public class NewTest {
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException 
 	{
-		String CurrenProductName= "P1";
+		String CurrenProductName= "P4";
 		float LowestoneExpectedL3 = (float) 10.0;
 		float Rinsevolume =  10;
 		
-		getEquipmentTrain(CurrenProductName, LowestoneExpectedL3);
-		
-		
+		//groupingApproach_L0_p11(CurrenProductName);
 	}
 	
-	   //get current product equipment Train
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*//get current product equipment Train
 		public static Float getEquipmentTrain(String CurrenProductName,Float LowestoneExpectedL3) throws SQLException, ClassNotFoundException, IOException  
 		{
 			XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
@@ -260,7 +290,7 @@ public class NewTest {
 	        writeTooutputFile(workbook); // write output into work sheet
 	        return L4cTrain;
 	        
-	    }
+	    }*/
 		
 		
 		

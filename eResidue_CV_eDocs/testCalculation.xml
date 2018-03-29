@@ -10,10 +10,9 @@
   <!-- <parameter name = "productName4" value= "P4"/> -->
   <!-- <parameter name = "productName5" value= "P5"/>  -->
   
-
     <classes>
       <class name="com.eDocs.Test.Default"/> 
-      <class name="com.eDocs.Test.Calculation"/>
+      <class name="com.eDocs.Test.ResidueCalculation"/>
     </classes>
   
   </test> <!-- Test -->
