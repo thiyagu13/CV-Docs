@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.testng.annotations.Parameters;
-
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
@@ -19,11 +17,6 @@ import com.mysql.jdbc.Connection;
 public class L0 {
 	
 
-	/*public static String productName1 = Constant.productName1;
-	public static String productName2 = Constant.productName2;
-	public static String productName3 = Constant.productName3;
-	public static String productName4 = Constant.productName4;*/
-	
 	
 	public static double calculate_P1_active1_L0(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;

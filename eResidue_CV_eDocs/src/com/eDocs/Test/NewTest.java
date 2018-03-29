@@ -227,9 +227,6 @@ public class NewTest {
 						 Cell equipRinse = sheet.getRow(L4Row).getCell(32);
 						 equipRinse.setCellValue(TrainRinsevolume); 
 						 
-						 // Cell trainL4c = sheet.getRow(L4Row).getCell(33);
-						 //trainL4c.setCellValue(eqnamelist); 
-						 
 						 Cell trainL4c = sheet.getRow(L4Row).getCell(33);
 						 trainL4c.setCellValue(L4cTrain); 		
 						 System.out.println("L4cTrain"+L4cTrain);

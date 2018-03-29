@@ -12,7 +12,7 @@
   
 
     <classes>
-      <class name="com.eDocs.Test.Default"/>
+      <class name="com.eDocs.Test.Default"/> 
       <class name="com.eDocs.Test.Calculation"/>
     </classes>
   

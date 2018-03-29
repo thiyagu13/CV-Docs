@@ -24,7 +24,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -44,13 +46,7 @@ public class Calculation {
 	public boolean default_l1 = false;
 	public boolean default_l1_l3 = false;
 	
-	
-	//public static String productName1 = Constant.productName1;
-	//public static String productName2 = Constant.productName2;
-	//public static String productName3 = Constant.productName3;
-	//public static String productName4 = Constant.productName4;
-	
-	
+		
 	public int limitDetermination() throws ClassNotFoundException, SQLException
 	{
 		int LimitDeterminationOption = 0;
@@ -173,13 +169,13 @@ public class Calculation {
 	
 	
 	WebDriver driver;
-		@Test
+	
+	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException
 	{
-		
-	/*	//XSSFWorkbook workbook;
+			
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
-		XSSFSheet sheet = workbook.getSheet("microbial_calculation_result");
+		XSSFSheet sheet = workbook.getSheet("test");
 		
 		driver = new FirefoxDriver();
 		// Open the application
@@ -202,17 +198,22 @@ public class Calculation {
 		Thread.sleep(1000);
 		String title = "Test Calculation";
 		driver.findElement(By.name("title")).sendKeys(title);//title of calculation
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		WebElement limitselection = driver.findElement(By.id("limitSelection")); // select residue limit
 		Select limit = new Select(limitselection);
-		limit.selectByIndex(1);
+		System.out.println("-----------");
+		limit.selectByIndex(2);
+		String getproductname1 = sheet.getRow(41).getCell(1).getStringCellValue();
+		System.out.println("Name"+getproductname1);
 		Thread.sleep(1000);
+		
 		WebElement selectproduct = driver.findElement(By.xpath(".//*[@id='routeAdminDiv']/div/div/span/span[1]/span/ul/li/input"));
-
-		int row =8;
-		for(int i = 0;i<=100;i++)
+		//WebElement selectproduct = driver.findElement(By.name("selectedProducts"));
+		
+		int row =41;
+		for(int i = 0;i<=1000;i++)
 		{
-			String getproductname = sheet.getRow(row).getCell(2).getStringCellValue(); //get product name list from excel (for using calculation)
+			String getproductname = sheet.getRow(row).getCell(1).getStringCellValue(); //get product name list from excel (for using calculation)
 			System.out.println("getproductname"+getproductname);
 			if(!StringUtils.isEmpty(getproductname))
 			{
@@ -227,8 +228,7 @@ public class Calculation {
 		}
 		driver.findElement(By.id("changeControlNo")).sendKeys("123");
 		
-		
-		
+				
 		Select select = new Select(driver.findElement(By.id("productGroups"))); // get seleced products from the dropdown
 		List<WebElement> option = select.getAllSelectedOptions();
 
@@ -303,8 +303,8 @@ public class Calculation {
   		
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);
-		*/
-		List<String>  currentproductlist = new ArrayList<>(); //store product list
+		
+		/*List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.add("P1");
   		currentproductlist.add("P2");
   		currentproductlist.add("P3");
@@ -314,7 +314,7 @@ public class Calculation {
 		nextproductlist.add("P1");
 		nextproductlist.add("P2");
 		nextproductlist.add("P3");
-		nextproductlist.add("train product");
+		nextproductlist.add("train product");*/
 		
 		
 		//System.out.println("currentproductlist   "+currentproductlist);
@@ -932,27 +932,40 @@ public class Calculation {
    							 L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
    							 Cell productname = sheet.getRow(TrainRow).getCell(30);
    				    		 productname.setCellValue(prodname+space+activename); // print product name into excel
-   							 
-   							 /*Cell eqnamesetlist = sheet.getRow(TrainRow).getCell(32);
-   							eqnamesetlist.setCellValue(eqnamelist); */
-   							 
+   							   				    								
+							 String TrainequipmentName ="" ;							 
+					         	for(String list:eqnamelist)
+					         	{
+					         		String comma =",";
+					         		TrainequipmentName = TrainequipmentName +list+comma;
+					         	}					         
+							 Cell eqlist = sheet.getRow(TrainRow).getCell(31); //print set list in each cell
+							 eqlist.setCellValue(TrainequipmentName); 	
+							 
    							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
   							 equipRinse.setCellValue(TrainRinsevolume); 
   							 
    							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
-   							 trainL4c.setCellValue(L4cTrain); 		
-   							 System.out.println("L4cTrain"+L4cTrain);
+   							 trainL4c.setCellValue(L4cTrain); 		  							
    						 }else {
    							 L4cTrain = (float) ((LowestoneExpectedL3 *  surfaceArea) / (getrinsevolume.eqRinseVolume() * 1000)) ;
    							 Cell productname = sheet.getRow(TrainRow).getCell(30);
    				    		 productname.setCellValue(prodname+space+activename); // print product name into excel
-   							 
+   									
+							 String TrainequipmentName ="" ;							
+					         	for(String list:eqnamelist)
+					         	{
+					         		String comma =",";
+					         		TrainequipmentName = TrainequipmentName +list+comma;
+					         	}					         
+							 Cell eqlist = sheet.getRow(TrainRow).getCell(31); //print set list in each cell
+							 eqlist.setCellValue(TrainequipmentName); 	
+							 
    							 Cell equipRinse = sheet.getRow(TrainRow).getCell(32);
    							 equipRinse.setCellValue(getrinsevolume.eqRinseVolume()); 
    							 
    							 Cell trainL4c = sheet.getRow(TrainRow).getCell(33);
-   							 trainL4c.setCellValue(L4cTrain); 		
-   							 System.out.println("L4cTrain"+L4cTrain);
+   							 trainL4c.setCellValue(L4cTrain); 		   							 
    						 }
    						 
    		       
@@ -1215,195 +1228,5 @@ public class Calculation {
 	    return minValue; 
 	  } 
 	  
-	  
-	  
-	 static int finalrow=0;
-	//get current product equipment Train
-			public static Float getEquipmentTrain(String CurrenProductName,Float LowestoneExpectedL3) throws SQLException, ClassNotFoundException, IOException  
-			{
-				XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
-				XSSFSheet sheet = workbook.getSheet("test");
-				
-		        int currentproductID = 0, currentproductsetcount = 0; float L4cTrain=0;
-		        //database connection
-		        Connection connection = Utils.db_connect();
-		        Statement stmt = connection.createStatement();
-		        
-		        //current product equipment set
-		        // List<Integer> Currentsetcount = new ArrayList<>();
-		        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + CurrenProductName + "'"); // get product name id
-		        while (currentprod.next()) {
-		            currentproductID = currentprod.getInt(1);
-		           // Currentsetcount.add(currentprod.getInt(33));
-		            currentproductsetcount = currentprod.getInt(33);
-		        }
-		        
-		        
-		        List<Object> setlist = new ArrayList<>();
-		        List<Float> equipSetTotalSF = new ArrayList<>();
-		        List<Object> equipSetNamelist = new ArrayList<>();
-		        
-		        	//int L4Row = 0;
-		        	//int row = finalrow-L4Row;
-		        		
-		        
-		        	int L4Row = 41; // + row;
-		        	System.out.println("-------> + row"+L4Row);
-		        
-		        for (int i = 1; i <= currentproductsetcount; i++) 
-		        { 
-		        	List<Integer> currentequipmentID = new ArrayList<>();
-		        	 
-		 //check if only equipmnet used in the product
-		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "'"); // get product name id
-		            while (getequipfromset.next()) 
-		            {
-		                System.out.println("ony equipment selected");
-		                currentequipmentID.add(getequipfromset.getInt(4));
-		            }
-		 //check if only equipment group used in the product -current product
-		           
-		            List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
-		            // List<Integer> equipmentgroup = new ArrayList<>();
-		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + ""); // get product name id
-		            while (getequipgrpfromset.next()) {
-		                System.out.println("ony equipment group selected");
-		                eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
-		            }
-		            for (int id : eqgroupIDs) // iterate group id one by one 
-		            {
-		                int equipmentusedcount = 0;
-		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + ""); // get product name id
-		                while (geteqcountfromgrpID.next()) 
-		                {
-		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
-		                }
-		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-		                while (geteqfromgrpID.next()) 
-		                {
-		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
-		                }
-		                //  currentequipmentID.addAll(equipmentgroup);
-		            }
-		            
-		//end: check if only equipment group used in the product -current product
-		//check if only equipment train used in the product -current product
-		            int gettrainID = 0;
-		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + ""); // get product name id
-		            while (getequiptrainIDfromset.next()) {
-		                System.out.println("ony equipment train selected");
-		                gettrainID = getequiptrainIDfromset.getInt(4);
-		            }
-		            // if train used only equipmeans used the below query
-		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
-		            while (eqfromtrain.next()) {
-		                currentequipmentID.add(eqfromtrain.getInt(2));
-		            }
-		            // if train used group means - use the below query
-		            Set<Integer> groupIDs = new HashSet<>();
-		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
-		            while (eqfromtraingroup.next()) {
-		                groupIDs.add(eqfromtraingroup.getInt(1));
-		            }
-		            for (int id : groupIDs) // iterate group id one by one (from train)
-		            {
-		                //Set<Integer> equipID = new HashSet();
-		                int equipmentusedcount = 0;
-		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
-		                while (geteqcountfromgrpID.next()) {
-		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
-		                }
-		                System.out.println("Train group count"+equipmentusedcount);
-		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-		                while (geteqfromgrpID.next()) {
-		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
-		                }
-		            }
-		            
-		//end: check if only equipment train used in the product -current product 
-		           
-		            List<String>  eqnamelist = new ArrayList<>();
-		            String equipmentName =null;
-	            	float surfaceArea = 0;
-		            for(Integer eqid:currentequipmentID)
-		            {
-		            	
-		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
-		            	while(getequipdetails.next())
-		            	{
-		            		eqnamelist.add(getequipdetails.getString(1));
-		            		//equipmentName = getequipdetails.getString(1);	            		
-		            		surfaceArea = surfaceArea + getequipdetails.getFloat(2);
-		            	}
-		            	
-		            }
-		            System.out.println("Equipment Name Setlist-> "+eqnamelist);
-		            setlist.add(currentequipmentID);
-		            equipSetTotalSF.add(surfaceArea);
-		            equipSetNamelist.add(eqnamelist);
-		            
-		            
-		           
-			        // Get Train rinse volume for each set
-			        		Integer trainID = null ;
-			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id="+i+"");
-				         	while(set.next())
-				         	{
-				         		trainID = set.getInt(1);       		
-				         	}
-			      
-				        float TrainRinsevolume=0;
-			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+"");
-			         	while(eqtrain.next())
-			         	{
-			         		TrainRinsevolume = eqtrain.getFloat(1);       		
-			         	}
-			      
-			         	Calculation getrinsevolume = new Calculation();
-			         	getrinsevolume.eqRinseVolume();
-			         	
-			         	System.out.println("getrinsevolume.eqRinseVolume() "+getrinsevolume.eqRinseVolume());
-			         // equipment rinse volume()
-						 if(getrinsevolume.eqRinseVolume()==0) //check rinset from univ setting or each equipment
-						 {
-							 System.out.println("loop------------> "+L4Row);
-							 L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
-							 Cell equipRinse = sheet.getRow(L4Row).getCell(32);
-							 equipRinse.setCellValue(TrainRinsevolume); 
-							 
-							 Cell trainL4c = sheet.getRow(L4Row).getCell(33);
-							 trainL4c.setCellValue(L4cTrain); 		
-							 System.out.println("L4cTrain"+L4cTrain);
-						 }else {
-							 L4cTrain = (float) ((LowestoneExpectedL3 *  surfaceArea) / (getrinsevolume.eqRinseVolume() * 1000)) ;
-							 Cell equipRinse = sheet.getRow(L4Row).getCell(32);
-							 equipRinse.setCellValue(getrinsevolume.eqRinseVolume()); 
-							 
-							 Cell trainL4c = sheet.getRow(L4Row).getCell(33);
-							 trainL4c.setCellValue(L4cTrain); 		
-							 System.out.println("L4cTrain"+L4cTrain);
-						 }
-						 
-			         	System.out.println("surfaceArea: "+surfaceArea);
-			         	System.out.println("TrainRinsevolume: "+TrainRinsevolume);
-			 	     //   L4cTrain = (LowestoneExpectedL3 *  surfaceArea) / (TrainRinsevolume * 1000) ;
-			 	        System.out.println("L4cTrain "+L4cTrain);      
-			 	        
-			 	       L4Row++;
-			 	      System.out.println("end loop------------> "+L4Row);
-		        }
-		        L4Row++;
-		        finalrow = L4Row;
-		        System.out.println("after loop------------> "+L4Row);
-		        System.out.println("Equipment ID Setlist-> "+setlist);  	        
-		        System.out.println("Equipment SF Setlist-> "+equipSetTotalSF);	        
-		        System.out.println("Equipment Name Setlist-> "+equipSetNamelist);
-
-		               
-		        connection.close();
-		        writeTooutputFile(workbook); // write output into work sheet
-		        return L4cTrain;
-		        
-		    }
-	
+	 
 }
