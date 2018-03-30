@@ -128,7 +128,7 @@ public class L0 {
 	
 	//if grouping approach
 	//@Parameters({"productName1","productName2","productName3","productName4"})
-	public static double groupingApproach_L0(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
+	public static double groupingApproach_L0forSolid(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
 	{
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,doseL0=0,healthL0 = 0;
 		int Basislimitoption = 0,frequency = 0;
@@ -169,7 +169,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water= '"+minsolubility+ "'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -196,7 +196,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"'");
 		    while(getActive.next())
 		    {
 		    	lowestADEID = getActive.getInt(1); // get health based value
@@ -323,8 +323,302 @@ public class L0 {
 		return L0; // return that L0 in this method
 	} 
 	
+	
+	
+	public static double L0forPatch(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
+		float L0 = 0,doseL0=0;
+		float Safety_Factor = 0, Active_Concen = 0, percentageAbsorbtion = 0,minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0;
+		int Basislimitoption=0;
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = connection.createStatement();
+		// get current product name id from product table // for finding dose based and health flag
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		int prodname_id = 0;
+		while (getprodname_id.next()) 
+			{ 
+			prodname_id = getprodname_id.getInt(1); // get name id from product table
+			percentageAbsorbtion = getprodname_id.getFloat(2); // get name id from product table
+			}
+			System.out.println("name id: " + prodname_id);
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
+				//get active multiple basis of calculation ID
+				List<Integer> basislist = new ArrayList<>(); // get active list from above query
+				while (prod_basis_relation_id.next()) 
+				{
+					basislist.add(prod_basis_relation_id.getInt(2));
+				}
+				
+				for(Integer basislistID:basislist)
+				{
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+"");
+				while (basisOfcalc.next()) 
+					{
+					Safety_Factor = basisOfcalc.getFloat(1);
+					Active_Concen = basisOfcalc.getFloat(2);
+					minDailyDoseperPatch = basisOfcalc.getFloat(3);
+					minNoOFPatchesWornatTime = basisOfcalc.getFloat(4);
+					}
+				}
+					/*//get active id for getting health value
+					ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+					List<Integer> active = new ArrayList<>(); // store multiple equipment id
+				    while (getactiveID.next()) 
+				    {
+				    	active.add(getactiveID.getInt(2)); // get health based value
+				    }*/
+					
+				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit");
+				    while (residuelimit.next()) 
+					{
+				    Basislimitoption = residuelimit.getInt(1);
+					}
+				    
+				    //find health value for each active
+				    float health = 0;
+				    //get health based L0 from database
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+					while (Active.next()) 
+					{
+						health = Active.getFloat(1);
+						L0 = health;
+					}
+					System.out.println("Dose LO: "+doseL0);
+					System.out.println("Health LO: "+health);
+				    // When dose and health flag is true in basis of calculation table
+					if (Basislimitoption== 3) {
+									System.out.println("Both enabled");
+									doseL0 = (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+									
+										if (health <= doseL0) // compare both dose and health
+										{
+											L0 = health;
+										}else
+										{
+											L0=doseL0;
+										}
+										
+									System.out.println("Print lowest b/w health & dose L0: "+L0);
+									return L0; // getting lowest L0 b/w 2
+					} // for finding dose based and health flag
+					
+					if (Basislimitoption == 1) 
+					{
+						System.out.println("Dose enabled and health disabled");
+							
+						L0 = (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+						System.out.println("Print Dose based L0: " +L0);
+						return L0; // getting does L0 
+					} 
+					
+					if (Basislimitoption== 2) 
+					{
+						System.out.println("Dose disabled and health enabled");
+						// get health based L0 from database
+							L0 = health;
+						System.out.println("Print health L0: "+L0);
+						return L0;
+					}
+					connection.close();
+		return L0; // return that L0 in this method
+	} //closing calculate_P1_active1_L0
 			
-			
+	
+	
+	
+	public static double groupingApproach_L0forPatch(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
+	{
+		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, percentageAbsorbtion = 0, minNoOFPatchesWornatTime = 0, minDailyDoseperPatch = 0,doseL0=0,healthL0 = 0;
+		int Basislimitoption = 0,frequency = 0;
+		
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
+		//Get product id 
+		while (getprodname_id.next()) {
+			prodname_id = getprodname_id.getInt(1); // get name id from product table
+			//frequency = getprodname_id.getInt(2); // get frequency from product table
+			percentageAbsorbtion = getprodname_id.getFloat(2); //// get product dose from product table
+			}
+			System.out.println("name id: " + prodname_id);
+			//get active id
+			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+				List<Integer> active = new ArrayList<>(); // store multiple equipment id
+		    	while (getactiveID.next()) 
+		    	{
+		    	active.add(getactiveID.getInt(2)); // get health based value
+		    	}
+		    
+		    //get lowest solubility within api from product
+		    List<Float> Solubilities = new ArrayList<>(); // store multiple equipment id
+		    	for(int activeID:active)
+		    	{
+		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		while(getallActive.next())
+		    		{
+		    			Solubilities.add((float) getallActive.getFloat(1)); // get health based value
+		    			System.out.println("solubilityinWater" +Solubilities + "Active:"+activeID);
+		    		}
+		    	}
+		    	float minsolubility = Collections.min(Solubilities); // get minimum value from awithin active
+		    	
+		    
+		    // find minimum solubility active id
+		    for(int listofactiveID:active)
+		    {
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "'");
+		    while(getActive.next())
+		    {
+		    	lowestsolubilityID =getActive.getInt(1); // get health based value
+		    	System.out.println("Lowest solubility active id: "+lowestsolubilityID);
+		    }
+		    } // end - get lowest solubility within api from product
+		    
+		    
+		  //get lowest ADE within api from product
+		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
+		    	for(int activeID:active)
+		    	{
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		while(getallActive.next())
+		    		{
+		    			ade.add((float) getallActive.getFloat(1)); // get health based value
+		    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    		}
+		    	}
+		    	float minade = Collections.min(ade); // get minimum value from awithin active
+		    	System.out.println("Min ADE" +minade);
+		    	
+		    
+		    // find minimum solubility active id
+		    for(int listofactiveID:active)
+		    {
+		    	System.out.println("listofactiveID "+listofactiveID);
+		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+"");
+		    	while(getActive.next())
+		    	{
+		    		lowestADEID = getActive.getInt(1); // get health based value
+		    		System.out.println("Lowest ADE active id: "+lowestADEID);
+		    	}
+		    } // end - get lowest solubility within api from product
+		    
+		    //Integer basisofcalID=0;
+		    Set<Integer> basisofcalID = new HashSet<>();
+		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "'");
+		    while(basisID.next())
+		    {
+		    	basisofcalID.add(basisID.getInt(1)); // get health based value
+		    }
+		    
+		    
+		    
+		    // get values using lowest active id
+		   
+		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
+		    {
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+"");
+				while (basisOfcalc.next()) 
+				{
+					//dose_based_flag = basisOfcalc.getInt(5);
+					//health_based_flag = basisOfcalc.getInt(11); 
+					Safety_Factor = basisOfcalc.getFloat(1);
+					Active_Concen = basisOfcalc.getFloat(2);
+					minDailyDoseperPatch = basisOfcalc.getFloat(3);
+					minNoOFPatchesWornatTime = basisOfcalc.getFloat(4);
+				} 
+		    }	
+		    
+				ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit");
+			    while (residuelimit.next()) 
+				{
+			    Basislimitoption = residuelimit.getInt(1);
+				}
+			    System.out.println("Basislimitoption"+Basislimitoption);
+			    
+			    //Basis of limit option if dose or lowest between two
+					if (Basislimitoption==1 || Basislimitoption==3) 
+					{
+							System.out.println("Dose enabled and health disabled");
+							// get dose based information
+							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id="+basisofcalID+" && active_ingredient_id ='" + lowestsolubilityID + "'");
+							//System.out.println("activelist.get(0)" +activelist.get(0));
+							System.out.println("lowestsolubilityID" +lowestsolubilityID);
+							// While Loop to iterate through all data and print results
+							while (dosebaseddata.next())
+							{
+								Safety_Factor = dosebaseddata.getFloat(10);
+								Active_Concen = dosebaseddata.getFloat(6);
+								Dose_of_active = dosebaseddata.getFloat(7);
+								min_no_of_dose = dosebaseddata.getFloat(8);
+							}*/
+							
+							doseL0 =  (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+							System.out.println("Print Dose based L0" +doseL0);
+					} // closing for loop
+					
+					//Basis of limit option if health or lowest between two
+					if (Basislimitoption==2 || Basislimitoption==3) 
+					{
+						System.out.println("Dose disabled and health enabled");
+						System.out.println("lowestsolubilityID"+lowestsolubilityID);
+						System.out.println("lowestADEID: "+lowestADEID);
+						if(lowestADEID == lowestsolubilityID)
+						{
+							System.out.println(" same");
+						// get health based L0 from database
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "'");
+							while (Active.next()) 
+							{
+								float health = Active.getFloat(1);
+								healthL0 = health;
+							}
+						}else
+						{
+							System.out.println("Not same");
+							float lowestADEDose = 0,lowestsolubilityDose = 0;
+							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
+						    {
+								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "'");
+								//TO DO
+								while(LowestPDEactive.next())
+								{
+									
+									lowestADEDose = LowestPDEactive.getFloat(1);
+									System.out.println("lowestADEDose"+lowestADEDose);
+								}
+						    
+								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "'");
+								while(Lowestsolubilityactive.next())
+								{
+									lowestsolubilityDose = Lowestsolubilityactive.getFloat(1);
+									System.out.println("lowestsolubilityDose"+lowestsolubilityDose);
+								}
+						    }
+							healthL0 = ((minade/lowestADEDose) *lowestsolubilityDose);
+						}
+					}
+					
+					// get final L0 value
+					if(doseL0==0)
+					{
+						L0 = healthL0;
+					}
+					if(healthL0==0)
+					{
+						L0 = doseL0;
+					}
+					if(healthL0!=0 && doseL0!=0)
+					{
+						L0 = Math.min(doseL0,healthL0);
+					}
+					System.out.println("Print dose L0: "+doseL0);
+					System.out.println("Print health L0: "+healthL0);
+					System.out.println("Print  L0: "+L0);
+					connection.close();
+		return L0; // return that L0 in this method
+	}
 	// Write output and close workbook
 	/*public static void writeTooutputFile(Workbook workbook) throws IOException {
 		try {

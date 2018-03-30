@@ -195,7 +195,7 @@ public class ResidueCalculation {
 		WebElement limitselection = driver.findElement(By.id("limitSelection")); // select residue limit
 		Select limit = new Select(limitselection);
 		System.out.println("-----------");
-		limit.selectByIndex(2);
+		limit.selectByIndex(1);
 		String getproductname1 = sheet.getRow(41).getCell(1).getStringCellValue();
 		System.out.println("Name"+getproductname1);
 		Thread.sleep(1000);
@@ -241,7 +241,7 @@ public class ResidueCalculation {
 		driver.findElement(By.xpath("html/body/div[18]/div/button")).click();
 		
 		Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
-		for(int k=60;k<1000;k++)
+		for(int k=70;k<1000;k++)
 		{
 			j.add(k);
 		}
@@ -320,7 +320,7 @@ public class ResidueCalculation {
 	}
 	
 	
-		
+	//Solid,Liquid,Inhalant,Patch,Topical	
 	
 	double value_L1,value_L2,value_L3,Solid_Total_surface_area,maxDD,minBatch,Solid_Expec_Value_L2,Solid_Expec_Value_L3, Solid_Expec_Value_L4a, Solid_Expec_Value_L4b,Solid_Expec_Value_L1,swabSurfaceArea,swabAmount,rinsevolume
 			,L4cEquipment;
@@ -418,21 +418,39 @@ public class ResidueCalculation {
 				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
 				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(8); minBatch = productdata.getFloat(9);   }
 
-				if(limitDetermination()==2)
+				
+				String productType = sheet.getRow(39).getCell(1).getStringCellValue();
+				System.out.println("productType--->"+productType);
+				if(productType.equals("Solid")|| productType.equals("Liquid")||productType.equals("Inhalant"))
 				{
-				System.out.println("Lowest Limit");
 				System.out.println("activeID--->"+activeID);
 				value_L1 = L0.L0forSOLID(activeID, CurrenProductName) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName));
+				}
+				//if product is Transdermal Patch
+				if(productType.equals("Patch"))
+				{
+				System.out.println("activeID--->"+activeID);
+				value_L1 = L0.L0forPatch(activeID, CurrenProductName) / maxDD;
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+				Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID,CurrenProductName));
+				}
+				
+				/*if(limitDetermination()==2)
+				{
+					System.out.println("activeID--->"+activeID);
+					value_L1 = L0.L0forSOLID(activeID, CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName)); // print expected L0 result into excel
 				}
 				if(limitDetermination()==1)
 				{
-				System.out.println("grouping approach");
-				value_L1 = L0.groupingApproach_L0(CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0(CurrenProductName)); // print expected L0 result into excel
-				}
+					System.out.println("grouping approach");
+					value_L1 = L0.groupingApproach_L0(CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0(CurrenProductName)); // print expected L0 result into excel
+				}*/
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				
 				//find surface area option in residue limit whether shared or lowest
@@ -1028,8 +1046,8 @@ public class ResidueCalculation {
 
 	if(limitDetermination()==1) // Start grouping approach
 	{
-		Cell prodName1 = sheet.getRow(row).getCell(3); // print current product name
-		prodName1.setCellValue(cprodname); 	
+				Cell prodName1 = sheet.getRow(row).getCell(3); // print current product name
+				prodName1.setCellValue(cprodname); 	
 		
 				defaultValueSet(CurrenProductName);
 				List<Float> LowestExpectL3 = new ArrayList<>();
@@ -1048,11 +1066,30 @@ public class ResidueCalculation {
 				String nprodname = null;	
 				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
 				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(8); minBatch = productdata.getFloat(9);   }
-
 				
-				value_L1 = L0.groupingApproach_L0(CurrenProductName) / maxDD;
+				
+				
+				String productType = sheet.getRow(39).getCell(1).getStringCellValue();
+				System.out.println("productType--->"+productType);
+				
+				if(productType.equals("Solid")|| productType.equals("Liquid")||productType.equals("Inhalant"))
+				{
+				value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0(CurrenProductName)); // print expected L0 result into excel
+				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
+				}
+				//if product is Transdermal Patch
+				if(productType.equals("Patch"))
+				{
+				value_L1 = L0.groupingApproach_L0forPatch(CurrenProductName) / maxDD;
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+				}
+				
+				
+				//value_L1 = L0.groupingApproach_L0(CurrenProductName) / maxDD;
+				//Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+				//Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0(CurrenProductName)); // print expected L0 result into excel
 				//}
 				value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
 				

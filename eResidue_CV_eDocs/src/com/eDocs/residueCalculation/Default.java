@@ -365,7 +365,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			    // find minimum Solubility active id
 			    for(int listofactiveID:active)
 			    {
-			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && solubility_in_water LIKE "+minsolubility+ "");
+			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && solubility_in_water LIKE "+minsolubility+ " or solubility_in_water="+minsolubility+"");
 			    while(getActive.next())
 			    {
 			    	System.out.println("pass");
@@ -377,7 +377,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			    // find minimum ADE active id
 			    for(int listofactiveID:active)
 			    {
-			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && lowest_route_of_admin_value LIKE "+minADE+"");
+			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && lowest_route_of_admin_value LIKE "+minADE+" or lowest_route_of_admin_value="+minADE+"");
 			    while(getActive.next())
 			    {
 			    	System.out.println("pass");
