@@ -10,7 +10,7 @@
   <parameter name = "productName4" value= "P44"/> -->
   
     <classes>
-      <class name="com.eDocs.solidCalculation.microbialCalculation"/>
+      <class name="com.eDocs.microbialCalculation.MicrobialCalculation"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

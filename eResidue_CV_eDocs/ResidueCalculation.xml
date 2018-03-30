@@ -11,8 +11,8 @@
   <!-- <parameter name = "productName5" value= "P5"/>  -->
   
     <classes>
-      <class name="com.eDocs.Test.Default"/> 
-      <class name="com.eDocs.Test.ResidueCalculation"/>
+    <!--   <class name="com.eDocs.Test.Default"/> --> 
+      <class name="com.eDocs.residueCalculation.ResidueCalculation"/>
     </classes>
   
   </test> <!-- Test -->

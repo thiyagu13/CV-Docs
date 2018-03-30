@@ -1,4 +1,4 @@
-package com.eDocs.Test;
+package com.eDocs.residueCalculation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,7 +27,6 @@ import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
-import com.eDocs.solidCalculation.SurfaceAreaValue;
 import com.mysql.jdbc.Connection;
 public class ResidueCalculation {
 	
@@ -60,11 +59,11 @@ public class ResidueCalculation {
 	//default limit option
 	public void defaultValueSet(String CurrenProductName) throws ClassNotFoundException, SQLException, IOException, InterruptedException	{
 		
-		if(Default.UniversalSettings().equalsIgnoreCase("No_Default")) {
+		if(Default.defaultmethod().equalsIgnoreCase("No_Default")) {
 			no_default = true;
 			System.out.println("no_default  "+no_default);
-		}else if(Default.UniversalSettings().contains("Default_L1@@")) {
-			String[] a = Default.UniversalSettings().split("@@");
+		}else if(Default.defaultmethod().contains("Default_L1@@")) {
+			String[] a = Default.defaultmethod().split("@@");
 			default_l1_val = Double.parseDouble(a[1]);
 			default_l1 = true;
 			System.out.println("default_l1_val---->"+default_l1_val+"---->default_l1---->"+default_l1);
@@ -80,15 +79,15 @@ public class ResidueCalculation {
 			}
 			
 			
-		}else if(Default.UniversalSettings().contains("Default_L3@@")) {
-			String[] a = Default.UniversalSettings().split("@@");
+		}else if(Default.defaultmethod().contains("Default_L3@@")) {
+			String[] a = Default.defaultmethod().split("@@");
 			default_l3_val = Double.parseDouble(a[1]);
 			default_l3 = true;
 			System.out.println("default_l3_val---->"+default_l3_val+"---->default_l3---->"+default_l3);
 			
-		}else if(Default.UniversalSettings().contains("Default_L1L3@@")) {
+		}else if(Default.defaultmethod().contains("Default_L1L3@@")) {
 			System.out.println("Entry 4");
-			String[] a = Default.UniversalSettings().split("@@");
+			String[] a = Default.defaultmethod().split("@@");
 			default_l1l3_l1 = Double.parseDouble(a[1]);
 			default_l1l3_l3 = Double.parseDouble(a[2]);
 			default_l1_l3 = true;
@@ -242,7 +241,7 @@ public class ResidueCalculation {
 		driver.findElement(By.xpath("html/body/div[18]/div/button")).click();
 		
 		Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
-		for(int k=50;k<1000;k++)
+		for(int k=60;k<1000;k++)
 		{
 			j.add(k);
 		}
@@ -316,6 +315,8 @@ public class ResidueCalculation {
 		calculation(currentproductlist, nextproductlist);
 		
 		//writeTooutputFile(workbook); // write output into work sheet
+		Thread.sleep(10000);
+		driver.close();
 	}
 	
 	

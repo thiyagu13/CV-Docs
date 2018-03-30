@@ -1,4 +1,4 @@
-package com.eDocs.Test;
+package com.eDocs.residueCalculation;
 
 import java.io.File;
 import java.io.FileOutputStream;

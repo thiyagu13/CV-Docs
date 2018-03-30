@@ -21,8 +21,8 @@ import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
-import com.eDocs.solidCalculation.Default_Limit;
-import com.eDocs.solidCalculation.SurfaceAreaValue;
+import com.eDocs.residueCalculation.Default;
+import com.eDocs.residueCalculation.SurfaceAreaValue;
 import com.mysql.jdbc.Connection;
 public class PatchCalculation {
 	
@@ -59,10 +59,10 @@ public class PatchCalculation {
 	
 	//default limit option
 	public void defaultValueSet(String CurrenProductName) throws ClassNotFoundException, SQLException	{
-		if(Default_Limit.defaultmethod().equalsIgnoreCase("No_Default")) {
+		if(Default.defaultmethod().equalsIgnoreCase("No_Default")) {
 			no_default = true;
-		}else if(Default_Limit.defaultmethod().contains("Default_L1@@")) {
-			String[] a = Default_Limit.defaultmethod().split("@@");
+		}else if(Default.defaultmethod().contains("Default_L1@@")) {
+			String[] a = Default.defaultmethod().split("@@");
 			default_l1_val = Double.parseDouble(a[1]);
 			default_l1 = true;
 			System.out.println("default_l1_val---->"+default_l1_val+"---->default_l1---->"+default_l1);
@@ -70,32 +70,32 @@ public class PatchCalculation {
 			System.out.println("limitDetermination-->"+limitDetermination());
 			if(limitDetermination()==1) //grouping approach true and default l1 - it will apply
 			{
-				if(Default_Limit.groupingApproachDefaultL1(CurrenProductName)==true)
+				if(Default.groupingApproachDefaultL1(CurrenProductName)==true)
 				{
-					default_l1_val = default_l1_val / Default_Limit.getMaxDose(CurrenProductName);
+					default_l1_val = default_l1_val / Default.getMaxDose(CurrenProductName);
 					System.out.println("default_l1_val---->"+default_l1_val);
 				}
 			}
 			
 			
-		}else if(Default_Limit.defaultmethod().contains("Default_L3@@")) {
-			String[] a = Default_Limit.defaultmethod().split("@@");
+		}else if(Default.defaultmethod().contains("Default_L3@@")) {
+			String[] a = Default.defaultmethod().split("@@");
 			default_l3_val = Double.parseDouble(a[1]);
 			default_l3 = true;
 			System.out.println("default_l3_val---->"+default_l3_val+"---->default_l3---->"+default_l3);
 			
-		}else if(Default_Limit.defaultmethod().contains("Default_L1L3@@")) {
+		}else if(Default.defaultmethod().contains("Default_L1L3@@")) {
 			System.out.println("Entry 4");
-			String[] a = Default_Limit.defaultmethod().split("@@");
+			String[] a = Default.defaultmethod().split("@@");
 			default_l1l3_l1 = Double.parseDouble(a[1]);
 			default_l1l3_l3 = Double.parseDouble(a[2]);
 			default_l1_l3 = true;
 			System.out.println("limitDetermination-->"+limitDetermination());
 			if(limitDetermination()==1) //grouping approach true and default l1 - it will apply
 			{
-				if(Default_Limit.groupingApproachDefaultL1(CurrenProductName)==true)
+				if(Default.groupingApproachDefaultL1(CurrenProductName)==true)
 				{
-					default_l1l3_l1 = default_l1l3_l1 / Default_Limit.getMaxDose(CurrenProductName);
+					default_l1l3_l1 = default_l1l3_l1 / Default.getMaxDose(CurrenProductName);
 					System.out.println("default_l1l3_l1---->"+default_l1l3_l1);
 				}
 			}

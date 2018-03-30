@@ -1,4 +1,4 @@
-package com.eDocs.solidCalculation;
+package com.eDocs.microbialCalculation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,7 +29,7 @@ import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
-public class microbialCalculation {
+public class MicrobialCalculation {
 	
 	//static String currentproductname = "P11";
 //	static String nextproductname = "P11";

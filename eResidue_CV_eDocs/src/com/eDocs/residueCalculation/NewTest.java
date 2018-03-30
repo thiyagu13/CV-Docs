@@ -1,4 +1,4 @@
-package com.eDocs.Test;
+package com.eDocs.residueCalculation;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +17,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
@@ -26,17 +31,169 @@ import com.mysql.jdbc.Connection;
 public class NewTest {
 			
 	@Test
-	public void test() throws ClassNotFoundException, SQLException, IOException 
+	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException 
 	{
 		String CurrenProductName= "P4";
 		float LowestoneExpectedL3 = (float) 10.0;
 		float Rinsevolume =  10;
-		
+		//UniversalSettings();
 		//groupingApproach_L0_p11(CurrenProductName);
 	}
 	
 	
+ /*static WebDriver driver;
+	public static String UniversalSettings() throws IOException, InterruptedException,ClassNotFoundException, SQLException {
+		//System.setProperty("webdriver.Chrome.driver","C:\\selenium\\Testing\\chromedriver.exe");
+		System.setProperty("webdriver.gecko.driver","C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe");
+		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+
+		capabilities.setCapability("marionette", true);
+		
+		driver = new FirefoxDriver(capabilities);
+		// Open the application
+		driver.get("http://192.168.1.111:8090/login");
+		Thread.sleep(1000);
+		driver.findElement(By.id("username")).sendKeys("admin");
+		driver.findElement(By.id("password")).sendKeys("123456");
+		Thread.sleep(3000);
+		driver.findElement(By.id("loginsubmit")).click();
+		Thread.sleep(1000);
+		driver.get("http://192.168.1.111:8090/residue-limit");
+		
+		//driver.switchTo().alert().accept();
+		if (driver.getTitle().equalsIgnoreCase("Report Tracker - eResidue") == false) {
+			Thread.sleep(1000);
+			String pop = driver.getWindowHandle();
+			driver.switchTo().window(pop);
+			Thread.sleep(1000);
+			driver.findElement(By.xpath(".//*[@id='loginForm']/div[3]/div/input[2]")).click();
+		}
+		// ForceLogin
+		if (driver.findElement(By.className("top-message")).getText()
+				.equalsIgnoreCase("Invalid credentials!")) {
+			System.out.println(driver.findElement(By.className("top-message"))
+					.getText());
+		} else {
+			// Force Login
+			if (driver.getTitle().equalsIgnoreCase("Report Tracker - eResidue") == false) {
+				Thread.sleep(1000);
+				String pop = driver.getWindowHandle();
+				driver.switchTo().window(pop);
+				Thread.sleep(1000);
+				driver.findElement(By.id("forcelogin")).click();
+			}
+		}
+		Thread.sleep(1000);
+		
+		// mouse over on Settings menu
+		WebElement f = driver.findElement(By.xpath(".//*[@id='settings']"));
+		Actions a1 = new Actions(driver);
+		Thread.sleep(300);
+		a1.moveToElement(f).perform();
+		Thread.sleep(1000);
+		// select Universal Settings option
+		driver.findElement(By.linkText("Universal Settings")).click();
+		Thread.sleep(500);
+		System.out.println(driver.getTitle());
+		Thread.sleep(500);
+		// select Limit Definition Tab
+		driver.findElement(By.linkText("Limit Definition")).click();
 	
+		defaultmethod();
+		//System.out.println("defaultmethod option selected---->"+defaultmethod());
+		//Thread.sleep(10000);
+		//driver.close();
+		return defaultmethod();
+	}
+		
+	*/
+	
+	
+public static String defaultmethod() throws SQLException, ClassNotFoundException
+		{
+				
+		//database connection
+			Connection connection = Utils.db_connect();
+			Statement stmt = (Statement) connection.createStatement();
+			Integer defaultLimitOption=0,l1_default_flag=0,l3_default_flag = 0;
+			float l1_other_value = 0,l3_other_value=0;
+			ResultSet defaultLimit = stmt.executeQuery("SELECT l1_and_l3_option,l1_default_flag,l1_other_value,l3_default_flag,l3_other_value FROM residue_limit");
+			while (defaultLimit.next()) 
+			{
+				 defaultLimitOption = defaultLimit.getInt(1);
+				 l1_default_flag = defaultLimit.getInt(2); // use Default value for L1 (option- default or other)
+				 l1_other_value = defaultLimit.getFloat(3); // use Default value for L1 value (both default & other value stored)
+				 l3_default_flag = defaultLimit.getInt(4); // use Default value for L3 (option- default or other)
+				 l3_other_value = defaultLimit.getFloat(5); // use Default value for L3 value (both default & other value stored)
+			}
+	
+	
+	
+	
+		for (int i = 1; i <=defaultLimitOption; i++) 
+		{			
+				//No Default used. Use calculated value
+				if(defaultLimitOption==1)
+				{
+					return "No_Default";
+				}
+				
+				//Use a Default value for L1
+				if(defaultLimitOption==2)
+				{					
+					//{
+						if (l1_default_flag==1) // L1 default value(10ppm)
+						{
+						 // For unit conversion (ppm to mg/g)
+						float de_L1_unitCon = (float) (l1_other_value * 0.001);
+						System.out.println("de_L1_unitCon"+de_L1_unitCon);
+						return "Default_L1@@"+de_L1_unitCon;
+						
+						}
+						if (l1_default_flag==0) // L1 default other value
+						{
+						//String de_L1 = driver.findElement(By.id("defautL1OthersValue")).getAttribute("value");
+						float de_L1_unitCon = (float) (l1_other_value * 0.001);
+						//String de_L1_unitCon = Double.toString(l1_other_value * 0.001); // For unit conversion (ppm to mg/g)
+						System.out.println("de_L1_unitCon"+de_L1_unitCon);
+						return "Default_L1@@"+de_L1_unitCon;
+					
+						}											
+				}
+				
+				//Third Radio button is selected
+				if(defaultLimitOption==3)
+				{					
+						if (l3_default_flag==1) // L3 default value 
+						{						
+							float de_L3 = l3_other_value;
+							System.out.println("Use a default value for L3="+de_L3+" mg/sq.cm ");
+							return "Default_L3@@"+de_L3;
+						}
+						if (l3_default_flag==0) // L3 default other value
+						{						
+							float de_L3 = l3_other_value;
+							System.out.println("Use a default value for L3="+de_L3+"mg/sq.cm (other)");
+							return "Default_L3@@"+de_L3;
+						}					
+				}
+				
+				//Fourth Radio button is selected
+				if(defaultLimitOption==4)
+				{					
+						float de_L1_Conv = (float) (l1_other_value * 0.001); 						
+						System.out.println("Use a default value for L1="+de_L1_Conv+"ppm");						
+						
+						float de_L1_L3 = (float) (l3_other_value ); 						  
+						System.out.println("Use a default value for L3="+de_L1_L3+"mg/sq.cm "); // Default L3 value
+						return "Default_L1L3@@"+de_L1_Conv +"@@"+de_L1_L3 ;											
+				}
+			
+			} // closing for loop
+		connection.close();
+		return null;
+		}
+		
 	
 	
 	

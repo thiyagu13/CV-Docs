@@ -1,4 +1,4 @@
-package com.eDocs.solidCalculation;
+package com.eDocs.microbialCalculation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

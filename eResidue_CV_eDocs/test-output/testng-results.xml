@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="170315" started-at="2018-03-29T14:20:24Z" finished-at="2018-03-29T14:23:14Z">
+  <suite name="Suite" duration-ms="76401" started-at="2018-03-30T06:22:13Z" finished-at="2018-03-30T06:23:29Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="170315" started-at="2018-03-29T14:20:24Z" finished-at="2018-03-29T14:23:14Z">
-      <class name="com.eDocs.Test.Calculation">
-        <test-method status="PASS" signature="test()[pri:0, instance:com.eDocs.Test.Calculation@1a968a59]" name="test" duration-ms="170300" started-at="2018-03-29T19:50:24Z" finished-at="2018-03-29T19:53:14Z">
+    <test name="Test" duration-ms="76401" started-at="2018-03-30T06:22:13Z" finished-at="2018-03-30T06:23:29Z">
+      <class name="com.eDocs.residueCalculation.ResidueCalculation">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.eDocs.residueCalculation.ResidueCalculation@53b32d7]" name="test" duration-ms="76380" started-at="2018-03-30T11:52:13Z" finished-at="2018-03-30T11:53:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- test -->
-      </class> <!-- com.eDocs.Test.Calculation -->
+      </class> <!-- com.eDocs.residueCalculation.ResidueCalculation -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>
