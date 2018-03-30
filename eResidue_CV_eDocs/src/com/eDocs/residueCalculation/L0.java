@@ -1,7 +1,5 @@
 package com.eDocs.residueCalculation;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,8 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.poi.ss.usermodel.Workbook;
-import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
@@ -330,7 +326,7 @@ public class L0 {
 			
 			
 	// Write output and close workbook
-	public static void writeTooutputFile(Workbook workbook) throws IOException {
+	/*public static void writeTooutputFile(Workbook workbook) throws IOException {
 		try {
 			FileOutputStream outFile = new FileOutputStream(new File(Constant.EXCEL_PATH_Result));
 			workbook.write(outFile);
@@ -338,5 +334,5 @@ public class L0 {
 		} catch (Exception e) {
 			throw e;
 		}
-	}
+	}*/
 }

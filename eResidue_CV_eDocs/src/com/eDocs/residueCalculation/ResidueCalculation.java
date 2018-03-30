@@ -168,7 +168,7 @@ public class ResidueCalculation {
 	{
 			
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
-		XSSFSheet sheet = workbook.getSheet("test");
+		XSSFSheet sheet = workbook.getSheet("ResidueCalculation");
 		
 		driver = new FirefoxDriver();
 		// Open the application
@@ -333,7 +333,7 @@ public class ResidueCalculation {
 		System.out.println("Nextprod   "+Nextprod);
 		
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
-		XSSFSheet sheet = workbook.getSheet("test");
+		XSSFSheet sheet = workbook.getSheet("ResidueCalculation");
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 				//next product id // Execute the SQL Query. Store results in Result Set // While Loop to iterate through all data and print results
