@@ -241,7 +241,7 @@ public class ResidueCalculation {
 		driver.findElement(By.xpath("html/body/div[18]/div/button")).click();
 		
 		Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
-		for(int k=70;k<1000;k++)
+		for(int k=75;k<1000;k++)
 		{
 			j.add(k);
 		}
@@ -261,10 +261,10 @@ public class ResidueCalculation {
 			Thread.sleep(500);
 			try
 			{
-				if(driver.findElement(By.xpath("html/body/div[18]/div/span"))!=null)
+				//if(driver.findElement(By.xpath("html/body/div[18]/div/span"))!=null)
+				System.out.println("Size----->"+driver.findElements(By.id("saveCalculateProduct")).size());
+				if(driver.findElements(By.id("saveCalculateProduct")).size()!=0)
 				{
-					
-					System.out.println(driver.findElement(By.xpath("html/body/div[18]/div/span"))==null);
 					String title_duplicate = driver.findElement(By.xpath("html/body/div[18]/div/span")).getText();
 					System.out.println("title_duplicate: "+title_duplicate);
 					driver.findElement(By.xpath("html/body/div[18]/div/button")).click(); //close the duplicate validation alert
