@@ -22,6 +22,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -79,8 +80,8 @@ public class Utils {
 	  
 	  
 	  public  WebDriver getWebDriver() {
-			
-			WebDriver driver = new ChromeDriver();
+		 // System.setProperty("webdriver.chrome.driver", "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\chromedriver.exe");
+			WebDriver driver = new FirefoxDriver();
 			driverObjMap.put(getClass().getName(),driver);
 			return driver;
 		}

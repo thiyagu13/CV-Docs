@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.EquipmentTrain">
+      <class name="com.eDocs.SanityTesting.API">
         <methods>
           <include name="setUp"/>
-          <include name="CreateEquipment"/>
+          <include name="CreateAPI"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.EquipmentTrain -->
+      </class> <!-- com.eDocs.SanityTesting.API -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

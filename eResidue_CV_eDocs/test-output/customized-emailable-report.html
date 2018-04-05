@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>TestNG Report</title>
+<style type="text/css">
+table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}
+td,th {border:1px solid #009;padding:.25em .5em}
+.result th {vertical-align:bottom}
+.param th {padding-left:1em;padding-right:1em}
+.param td {padding-left:.5em;padding-right:2em}
+.stripe td,.stripe th {background-color: #E6EBF9}
+.numi,.numi_attn {text-align:right}
+.total td {font-weight:bold}
+.passedodd td {background-color: #0A0}
+.passedeven td {background-color: #3F3}
+.skippedodd td {background-color: #CCC}
+.skippedodd td {background-color: #DDD}
+.failedodd td,.numi_attn {background-color: #F33}
+.failedeven td,.stripe .numi_attn {background-color: #D00}
+.stacktrace {white-space:pre;font-family:monospace}
+.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}
+</style>
+</head>
+<body>
+<table cellspacing="0" cellpadding="0" class="testOverview">
+<tr><th>Test</th><th># passed</th><th># skipped</th><th># failed</th><th>Start<br/>Time</th><th>End<br/>Time</th><th>Total<br/>Time(hh:mm:ss)</th><th>Included<br/>Groups</th><th>Excluded<br/>Groups</th></tr>
+<tr><th colspan="10">Suite</th></tr>
+<tr><td style="text-align:left;padding-right:2em"><a href="#t1"><b>Test</b></a></td><td class="numi">1</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">19:29:29</td></td>
+<td class="numi">19:29:58</td></td>
+<td class="numi">00:00:29</td><td class="numi"></td><td class="numi"></td></tr>
+</table>
+<table cellspacing="0" cellpadding="0" class="methodOverview" id="summary">
+<tr><th>Class</th><th>Method</th><th>Exception & screenshot</th><th>Start Time </th><th>Time<br/>(hh:mm:ss)</th></tr>
+<tr><th colspan="5">Suite</th></tr>
+<tr id="t1"><th colspan="5">Test &#8212; failed</th></tr>
+<tr class="failedodd"><td>com.eDocs.SanityTesting.Equipment</td><td><a href="#m1"><b>EditEquipment</b>  </a></td><td class="numi" style="text-align:left;padding-right:2em">org.openqa.selenium.NoSuchElementException: Unable to locate element: .notify\-msg<br/><a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\Equipment\EditEquipment.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\Equipment\EditEquipment.png'> </a><br/></td><td style="text-align:right">19:29:35</td><td class="numi">00:00:23</td></tr>
+<tr><th colspan="5">Test &#8212; passed</th></tr>
+<tr class="passedodd"><td>com.eDocs.SanityTesting.Equipment</td><td><a href="#m2"><b>Login</b>  </a></td><td class="numi" style="text-align:left;padding-right:2em"><br/></td><td style="text-align:right">19:29:30</td><td class="numi">00:00:05</td></tr>
+</table>
+<h1>Test</h1>
+<h2 id="m1">com.eDocs.SanityTesting.Equipment:EditEquipment</h2>
+<div>
+<h3>Test Messages</h3>
+<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\Equipment\EditEquipment.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\Equipment\EditEquipment.png'> </a><br/>
+<h3>Failure</h3>
+<div class="stacktrace">org.openqa.selenium.NoSuchElementException: Unable to locate element: .notify\-msg
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;3.11.0&apos;, revision: &apos;e59cfb3&apos;, time: &apos;2018-03-11T20:33:08.638Z&apos;
+System info: host: &apos;EZS013&apos;, ip: &apos;192.168.1.45&apos;, os.name: &apos;Windows 8.1&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.3&apos;, java.version: &apos;1.8.0_05&apos;
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0.2, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 10924, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 286c53cb-c8a8-4049-ae00-975e649c0a6c
+*** Element info: {Using=class name, value=notify-msg}
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:319)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByClassName(RemoteWebDriver.java:405)
+	at org.openqa.selenium.By$ByClassName.findElement(By.java:391)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:311)
+	at com.eDocs.SanityTesting.Equipment.EditEquipment(Equipment.java:355)
+... Removed 29 stack frames</div>
+</div>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m2">com.eDocs.SanityTesting.Equipment:Login</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<center> Report customized </center>
+</body></html>
