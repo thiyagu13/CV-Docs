@@ -14,6 +14,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -40,12 +41,13 @@ public class ResidueCalculation {
 	public boolean default_l1_l3 = false;
 	
 		
+	String tenant_id="20172017";
 	public int limitDetermination() throws ClassNotFoundException, SQLException
 	{
 		int LimitDeterminationOption = 0;
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet LimitDetermination = stmt.executeQuery("SELECT * FROM residue_limit");
+		ResultSet LimitDetermination = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
 		while (LimitDetermination.next()) 
 		{
 			LimitDeterminationOption = LimitDetermination.getInt(10);
@@ -109,7 +111,7 @@ public class ResidueCalculation {
 	public double swabArea() throws ClassNotFoundException, SQLException {
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet residueLimit = stmt.executeQuery("SELECT definded_for_each_equip_loc_for_surface_area_sampled_flag,value_for_same_products_for_surface_area_sampled FROM residue_limit");
+		ResultSet residueLimit = stmt.executeQuery("SELECT definded_for_each_equip_loc_for_surface_area_sampled_flag,value_for_same_products_for_surface_area_sampled FROM residue_limit where tenant_id='"+tenant_id+"'");
 		while (residueLimit.next()) 
 		{	
 		int definded_for_each_equip_loc_for_surface_area_sampled_flag = residueLimit.getInt(1);
@@ -126,7 +128,7 @@ public class ResidueCalculation {
 	public double swabAmount() throws ClassNotFoundException, SQLException {
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet residueLimit = stmt.executeQuery("SELECT definded_for_each_equip_loc_for_solvent_used_flag,value_for_same_products_for_solvent_used FROM residue_limit");
+		ResultSet residueLimit = stmt.executeQuery("SELECT definded_for_each_equip_loc_for_solvent_used_flag,value_for_same_products_for_solvent_used FROM residue_limit where tenant_id='"+tenant_id+"'");
 		while (residueLimit.next()) 
 		{
 			int definded_for_each_equip_loc_for_solvent_used_flag = residueLimit.getInt(1);
@@ -145,7 +147,7 @@ public class ResidueCalculation {
 	public double eqRinseVolume() throws ClassNotFoundException, SQLException {//Get value from universal settings
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet residueLimit = stmt.executeQuery("SELECT defined_for_each_equip_or_train_loc_flag,sampling_method,rinse_sampling_option,same_for_all_equip_value_for_rinse_volume FROM residue_limit");
+		ResultSet residueLimit = stmt.executeQuery("SELECT defined_for_each_equip_or_train_loc_flag,sampling_method,rinse_sampling_option,same_for_all_equip_value_for_rinse_volume FROM residue_limit where tenant_id='"+tenant_id+"'");
 		while (residueLimit.next())																										  
 		{	
 			int defined_for_each_equip_or_train_loc_flag = residueLimit.getInt(1);
@@ -166,7 +168,7 @@ public class ResidueCalculation {
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException
 	{
-			
+		/*	
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
 		XSSFSheet sheet = workbook.getSheet("ResidueCalculation");
 		
@@ -189,7 +191,7 @@ public class ResidueCalculation {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath(".//*[@id='calculateProductForm']/div[2]/div[2]/div/div/label")).click(); // click manual calculation option
 		Thread.sleep(1000);
-		String title = "Test Calculation62";
+		String title = "Test Calculation63";
 		driver.findElement(By.name("title")).sendKeys(title);//title of calculation
 		Thread.sleep(2000);
 		WebElement limitselection = driver.findElement(By.id("limitSelection")); // select residue limit
@@ -292,25 +294,26 @@ public class ResidueCalculation {
 		
 		Thread.sleep(300);
 		
+		
+		
+		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
   		
   		System.out.println("currentproductlist "+currentproductlist);
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);
-		System.out.println("nextproductlist "+nextproductlist);
+		System.out.println("nextproductlist "+nextproductlist);*/
 		
-		/*List<String>  currentproductlist = new ArrayList<>(); //store product list
-  		currentproductlist.add("P1");
-  		currentproductlist.add("P2");
-  		currentproductlist.add("P3");
-  		currentproductlist.add("train product");
+		Set<String> selectedproducts = new HashSet<>();
+		selectedproducts.add("Test3");
+		selectedproducts.add("Test4");
+		
+		List<String>  currentproductlist = new ArrayList<>(); //store product list
+  		currentproductlist.addAll(selectedproducts);
   		
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
-		nextproductlist.add("P1");
-		nextproductlist.add("P2");
-		nextproductlist.add("P3");
-		nextproductlist.add("train product");*/
+		nextproductlist.addAll(selectedproducts);
 		
 		Thread.sleep(1000);
 		//System.out.println("currentproductlist   "+currentproductlist);
@@ -319,7 +322,7 @@ public class ResidueCalculation {
 		
 		//writeTooutputFile(workbook); // write output into work sheet
 		Thread.sleep(10000);
-		driver.close();
+		//driver.close();
 	}
 	
 	
@@ -335,7 +338,7 @@ public class ResidueCalculation {
 		System.out.println("CurrenProduct   "+CurrenProduct);
 		System.out.println("Nextprod   "+Nextprod);
 		
-		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
+		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
 		XSSFSheet sheet = workbook.getSheet("ResidueCalculation");
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
@@ -459,7 +462,7 @@ public class ResidueCalculation {
 				
 				//find surface area option in residue limit whether shared or lowest
 				int sharedORLowest=0;
-				ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit"); // get equipment id
+				ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit where tenant_id='"+tenant_id+"'"); // get equipment id
 			    while (surfaceAreaOption.next()) 
 			    {
 			      sharedORLowest =surfaceAreaOption.getInt(1);
@@ -1099,7 +1102,7 @@ public class ResidueCalculation {
 				
 				//find surface area option in residue limit whether shared or lowest
 				int sharedORLowest=0;
-				ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit"); // get equipment id
+				ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit where tenant_id='"+tenant_id+"'"); // get equipment id
 			    while (surfaceAreaOption.next()) 
 			    {
 			      sharedORLowest =surfaceAreaOption.getInt(1);

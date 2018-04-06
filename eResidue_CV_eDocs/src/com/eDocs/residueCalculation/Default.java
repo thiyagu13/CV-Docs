@@ -21,7 +21,7 @@ import com.mysql.jdbc.Connection;
 public class Default {
 	public static WebDriver driver;
 	
-	
+	static String tenant_id="20172017";
 	/*public static String UniversalSettings() throws IOException, InterruptedException,ClassNotFoundException {
 		//System.setProperty("webdriver.Chrome.driver","C:\\selenium\\Testing\\chromedriver.exe");
 		System.setProperty("webdriver.gecko.driver","C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe");
@@ -209,7 +209,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			Statement stmt = (Statement) connection.createStatement();
 			Integer defaultLimitOption=0,l1_default_flag=0,l3_default_flag = 0;
 			float l1_other_value = 0,l3_other_value=0;
-			ResultSet defaultLimit = stmt.executeQuery("SELECT l1_and_l3_option,l1_default_flag,l1_other_value,l3_default_flag,l3_other_value FROM residue_limit");
+			ResultSet defaultLimit = stmt.executeQuery("SELECT l1_and_l3_option,l1_default_flag,l1_other_value,l3_default_flag,l3_other_value FROM residue_limit where tenant_id='"+tenant_id+"'");
 			while (defaultLimit.next()) 
 			{
 				 defaultLimitOption = defaultLimit.getInt(1);

@@ -16,7 +16,7 @@ import com.mysql.jdbc.Connection;
 public class L0 {
 	
 
-	
+	static String tenant_id="20172017";
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 		int Basislimitoption=0;
@@ -64,7 +64,7 @@ public class L0 {
 				    	active.add(getactiveID.getInt(2)); // get health based value
 				    }*/
 					
-				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit");
+				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
 				    while (residuelimit.next()) 
 					{
 				    Basislimitoption = residuelimit.getInt(2);
@@ -242,7 +242,7 @@ public class L0 {
 				} 
 		    }	
 		    
-				ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit");
+				ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
 			    while (residuelimit.next()) 
 				{
 			    Basislimitoption = residuelimit.getInt(1);
@@ -379,7 +379,7 @@ public class L0 {
 				    	active.add(getactiveID.getInt(2)); // get health based value
 				    }*/
 					
-				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit");
+				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
 				    while (residuelimit.next()) 
 					{
 				    Basislimitoption = residuelimit.getInt(1);
@@ -541,7 +541,7 @@ public class L0 {
 				} 
 		    }	
 		    
-				ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit");
+				ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
 			    while (residuelimit.next()) 
 				{
 			    Basislimitoption = residuelimit.getInt(1);
