@@ -31,11 +31,11 @@ public class Constant {
 	
 	public static final String password = "Quascenta@521";	*/
 	
-	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs_db_integrity";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.45:3306/db_integrity_test";
 	
-	public static final String username = "thiyagu";
+	public static final String username = "root";
 	
-	public static final String password = "Quascenta@521";	
+	public static final String password = "root123";	
 	
 	public static final String equipment_Properties_Path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties";
 	

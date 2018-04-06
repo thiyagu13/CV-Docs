@@ -24,7 +24,8 @@ public class L0 {
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
-		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		System.out.println("");
+		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name ='"+CurrenProductName+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{
@@ -35,27 +36,33 @@ public class L0 {
 			System.out.println("name id: " + prodname_id);
 			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
 				//get active multiple active id
-				List<Integer> activelist = new ArrayList<>(); // get active list from above query
+				List<Integer> BasisID = new ArrayList<>(); // get active list from above query
 				while (prod_basis_relation_id.next()) 
 				{
-				activelist.add(prod_basis_relation_id.getInt(2));
+					BasisID.add(prod_basis_relation_id.getInt(2));
 				}
 			  	//System.out.println("First Active:" +activelist.get(0));// get 1st id
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='" + activeID + "'");
+				System.out.println("BasisID"+BasisID);
+				System.out.println("activeID"+activeID);
+				for(Integer basis:BasisID) {
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(10);
 					Active_Concen = basisOfcalc.getFloat(6);
 					Dose_of_active = basisOfcalc.getFloat(7);
 					min_no_of_dose = basisOfcalc.getFloat(8);
+					System.out.println(Safety_Factor);
+					System.out.println(Dose_of_active);
 					}
+				}
 					//get active id for getting health value
-					ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+					/*ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
 					List<Integer> active = new ArrayList<>(); // store multiple equipment id
 				    while (getactiveID.next()) 
 				    {
 				    	active.add(getactiveID.getInt(2)); // get health based value
-				    }
+				    }*/
 					
 				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit");
 				    while (residuelimit.next()) 
@@ -70,7 +77,10 @@ public class L0 {
 										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
 									} else { // if dose of active not null
 										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
+										System.out.println(Safety_Factor);
+										System.out.println(Dose_of_active);
 									}
+									System.out.println("LO"+L0);
 									// get health based L0 from database
 									ResultSet Active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+activeID+ "'");
 									while (Active.next()) 
@@ -88,7 +98,7 @@ public class L0 {
 					if (Basislimitoption == 1) {
 						System.out.println("Dose enabled and health disabled");
 							// get dose based information
-							ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='" + activeID + "'");
+							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='" + BasisID + "' && active_ingredient_id="+activeID+"");
 							// While Loop to iterate through all data and print results
 							while (dosebaseddata.next())
 							{
@@ -96,7 +106,7 @@ public class L0 {
 								Active_Concen = dosebaseddata.getFloat(6);
 								Dose_of_active = dosebaseddata.getFloat(7);
 								min_no_of_dose = dosebaseddata.getFloat(8);
-							}
+							}*/
 									if (Dose_of_active == 0) { // if dose of active is null
 										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
 									} else { // if dose of active not null
@@ -110,10 +120,10 @@ public class L0 {
 					{
 						System.out.println("Dose disabled and health enabled");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+activeID+ "'");
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
 						while (Active.next()) 
 						{
-							float health = Active.getFloat(12);
+							float health = Active.getFloat(1);
 							L0 = health;
 						}
 						System.out.println("Print health L0: "+L0);
@@ -130,6 +140,7 @@ public class L0 {
 	//@Parameters({"productName1","productName2","productName3","productName4"})
 	public static double groupingApproach_L0forSolid(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
 	{
+		System.out.println("------------------------------------------------------Current product: "+CurrenProductName);
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,doseL0=0,healthL0 = 0;
 		int Basislimitoption = 0,frequency = 0;
 		//database connection

@@ -172,16 +172,16 @@ public class ResidueCalculation {
 		
 		driver = new FirefoxDriver();
 		// Open the application
-		driver.get("http://192.168.1.111:8090/login");
+		driver.get("http://192.168.1.45:8091/login");
 		Thread.sleep(1000);
 		driver.findElement(By.id("username")).sendKeys("admin");
 		driver.findElement(By.id("password")).sendKeys("123456");
 		Thread.sleep(3000);
 		driver.findElement(By.id("loginsubmit")).click();
 		Thread.sleep(1000);
-		driver.get("http://192.168.1.111:8090/products");
+		driver.get("http://192.168.1.45:8091/products");
 		Thread.sleep(1000);
-		driver.findElement(By.id("searchEquipment")).sendKeys("P11");
+		driver.findElement(By.id("searchEquipment")).sendKeys("Test P1");
 		Thread.sleep(1000);
 		driver.findElement(By.xpath(".//*[@id='dLabel']/i")).click();
 		Thread.sleep(1000);
@@ -189,7 +189,7 @@ public class ResidueCalculation {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath(".//*[@id='calculateProductForm']/div[2]/div[2]/div/div/label")).click(); // click manual calculation option
 		Thread.sleep(1000);
-		String title = "Test Calculation";
+		String title = "Test Calculation62";
 		driver.findElement(By.name("title")).sendKeys(title);//title of calculation
 		Thread.sleep(2000);
 		WebElement limitselection = driver.findElement(By.id("limitSelection")); // select residue limit
@@ -236,9 +236,9 @@ public class ResidueCalculation {
 		driver.findElement(By.id("saveCalculateProduct")).click(); // Click calculation submit button
 		
 		//get duplication calculation
-		String gettitle = driver.findElement(By.xpath("html/body/div[18]/div/span")).getText();
+		//String gettitle = driver.findElement(By.className("notify-msg")).getText();
 		Thread.sleep(500);
-		driver.findElement(By.xpath("html/body/div[18]/div/button")).click();
+		//driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 		
 		Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 		for(int k=75;k<1000;k++)
@@ -250,10 +250,11 @@ public class ResidueCalculation {
 		iteratecaltitle.addAll(j);
 		
 		System.out.println("iteratecaltitle-->"+iteratecaltitle);
-		if(gettitle.equals("Calculation '"+title+"' already exists!"))
+		if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Calculation '"+title+"' already exists!"))
 		{
 			for(Integer i:iteratecaltitle)
 			{
+			driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 			WebElement caltitle1 = driver.findElement(By.name("title"));//title of calculation
 			caltitle1.clear();
 			caltitle1.sendKeys(title+i);
@@ -265,9 +266,9 @@ public class ResidueCalculation {
 				System.out.println("Size----->"+driver.findElements(By.id("saveCalculateProduct")).size());
 				if(driver.findElements(By.id("saveCalculateProduct")).size()!=0)
 				{
-					String title_duplicate = driver.findElement(By.xpath("html/body/div[18]/div/span")).getText();
+					String title_duplicate = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("title_duplicate: "+title_duplicate);
-					driver.findElement(By.xpath("html/body/div[18]/div/button")).click(); //close the duplicate validation alert
+					driver.findElement(By.cssSelector(".close.custom-notify-close")).click(); //close the duplicate validation alert
 					if(title_duplicate.equals("Calculation '"+title+i+"' already exists!"))
 					{
 						iteratecaltitle.lastIndexOf(i);
@@ -294,8 +295,10 @@ public class ResidueCalculation {
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
   		
+  		System.out.println("currentproductlist "+currentproductlist);
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);
+		System.out.println("nextproductlist "+nextproductlist);
 		
 		/*List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.add("P1");
@@ -349,6 +352,7 @@ public class ResidueCalculation {
 				//List<Float> LowestExpectL3 = new ArrayList<>();
 				int row=41,column=9; //excel row and column		
 				int L4Row =41;int TrainRow = 41;
+				Thread.sleep(10000);
 		for(String CurrenProductName : currentproductlist) // Current product list
 		{
 				System.out.println("CurrenProductName-->"+CurrenProductName);
