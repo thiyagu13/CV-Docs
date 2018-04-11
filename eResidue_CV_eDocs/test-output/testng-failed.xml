@@ -3,11 +3,15 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.residueCalculation.ResidueCalculation">
+      <class name="com.eDocs.SanityTesting.Product">
         <methods>
-          <include name="test"/>
+          <include name="setUp"/>
+          <include name="CreateProductDILUENT"/>
+          <include name="EditProductDILUENT"/>
+          <include name="EditProductCLEANINGAGENT"/>
+          <include name="CreateProductCLENAINGAGENT"/>
         </methods>
-      </class> <!-- com.eDocs.residueCalculation.ResidueCalculation -->
+      </class> <!-- com.eDocs.SanityTesting.Product -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
