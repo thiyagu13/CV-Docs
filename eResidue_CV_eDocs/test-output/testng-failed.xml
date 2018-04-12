@@ -6,10 +6,7 @@
       <class name="com.eDocs.SanityTesting.Product">
         <methods>
           <include name="setUp"/>
-          <include name="CreateProductDILUENT"/>
-          <include name="EditProductDILUENT"/>
-          <include name="EditProductCLEANINGAGENT"/>
-          <include name="CreateProductCLENAINGAGENT"/>
+          <include name="MultiDeleteEquipmentTrain"/>
         </methods>
       </class> <!-- com.eDocs.SanityTesting.Product -->
     </classes>
