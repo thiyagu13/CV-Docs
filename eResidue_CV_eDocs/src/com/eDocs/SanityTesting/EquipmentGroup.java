@@ -26,16 +26,32 @@ public class EquipmentGroup {
 				private RepositoryParser parser;
 				private WebDriver driver = Constant.driver;
 				public String password = "123456";
-			
-				/*@BeforeClass
+				static String EquipmentGroupName = "Test Group";
+				static String groupIdentifyEquipment = "Test Equipment";
+				
+				//Create Group Data's
+				static String groupCommentsCREATE = "Create equipment group";
+				static String groupChangeControlCREATE = "Create equipment group";
+				static String groupNoOfRunsCREATE = "3";
+				static String groupProtocolDocCREATE = "equip Group protocol for create";
+				static String groupReportIDCREATE = "equip Group report for create";
+				
+				//Edit Group Data's
+				static String groupCommentsEDIT = "edit equipment group";
+				static String groupChangeControlEDIT = "Edit equipment group";
+				static String groupNoOfRunsEDIT = "4";
+				static String groupProtocolDocEDIT = "equip Group protocol for edit";
+				static String groupReportIDEDIT = "equip Group report for edit";
+				
+				@BeforeClass
 				public void setUp() throws IOException  
 				{
 					driver = new FirefoxDriver();
-					driver.get("http://192.168.1.45:8091");
+					driver.get("http://192.168.1.111:8090");
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
-				}*/
+				}
 			
-				/*@Test(priority=2)
+				@Test(priority=2)
 				public void Login() throws InterruptedException, IOException
 				{
 					//Lets see how we can find the first name field
@@ -48,9 +64,9 @@ public class EquipmentGroup {
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
 					Thread.sleep(500);
-					driver.get("http://192.168.1.45:8091/equipment-group");
+					driver.get("http://192.168.1.111:8090/equipment-group");
 					Thread.sleep(500);
-				}*/
+				}
 	
 	
 				@Test(priority=8,invocationCount=2)
@@ -64,7 +80,7 @@ public class EquipmentGroup {
 					Thread.sleep(1000);
 					driver.findElement(By.xpath(".//*[@id='addGroup']/span")).click(); // Click create equipment button
 					Thread.sleep(500);
-					String GroupName = "Test Equipment Group";
+					String GroupName = EquipmentGroupName;
 					WebElement eqGRPName = driver.findElement(parser.getbjectLocator("EquipmentGroupName")); //Equipment Name field
 					eqGRPName.sendKeys(GroupName);
 					Thread.sleep(500);
@@ -75,12 +91,12 @@ public class EquipmentGroup {
 					SelectGroupCriteria.selectByIndex(1);
 					Thread.sleep(500);
 					
-					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys("Test equipment group comments");
+					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys(groupCommentsCREATE);
 					Thread.sleep(500);
 					
 					
 					WebElement IdentifuEquip = driver.findElement(By.className("select2-search__field"));
-					IdentifuEquip.sendKeys("Test Equipment");
+					IdentifuEquip.sendKeys(groupIdentifyEquipment);
 					Thread.sleep(200);
 					IdentifuEquip.sendKeys(Keys.ENTER);
 					Thread.sleep(200);
@@ -167,11 +183,11 @@ public class EquipmentGroup {
 					//no of runs
 					WebElement noofruns = driver.findElement(parser.getbjectLocator("No.ofRuns"));
 					Select noofRunsforWorstcaseeq = new Select(noofruns);
-					noofRunsforWorstcaseeq.selectByIndex(3);
+					noofRunsforWorstcaseeq.selectByVisibleText(groupNoOfRunsCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys("Test protocol");//protocol id
+					driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys(groupProtocolDocCREATE);//protocol id
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("ReportID")).sendKeys("Test protocol");
+					driver.findElement(parser.getbjectLocator("ReportID")).sendKeys(groupReportIDCREATE);
 					Thread.sleep(500);
 					//Worstcase equipment
 					WebElement worstcaseEQ = driver.findElement(parser.getbjectLocator("WorstCaseEquipment"));
@@ -249,8 +265,12 @@ public class EquipmentGroup {
 					//Select SelectGroupCriteria = new Select(selectcriteria);
 					//SelectGroupCriteria.selectByIndex(2);
 					//Thread.sleep(500);
+					
+					String getgroupComments = driver.findElement(parser.getbjectLocator("GroupComments")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getgroupComments,groupCommentsCREATE);
+					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("GroupComments")).clear();
-					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys("Edit Test equipment group comments");
+					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys(groupCommentsEDIT);
 					Thread.sleep(500);
 					
 					
@@ -263,15 +283,27 @@ public class EquipmentGroup {
 					if(driver.findElements(parser.getbjectLocator("No.ofRuns")).size()!=0)
 					{
 					//no of runs
+						
 					WebElement noofruns = driver.findElement(parser.getbjectLocator("No.ofRuns"));
 					Select noofRunsforWorstcaseeq = new Select(noofruns);
-					noofRunsforWorstcaseeq.selectByIndex(4);
+					WebElement option = noofRunsforWorstcaseeq.getFirstSelectedOption(); 
+					String getNoofRuns = option.getText();
+					Assert.assertEquals(getNoofRuns,groupNoOfRunsCREATE);
+					noofRunsforWorstcaseeq.selectByVisibleText(groupNoOfRunsEDIT);
+					Thread.sleep(500);
+					
+					String getProtocolID = driver.findElement(parser.getbjectLocator("ProtocolDocID")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getProtocolID,groupProtocolDocCREATE);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("ProtocolDocID")).clear();//protocol id
-					driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys("Edit Test protocol");//protocol id
+					driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys(groupProtocolDocEDIT);//protocol id
+					Thread.sleep(500);
+					
+					String getReportID = driver.findElement(parser.getbjectLocator("ReportID")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getReportID,groupReportIDCREATE);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("ReportID")).clear();
-					driver.findElement(parser.getbjectLocator("ReportID")).sendKeys("Edit Test protocol");
+					driver.findElement(parser.getbjectLocator("ReportID")).sendKeys(groupReportIDEDIT);
 					Thread.sleep(500);
 					//Worstcase equipment
 					WebElement worstcaseEQ = driver.findElement(parser.getbjectLocator("WorstCaseEquipment"));

@@ -24,7 +24,40 @@ public class Equipment {
 				private RepositoryParser parser;
 				private WebDriver driver = Constant.driver;
 				public String password = "123456";
-			
+				static String EquipmentName ="Test Equipment";
+				
+				//Create Equipment Data's
+				static String EquipmentModelCREATE ="Eq Create Model1";
+				static String EquipmentSerialNoCREATE ="Eq Create 111";
+				static String EquipmentManufacturerCREATE ="Eq Create Manu1";
+				static String EquipmentSFCREATE ="10000";
+				static String EquipmentSFDataSourceCREATE ="Eq Create Data Source";
+				static String EquipmentMinBatchCREATE ="10";
+				static String EquipmentQuaDocIDCREATE ="Eq Qua ID Create";
+				static String EquipmentCleaningInfoCREATE ="Create Euipment";
+				static String EquipmentPreferentialTransferCREATE ="Yes";
+				static String EquipmentPreferentialTransferSFCREATE ="100";
+				static String EquipmentPrimaryPackagingeOptionCREATE ="Yes";
+				static String EquipmentSamplingLocationCREATE ="Chennai";
+				
+				
+				
+
+				//Edit Equipment Data's
+				static String EquipmentModelEDIT ="Eq Edit Model";
+				static String EquipmentSerialNoEDIT ="Eq Edit 222";
+				static String EquipmentManufacturerEDIT ="Eq Edit Manu";
+				static String EquipmentSFEDIT ="20000";
+				static String EquipmentSFDataSourceEDIT ="Eq Edit Data Source";
+				static String EquipmentMinBatchEDIT ="15";
+				static String EquipmentQuaDocIDEDIT ="Eq Qua ID Edit";
+				static String EquipmentCleaningInfoEDIT ="Edit Euipment";
+				static String EquipmentPreferentialTransferEDIT ="No";
+				
+				
+				
+				
+				
 				@BeforeClass
 				public void setUp() throws IOException  
 				{
@@ -52,14 +85,14 @@ public class Equipment {
 					//driver.get("http://192.168.1.45:8091/equipment-group");
 				}
 		
-				/*@Test(priority=2,invocationCount=2)
+				@Test(priority=2,invocationCount=2)
 				public void CreateEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//driver.navigate().refresh();
 					Thread.sleep(1000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
 					Thread.sleep(1000);
-					String equipmentName = "Test Equipment";
+					String equipmentName = EquipmentName;
 					WebElement eqName = driver.findElement(parser.getbjectLocator("EquipmentName")); //Equipment Name field
 					eqName.sendKeys(equipmentName);
 					Thread.sleep(500);
@@ -67,25 +100,34 @@ public class Equipment {
 					Select location = new Select(locationdropdown);
 					location.selectByIndex(1);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Model")).sendKeys("Test equipment Model");
+					driver.findElement(parser.getbjectLocator("Model")).sendKeys(EquipmentModelCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).sendKeys("Test Equipment Serial No");
+					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).sendKeys(EquipmentSerialNoCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Manufacturer")).sendKeys("Test Equipment manufacturer");
+					driver.findElement(parser.getbjectLocator("Manufacturer")).sendKeys(EquipmentManufacturerCREATE);
 					Thread.sleep(500);
 					//driver.findElement(parser.getbjectLocator("SurfaceArea")).sendKeys("10000");
-					driver.findElement(By.id("surfaceArea")).sendKeys("10000");
+					driver.findElement(By.id("surfaceArea")).sendKeys(EquipmentSFCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys("Test Surface Data Source");
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(EquipmentSFDataSourceCREATE);
 					Thread.sleep(500);
 					
 					WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
 					Select preferentialTransferType = new Select(preferentialTransfer);
-					preferentialTransferType.selectByIndex(2);
+					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys("50");
+					
+					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(EquipmentPreferentialTransferSFCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys("QD 111");
+
+					WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
+					Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
+					SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
+					Thread.sleep(500);
+					
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchCREATE);
+					Thread.sleep(500);
+					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
 					Thread.sleep(500);
 					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
 					Select CleaningSOP = new Select(SOP);
@@ -95,7 +137,8 @@ public class Equipment {
 					Select CleaningProcessType = new Select(processType);
 					CleaningProcessType.selectByIndex(1);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys("Test Data");
+					
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
 					Thread.sleep(1000);
 					//driver.findElement(parser.getbjectLocator("NextButton")).click();
 					driver.findElement(By.id("saveEquipment")).click();
@@ -149,25 +192,46 @@ public class Equipment {
 						}
 					}	
 					
+					
+
 					//Location Assessment
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("AddLocation")).click();
+					driver.findElement(parser.getbjectLocator("AddLocation")).click();
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("No")).click();
+					driver.findElement(By.id("checkbox1")).click();
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Name")).sendKeys("Location1");
+					driver.findElement(By.id("checkbox2")).click();
 					Thread.sleep(500);
+					driver.findElement(By.id("location1")).sendKeys(EquipmentSamplingLocationCREATE);
+					Thread.sleep(500);
+					driver.findElement(By.id("location2")).sendKeys(EquipmentSamplingLocationCREATE);
+					Thread.sleep(500);
+					//Enter Locations
+			        Thread.sleep(500);
+			        driver.findElement(By.id("location1")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB);
+			        //Delete row
+			        Thread.sleep(1000);
+			        driver.findElement(By.cssSelector(".remove-row-icon")).click();
+			        Thread.sleep(1000);
+			        driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
+			        Thread.sleep(1000);
+					
 					driver.findElement(parser.getbjectLocator("Nextbutton")).click(); // submit location assessment
 					
 					
 					//Do you want to upload images?
 					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
 					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(2); // select No option
-					
+					YesorNo.selectByIndex(1); // select Yes option
+					Thread.sleep(1000);
+					driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
+					Thread.sleep(1000);
+					//add location
+					driver.findElement(By.xpath(".//*[@id='addPinName']")).click();
 					//click add location pin
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); // submit location assessment
+				//	driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); // submit location assessment
 					//MOC Selection
 					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
 					Select SelectMOC = new Select(MOCSelection);
@@ -182,13 +246,15 @@ public class Equipment {
 					//Select Selectsampling = new Select(SamplingSelection);
 					//Selectsampling.selectByVisibleText("Rinse");
 					
+					driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
+					Thread.sleep(1000);
 					Thread.sleep(1000);
 					WebElement samplingbutton = driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")); //submitEquipmentSamplingDetails
-					if(samplingbutton.getText().equals("Submit"))
+					if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 					{
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
-						Thread.sleep(500);
+						Thread.sleep(1000);
 						
 					}else
 					{
@@ -221,17 +287,22 @@ public class Equipment {
 						}
 								//click save button in custom fields
 								driver.findElement(By.id("saveCustomDetails")).click();
-								
+								Thread.sleep(3000);
 						
 					}
-					Thread.sleep(500);
-					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(createEquipment,"Equipment saved successfully");
+					/*String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+					System.out.println("createEquipment "+createEquipment);
+					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+					Assert.assertEquals(createEquipment,"Equipment saved successfully");*/
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
 					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
 					{
+						String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+						System.out.println("createEquipment "+createEquipment);
+						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+						Assert.assertEquals(createEquipment,"Equipment saved successfully");
 						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
@@ -239,13 +310,11 @@ public class Equipment {
 				} // closing Create Equipment method
 			
 				
-				
-				
 				@Test(priority=3)
 				public void EditEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//Thread.sleep(31000);
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
@@ -256,33 +325,64 @@ public class Equipment {
 					Select location = new Select(locationdropdown);
 					location.selectByIndex(1);
 					Thread.sleep(500);
+					
+					String getEqmodel = driver.findElement(parser.getbjectLocator("Model")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getEqmodel,EquipmentModelCREATE);
+					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("Model")).clear();
-					driver.findElement(parser.getbjectLocator("Model")).sendKeys("Edit Test equipment Model");
+					driver.findElement(parser.getbjectLocator("Model")).sendKeys(EquipmentModelEDIT);
+					Thread.sleep(500);
+					
+					String getSerialNo = driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getSerialNo,EquipmentSerialNoCREATE);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).clear();
-					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).sendKeys("Edit Test Equipment Serial No");
+					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).sendKeys(EquipmentSerialNoEDIT);
 					Thread.sleep(300);
-					driver.findElement(parser.getbjectLocator("Manufacturer")).clear();
-					driver.findElement(parser.getbjectLocator("Manufacturer")).sendKeys("Edit Test Equipment manufacturer");
+					
+					String getmanufacturing = driver.findElement(parser.getbjectLocator("Manufacturer")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getmanufacturing,EquipmentManufacturerCREATE);
 					Thread.sleep(500);
-					//driver.findElement(parser.getbjectLocator("SurfaceArea")).sendKeys("10000");
+					driver.findElement(parser.getbjectLocator("Manufacturer")).clear();
+					driver.findElement(parser.getbjectLocator("Manufacturer")).sendKeys(EquipmentManufacturerEDIT);
+					Thread.sleep(500);
+					
+					String geteqSF = driver.findElement(By.id("surfaceArea")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(geteqSF,EquipmentSFCREATE);
+					Thread.sleep(500);
 					driver.findElement(By.id("surfaceArea")).clear();
-					driver.findElement(By.id("surfaceArea")).sendKeys("10000");
+					driver.findElement(By.id("surfaceArea")).sendKeys(EquipmentSFEDIT);
+					Thread.sleep(500);
+					
+					String getDASF = driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getDASF,EquipmentSFDataSourceCREATE);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).clear();
-					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys("Edit Test Surface Data Source");
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(EquipmentSFDataSourceEDIT);
 					Thread.sleep(500);
 					
 					WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
 					Select preferentialTransferType = new Select(preferentialTransfer);
-					preferentialTransferType.selectByIndex(2);
+					WebElement option = preferentialTransferType.getFirstSelectedOption(); 
+					String getpreTransfer = option.getText();
+					Assert.assertEquals(getpreTransfer,EquipmentPreferentialTransferCREATE);
+					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferEDIT);
+					Thread.sleep(500);
+					
+					String getMinBatch = driver.findElement(parser.getbjectLocator("MinimumBatchSize")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getMinBatch,EquipmentMinBatchCREATE);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).clear();
-					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys("30");
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchEDIT);
+					Thread.sleep(500);
+					
+					String getQAID = driver.findElement(parser.getbjectLocator("QualificationDocumentId")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getQAID,EquipmentQuaDocIDCREATE);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).clear();
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys("Edit QD 111");
+					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
 					Thread.sleep(500);
+					
 					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
 					Select CleaningSOP = new Select(SOP);
 					CleaningSOP.selectByIndex(1);
@@ -291,9 +391,14 @@ public class Equipment {
 					Select CleaningProcessType = new Select(processType);
 					CleaningProcessType.selectByIndex(3);
 					Thread.sleep(500);
+					
+					String getothercleaningInfo = driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).getAttribute("value"); //verify text presented in the edit
+					Assert.assertEquals(getothercleaningInfo,EquipmentCleaningInfoCREATE);
+					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).clear();
-					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys("Edit Test Data");
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoEDIT);
 					Thread.sleep(1000);
+					
 					//driver.findElement(parser.getbjectLocator("NextButton")).click();
 					driver.findElement(By.id("saveEquipment")).click();
 					Thread.sleep(500);
@@ -301,6 +406,14 @@ public class Equipment {
 					
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("Nextbutton")).click(); // submit location assessment
+					
+					Thread.sleep(3000);
+					//Do you want to upload images?
+					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
+					Select YesorNo = new Select(uploadsamplingimage);
+					YesorNo.selectByIndex(2); // select Yes option
+					Thread.sleep(1000);
+					
 					
 					
 					Thread.sleep(1000);
@@ -356,7 +469,7 @@ public class Equipment {
 								driver.findElement(By.id("ackSubmit")).click();
 						
 					}
-					
+					Thread.sleep(1000);
 					String EditEquipment = driver.findElement(By.className("notify-msg")).getText(); 
 					Assert.assertEquals(EditEquipment,"Equipment saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -367,7 +480,7 @@ public class Equipment {
 						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
-				} // closing Create Equipment method
+				} // closing Edit Equipment method
 				
 				
 				
@@ -623,7 +736,7 @@ public class Equipment {
 					}
 					Thread.sleep(500);
 				} // closing Create Equipment method
-				*/
+				
 				
 				
 				
@@ -700,6 +813,13 @@ public class Equipment {
 					}
 					Thread.sleep(500);
 				}
+				
+				
+				
+				
+				
+				
+				
 				
 				/*private static String downloadPath = "D:\\seleniumdownloads";
 				@Test(priority=6)

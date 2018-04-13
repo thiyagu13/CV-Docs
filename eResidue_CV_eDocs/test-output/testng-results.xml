@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="34159" started-at="2018-04-12T07:17:00Z" finished-at="2018-04-12T07:17:34Z">
+  <suite name="Default suite" duration-ms="11914" started-at="2018-04-13T10:17:14Z" finished-at="2018-04-13T10:17:25Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="34159" started-at="2018-04-12T07:17:00Z" finished-at="2018-04-12T07:17:34Z">
-      <class name="com.eDocs.SanityTesting.Product">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.SanityTesting.Product@1a968a59]" name="setUp" is-config="true" duration-ms="6473" started-at="2018-04-12T12:47:00Z" finished-at="2018-04-12T12:47:06Z">
+    <test name="Default test" duration-ms="11914" started-at="2018-04-13T10:17:14Z" finished-at="2018-04-13T10:17:25Z">
+      <class name="com.eDocs.SanityTesting.UniversalSettings">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.SanityTesting.UniversalSettings@68c72235]" name="setUp" is-config="true" duration-ms="1316" started-at="2018-04-13T15:47:14Z" finished-at="2018-04-13T15:47:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.SanityTesting.Product@1a968a59]" name="Login" duration-ms="4078" started-at="2018-04-12T12:47:06Z" finished-at="2018-04-12T12:47:10Z">
+        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.SanityTesting.UniversalSettings@68c72235]" name="Login" duration-ms="4564" started-at="2018-04-13T15:47:15Z" finished-at="2018-04-13T15:47:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="CreateProductCLENAINGAGENT()[pri:14, instance:com.eDocs.SanityTesting.Product@1a968a59]" name="CreateProductCLENAINGAGENT" duration-ms="23576" started-at="2018-04-12T12:47:10Z" finished-at="2018-04-12T12:47:34Z">
+        <test-method status="PASS" signature="productgrouping()[pri:7, instance:com.eDocs.SanityTesting.UniversalSettings@68c72235]" name="productgrouping" duration-ms="6018" started-at="2018-04-13T15:47:19Z" finished-at="2018-04-13T15:47:25Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- CreateProductCLENAINGAGENT -->
-      </class> <!-- com.eDocs.SanityTesting.Product -->
+        </test-method> <!-- productgrouping -->
+      </class> <!-- com.eDocs.SanityTesting.UniversalSettings -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

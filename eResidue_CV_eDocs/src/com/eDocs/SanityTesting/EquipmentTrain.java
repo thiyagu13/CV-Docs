@@ -27,7 +27,25 @@ public class EquipmentTrain {
 			private RepositoryParser parser;
 			private WebDriver driver = Constant.driver;
 			public String password = "123456";
-		
+			static String EquipmenttrainName= "Test Train";
+			static String TrainMultiDeleteSEARCH="Test Train";
+			static String IdentifyEquipment="Test Equipment";
+			//Create Equipment Train
+			static String TrainChnageContorlNoCREATE="111";
+			static String TrainChnageContorlNoEDIT="222";
+			
+			static String TrainRinseVolumeCREATE="10";
+			static String uploadImageOptionCREATE="Yes";
+			static String trainLocationCREATE="Chennai";
+			static String trainRationaleCREATE="Rationale Creat";
+			
+			//Edit Equipment Train
+			static String TrainRinseVolumeEDIT="30";
+			static String uploadImageOptionEDIT="No";
+			static String trainLocationEDIT="BangChennai";
+			static String trainRationaleEDIT="Rationale Edit";
+			
+			
 			@BeforeClass
 			public void setUp() throws IOException  
 			{
@@ -61,24 +79,21 @@ public class EquipmentTrain {
 				Thread.sleep(1000);
 				driver.findElement(parser.getbjectLocator("createTrain")).click(); // Click create equipment button
 				Thread.sleep(1000);
-				String trainName = "Test Equipment Train";
+				String trainName = EquipmenttrainName;
 				driver.findElement(parser.getbjectLocator("EquipmentTrainName")).sendKeys(trainName);; //Equipment Name field
-				//Name.sendKeys(trainName);
 				Thread.sleep(500);
 				
-				
 				WebElement IdentifuEquip = driver.findElement(By.className("select2-search__field"));
-				IdentifuEquip.sendKeys("Test Equipment");
+				IdentifuEquip.sendKeys(IdentifyEquipment);
 				Thread.sleep(300);
 				IdentifuEquip.sendKeys(Keys.ENTER);
 				Thread.sleep(300);
 				String getselectedEquipName = driver.findElement(By.className("select2-selection__rendered")).getText().substring(1);
-				IdentifuEquip.sendKeys("Test Equipment");
+				IdentifuEquip.sendKeys(IdentifyEquipment);
 				Thread.sleep(500);
 				IdentifuEquip.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
 		        Thread.sleep(500);
 		        //driver.findElement(By.className("select2-selection__rendered")).getText().substring(1); //get total selectd equipments
-		        
 		       
 				List<String> equipments = new ArrayList<>();
 				equipments.add(getselectedEquipName);
@@ -87,7 +102,7 @@ public class EquipmentTrain {
 			
 				System.out.println("equipments"+equipments);
 				Thread.sleep(500);
-				driver.findElement(parser.getbjectLocator("TrainChangeControlNo")).sendKeys("234");
+				driver.findElement(parser.getbjectLocator("TrainChangeControlNo")).sendKeys(TrainChnageContorlNoCREATE);
 				
 				Thread.sleep(500);
 				driver.findElement(By.id("saveEquipmentTrainDetails")).click();
@@ -132,7 +147,7 @@ public class EquipmentTrain {
 					}
 				}// closing if loop duplicate equipment
 				
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				
 				
 				//if duplicate equipment set
@@ -140,7 +155,7 @@ public class EquipmentTrain {
 				{
 						driver.findElement(By.className("custom-notify-close")).click();
 						WebElement IdentifuEquipment = driver.findElement(By.className("select2-search__field"));
-						IdentifuEquipment.sendKeys("Test Equipment");
+						IdentifuEquipment.sendKeys(IdentifyEquipment);
 						Thread.sleep(500);
 						IdentifuEquipment.sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
 						Thread.sleep(500);
@@ -150,7 +165,7 @@ public class EquipmentTrain {
 						{
 							driver.findElement(By.className("custom-notify-close")).click();
 							WebElement IdentifuDupliEquipment = driver.findElement(By.className("select2-search__field"));
-							IdentifuDupliEquipment.sendKeys("Test Equipment");
+							IdentifuDupliEquipment.sendKeys(IdentifyEquipment);
 							Thread.sleep(500);
 							IdentifuDupliEquipment.sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
 							Thread.sleep(500);
@@ -161,28 +176,45 @@ public class EquipmentTrain {
 				}	// closing if loop duplicate equipment set
 				
 				
+
 				
-				
+				//Location information
+				Thread.sleep(500);
+				driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeCREATE);
+				Thread.sleep(500);
 				
 				WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
 				Select YesorNo = new Select(uploadimage);
-				YesorNo.selectByIndex(2);
+				YesorNo.selectByVisibleText(uploadImageOptionCREATE);
+				Thread.sleep(500);
+				//upload image
+				
+				//driver.findElement(By.id("upload-images")).click();
+				//Thread.sleep(500);
+				driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
+				Thread.sleep(1000);
+				
+				
+				
 				
 				//add location
-				driver.findElement(parser.getbjectLocator("TrainAddLocationButton")).click();
+				driver.findElement(By.cssSelector(".form-group.no-margin.add-pain>button")).click();
 				Thread.sleep(500);
-				driver.findElement(parser.getbjectLocator("TrainLocationName")).sendKeys("location1");
+				driver.findElement(parser.getbjectLocator("TrainLocationName")).sendKeys(trainLocationCREATE);
 				Thread.sleep(500);
 				WebElement MOC = driver.findElement(parser.getbjectLocator("TrainMoc")); //MOC
 				Select selectMOC = new Select(MOC);
 				selectMOC.selectByIndex(1);
 				Thread.sleep(500);
-				driver.findElement(parser.getbjectLocator("TrainRationale")).sendKeys("Rationale");
+				driver.findElement(parser.getbjectLocator("TrainRationale")).sendKeys(trainRationaleCREATE);
 				Thread.sleep(500);
 				
+				driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
+				Thread.sleep(1000);
+				
 				WebElement samplingbutton = driver.findElement(parser.getbjectLocator("TrainSubmitbutton")); //submitEquipmentSamplingDetails
-				Thread.sleep(200);
-				if(samplingbutton.getText().equals("Submit"))
+				Thread.sleep(500);
+				if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 				{
 					System.out.println("No Custom loop");
 					driver.findElement(parser.getbjectLocator("TrainSubmitbutton")).click();
@@ -221,7 +253,7 @@ public class EquipmentTrain {
 							driver.findElement(By.id("saveCustomDetails")).click();
 							
 				}
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 				String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 				System.out.println(createEquipmentTrain);
 				Assert.assertEquals(createEquipmentTrain,"Equipment train saved successfully");
@@ -253,33 +285,59 @@ public class EquipmentTrain {
 				driver.findElement(By.id("saveEquipmentTrainDetails")).click();
 				Thread.sleep(500);
 				
+				//String getTrainvolume = driver.findElement(By.id("rinseVolume")).getAttribute("value"); //verify text presented in the edit
+				//Assert.assertEquals(getTrainvolume,TrainRinseVolumeCREATE);
+				Thread.sleep(500);
+				driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeEDIT);
 				
-				//WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
-				//Select YesorNo = new Select(uploadimage);
-				//YesorNo.selectByIndex(2);
+				
+				
+				//WebElement s = driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/div/div/input"));
+				//System.out.println("s "+s.getText());
+				//System.out.println("SRC: "+s.getAttribute("src"));	
+				Thread.sleep(6500);
+				WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
+				Select YesorNo = new Select(uploadimage);
+				WebElement option = YesorNo.getFirstSelectedOption(); 
+				String getimageOption = option.getText();
+				System.out.println("getproducttype "+getimageOption);
+				Assert.assertEquals(getimageOption,uploadImageOptionCREATE);
+				Thread.sleep(500);
+				
+				//driver.findElement(By.xpath(".//*[@id='fs2']/div[7]/div/div/button")).click(); // click add location button
 				
 				//add location
 				Thread.sleep(500);
+				String getTrainLocation = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).getAttribute("value"); //verify text presented in the edit
+				Assert.assertEquals(getTrainLocation,trainLocationCREATE);
+				Thread.sleep(500);
 				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).clear();
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).sendKeys("location1 edit");
+				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).sendKeys(trainLocationEDIT);
+				Thread.sleep(500);
+				
+				//WebElement moc = driver.findElement(By.xpath(".//*[@id='moc1']"));
+				//Select SelectMOC = new Select(moc);
+				//SelectMOC.selectByIndex(1);
+				
+				String getRationale = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).getAttribute("value"); //verify text presented in the edit
+				Assert.assertEquals(getRationale,trainRationaleCREATE);
 				Thread.sleep(500);
 				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).clear();
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).sendKeys("Edit Rationale");
+				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).sendKeys(trainRationaleEDIT);
 				Thread.sleep(500);
 				
 				WebElement samplingbutton = driver.findElement(parser.getbjectLocator("TrainSubmitbutton")); //submitEquipmentSamplingDetails
 				Thread.sleep(200);
-				if(samplingbutton.getText().equals("Submit"))
+				if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 				{
 					System.out.println("No Custom loop");
 					driver.findElement(parser.getbjectLocator("TrainSubmitbutton")).click();
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					driver.findElement(By.id("comments")).click();
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
 					Thread.sleep(500);
 					driver.findElement(By.id("ackSubmit")).click();
-					
 					
 				}else
 				{
@@ -321,7 +379,7 @@ public class EquipmentTrain {
 							driver.findElement(By.id("ackSubmit")).click();
 							
 				}
-				Thread.sleep(1000);
+				Thread.sleep(6000);
 				String EditEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 				System.out.println(EditEquipmentTrain);
 				Assert.assertEquals(EditEquipmentTrain,"Equipment train updated successfully");
@@ -343,7 +401,7 @@ public class EquipmentTrain {
 			public void SingleDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
-				driver.findElement(By.xpath(".//*[@id='dLabel']/i")).click();
+				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
 				driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[3]/a")).click(); // Click edit equipment button
 				Thread.sleep(1000);
@@ -374,7 +432,7 @@ public class EquipmentTrain {
 			public void MultiDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
-				driver.findElement(By.id("searchEquipment")).sendKeys("Test Equipment");
+				driver.findElement(By.id("searchEquipment")).sendKeys(TrainMultiDeleteSEARCH);
 				Thread.sleep(1000);
 				driver.findElement(By.id("example-select-all")).click();
 				Thread.sleep(1000);
@@ -387,7 +445,7 @@ public class EquipmentTrain {
 				Thread.sleep(500);
 				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 				Thread.sleep(500);
-				driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
+				driver.findElement(By.id("comments")).sendKeys("Delete multiple equipment");
 				Thread.sleep(500);
 				driver.findElement(By.id("ackSubmit")).click();
 				Thread.sleep(1000);
@@ -402,8 +460,6 @@ public class EquipmentTrain {
 				}
 				Thread.sleep(600);
 			}
-			
-			
 			
 			
 			
