@@ -43,11 +43,11 @@ public class EquipmentGroup {
 				static String groupProtocolDocEDIT = "equip Group protocol for edit";
 				static String groupReportIDEDIT = "equip Group report for edit";
 				
-				@BeforeClass
+				/*@BeforeClass
 				public void setUp() throws IOException  
 				{
 					driver = new FirefoxDriver();
-					driver.get("http://192.168.1.111:8090");
+					driver.get("http://192.168.1.45:8092");
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				}
 			
@@ -57,25 +57,25 @@ public class EquipmentGroup {
 					//Lets see how we can find the first name field
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
-					username.sendKeys("admin");
+					username.sendKeys("thiyagu1");
 					Thread.sleep(500);
 					password.sendKeys("123456");
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
 					Thread.sleep(500);
-					driver.get("http://192.168.1.111:8090/equipment-group");
+					driver.get("http://192.168.1.45:8092/equipment-group");
 					Thread.sleep(500);
-				}
+				}*/
 	
 	
-				@Test(priority=8,invocationCount=2)
-				public void CreareEquipmentGroup() throws InterruptedException, IOException
+				@Test(priority=15,invocationCount=2)
+				public void CreateEquipmentGroup() throws InterruptedException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 					
-					Thread.sleep(500);
-					driver.get("http://192.168.1.111:8090/equipment-group");
+					Thread.sleep(6000);
+					driver.get("http://192.168.1.45:8092/equipment-group");
 					//driver.navigate().refresh();
 					Thread.sleep(1000);
 					driver.findElement(By.xpath(".//*[@id='addGroup']/span")).click(); // Click create equipment button
@@ -88,7 +88,7 @@ public class EquipmentGroup {
 					Thread.sleep(500);
 					WebElement selectcriteria= driver.findElement(parser.getbjectLocator("Feature"));
 					Select SelectGroupCriteria = new Select(selectcriteria);
-					SelectGroupCriteria.selectByIndex(1);
+					SelectGroupCriteria.selectByIndex(0);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys(groupCommentsCREATE);
@@ -235,7 +235,7 @@ public class EquipmentGroup {
 								//click save button in custom fields
 								driver.findElement(By.id("saveCustomDetails")).click();
 					}
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					String createGroup = driver.findElement(By.className("notify-msg")).getText(); 
 					Assert.assertEquals(createGroup,"Equipment group saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -245,15 +245,15 @@ public class EquipmentGroup {
 					{
 						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 					}
-					Thread.sleep(600);
+					Thread.sleep(1000);
 				} // closing create equipment group
 				
 	
 				
-				@Test(priority=9)
+				@Test(priority=16)
 				public void EditEquipmentGroup() throws InterruptedException, IOException
 				{
-					Thread.sleep(1000);
+					Thread.sleep(6000);
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[2]/a")).click(); // Click edit equipment button
@@ -382,7 +382,7 @@ public class EquipmentGroup {
 				
 				
 				
-				@Test(priority=10)
+				@Test(priority=17)
 				public void SingleDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);
@@ -413,11 +413,11 @@ public class EquipmentGroup {
 				}
 				
 
-			/*	@Test(priority=11)
+				@Test(priority=18)
 				public void MultiDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);
-					driver.findElement(By.id("searchEquipment")).sendKeys("Test Equipment");
+					driver.findElement(By.id("searchEquipment")).sendKeys(EquipmentGroupName);
 					Thread.sleep(1000);
 					driver.findElement(By.id("example-select-all")).click();
 					Thread.sleep(1000);
@@ -445,7 +445,7 @@ public class EquipmentGroup {
 					Thread.sleep(600);
 					
 				}
-				*/
+				
 				
 				
 				

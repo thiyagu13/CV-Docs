@@ -35,7 +35,7 @@ public class EquipmentTrain {
 			static String TrainChnageContorlNoEDIT="222";
 			
 			static String TrainRinseVolumeCREATE="10";
-			static String uploadImageOptionCREATE="Yes";
+			static String uploadImageOptionCREATE="No";
 			static String trainLocationCREATE="Chennai";
 			static String trainRationaleCREATE="Rationale Creat";
 			
@@ -46,11 +46,11 @@ public class EquipmentTrain {
 			static String trainRationaleEDIT="Rationale Edit";
 			
 			
-			@BeforeClass
+		/*	@BeforeClass
 			public void setUp() throws IOException  
 			{
 				driver = new FirefoxDriver();
-				driver.get("http://192.168.1.111:8090");
+				driver.get("http://192.168.1.45:8092");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 			}
 		
@@ -60,22 +60,22 @@ public class EquipmentTrain {
 				//Lets see how we can find the first name field
 				WebElement username = driver.findElement(By.id("username"));
 				WebElement password = driver.findElement(By.id("password"));
-				username.sendKeys("admin");
+				username.sendKeys("thiyagu1");
 				Thread.sleep(500);
 				password.sendKeys("123456");
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(500);
-				driver.get("http://192.168.1.111:8090/equipment-train");
+				driver.get("http://192.168.1.45:8092/equipment-train");
 			}
-				
+				*/
 			
-			@Test(priority=12,invocationCount=2)
+			@Test(priority=19,invocationCount=2)
 			public void CreateEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				Thread.sleep(6500);
-				driver.get("http://192.168.1.111:8090/equipment-train");
+				driver.get("http://192.168.1.45:8092/equipment-train");
 				Thread.sleep(1000);
 				driver.findElement(parser.getbjectLocator("createTrain")).click(); // Click create equipment button
 				Thread.sleep(1000);
@@ -180,22 +180,17 @@ public class EquipmentTrain {
 				
 				//Location information
 				Thread.sleep(500);
-				driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeCREATE);
-				Thread.sleep(500);
+				//driver.findElement(By.id("rinseVolume")).clear();
+				//driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeCREATE);
+				//Thread.sleep(1000);
 				
 				WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
 				Select YesorNo = new Select(uploadimage);
 				YesorNo.selectByVisibleText(uploadImageOptionCREATE);
 				Thread.sleep(500);
-				//upload image
-				
-				//driver.findElement(By.id("upload-images")).click();
-				//Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
-				Thread.sleep(1000);
-				
-				
-				
+				//upload image if yes
+				//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
+				//Thread.sleep(1000);
 				
 				//add location
 				driver.findElement(By.cssSelector(".form-group.no-margin.add-pain>button")).click();
@@ -209,8 +204,9 @@ public class EquipmentTrain {
 				driver.findElement(parser.getbjectLocator("TrainRationale")).sendKeys(trainRationaleCREATE);
 				Thread.sleep(500);
 				
-				driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
-				Thread.sleep(1000);
+				//save image if upload yes
+				//driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
+				//Thread.sleep(1000);
 				
 				WebElement samplingbutton = driver.findElement(parser.getbjectLocator("TrainSubmitbutton")); //submitEquipmentSamplingDetails
 				Thread.sleep(500);
@@ -269,7 +265,7 @@ public class EquipmentTrain {
 		
 	
 			
-			@Test(priority=13)
+			@Test(priority=20)
 			public void EditEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(1000);
@@ -287,8 +283,8 @@ public class EquipmentTrain {
 				
 				//String getTrainvolume = driver.findElement(By.id("rinseVolume")).getAttribute("value"); //verify text presented in the edit
 				//Assert.assertEquals(getTrainvolume,TrainRinseVolumeCREATE);
-				Thread.sleep(500);
-				driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeEDIT);
+				//Thread.sleep(500);
+				//driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeEDIT);
 				
 				
 				
@@ -397,7 +393,7 @@ public class EquipmentTrain {
 			
 			
 			
-			@Test(priority=14)
+			@Test(priority=21)
 			public void SingleDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -428,7 +424,7 @@ public class EquipmentTrain {
 			}
 			
 
-			@Test(priority=15)
+			@Test(priority=22)
 			public void MultiDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);

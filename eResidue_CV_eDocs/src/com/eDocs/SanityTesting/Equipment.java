@@ -58,12 +58,12 @@ public class Equipment {
 				
 				
 				
-				@BeforeClass
+			/*	@BeforeClass
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
 					//driver.get("http://192.168.1.111:8090");
-					driver.get("http://192.168.1.45:8091");
+					driver.get("http://192.168.1.45:8092");
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				}
 			
@@ -73,23 +73,26 @@ public class Equipment {
 					//Lets see how we can find the first name field
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
-					username.sendKeys("admin");
+					username.sendKeys("thiyagu1");
 					Thread.sleep(500);
 					password.sendKeys("123456");
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.111:8090/equipment");
-					driver.get("http://192.168.1.45:8091/equipment");
+					driver.get("http://192.168.1.45:8092/equipment");
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.45:8091/equipment-group");
-				}
+				}*/
 		
-				@Test(priority=2,invocationCount=2)
-				public void CreateEquipment() throws InterruptedException, SQLException, ClassNotFoundException
+				@Test(priority=9,invocationCount=2)
+				public void CreateEquipment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
+					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
+					Thread.sleep(5000);
+					driver.get("http://192.168.1.45:8092/equipment");
 					//driver.navigate().refresh();
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
 					Thread.sleep(1000);
 					String equipmentName = EquipmentName;
@@ -223,15 +226,16 @@ public class Equipment {
 					//Do you want to upload images?
 					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
 					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(1); // select Yes option
+					YesorNo.selectByIndex(2); // select Yes option
 					Thread.sleep(1000);
-					driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
-					Thread.sleep(1000);
+					//upload image
+					//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
+					//Thread.sleep(1000);
 					//add location
-					driver.findElement(By.xpath(".//*[@id='addPinName']")).click();
+					//driver.findElement(By.xpath(".//*[@id='addPinName']")).click();
 					//click add location pin
 					Thread.sleep(500);
-				//	driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); // submit location assessment
+					driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); // submit location assessment
 					//MOC Selection
 					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
 					Select SelectMOC = new Select(MOCSelection);
@@ -246,15 +250,16 @@ public class Equipment {
 					//Select Selectsampling = new Select(SamplingSelection);
 					//Selectsampling.selectByVisibleText("Rinse");
 					
-					driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
-					Thread.sleep(1000);
+					//save image
+					//driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
+					//Thread.sleep(1000);
 					Thread.sleep(1000);
 					WebElement samplingbutton = driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")); //submitEquipmentSamplingDetails
 					if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 					{
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
-						Thread.sleep(1000);
+						Thread.sleep(2000);
 						
 					}else
 					{
@@ -287,22 +292,22 @@ public class Equipment {
 						}
 								//click save button in custom fields
 								driver.findElement(By.id("saveCustomDetails")).click();
-								Thread.sleep(3000);
+								Thread.sleep(2000);
 						
 					}
-					/*String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("createEquipment "+createEquipment);
 					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(createEquipment,"Equipment saved successfully");*/
+					Assert.assertEquals(createEquipment,"Equipment saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
 					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
 					{
-						String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-						System.out.println("createEquipment "+createEquipment);
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-						Assert.assertEquals(createEquipment,"Equipment saved successfully");
+						//System.out.println("createEquipment "+createEquipment);
+						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+						//Assert.assertEquals(createEquipment,"Equipment saved successfully");
 						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
@@ -310,11 +315,11 @@ public class Equipment {
 				} // closing Create Equipment method
 			
 				
-				@Test(priority=3)
+				@Test(priority=10)
 				public void EditEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//Thread.sleep(31000);
-					Thread.sleep(2000);
+					Thread.sleep(6000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
@@ -423,7 +428,7 @@ public class Equipment {
 					{
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
-						Thread.sleep(500);
+						Thread.sleep(2000);
 						driver.findElement(By.id("comments")).click();
 						Thread.sleep(500);
 						driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
@@ -469,9 +474,9 @@ public class Equipment {
 								driver.findElement(By.id("ackSubmit")).click();
 						
 					}
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					String EditEquipment = driver.findElement(By.className("notify-msg")).getText(); 
-					Assert.assertEquals(EditEquipment,"Equipment saved successfully");
+					Assert.assertEquals(EditEquipment,"Equipment updated successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -485,7 +490,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=4)
+				@Test(priority=11)
 				public void SingleDeleteEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					Thread.sleep(1000);
@@ -517,7 +522,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				@Test(priority=5)
+				@Test(priority=12)
 				public void MultiDeleteEquipment() throws Exception
 				{
 					Thread.sleep(500);
@@ -553,13 +558,15 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=6)
-				public void CreateEquipment1() throws InterruptedException, SQLException, ClassNotFoundException
+				@Test(priority=13)
+				public void CreateEquipmentforGroup() throws InterruptedException, SQLException, ClassNotFoundException
 				{
+					Thread.sleep(5000);
+					driver.findElement(By.id("example-select-all")).click(); // un check mutli check box
 					Thread.sleep(1000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
 					Thread.sleep(1000);
-					String equipmentName = "Test Equipment";
+					String equipmentName = EquipmentName;
 					WebElement eqName = driver.findElement(parser.getbjectLocator("EquipmentName")); //Equipment Name field
 					eqName.sendKeys(equipmentName);
 					Thread.sleep(500);
@@ -724,7 +731,7 @@ public class Equipment {
 								
 						
 					}
-					Thread.sleep(500);
+					Thread.sleep(2000);
 					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					Assert.assertEquals(createEquipment,"Equipment saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -741,11 +748,11 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=7,invocationCount=6)
+				@Test(priority=14,invocationCount=6)
 				public void CopyEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//driver.navigate().refresh();
-					Thread.sleep(1000);
+					Thread.sleep(6000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
@@ -800,7 +807,7 @@ public class Equipment {
 						}
 					} 
 					
-					
+					Thread.sleep(500);
 					String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println(createEquipmentTrain);
 					Assert.assertEquals(createEquipmentTrain,"Equipment copied successfully");

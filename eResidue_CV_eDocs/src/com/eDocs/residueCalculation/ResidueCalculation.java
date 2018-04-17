@@ -435,6 +435,7 @@ public class ResidueCalculation {
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 				Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName));
 				}
+				
 				//if product is Transdermal Patch
 				if(productType.equals("Patch"))
 				{
@@ -442,6 +443,14 @@ public class ResidueCalculation {
 				value_L1 = L0.L0forPatch(activeID, CurrenProductName) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 				Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID,CurrenProductName));
+				}
+				//if product is Transdermal Patch
+				if(productType.equals("Topical"))
+				{
+				System.out.println("activeID--->"+activeID);
+				value_L1 = L0.L0forTOPICAL(activeID, CurrenProductName) / maxDD;
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+				Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICAL(activeID,CurrenProductName));
 				}
 				
 				/*if(limitDetermination()==2)
@@ -1091,6 +1100,14 @@ public class ResidueCalculation {
 				value_L1 = L0.groupingApproach_L0forPatch(CurrenProductName) / maxDD;
 				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+				}
+				
+				//if product is Topical
+				if(productType.equals("Topical"))
+				{
+				value_L1 = L0.groupingApproach_L0forTOPICAL(CurrenProductName) / maxDD;
+				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forTOPICAL(CurrenProductName));
 				}
 				
 				

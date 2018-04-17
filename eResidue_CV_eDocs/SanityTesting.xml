@@ -2,19 +2,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 
-	<!-- <listeners>
+	<listeners>
 		<listener class-name='com.eDocs.result.LocalScreenshot' />
 		<listener class-name='com.eDocs.result.CustomizedEmailableReport' />
-	</listeners> -->
+	</listeners> 
 	
   <test name="Test">
     <classes>
-    	<class name="com.eDocs.SanityTesting.UniversalSettings"/>
-        <class name="com.eDocs.SanityTesting.Equipment"/>
+    	<class name="com.eDocs.SanityTesting.UniversalSettings"/> 
+         <class name="com.eDocs.SanityTesting.Equipment"/>  
         <class name="com.eDocs.SanityTesting.EquipmentGroup"/> 
-        <class name="com.eDocs.SanityTesting.EquipmentTrain"/>   
-     <!--  <class name="com.eDocs.SanityTesting.API"/> -->
-      
+        <class name="com.eDocs.SanityTesting.EquipmentTrain"/>    
+     <!--    <class name="com.eDocs.SanityTesting.API"/> 
+        <class name="com.eDocs.SanityTesting.Product"/> 
+      --> 
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

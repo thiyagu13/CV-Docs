@@ -18,6 +18,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
 
@@ -25,7 +26,7 @@ public class API {
   
 		
 			private RepositoryParser parser;
-			private WebDriver driver;
+			private WebDriver driver = Constant.driver;;
 			public String password = "123456";
 		
 			//Datas for create API
@@ -50,7 +51,7 @@ public class API {
 			
 			
 			
-			@BeforeClass
+			/*@BeforeClass
 			public void setUp() throws IOException  
 			{
 				driver = new FirefoxDriver();
@@ -72,12 +73,15 @@ public class API {
 				Thread.sleep(500);
 				driver.get("http://192.168.1.111:8090/active-ingredients");
 			}
-				
+				*/
 			
-			@Test(priority=2,invocationCount=2)
-			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException
+			@Test(priority=23,invocationCount=2)
+			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
-				Thread.sleep(500);
+				Thread.sleep(2000);
+				driver.get("http://192.168.1.45:8092/active-ingredients");
+				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
+				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
 				Thread.sleep(1000);
 				String Name = ActiveIngredientNameCREATE;
@@ -171,7 +175,7 @@ public class API {
 			
 			
 			
-			@Test(priority=3)
+			@Test(priority=24)
 			public void EditAPI() throws InterruptedException, SQLException, ClassNotFoundException
 			{
 				Thread.sleep(1000);
@@ -249,7 +253,7 @@ public class API {
 			
 			
 			
-			@Test(priority=4)
+			@Test(priority=25)
 			public void SingleDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -281,8 +285,8 @@ public class API {
 			
 			
 			
-			/*
-			@Test(priority=5)
+			
+			@Test(priority=26)
 			public void MultiDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -314,8 +318,99 @@ public class API {
 				Thread.sleep(600);
 			}
 			
-			*/
 			
+			@Test(priority=27)
+			public void CreateAPIforProduct() throws InterruptedException, SQLException, ClassNotFoundException, IOException
+			{
+				Thread.sleep(2000);
+				driver.findElement(By.id("addApi")).click();
+				Thread.sleep(1000);
+				String Name = ActiveIngredientNameCREATE;
+				WebElement APIName = driver.findElement(parser.getbjectLocator("ActiveIngredientName"));
+				APIName.sendKeys(Name);
+				Thread.sleep(500);
+				
+				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDCREATE);
+				Thread.sleep(500);
+				WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
+				Select SelectHBEL = new Select(HBEL);
+				SelectHBEL.selectByIndex(1);
+				Thread.sleep(500);
+				
+				
+				
+				driver.findElement(By.id("RouteAdmin")).click();
+				Thread.sleep(500);
+				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
+				Thread.sleep(500);
+				driver.findElement(By.id("RouteAdmin")).click();
+				Thread.sleep(500);
+				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
+				Thread.sleep(500);
+				
+				
+				
+				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
+				Thread.sleep(500);
+				
+				driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
+				Thread.sleep(500);
+				
+				WebElement submit = driver.findElement(parser.getbjectLocator("APIsubmit"));
+				submit.click();
+				Thread.sleep(500);
+				
+				
+				
+				//if duplicate equipment name
+				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+"' already exists!"))
+				{
+					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.className("custom-notify-close")).click();
+				
+				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
+				for(int k=5;k<1000;k++)
+				{
+					j.add(k);
+				}
+				
+				Thread.sleep(500);
+				if(getduplicatename.equals("Active Ingredient '"+Name+"' already exists!"))
+				{
+					for(Integer i:j)
+					{
+						driver.findElement(parser.getbjectLocator("ActiveIngredientName")).clear();
+						driver.findElement(parser.getbjectLocator("ActiveIngredientName")).sendKeys(Name+i);
+						Thread.sleep(500);
+						driver.findElement(parser.getbjectLocator("APIsubmit")).click();
+						Thread.sleep(500);
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+i+"' already exists!"))
+						{
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							System.out.println("Name duplicate: "+nameduplicate);
+							driver.findElement(By.className("custom-notify-close")).click();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+i+"' already exists!"))
+							{
+								continue;
+							}
+						}
+								System.out.println("Not duplicate so break the loop");
+								break;
+						}
+					}
+				}// closing if loop duplicate equipment
+				
+				
+				Thread.sleep(1000);
+				String createAPI = driver.findElement(By.className("notify-msg")).getText();
+				Assert.assertEquals(createAPI,"Active Ingredient saved successfully");
+				
+				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				{
+					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+				}
+				Thread.sleep(500);
+			} // closing create API method
 			
 			
 			

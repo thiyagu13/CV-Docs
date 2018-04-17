@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <listeners>
+    <listener class-name="com.eDocs.result.LocalScreenshot"/>
+    <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
+  </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.Equipment">
+      <class name="com.eDocs.SanityTesting.API">
         <methods>
-          <include name="CopyEquipment"/>
-          <include name="setUp"/>
+          <include name="EditAPI"/>
+          <include name="MultiDeleteAPI"/>
+          <include name="SingleDeleteAPI"/>
+          <include name="CreateAPI"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.Equipment -->
+      </class> <!-- com.eDocs.SanityTesting.API -->
+      <class name="com.eDocs.SanityTesting.Product">
+        <methods>
+          <include name="CreateProductINHALANT"/>
+          <include name="EditProductINHALANT"/>
+          <include name="EditProductDILUENT"/>
+          <include name="CreateProductTopical"/>
+          <include name="EditProductSOLID"/>
+          <include name="MultiDeleteProduct"/>
+          <include name="CreateProductCLENAINGAGENT"/>
+          <include name="CreateProductSOLID"/>
+          <include name="CreateProductPATCH"/>
+          <include name="CreateProductDILUENT"/>
+          <include name="EditProductCLEANINGAGENT"/>
+          <include name="EditProductLIQUID"/>
+          <include name="EditProductTOPICAL"/>
+          <include name="EditProductPATCH"/>
+          <include name="SingleDeleteProduct"/>
+          <include name="CreateProductLIQUID"/>
+        </methods>
+      </class> <!-- com.eDocs.SanityTesting.Product -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
