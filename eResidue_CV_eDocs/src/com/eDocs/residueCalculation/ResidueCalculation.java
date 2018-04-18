@@ -360,16 +360,17 @@ public class ResidueCalculation {
 		{
 				System.out.println("CurrenProductName-->"+CurrenProductName);
 			
-				int getprodID = 0,currentproductsetcount = 0;
+				int getprodID = 0,currentproductsetcount = 0,grouping_criteria_option=0;
 				String cprodname = null,activename = null;
 				
 				//Get  Current product details
-						ResultSet productID = stmt.executeQuery("Select * from product where name = '" + CurrenProductName + "'"); // get product name id
+						ResultSet productID = stmt.executeQuery("Select id,name,grouping_criteria_option,set_count from product where name = '" + CurrenProductName + "'"); // get product name id
 							while (productID.next()) 
 							{
 								getprodID = productID.getInt(1);
 								cprodname = productID.getString(2); // get name id from product table
-								 currentproductsetcount = productID.getInt(33); 
+								grouping_criteria_option= productID.getInt(3);
+								currentproductsetcount = productID.getInt(4); 
 							} // closing for productID while loop 
 							
 				 // Get Actual Limit Result from db
@@ -422,35 +423,43 @@ public class ResidueCalculation {
 				
 				System.out.println("prodName"+NextprodName);
 				String nprodname = null;	
-				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
-				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(8); minBatch = productdata.getFloat(9);   }
+				ResultSet productdata = stmt.executeQuery("Select id,name,max_daily_dose,min_batch_size from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(3); minBatch = productdata.getFloat(4);   }
 
 				
 				String productType = sheet.getRow(39).getCell(1).getStringCellValue();
 				System.out.println("productType--->"+productType);
 				if(productType.equals("Solid")|| productType.equals("Liquid")||productType.equals("Inhalant"))
 				{
-				System.out.println("activeID--->"+activeID);
-				value_L1 = L0.L0forSOLID(activeID, CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName));
+					System.out.println("activeID--->"+activeID);
+					value_L1 = L0.L0forSOLID(activeID, CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID,CurrenProductName));
 				}
 				
 				//if product is Transdermal Patch
 				if(productType.equals("Patch"))
 				{
-				System.out.println("activeID--->"+activeID);
-				value_L1 = L0.L0forPatch(activeID, CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID,CurrenProductName));
+					System.out.println("activeID--->"+activeID);
+					value_L1 = L0.L0forPatch(activeID, CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID,CurrenProductName));
 				}
-				//if product is Transdermal Patch
-				if(productType.equals("Topical"))
+				//if product is Topical - Option2
+				if(productType.equals("Topical") && grouping_criteria_option==2)
 				{
-				System.out.println("activeID--->"+activeID);
-				value_L1 = L0.L0forTOPICAL(activeID, CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICAL(activeID,CurrenProductName));
+					System.out.println("activeID--->"+activeID);
+					value_L1 = L0.L0forTOPICALoption2(activeID, CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICALoption2(activeID,CurrenProductName));
+				}
+				//if product is Topical - Option1
+				if(productType.equals("Topical") && grouping_criteria_option==1)
+				{
+					System.out.println("activeID--->"+activeID);
+					value_L1 = L0.L0forTOPICALoption1(activeID, CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue("NA");
 				}
 				
 				/*if(limitDetermination()==2)

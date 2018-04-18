@@ -39,7 +39,9 @@ public class Equipment {
 				static String EquipmentPreferentialTransferSFCREATE ="100";
 				static String EquipmentPrimaryPackagingeOptionCREATE ="Yes";
 				static String EquipmentSamplingLocationCREATE ="Chennai";
-				
+
+				static String EquipmentSegmentNameCREATE="Seg name1";
+				static String EquipmentSegmentSFCREATE="100";
 				
 				
 
@@ -53,12 +55,13 @@ public class Equipment {
 				static String EquipmentQuaDocIDEDIT ="Eq Qua ID Edit";
 				static String EquipmentCleaningInfoEDIT ="Edit Euipment";
 				static String EquipmentPreferentialTransferEDIT ="No";
+				static String EquipmentSegmentNameEDIT="Seg name2";
+				static String EquipmentSegmentSFEDIT="200";				
 				
 				
 				
 				
-				
-			/*	@BeforeClass
+				@BeforeClass
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
@@ -83,9 +86,10 @@ public class Equipment {
 					driver.get("http://192.168.1.45:8092/equipment");
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.45:8091/equipment-group");
-				}*/
+				}
 		
-				@Test(priority=9,invocationCount=2)
+			//	@Test(priority=9,invocationCount=2)
+				@Test(priority=9)
 				public void CreateEquipment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -196,9 +200,12 @@ public class Equipment {
 					}	
 					
 					
-
-					//Location Assessment
-					Thread.sleep(500);
+					Thread.sleep(1000);
+					System.out.println("submitLocationAssessment: "+driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size());
+					if(driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size()!=0)
+					{
+					//Location Risk Assessment
+					Thread.sleep(1000);
 					driver.findElement(parser.getbjectLocator("AddLocation")).click();
 					driver.findElement(parser.getbjectLocator("AddLocation")).click();
 					Thread.sleep(500);
@@ -220,9 +227,12 @@ public class Equipment {
 			        driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
 			        Thread.sleep(1000);
 					
-					driver.findElement(parser.getbjectLocator("Nextbutton")).click(); // submit location assessment
+					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
+					//Location Risk Assessment -End
+					}
 					
 					
+					Thread.sleep(1000);
 					//Do you want to upload images?
 					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
 					Select YesorNo = new Select(uploadsamplingimage);
@@ -235,20 +245,24 @@ public class Equipment {
 					//driver.findElement(By.xpath(".//*[@id='addPinName']")).click();
 					//click add location pin
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); // submit location assessment
+					driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); 
+					//LocationName
+					Thread.sleep(500);
+					System.out.println("locationName1:" +driver.findElement(By.id("locationName1")).getAttribute("type"));
+					if(driver.findElement(By.id("locationName1")).getAttribute("type").equals("text")) 
+					{
+						Thread.sleep(500);
+						driver.findElement(By.id("locationName1")).clear();
+						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						
+					}
+					Thread.sleep(1000);
+					
 					//MOC Selection
 					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
 					Select SelectMOC = new Select(MOCSelection);
 					SelectMOC.selectByIndex(1); 
 					Thread.sleep(500);
-					//driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span/ul")).click();
-					//Thread.sleep(1500);
-					//driver.findElement(By.xpath(".//*[@id='select2-mocy1-result-6k82-2']")).click();
-					
-					//Sampling Selection
-					//WebElement SamplingSelection = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span/ul"));
-					//Select Selectsampling = new Select(SamplingSelection);
-					//Selectsampling.selectByVisibleText("Rinse");
 					
 					//save image
 					//driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
@@ -260,41 +274,110 @@ public class Equipment {
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
 						Thread.sleep(2000);
-						
-					}else
+					}
+					
+					if(samplingbutton.getText().equalsIgnoreCase("Next"))
 					{
-						samplingbutton.click();
-						System.out.println("Custom loop");
 						Thread.sleep(1000);
-						for(int i=0;i<6;i++)
+						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						Thread.sleep(1000);
+						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
+						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
+						
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
 						{
-							System.out.println("i--->"+i);
-							String custom ="customFieldInput_";
+							Thread.sleep(1000);
+							driver.findElement(By.id("addSegment")).click();
 							Thread.sleep(500);
-							if(driver.findElements(By.id(custom+i)).size()!=0)
+							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
+							Thread.sleep(500);
+							driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
+							Thread.sleep(500);
+							WebElement Seglocation = driver.findElement(By.id("select1"));
+							Select SelectLocation = new Select(Seglocation);
+							SelectLocation.selectByIndex(0);
+							Thread.sleep(1000);
+							
+							WebElement segSubmit = driver.findElement(By.id("next-gotoeqpSamplingCustom")); //submitEquipmentSamplingDetails
+							System.out.println("================"+segSubmit.getText());
+						//	System.out.println("================"+driver.findElement(By.cssSelector("#next-gotoeqpSamplingCustom")).getText());
+							
+							
+							if(segSubmit.getText().equalsIgnoreCase("Submit"))
 							{
+								System.out.println("SegLoop: No Custom loop");
+								segSubmit.click();
+								Thread.sleep(2000);
+							}
+							else // custom loop after segment info
+							{
+								segSubmit.click();
+								System.out.println("Custom loop");
 								Thread.sleep(1000);
-								if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+								for(int i=0;i<6;i++)
 								{
-									System.out.println("Text bx");
+									System.out.println("i--->"+i);
+									String custom ="customFieldInput_";
 									Thread.sleep(500);
-									driver.findElement(By.id(custom+i)).sendKeys("Test");
+									if(driver.findElements(By.id(custom+i)).size()!=0)
+									{
+										Thread.sleep(1000);
+										if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+										{
+											System.out.println("Text bx");
+											Thread.sleep(500);
+											driver.findElement(By.id(custom+i)).sendKeys("Test");
+										}
+										if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+										{
+											System.out.println("DropDown");
+											Thread.sleep(500);
+											WebElement select = driver.findElement(By.id(custom+i));
+											Select selectcustom = new Select(select);
+											selectcustom.selectByIndex(1); 
+										}
+									}
 								}
-								if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+										//click save button in custom fields
+										driver.findElement(By.id("saveCustomDetails")).click();
+										Thread.sleep(2000);
+							}
+							
+						}
+						else // custom loop after sampling info
+						{
+							System.out.println("Custom loop");
+							Thread.sleep(1000);
+							for(int i=0;i<6;i++)
+							{
+								System.out.println("i--->"+i);
+								String custom ="customFieldInput_";
+								Thread.sleep(500);
+								if(driver.findElements(By.id(custom+i)).size()!=0)
 								{
-									System.out.println("DropDown");
-									Thread.sleep(500);
-									WebElement select = driver.findElement(By.id(custom+i));
-									Select selectcustom = new Select(select);
-									selectcustom.selectByIndex(1); 
+									Thread.sleep(1000);
+									if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+									{
+										System.out.println("Text bx");
+										Thread.sleep(500);
+										driver.findElement(By.id(custom+i)).sendKeys("Test");
+									}
+									if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+									{
+										System.out.println("DropDown");
+										Thread.sleep(500);
+										WebElement select = driver.findElement(By.id(custom+i));
+										Select selectcustom = new Select(select);
+										selectcustom.selectByIndex(1); 
+									}
 								}
 							}
+									//click save button in custom fields
+									driver.findElement(By.id("saveCustomDetails")).click();
+									Thread.sleep(2000);
 						}
-								//click save button in custom fields
-								driver.findElement(By.id("saveCustomDetails")).click();
-								Thread.sleep(2000);
-						
 					}
+					
 					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("createEquipment "+createEquipment);
 					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
@@ -406,11 +489,16 @@ public class Equipment {
 					
 					//driver.findElement(parser.getbjectLocator("NextButton")).click();
 					driver.findElement(By.id("saveEquipment")).click();
-					Thread.sleep(500);
+					Thread.sleep(1000);
 					
-					
-					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Nextbutton")).click(); // submit location assessment
+					System.out.println("submitLocationAssessment: "+driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size());
+					if(driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size()!=0)
+					{
+					//Location Risk Assessment
+					Thread.sleep(1000);
+					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
+					//Location Risk Assessment -End
+					}
 					
 					Thread.sleep(3000);
 					//Do you want to upload images?
@@ -419,6 +507,13 @@ public class Equipment {
 					YesorNo.selectByIndex(2); // select Yes option
 					Thread.sleep(1000);
 					
+					System.out.println("locationName1:" +driver.findElement(By.id("locationName1")).getAttribute("type"));
+					if(driver.findElement(By.id("locationName1")).getAttribute("type").equals("text")) 
+					{
+						Thread.sleep(500);
+						driver.findElement(By.id("locationName1")).clear();
+						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+					}
 					
 					
 					Thread.sleep(1000);
@@ -435,45 +530,147 @@ public class Equipment {
 						Thread.sleep(500);
 						driver.findElement(By.id("ackSubmit")).click();
 						
-					}else
+					}
+					//
+					if(samplingbutton.getText().equalsIgnoreCase("Next"))
 					{
-						samplingbutton.click();
-						System.out.println("Custom loop");
 						Thread.sleep(1000);
-						for(int i=0;i<6;i++)
+						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						Thread.sleep(1000);
+						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
+						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
+						
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
 						{
-							System.out.println("i--->"+i);
-							String custom ="customFieldInput_";
-							Thread.sleep(500);
-							if(driver.findElements(By.id(custom+i)).size()!=0)
+							Thread.sleep(1000);
+							System.out.println(driver.findElements(By.id("segmentName1")).size());
+							if(driver.findElements(By.id("segmentName1")).size()==0)
 							{
-								Thread.sleep(1000);
-								if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
-								{
-									System.out.println("Text bx");
-									Thread.sleep(500);
-									driver.findElement(By.id(custom+i)).sendKeys("Test");
-								}
-								if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
-								{
-									System.out.println("DropDown");
-									Thread.sleep(500);
-									WebElement select = driver.findElement(By.id(custom+i));
-									Select selectcustom = new Select(select);
-									selectcustom.selectByIndex(1); 
-								}
-							}
-						}
-								//click save button in custom fields
-								driver.findElement(By.id("saveCustomDetails")).click();
+								driver.findElement(By.id("addSegment")).click();	
 								Thread.sleep(500);
+								driver.findElement(By.id("segmentName1")).clear();
+								driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
+								Thread.sleep(500);
+								driver.findElement(By.id("surfaceArea1")).clear();
+								driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
+								Thread.sleep(500);
+								WebElement Seglocation = driver.findElement(By.id("select1"));
+								Select SelectLocation = new Select(Seglocation);
+								SelectLocation.selectByIndex(0);
+								Thread.sleep(1000);
+							}
+							String getsegmentName = driver.findElement(By.id("segmentName1")).getAttribute("value"); //verify text presented in the edit
+							Assert.assertEquals(getsegmentName,EquipmentSegmentNameCREATE);
+							Thread.sleep(500);
+							driver.findElement(By.id("segmentName1")).clear();
+							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameEDIT);
+							Thread.sleep(500);
+
+							String getsegmentSF= driver.findElement(By.id("surfaceArea1")).getAttribute("value"); //verify text presented in the edit
+							Assert.assertEquals(getsegmentSF,EquipmentSegmentSFCREATE);
+							Thread.sleep(500);
+							driver.findElement(By.id("surfaceArea1")).clear();
+							driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFEDIT);
+							Thread.sleep(500);
+							
+							WebElement segSubmit = driver.findElement(By.id("next-gotoeqpSamplingCustom")); //submitEquipmentSamplingDetails
+							System.out.println("================"+segSubmit.getText());
+						//	System.out.println("================"+driver.findElement(By.cssSelector("#next-gotoeqpSamplingCustom")).getText());
+							
+							
+							if(segSubmit.getText().equalsIgnoreCase("Submit"))
+							{
+								System.out.println("SegLoop: No Custom loop");
+								segSubmit.click();
+								Thread.sleep(1000);
 								driver.findElement(By.id("comments")).click();
 								Thread.sleep(500);
 								driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
 								Thread.sleep(500);
 								driver.findElement(By.id("ackSubmit")).click();
-						
+								Thread.sleep(2000);
+							}
+							else // custom loop after segment info
+							{
+								segSubmit.click();
+								System.out.println("Custom loop");
+								Thread.sleep(1000);
+								for(int i=0;i<6;i++)
+								{
+									System.out.println("i--->"+i);
+									String custom ="customFieldInput_";
+									Thread.sleep(500);
+									if(driver.findElements(By.id(custom+i)).size()!=0)
+									{
+										Thread.sleep(1000);
+										if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+										{
+											System.out.println("Text bx");
+											Thread.sleep(500);
+											driver.findElement(By.id(custom+i)).sendKeys("Test");
+										}
+										if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+										{
+											System.out.println("DropDown");
+											Thread.sleep(500);
+											WebElement select = driver.findElement(By.id(custom+i));
+											Select selectcustom = new Select(select);
+											selectcustom.selectByIndex(1); 
+										}
+									}
+								}
+										//click save button in custom fields
+										driver.findElement(By.id("saveCustomDetails")).click();
+										Thread.sleep(1000);
+										driver.findElement(By.id("comments")).click();
+										Thread.sleep(500);
+										driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+										Thread.sleep(500);
+										driver.findElement(By.id("ackSubmit")).click();
+										Thread.sleep(2000);
+							}
+							
+						}
+						else // custom loop after sampling info
+						{
+							System.out.println("Custom loop");
+							Thread.sleep(1000);
+							for(int i=0;i<6;i++)
+							{
+								System.out.println("i--->"+i);
+								String custom ="customFieldInput_";
+								Thread.sleep(500);
+								if(driver.findElements(By.id(custom+i)).size()!=0)
+								{
+									Thread.sleep(1000);
+									if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+									{
+										System.out.println("Text bx");
+										Thread.sleep(500);
+										driver.findElement(By.id(custom+i)).sendKeys("Test");
+									}
+									if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+									{
+										System.out.println("DropDown");
+										Thread.sleep(500);
+										WebElement select = driver.findElement(By.id(custom+i));
+										Select selectcustom = new Select(select);
+										selectcustom.selectByIndex(1); 
+									}
+								}
+							}
+									//click save button in custom fields
+									driver.findElement(By.id("saveCustomDetails")).click();
+									Thread.sleep(1000);
+									driver.findElement(By.id("comments")).click();
+									Thread.sleep(500);
+									driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+									Thread.sleep(500);
+									driver.findElement(By.id("ackSubmit")).click();
+									Thread.sleep(2000);
+						}
 					}
+					//
 					Thread.sleep(2000);
 					String EditEquipment = driver.findElement(By.className("notify-msg")).getText(); 
 					Assert.assertEquals(EditEquipment,"Equipment updated successfully");
@@ -574,25 +771,34 @@ public class Equipment {
 					Select location = new Select(locationdropdown);
 					location.selectByIndex(1);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Model")).sendKeys("Test equipment Model");
+					driver.findElement(parser.getbjectLocator("Model")).sendKeys(EquipmentModelCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).sendKeys("Test Equipment Serial No");
+					driver.findElement(parser.getbjectLocator("AssetNo/SerialNo")).sendKeys(EquipmentSerialNoCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Manufacturer")).sendKeys("Test Equipment manufacturer");
+					driver.findElement(parser.getbjectLocator("Manufacturer")).sendKeys(EquipmentManufacturerCREATE);
 					Thread.sleep(500);
 					//driver.findElement(parser.getbjectLocator("SurfaceArea")).sendKeys("10000");
-					driver.findElement(By.id("surfaceArea")).sendKeys("10000");
+					driver.findElement(By.id("surfaceArea")).sendKeys(EquipmentSFCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys("Test Surface Data Source");
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(EquipmentSFDataSourceCREATE);
 					Thread.sleep(500);
 					
 					WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
 					Select preferentialTransferType = new Select(preferentialTransfer);
-					preferentialTransferType.selectByIndex(2);
+					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys("50");
+					
+					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(EquipmentPreferentialTransferSFCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys("QD 111");
+
+					WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
+					Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
+					SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
+					Thread.sleep(500);
+					
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchCREATE);
+					Thread.sleep(500);
+					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
 					Thread.sleep(500);
 					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
 					Select CleaningSOP = new Select(SOP);
@@ -602,7 +808,8 @@ public class Equipment {
 					Select CleaningProcessType = new Select(processType);
 					CleaningProcessType.selectByIndex(1);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys("Test Data");
+					
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
 					Thread.sleep(1000);
 					//driver.findElement(parser.getbjectLocator("NextButton")).click();
 					driver.findElement(By.id("saveEquipment")).click();
@@ -656,89 +863,198 @@ public class Equipment {
 						}
 					}	
 					
-					//Location Assessment
-					Thread.sleep(500);
+					
+					Thread.sleep(1000);
+					System.out.println("submitLocationAssessment: "+driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size());
+					if(driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size()!=0)
+					{
+					//Location Risk Assessment
+					Thread.sleep(1000);
+					driver.findElement(parser.getbjectLocator("AddLocation")).click();
 					driver.findElement(parser.getbjectLocator("AddLocation")).click();
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("No")).click();
+					driver.findElement(By.id("checkbox1")).click();
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Name")).sendKeys("Location1");
+					driver.findElement(By.id("checkbox2")).click();
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("Nextbutton")).click(); // submit location assessment
+					driver.findElement(By.id("location1")).sendKeys(EquipmentSamplingLocationCREATE);
+					Thread.sleep(500);
+					driver.findElement(By.id("location2")).sendKeys(EquipmentSamplingLocationCREATE);
+					Thread.sleep(500);
+					//Enter Locations
+			        Thread.sleep(500);
+			        driver.findElement(By.id("location1")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB);
+			        //Delete row
+			        Thread.sleep(1000);
+			        driver.findElement(By.cssSelector(".remove-row-icon")).click();
+			        Thread.sleep(1000);
+			        driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
+			        Thread.sleep(1000);
+					
+					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
+					//Location Risk Assessment -End
+					}
 					
 					
+					Thread.sleep(1000);
 					//Do you want to upload images?
 					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
 					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(2); // select No option
-					
+					YesorNo.selectByIndex(2); // select Yes option
+					Thread.sleep(1000);
+					//upload image
+					//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
+					//Thread.sleep(1000);
+					//add location
+					//driver.findElement(By.xpath(".//*[@id='addPinName']")).click();
 					//click add location pin
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); // submit location assessment
+					driver.findElement(parser.getbjectLocator("AddLocationButton")).click(); 
+					//LocationName
+					Thread.sleep(500);
+					System.out.println("locationName1:" +driver.findElement(By.id("locationName1")).getAttribute("type"));
+					if(driver.findElement(By.id("locationName1")).getAttribute("type").equals("text")) 
+					{
+						Thread.sleep(500);
+						driver.findElement(By.id("locationName1")).clear();
+						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						
+					}
+					Thread.sleep(1000);
+					
 					//MOC Selection
 					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
 					Select SelectMOC = new Select(MOCSelection);
 					SelectMOC.selectByIndex(1); 
 					Thread.sleep(500);
-					//driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span/ul")).click();
-					//Thread.sleep(1500);
-					//driver.findElement(By.xpath(".//*[@id='select2-mocy1-result-6k82-2']")).click();
 					
-					//Sampling Selection
-					//WebElement SamplingSelection = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span/ul"));
-					//Select Selectsampling = new Select(SamplingSelection);
-					//Selectsampling.selectByVisibleText("Rinse");
-					
+					//save image
+					//driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
+					//Thread.sleep(1000);
 					Thread.sleep(1000);
 					WebElement samplingbutton = driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")); //submitEquipmentSamplingDetails
-					if(samplingbutton.getText().equals("Submit"))
+					if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 					{
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
-						Thread.sleep(500);
-						
-					}else
+						Thread.sleep(2000);
+					}
+					
+					if(samplingbutton.getText().equalsIgnoreCase("Next"))
 					{
-						samplingbutton.click();
-						System.out.println("Custom loop");
 						Thread.sleep(1000);
-						for(int i=0;i<6;i++)
+						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						Thread.sleep(1000);
+						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
+						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
+						
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
 						{
-							System.out.println("i--->"+i);
-							String custom ="customFieldInput_";
+							Thread.sleep(1000);
+							driver.findElement(By.id("addSegment")).click();
 							Thread.sleep(500);
-							if(driver.findElements(By.id(custom+i)).size()!=0)
+							driver.findElement(By.id("segmentName1")).sendKeys("Seg 1");
+							Thread.sleep(500);
+							driver.findElement(By.id("surfaceArea1")).sendKeys("100");
+							Thread.sleep(500);
+							WebElement Seglocation = driver.findElement(By.id("select1"));
+							Select SelectLocation = new Select(Seglocation);
+							SelectLocation.selectByIndex(0);
+							Thread.sleep(1000);
+							
+							WebElement segSubmit = driver.findElement(By.id("next-gotoeqpSamplingCustom")); //submitEquipmentSamplingDetails
+							System.out.println("================"+segSubmit.getText());
+						//	System.out.println("================"+driver.findElement(By.cssSelector("#next-gotoeqpSamplingCustom")).getText());
+							
+							
+							if(segSubmit.getText().equalsIgnoreCase("Submit"))
 							{
+								System.out.println("SegLoop: No Custom loop");
+								segSubmit.click();
+								Thread.sleep(2000);
+							}
+							else // custom loop after segment info
+							{
+								segSubmit.click();
+								System.out.println("Custom loop");
 								Thread.sleep(1000);
-								if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+								for(int i=0;i<6;i++)
 								{
-									System.out.println("Text bx");
+									System.out.println("i--->"+i);
+									String custom ="customFieldInput_";
 									Thread.sleep(500);
-									driver.findElement(By.id(custom+i)).sendKeys("Test");
+									if(driver.findElements(By.id(custom+i)).size()!=0)
+									{
+										Thread.sleep(1000);
+										if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+										{
+											System.out.println("Text bx");
+											Thread.sleep(500);
+											driver.findElement(By.id(custom+i)).sendKeys("Test");
+										}
+										if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+										{
+											System.out.println("DropDown");
+											Thread.sleep(500);
+											WebElement select = driver.findElement(By.id(custom+i));
+											Select selectcustom = new Select(select);
+											selectcustom.selectByIndex(1); 
+										}
+									}
 								}
-								if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+										//click save button in custom fields
+										driver.findElement(By.id("saveCustomDetails")).click();
+										Thread.sleep(2000);
+							}
+							
+						}
+						else // custom loop after sampling info
+						{
+							System.out.println("Custom loop");
+							Thread.sleep(1000);
+							for(int i=0;i<6;i++)
+							{
+								System.out.println("i--->"+i);
+								String custom ="customFieldInput_";
+								Thread.sleep(500);
+								if(driver.findElements(By.id(custom+i)).size()!=0)
 								{
-									System.out.println("DropDown");
-									Thread.sleep(500);
-									WebElement select = driver.findElement(By.id(custom+i));
-									Select selectcustom = new Select(select);
-									selectcustom.selectByIndex(1); 
+									Thread.sleep(1000);
+									if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+									{
+										System.out.println("Text bx");
+										Thread.sleep(500);
+										driver.findElement(By.id(custom+i)).sendKeys("Test");
+									}
+									if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+									{
+										System.out.println("DropDown");
+										Thread.sleep(500);
+										WebElement select = driver.findElement(By.id(custom+i));
+										Select selectcustom = new Select(select);
+										selectcustom.selectByIndex(1); 
+									}
 								}
 							}
+									//click save button in custom fields
+									driver.findElement(By.id("saveCustomDetails")).click();
+									Thread.sleep(2000);
 						}
-								//click save button in custom fields
-								driver.findElement(By.id("saveCustomDetails")).click();
-								
-						
 					}
-					Thread.sleep(2000);
+					
 					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+					System.out.println("createEquipment "+createEquipment);
+					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					Assert.assertEquals(createEquipment,"Equipment saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
 					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
 					{
+						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+						//System.out.println("createEquipment "+createEquipment);
+						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
+						//Assert.assertEquals(createEquipment,"Equipment saved successfully");
 						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
 					}
 					Thread.sleep(500);

@@ -634,7 +634,7 @@ public class L0 {
 	
 	
 	
-	public static double L0forTOPICAL(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
+	public static double L0forTOPICALoption2(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		float L0 = 0,doseL0=0;
 		float Safety_Factor = 0, Active_Concen = 0, minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,minAmountApplied=0,
 				minApplnFrequency=0,minBodySF=0;
@@ -731,7 +731,106 @@ public class L0 {
 					}
 					connection.close();
 		return L0; // return that L0 in this method
-	} //closing calculate_P1_active1_L0
+	} //clsoing topical L0
+			
+	
+	public static double L0forTOPICALoption1(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
+		float L0 = 0,doseL0=0;
+		float Safety_Factor = 0, Active_Concen = 0, minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,minAmountApplied=0,
+				minApplnFrequency=0,minBodySF=0;
+		int Basislimitoption=0;
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = connection.createStatement();
+		// get current product name id from product table // for finding dose based and health flag
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		int prodname_id = 0;
+		while (getprodname_id.next()) 
+			{ 
+			prodname_id = getprodname_id.getInt(1); // get name id from product table
+			}
+			System.out.println("name id: " + prodname_id);
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
+				//get active multiple basis of calculation ID
+				List<Integer> basislist = new ArrayList<>(); // get active list from above query
+				while (prod_basis_relation_id.next()) 
+				{
+					basislist.add(prod_basis_relation_id.getInt(2));
+				}
+				
+				for(Integer basislistID:basislist)
+				{
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+"");
+				while (basisOfcalc.next()) 
+					{
+					Safety_Factor = basisOfcalc.getFloat(1);
+					Active_Concen = basisOfcalc.getFloat(2);
+					minAmountApplied= basisOfcalc.getFloat(3);
+					minApplnFrequency =basisOfcalc.getFloat(4);
+					}
+				}
+					/*//get active id for getting health value
+					ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+					List<Integer> active = new ArrayList<>(); // store multiple equipment id
+				    while (getactiveID.next()) 
+				    {
+				    	active.add(getactiveID.getInt(2)); // get health based value
+				    }*/
+					
+				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
+				    while (residuelimit.next()) 
+					{
+				    Basislimitoption = residuelimit.getInt(1);
+					}
+				    
+				    //find health value for each active
+				    float health = 0;
+				    //get health based L0 from database
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+					while (Active.next()) 
+					{
+						health = Active.getFloat(1);
+						L0 = health;
+					}
+					System.out.println("Dose LO: "+doseL0);
+					System.out.println("Health LO: "+health);
+				    // When dose and health flag is true in basis of calculation table
+					if (Basislimitoption== 3) {
+									System.out.println("Both enabled");
+									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency );
+									
+										if (health <= doseL0) // compare both dose and health
+										{
+											L0 = health;
+										}else
+										{
+											L0=doseL0;
+										}
+										
+									System.out.println("Print lowest b/w health & dose L0: "+L0);
+									return L0; // getting lowest L0 b/w 2
+					} // for finding dose based and health flag
+					
+					if (Basislimitoption == 1) 
+					{
+						System.out.println("Dose enabled and health disabled");
+							
+						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency);
+						System.out.println("Print Dose based L0: " +L0);
+						return L0; // getting does L0 
+					} 
+					
+					if (Basislimitoption== 2) 
+					{
+						System.out.println("Dose disabled and health enabled");
+						// get health based L0 from database
+							L0 = health;
+						System.out.println("Print health L0: "+L0);
+						return L0;
+					}
+					connection.close();
+		return L0; // return that L0 in this method
+	} //clsoing topical L0
 			
 	
 	
