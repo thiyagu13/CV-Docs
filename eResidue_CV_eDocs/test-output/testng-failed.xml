@@ -3,25 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.Product">
+      <class name="com.eDocs.SanityTesting.Usergroup">
         <methods>
-          <include name="CreateProductINHALANT"/>
-          <include name="EditProductINHALANT"/>
-          <include name="EditProductDILUENT"/>
-          <include name="CreateProductTopical"/>
-          <include name="EditProductSOLID"/>
-          <include name="MultiDeleteProduct"/>
-          <include name="CreateProductCLENAINGAGENT"/>
-          <include name="CreateProductPATCH"/>
+          <include name="MultiDeleteUser"/>
           <include name="setUp"/>
-          <include name="CreateProductDILUENT"/>
-          <include name="EditProductCLEANINGAGENT"/>
-          <include name="EditProductLIQUID"/>
-          <include name="EditProductTOPICAL"/>
-          <include name="EditProductPATCH"/>
-          <include name="SingleDeleteProduct"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.Product -->
+      </class> <!-- com.eDocs.SanityTesting.Usergroup -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
