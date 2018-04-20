@@ -41,8 +41,8 @@ public class Constant {
 	
 	public static final String product_Properties_Path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties";
 	
+	public static final String PDFDownloadedPath = "D:\\WebDriverDownloads";	
 	
-	
-	
+	public static String tenant_id="20180416";
 	
 }

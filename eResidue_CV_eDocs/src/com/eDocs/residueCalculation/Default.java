@@ -15,13 +15,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
 public class Default {
 	public static WebDriver driver;
 	
-	static String tenant_id="20172017";
+	static String tenant_id=Constant.tenant_id;
 	/*public static String UniversalSettings() throws IOException, InterruptedException,ClassNotFoundException {
 		//System.setProperty("webdriver.Chrome.driver","C:\\selenium\\Testing\\chromedriver.exe");
 		System.setProperty("webdriver.gecko.driver","C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe");

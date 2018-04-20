@@ -25,7 +25,7 @@ public class Usergroup {
 	
 			
 			private RepositoryParser parser;
-			private WebDriver driver = Constant.driver;;
+			private WebDriver driver = Constant.driver;
 			public String password = "123456";
 		
 			//Datas for create User
@@ -43,7 +43,7 @@ public class Usergroup {
 			static String changeControlEDIT  = "CreateUser 111";
 			
 			//Multi Delete Data for user
-			static String multiDeleteSearchData="Seleniumuser";
+			static String multiDeleteSearchData="SeleniumGroup";
 			
 			
 			
@@ -66,7 +66,7 @@ public class Usergroup {
 				password.sendKeys("123456");
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				driver.get("http://192.168.1.45:8092/group-policy");
 			}
 				
@@ -76,7 +76,7 @@ public class Usergroup {
 			public void CreateUSERGROUP() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				//driver.get("http://192.168.1.45:8092/users");
+				//driver.get("http://192.168.1.45:8092/group-policy");
 				//parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\UserGroup.properties");
 				//Thread.sleep(1000);
 				driver.findElement(By.id("addGroupPolicy")).click();
@@ -247,7 +247,7 @@ public class Usergroup {
 			
 			
 			@Test(priority=5)
-			public void SingleDeleteUser() throws InterruptedException, IOException
+			public void SingleDeleteUserGroup() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
 				driver.findElement(By.id("dLabel")).click();
@@ -287,7 +287,7 @@ public class Usergroup {
 			
 			
 			@Test(priority=6)
-			public void MultiDeleteUser() throws InterruptedException, IOException
+			public void MultiDeleteUserGroup() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
 				driver.findElement(By.id("searchEquipment")).sendKeys(multiDeleteSearchData);
@@ -325,9 +325,111 @@ public class Usergroup {
 			}
 			
 			
+			@Test(priority=7)
+			public void CreateUSERGROUPforPolicy() throws InterruptedException, SQLException, ClassNotFoundException, IOException
+			{
+				Thread.sleep(2000);
+				//driver.get("http://192.168.1.45:8092/users");
+				//parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\UserGroup.properties");
+				//Thread.sleep(1000);
+				driver.findElement(By.id("example-select-all")).click(); // un check mutli check box
+				Thread.sleep(1000);
+				driver.findElement(By.id("addGroupPolicy")).click();
+				Thread.sleep(1000);
+				String Name = userGroupNameCREATE;
+				WebElement userName = driver.findElement(parser.getbjectLocator("UserGroupName"));
+				userName.sendKeys(Name);
+				Thread.sleep(500);
+				
+				Thread.sleep(500);
+				driver.findElement(parser.getbjectLocator("GroupDescription")).sendKeys(userGroupDescCREATE);
+				Thread.sleep(500);
+				
+				driver.findElement(parser.getbjectLocator("GroupChangeControlNo")).sendKeys(changeControlCREATE);
+				Thread.sleep(500);
+				
+				driver.findElement(By.id("add_policy_type")).click();
+				Thread.sleep(500);
+				driver.findElement(By.id("add_policy_type")).click();
+				Thread.sleep(500);
+				driver.findElement(By.className("remove-row-icon")).click(); //delete one row
+				Thread.sleep(500);
+				driver.findElement(By.className("grpmodname")).click();
+				driver.findElement(By.className("grpmodname")).sendKeys("Site Information",Keys.ENTER);
+				Thread.sleep(1000);
+				driver.findElement(By.className("grpsite")).click();
+				driver.findElement(By.className("grpsite")).sendKeys(Keys.ENTER);
+				Thread.sleep(1000);
+				driver.findElement(By.className("grppermission")).click();
+				driver.findElement(By.className("grppermission")).sendKeys("Admin",Keys.ENTER);
+				Thread.sleep(1000);
+				
+				WebElement submit = driver.findElement(parser.getbjectLocator("CreateGroupSubmit"));
+				submit.click();
+				Thread.sleep(1000);
+				
+				
+				//if duplicate equipment name
+				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
+				{
+					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.className("custom-notify-close")).click();
+				
+				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
+				for(int k=1;k<1000;k++)
+				{
+					j.add(k);
+				}
+				
+				Thread.sleep(500);
+				if(getduplicatename.equalsIgnoreCase("Group name already exists"))
+				{
+					for(Integer i:j)
+					{
+						driver.findElement(parser.getbjectLocator("UserGroupName")).clear();
+						driver.findElement(parser.getbjectLocator("UserGroupName")).sendKeys(Name+i);
+						Thread.sleep(500);
+						driver.findElement(parser.getbjectLocator("CreateGroupSubmit")).click();
+						Thread.sleep(500);
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
+						{
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							System.out.println("Name duplicate: "+nameduplicate);
+							driver.findElement(By.className("custom-notify-close")).click();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
+							{
+								continue;
+							}
+						}
+								System.out.println("Not duplicate so break the loop");
+								break;
+						}
+					}
+				}// closing if loop duplicate equipment
+				
+				
+				Thread.sleep(2000);
+				String successMsg = null;
+				if(driver.findElements(By.className("notify-msg")).size()!=0)
+				{
+					successMsg = driver.findElement(By.className("notify-msg")).getText();
+				}
+				Assert.assertEquals(successMsg,"Group has been added successfully");
+				
+				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				{
+					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+				}
+				Thread.sleep(500);
+			} // closing create User method
+			
 	
 	
-	
+			/*@Test(priority=6)
+			public void ExportUserGroup() throws Exception
+			{
+				Utils.ExportPDF(driver);
+			}*/
 	
 	
 	

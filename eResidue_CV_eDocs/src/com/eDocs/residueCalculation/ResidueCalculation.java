@@ -41,16 +41,16 @@ public class ResidueCalculation {
 	public boolean default_l1_l3 = false;
 	
 		
-	String tenant_id="20172017";
+	String tenant_id= Constant.tenant_id;
 	public int limitDetermination() throws ClassNotFoundException, SQLException
 	{
 		int LimitDeterminationOption = 0;
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-		ResultSet LimitDetermination = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
+		ResultSet LimitDetermination = stmt.executeQuery("SELECT basis_of_limit_determination FROM residue_limit where tenant_id='"+tenant_id+"'");
 		while (LimitDetermination.next()) 
 		{
-			LimitDeterminationOption = LimitDetermination.getInt(10);
+			LimitDeterminationOption = LimitDetermination.getInt(1);
 		}
 		System.out.println("LimitDeterminationOption-->"+LimitDeterminationOption);
 		connection.close();
@@ -295,8 +295,6 @@ public class ResidueCalculation {
 		Thread.sleep(300);
 		
 		
-		
-		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
   		
@@ -306,8 +304,8 @@ public class ResidueCalculation {
 		System.out.println("nextproductlist "+nextproductlist);*/
 		
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("Test3");
-		selectedproducts.add("Test4");
+		selectedproducts.add("Test Product5");
+		selectedproducts.add("Test Product6");
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
@@ -415,9 +413,13 @@ public class ResidueCalculation {
 				
 		for(String NextprodName : nextproductlist)  // Next product list
 		{
-			if(CurrenProductName.equals(NextprodName)) // if same product (e.g P1 ->P1)
+			String LimitcalculationType = sheet.getRow(39).getCell(0).getStringCellValue();
+			
+			if(CurrenProductName.equals(NextprodName)&& LimitcalculationType.equalsIgnoreCase("Manual")) // if same product (e.g P1 ->P1)
 			{
-				System.out.println("-------------->Same Product");
+				
+				//value_L1 = 
+			//	System.out.println("-------------->Same Product");
 				
 			}else { // if other product (e.g P1 ->P2)
 				
@@ -441,7 +443,7 @@ public class ResidueCalculation {
 				if(productType.equals("Patch"))
 				{
 					System.out.println("activeID--->"+activeID);
-					value_L1 = L0.L0forPatch(activeID, CurrenProductName) / maxDD;
+					value_L1 = (L0.L0forPatch(activeID, CurrenProductName)*1000) / maxDD;
 					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 					Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID,CurrenProductName));
 				}
@@ -449,7 +451,7 @@ public class ResidueCalculation {
 				if(productType.equals("Topical") && grouping_criteria_option==2)
 				{
 					System.out.println("activeID--->"+activeID);
-					value_L1 = L0.L0forTOPICALoption2(activeID, CurrenProductName) / maxDD;
+					value_L1 = (L0.L0forTOPICALoption2(activeID, CurrenProductName)*1000) / maxDD;
 					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
 					Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICALoption2(activeID,CurrenProductName));
 				}
@@ -1099,24 +1101,24 @@ public class ResidueCalculation {
 				
 				if(productType.equals("Solid")|| productType.equals("Liquid")||productType.equals("Inhalant"))
 				{
-				value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
+					value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
 				}
 				//if product is Transdermal Patch
 				if(productType.equals("Patch"))
 				{
-				value_L1 = L0.groupingApproach_L0forPatch(CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+					value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName)*1000) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
 				}
 				
 				//if product is Topical
 				if(productType.equals("Topical"))
 				{
-				value_L1 = L0.groupingApproach_L0forTOPICAL(CurrenProductName) / maxDD;
-				Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-				Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forTOPICAL(CurrenProductName));
+					value_L1 = (L0.groupingApproach_L0forTOPICAL(CurrenProductName)*1000) / maxDD;
+					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forTOPICAL(CurrenProductName));
 				}
 				
 				

@@ -36,7 +36,7 @@ public class User {
 			static String telephoneNoCREATE  = "87744878987";
 			static String emailIDCREATE  = "test@test.com";
 			static String departmentCREATE  = "Quality Assurance";
-			static String groupCREATE  ="Admin";
+			static String groupCREATE  ="SeleniumGroup";
 			static String changeControlCREATE  = "CreateUser 111";
 			static String newDepartmentCREATE = "Selenium Test";
 			static String newDepartmentDELETE = "Selenium Test";
@@ -56,7 +56,7 @@ public class User {
 			
 			
 			
-			@BeforeClass
+		/*	@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
@@ -77,18 +77,18 @@ public class User {
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(500);
 				driver.get("http://192.168.1.45:8092/users");
-			}
+			}*/
 				
 			
 			
 			
-			@Test(priority=3,invocationCount=2)
+			@Test(priority=8,invocationCount=2)
 			public void CreateUSER() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				//driver.get("http://192.168.1.45:8092/users");
-				//parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\User.properties");
-				//Thread.sleep(1000);
+				driver.get("http://192.168.1.45:8092/users");
+				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\User.properties");
+				Thread.sleep(1000);
 				driver.findElement(By.id("adduser")).click();
 				Thread.sleep(1000);
 				String Name = userNameCREATE;
@@ -224,7 +224,7 @@ public class User {
 	
 
 			
-			@Test(priority=4)
+			@Test(priority=9)
 			public void EditUSER() throws InterruptedException, SQLException, ClassNotFoundException
 			{
 				Thread.sleep(2000);
@@ -233,7 +233,6 @@ public class User {
 				driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
 				Thread.sleep(300);
 				
-				//
 				Thread.sleep(500);
 				String getEmployeeID = driver.findElement(parser.getbjectLocator("EmployeeID")).getAttribute("value");
 				Assert.assertEquals(getEmployeeID, empIDCREATE);
@@ -357,7 +356,7 @@ public class User {
 			
 			
 			
-			@Test(priority=5)
+			@Test(priority=10)
 			public void SingleDeleteUser() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -398,7 +397,7 @@ public class User {
 			
 			
 			
-			@Test(priority=6)
+			@Test(priority=11)
 			public void MultiDeleteUser() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -437,10 +436,153 @@ public class User {
 			}
 			
 			
+			@Test(priority=12)
+			public void CreateUSERforPolicy() throws InterruptedException, SQLException, ClassNotFoundException, IOException
+			{
+				Thread.sleep(2000);
+				//driver.get("http://192.168.1.45:8092/users");
+				//parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\User.properties");
+				//Thread.sleep(1000);
+				driver.findElement(By.id("example-select-all")).click(); // un check mutli check box
+				Thread.sleep(1000);
+				driver.findElement(By.id("adduser")).click();
+				Thread.sleep(1000);
+				String Name = userNameCREATE;
+				WebElement userName = driver.findElement(parser.getbjectLocator("UserName"));
+				userName.sendKeys(Name);
+				Thread.sleep(500);
+				
+				Thread.sleep(500);
+				driver.findElement(parser.getbjectLocator("EmployeeID")).sendKeys(empIDCREATE);
+				Thread.sleep(500);
+				driver.findElement(parser.getbjectLocator("FirstName")).sendKeys(firstNameCREATE);
+				Thread.sleep(500);
+				driver.findElement(parser.getbjectLocator("LastName")).sendKeys(lastNmaeCREATE);
+				Thread.sleep(500);
+				driver.findElement(parser.getbjectLocator("Telephone")).sendKeys(telephoneNoCREATE);
+				Thread.sleep(500);
+				driver.findElement(parser.getbjectLocator("EmailID")).sendKeys(emailIDCREATE);
+				Thread.sleep(500);
+				
+				//Create Department
+				driver.findElement(By.id("trigger-add-role")).click();
+				Thread.sleep(500);
+				driver.findElement(By.id("manfact_name")).sendKeys(newDepartmentCREATE);
+				Thread.sleep(500);
+				driver.findElement(By.xpath("//i[@onclick='newDepartment()']")).click();
+				Thread.sleep(2000);
+				String Success = null;
+				if(driver.findElements(By.className("notify-msg")).size()!=0)
+				{
+					Success = driver.findElement(By.className("notify-msg")).getText();
+				}
+				Assert.assertEquals(Success,"Department has been added successfully");
+				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				{
+					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+				}
+				Thread.sleep(500); // End  - create Department
+				
+				//Delete Department
+				WebElement deleteDepartment  = driver.findElement(parser.getbjectLocator("Department"));
+				Select SelecttoDeleteDepartment  = new Select(deleteDepartment);
+				SelecttoDeleteDepartment.selectByVisibleText(newDepartmentCREATE);
+				//Department already exists
+				Thread.sleep(500);
+				driver.findElement(By.id("deleteDepartment")).click();
+				Thread.sleep(2000);
+				String SuccessDlt = null;
+				if(driver.findElements(By.className("notify-msg")).size()!=0)
+				{
+					SuccessDlt = driver.findElement(By.className("notify-msg")).getText();
+				}
+				Assert.assertEquals(SuccessDlt,"Department has been deleted successfully");
+				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				{
+					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+				}
+				Thread.sleep(500); // End  - Delete Department
+				
+				
+				WebElement Department  = driver.findElement(parser.getbjectLocator("Department")); // Select ADE
+				Select SelectDepartment  = new Select(Department);
+				SelectDepartment.selectByVisibleText(departmentCREATE);
+				Thread.sleep(500);
+				
+				
+				WebElement group  = driver.findElement(parser.getbjectLocator("Group")); 
+				Select Selectgroup  = new Select(group);
+				Selectgroup.selectByVisibleText(groupCREATE);
+				Thread.sleep(500);
+				
+				driver.findElement(parser.getbjectLocator("userChangeControlNo")).sendKeys(changeControlCREATE);
+				Thread.sleep(500);
+				
+				WebElement submit = driver.findElement(parser.getbjectLocator("CreateUserSubmit"));
+				submit.click();
+				Thread.sleep(1000);
+				
+				
+				//if duplicate equipment name
+				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Username already exists"))
+				{
+					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.className("custom-notify-close")).click();
+				
+				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
+				for(int k=1;k<1000;k++)
+				{
+					j.add(k);
+				}
+				
+				Thread.sleep(500);
+				if(getduplicatename.equalsIgnoreCase("Username already exists"))
+				{
+					for(Integer i:j)
+					{
+						driver.findElement(parser.getbjectLocator("UserName")).clear();
+						driver.findElement(parser.getbjectLocator("UserName")).sendKeys(Name+i);
+						Thread.sleep(500);
+						driver.findElement(parser.getbjectLocator("CreateUserSubmit")).click();
+						Thread.sleep(500);
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Username already exists"))
+						{
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							System.out.println("Name duplicate: "+nameduplicate);
+							driver.findElement(By.className("custom-notify-close")).click();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Username already exists"))
+							{
+								continue;
+							}
+						}
+								System.out.println("Not duplicate so break the loop");
+								break;
+						}
+					}
+				}// closing if loop duplicate equipment
+				
+				
+				Thread.sleep(2000);
+				String successMsg = null;
+				if(driver.findElements(By.className("notify-msg")).size()!=0)
+				{
+					successMsg = driver.findElement(By.className("notify-msg")).getText();
+				}
+				Assert.assertEquals(successMsg,"User account has been registered successfully");
+				
+				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				{
+					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+				}
+				Thread.sleep(500);
+			} // closing create User method
 	
 	
-	
-	
+			/*@Test(priority=6)
+			public void ExportUser() throws Exception
+			{
+				Utils.ExportPDF(driver);
+			}*/
 	
 	
 	

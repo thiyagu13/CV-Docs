@@ -448,7 +448,11 @@ public class EquipmentGroup {
 				
 				
 				
-				
+				/*@Test(priority=6)
+				public void ExportEquipmentGroup() throws Exception
+				{
+					Utils.ExportPDF(driver);
+				}*/
 				
 				
 				

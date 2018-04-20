@@ -1144,17 +1144,11 @@ public class Equipment {
 				
 				
 				
-				/*private static String downloadPath = "D:\\seleniumdownloads";
-				@Test(priority=6)
-				public void MultiDeleteEquipment() throws InterruptedException, SQLException, ClassNotFoundException
+				/*@Test(priority=6)
+				public void ExportEquipment() throws Exception
 				{
-					Thread.sleep(500);
-					driver.findElement(By.id("export-file")).click();
-					Thread.sleep(2000);
-					String exportMSG = driver.findElement(By.xpath("html/body/div[15]/div/span")).getText();
-					Assert.assertEquals(exportMSG,"PDF downloaded successfully");
-				}
-				*/
+					Utils.ExportPDF(driver);
+				}*/
 				
 				
 				

@@ -18,11 +18,13 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -194,6 +196,58 @@ public class Utils {
 	            return value.setScale(zeros, BigDecimal.ROUND_HALF_UP).toString();
 	        }
 	    }
+		
+		
+		
+		public static void ExportPDF(WebDriver driver) throws Exception
+		{
+			Thread.sleep(2000);
+			driver.findElement(By.id("export-file")).click();
+			Thread.sleep(1000);
+			
+	        // Getting application message
+			String s1 = null;
+			float fileSize = 0;
+			
+			if(driver.findElements(By.className("notify-msg")).size()!=0)
+			{
+				s1 = driver.findElement(By.className("notify-msg")).getText();
+			}
+	        System.out.println("Actual Message: " + s1);
+	        // Checking expected message with altered actual message
+	        Assert.assertEquals("PDF downloaded successfully", s1);
+	    	Thread.sleep(1000);
+	        // Getting all the files from a folder
+	        File folder = new File(Constant.PDFDownloadedPath);
+	        File[] listOfFiles = folder.listFiles();
+	        String PDFFileName = null;
+	        for (int i = 1; i < listOfFiles.length; i++) 
+	        {
+	            SimpleDateFormat sdf = new SimpleDateFormat("_MM_dd_yyyy hh_mm a");
+	            
+	            if (listOfFiles[i].getName().contains(sdf.format(folder.lastModified()))) 
+	            {
+	                PDFFileName = listOfFiles[i].getName();
+	                System.out.println("PDFFileName: " + PDFFileName);
+	                //Santhosh 
+	                File folder1 = new File(Constant.PDFDownloadedPath+"\\"+PDFFileName);
+	                fileSize = folder1.length();
+	            }
+	        }
+	        System.out.println("PDF: "+fileSize/1024+"kb");
+	        if((fileSize/1024)==0)
+	        {
+	        	throw new Exception("PDF file size is zero");
+	        	
+	        }
+	        
+		}
+		
+		
+		
+		
+		
+		
 	  
 	 
 

@@ -16,7 +16,7 @@ import com.mysql.jdbc.Connection;
 public class L0 {
 	
 
-	static String tenant_id="20172017";
+	static String tenant_id="20180416";
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 		int Basislimitoption=0;
@@ -736,8 +736,7 @@ public class L0 {
 	
 	public static double L0forTOPICALoption1(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		float L0 = 0,doseL0=0;
-		float Safety_Factor = 0, Active_Concen = 0, minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,minAmountApplied=0,
-				minApplnFrequency=0,minBodySF=0;
+		float Safety_Factor = 0, Active_Concen = 0, minAmountApplied=0,	minApplnFrequency=0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -838,8 +837,8 @@ public class L0 {
 	public static double groupingApproach_L0forTOPICAL(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
 	{
 		float L0 = 0, doseL0=0,healthL0 = 0,Safety_Factor = 0, Active_Concen = 0, minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,minAmountApplied=0,
-				minApplnFrequency=0,minBodySF=0;
-		int Basislimitoption = 0,frequency = 0;
+				minApplnFrequency=0,minBodySF=1;
+		int Basislimitoption = 0;
 		
 		//database connection
 		Connection connection = Utils.db_connect();
