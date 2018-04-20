@@ -295,7 +295,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			//database connection
 			Connection connection = Utils.db_connect();
 			Statement stmt = (Statement) connection.createStatement();
-			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 			//Get product id 
 			int prodname_id = 0;
 			while (getprodname_id.next()) 
@@ -304,7 +304,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 				}
 			//Get highest dose of active value
 		    Set<Integer> basisofcalIDs  = new HashSet<>();
-		    ResultSet basisofcalID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = "+prodname_id+"");
+		    ResultSet basisofcalID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = "+prodname_id+" && tenant_id='"+tenant_id+"'");
 		    while(basisofcalID.next())
 		    {
 		    	basisofcalIDs.add(basisofcalID.getInt(1)); // get health based value
@@ -313,7 +313,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 		    List<Float> getdoseofActive  = new ArrayList<>();
 		    for(int basisofcal:basisofcalIDs)
 		    {
-		    	ResultSet doseofActive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id = "+basisofcal+ "");
+		    	ResultSet doseofActive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id = "+basisofcal+ " && tenant_id='"+tenant_id+"'");
 			    while(doseofActive.next())
 			    {
 			    	getdoseofActive.add(doseofActive.getFloat(1)); // get health based value
@@ -335,7 +335,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			//database connection
 			Connection connection = Utils.db_connect();
 			Statement stmt = (Statement) connection.createStatement();
-			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+			ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 			int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 			//Get product id 
 			while (getprodname_id.next()) 
@@ -343,7 +343,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 				prodname_id = getprodname_id.getInt(1); // get name id from product table
 				}
 				//get active id
-				ResultSet getactiveID = stmt.executeQuery("SELECT active_ingredient_id FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+				ResultSet getactiveID = stmt.executeQuery("SELECT active_ingredient_id FROM product_active_ingredient_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				List<Integer> active = new ArrayList<>(); // store multiple equipment id
 			    	while (getactiveID.next()) 
 			    	{
@@ -354,7 +354,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			    List<Float> ADE = new ArrayList<>(); // store multiple equipment id
 			    	for(int activeID:active)
 			    	{
-			    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water,lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+			    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water,lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 			    		while(getallActive.next())
 			    		{
 			    			Solubilities.add((float) getallActive.getFloat(1)); // get solibility value
@@ -367,7 +367,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			    // find minimum Solubility active id
 			    for(int listofactiveID:active)
 			    {
-			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && solubility_in_water LIKE "+minsolubility+ " or solubility_in_water="+minsolubility+"");
+			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && solubility_in_water LIKE "+minsolubility+ " or solubility_in_water="+minsolubility+" && tenant_id='"+tenant_id+"'");
 			    while(getActive.next())
 			    {
 			    	System.out.println("pass");
@@ -379,7 +379,7 @@ public static String defaultmethod() throws SQLException, ClassNotFoundException
 			    // find minimum ADE active id
 			    for(int listofactiveID:active)
 			    {
-			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && lowest_route_of_admin_value LIKE "+minADE+" or lowest_route_of_admin_value="+minADE+"");
+			    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = "+listofactiveID+ " && lowest_route_of_admin_value LIKE "+minADE+" or lowest_route_of_admin_value="+minADE+" && tenant_id='"+tenant_id+"'");
 			    while(getActive.next())
 			    {
 			    	System.out.println("pass");

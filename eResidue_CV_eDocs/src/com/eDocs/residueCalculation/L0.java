@@ -10,13 +10,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
 public class L0 {
 	
 
-	static String tenant_id="20180416";
+	static String tenant_id=Constant.tenant_id;
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 		int Basislimitoption=0;
@@ -25,7 +26,7 @@ public class L0 {
 		Statement stmt = (Statement) connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
 		System.out.println("");
-		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name ='"+CurrenProductName+"'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{
@@ -34,7 +35,7 @@ public class L0 {
 			Product_Dose = getprodname_id.getFloat(5); //// get product dose from product table
 			}
 			System.out.println("name id: " + prodname_id);
-			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				//get active multiple active id
 				List<Integer> BasisID = new ArrayList<>(); // get active list from above query
 				while (prod_basis_relation_id.next()) 
@@ -45,7 +46,7 @@ public class L0 {
 				System.out.println("BasisID"+BasisID);
 				System.out.println("activeID"+activeID);
 				for(Integer basis:BasisID) {
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"'");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"' && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(10);
@@ -82,7 +83,7 @@ public class L0 {
 									}
 									System.out.println("LO"+L0);
 									// get health based L0 from database
-									ResultSet Active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+activeID+ "'");
+									ResultSet Active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 									while (Active.next()) 
 									{
 										float health = Active.getFloat(12);
@@ -120,7 +121,7 @@ public class L0 {
 					{
 						System.out.println("Dose disabled and health enabled");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 						while (Active.next()) 
 						{
 							float health = Active.getFloat(1);
@@ -146,7 +147,7 @@ public class L0 {
 		//database connection
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,dosage_interval,product_dose FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,dosage_interval,product_dose FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 		//Get product id 
 		while (getprodname_id.next()) {
@@ -156,7 +157,7 @@ public class L0 {
 			}
 			System.out.println("name id: " + prodname_id);
 			//get active id
-			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				List<Integer> active = new ArrayList<>(); // store multiple equipment id
 		    	while (getactiveID.next()) 
 		    	{
@@ -167,7 +168,7 @@ public class L0 {
 		    List<Float> Solubilities = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
 		    			Solubilities.add((float) getallActive.getFloat(1)); // get health based value
@@ -180,7 +181,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+"' && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -193,7 +194,7 @@ public class L0 {
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
 		    			ade.add((float) getallActive.getFloat(1)); // get health based value
@@ -207,7 +208,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"' && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestADEID = getActive.getInt(1); // get health based value
@@ -217,7 +218,7 @@ public class L0 {
 		    
 		    //Integer basisofcalID=0;
 		    Set<Integer> basisofcalID = new HashSet<>();
-		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "'");
+		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "' && tenant_id='"+tenant_id+"'");
 		    while(basisID.next())
 		    {
 		    	basisofcalID.add(basisID.getInt(1)); // get health based value
@@ -229,7 +230,7 @@ public class L0 {
 		   
 		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,dose_of_active,min_num_of_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+"");
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,dose_of_active,min_num_of_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 				{
 					//dose_based_flag = basisOfcalc.getInt(5);
@@ -283,7 +284,7 @@ public class L0 {
 						{
 							System.out.println(" same");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "'");
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
@@ -295,7 +296,7 @@ public class L0 {
 							float lowestADEDose = 0,lowestsolubilityDose = 0;
 							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 						    {
-								ResultSet LowestPDEactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "'");
+								ResultSet LowestPDEactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
 								//TO DO
 								while(LowestPDEactive.next())
 								{
@@ -303,7 +304,7 @@ public class L0 {
 									System.out.println("lowestADEDose"+lowestADEDose);
 								}
 						    
-								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "'");
+								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 								while(Lowestsolubilityactive.next())
 								{
 									lowestsolubilityDose = Lowestsolubilityactive.getFloat(1);
@@ -344,7 +345,7 @@ public class L0 {
 		Connection connection = Utils.db_connect();
 		Statement stmt = connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{ 
@@ -352,7 +353,7 @@ public class L0 {
 			percentageAbsorbtion = getprodname_id.getFloat(2); // get name id from product table
 			}
 			System.out.println("name id: " + prodname_id);
-			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				//get active multiple basis of calculation ID
 				List<Integer> basislist = new ArrayList<>(); // get active list from above query
 				while (prod_basis_relation_id.next()) 
@@ -362,7 +363,7 @@ public class L0 {
 				
 				for(Integer basislistID:basislist)
 				{
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+"");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(1);
@@ -388,7 +389,7 @@ public class L0 {
 				    //find health value for each active
 				    float health = 0;
 				    //get health based L0 from database
-					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
@@ -445,7 +446,7 @@ public class L0 {
 		//database connection
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 		//Get product id 
 		while (getprodname_id.next()) {
@@ -455,7 +456,7 @@ public class L0 {
 			}
 			System.out.println("name id: " + prodname_id);
 			//get active id
-			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				List<Integer> active = new ArrayList<>(); // store multiple equipment id
 		    	while (getactiveID.next()) 
 		    	{
@@ -466,7 +467,7 @@ public class L0 {
 		    List<Float> Solubilities = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
 		    			Solubilities.add((float) getallActive.getFloat(1)); // get health based value
@@ -479,7 +480,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "' && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -492,7 +493,7 @@ public class L0 {
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
 		    			ade.add((float) getallActive.getFloat(1)); // get health based value
@@ -507,7 +508,7 @@ public class L0 {
 		    for(int listofactiveID:active)
 		    {
 		    	System.out.println("listofactiveID "+listofactiveID);
-		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+"");
+		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+" && tenant_id='"+tenant_id+"'");
 		    	while(getActive.next())
 		    	{
 		    		lowestADEID = getActive.getInt(1); // get health based value
@@ -517,7 +518,7 @@ public class L0 {
 		    
 		    //Integer basisofcalID=0;
 		    Set<Integer> basisofcalID = new HashSet<>();
-		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "'");
+		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "' && tenant_id='"+tenant_id+"'");
 		    while(basisID.next())
 		    {
 		    	basisofcalID.add(basisID.getInt(1)); // get health based value
@@ -529,7 +530,7 @@ public class L0 {
 		   
 		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+"");
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 				{
 					//dose_based_flag = basisOfcalc.getInt(5);
@@ -579,7 +580,7 @@ public class L0 {
 						{
 							System.out.println(" same");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "'");
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
@@ -591,7 +592,7 @@ public class L0 {
 							float lowestADEDose = 0,lowestsolubilityDose = 0;
 							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 						    {
-								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "'");
+								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
 								//TO DO
 								while(LowestPDEactive.next())
 								{
@@ -600,7 +601,7 @@ public class L0 {
 									System.out.println("lowestADEDose"+lowestADEDose);
 								}
 						    
-								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "'");
+								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 								while(Lowestsolubilityactive.next())
 								{
 									lowestsolubilityDose = Lowestsolubilityactive.getFloat(1);
@@ -643,14 +644,14 @@ public class L0 {
 		Connection connection = Utils.db_connect();
 		Statement stmt = connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{ 
 			prodname_id = getprodname_id.getInt(1); // get name id from product table
 			}
 			System.out.println("name id: " + prodname_id);
-			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				//get active multiple basis of calculation ID
 				List<Integer> basislist = new ArrayList<>(); // get active list from above query
 				while (prod_basis_relation_id.next()) 
@@ -660,7 +661,7 @@ public class L0 {
 				
 				for(Integer basislistID:basislist)
 				{
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+"");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(1);
@@ -687,7 +688,7 @@ public class L0 {
 				    //find health value for each active
 				    float health = 0;
 				    //get health based L0 from database
-					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
@@ -742,14 +743,14 @@ public class L0 {
 		Connection connection = Utils.db_connect();
 		Statement stmt = connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{ 
 			prodname_id = getprodname_id.getInt(1); // get name id from product table
 			}
 			System.out.println("name id: " + prodname_id);
-			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "'");
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				//get active multiple basis of calculation ID
 				List<Integer> basislist = new ArrayList<>(); // get active list from above query
 				while (prod_basis_relation_id.next()) 
@@ -759,7 +760,7 @@ public class L0 {
 				
 				for(Integer basislistID:basislist)
 				{
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+"");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(1);
@@ -785,7 +786,7 @@ public class L0 {
 				    //find health value for each active
 				    float health = 0;
 				    //get health based L0 from database
-					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
@@ -843,7 +844,7 @@ public class L0 {
 		//database connection
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,percentage_absorption FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
 		//Get product id 
 		while (getprodname_id.next()) {
@@ -852,7 +853,7 @@ public class L0 {
 			}
 			System.out.println("name id: " + prodname_id);
 			//get active id
-			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
 				List<Integer> active = new ArrayList<>(); // store multiple equipment id
 		    	while (getactiveID.next()) 
 		    	{
@@ -863,7 +864,7 @@ public class L0 {
 		    List<Float> Solubilities = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
 		    			Solubilities.add((float) getallActive.getFloat(1)); // get health based value
@@ -876,7 +877,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "' && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -889,7 +890,7 @@ public class L0 {
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
 		    			ade.add((float) getallActive.getFloat(1)); // get health based value
@@ -904,7 +905,7 @@ public class L0 {
 		    for(int listofactiveID:active)
 		    {
 		    	System.out.println("listofactiveID "+listofactiveID);
-		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+"");
+		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+" && tenant_id='"+tenant_id+"'");
 		    	while(getActive.next())
 		    	{
 		    		lowestADEID = getActive.getInt(1); // get health based value
@@ -914,7 +915,7 @@ public class L0 {
 		    
 		    //Integer basisofcalID=0;
 		    Set<Integer> basisofcalID = new HashSet<>();
-		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "'");
+		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "' && tenant_id='"+tenant_id+"'");
 		    while(basisID.next())
 		    {
 		    	basisofcalID.add(basisID.getInt(1)); // get health based value
@@ -926,7 +927,7 @@ public class L0 {
 		   
 		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+"");
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 				{
 					//dose_based_flag = basisOfcalc.getInt(5);
@@ -976,7 +977,7 @@ public class L0 {
 						{
 							System.out.println(" same");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "'");
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
@@ -988,7 +989,7 @@ public class L0 {
 							float lowestADEDose = 0,lowestsolubilityDose = 0;
 							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 						    {
-								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "'");
+								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
 								//TO DO
 								while(LowestPDEactive.next())
 								{
@@ -997,7 +998,7 @@ public class L0 {
 									System.out.println("lowestADEDose"+lowestADEDose);
 								}
 						    
-								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "'");
+								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 								while(Lowestsolubilityactive.next())
 								{
 									lowestsolubilityDose = Lowestsolubilityactive.getFloat(1);

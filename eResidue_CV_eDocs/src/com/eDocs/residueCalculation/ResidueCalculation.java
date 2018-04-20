@@ -41,7 +41,7 @@ public class ResidueCalculation {
 	public boolean default_l1_l3 = false;
 	
 		
-	String tenant_id= Constant.tenant_id;
+	static String tenant_id= Constant.tenant_id;
 	public int limitDetermination() throws ClassNotFoundException, SQLException
 	{
 		int LimitDeterminationOption = 0;
@@ -362,7 +362,7 @@ public class ResidueCalculation {
 				String cprodname = null,activename = null;
 				
 				//Get  Current product details
-						ResultSet productID = stmt.executeQuery("Select id,name,grouping_criteria_option,set_count from product where name = '" + CurrenProductName + "'"); // get product name id
+						ResultSet productID = stmt.executeQuery("Select id,name,grouping_criteria_option,set_count from product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'"); // get product name id
 							while (productID.next()) 
 							{
 								getprodID = productID.getInt(1);
@@ -373,7 +373,7 @@ public class ResidueCalculation {
 							
 				 // Get Actual Limit Result from db
 			    System.out.println("Get current product ID: "+getprodID);
-			    ResultSet prod_active_relation = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + getprodID + "'");
+			    ResultSet prod_active_relation = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + getprodID + "' && tenant_id='"+tenant_id+"'");
 				//get active multiple active id
 				List<Integer> activelist = new ArrayList<>(); // get active list from above query
 				while (prod_active_relation.next()) 
@@ -387,7 +387,7 @@ public class ResidueCalculation {
 		{
 					System.out.println("Active List----> "+activelist);
 					// get active name ,prod name and print in excel
-					 ResultSet active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+ activeID + "'");	 
+					 ResultSet active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+ activeID + "' && tenant_id='"+tenant_id+"'");	 
 						 while (active.next()) 
 						 {
 							// String activename = active.getString(2);
@@ -425,7 +425,7 @@ public class ResidueCalculation {
 				
 				System.out.println("prodName"+NextprodName);
 				String nprodname = null;	
-				ResultSet productdata = stmt.executeQuery("Select id,name,max_daily_dose,min_batch_size from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+				ResultSet productdata = stmt.executeQuery("Select id,name,max_daily_dose,min_batch_size from product where name ='"+NextprodName+"' && tenant_id='"+tenant_id+"' "); // get next prod name from excel and find out in db
 				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(3); minBatch = productdata.getFloat(4);   }
 
 				
@@ -537,11 +537,11 @@ public class ResidueCalculation {
 			 int actualnextProdID = 0;
 			 int actualresultrow = 41; 
 				 float ActualL0Result = 0,ActualL1Result = 0,ActualL2Result = 0,ActualL3Result = 0;
-				 ResultSet nextproductdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+				 ResultSet nextproductdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' && tenant_id='"+tenant_id+"' "); // get next prod name from excel and find out in db
 					while (nextproductdata.next()) {	actualnextProdID = nextproductdata.getInt(1);    }
 					
 					System.out.println("actualnextProdID"+actualnextProdID);
-					ResultSet prod_cal = stmt.executeQuery("SELECT * FROM product_calculation where product_id= '" + getprodID + "'&& next_prod_ids='"+  actualnextProdID+ "' && active_ingredient_id='"+activeID+ "'");
+					ResultSet prod_cal = stmt.executeQuery("SELECT * FROM product_calculation where product_id= '" + getprodID + "'&& next_prod_ids='"+  actualnextProdID+ "' && active_ingredient_id='"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					//While Loop to iterate through all data and print results
 					while (prod_cal.next()) {
 						 ActualL0Result = prod_cal.getFloat(3); ActualL1Result = prod_cal.getFloat(4); ActualL2Result = prod_cal.getFloat(5); ActualL3Result = prod_cal.getFloat(6);
@@ -630,7 +630,7 @@ public class ResidueCalculation {
 		    	Cell ActiveName = sheet.getRow(L4Row).getCell(16);
 				ActiveName.setCellValue(cprodname+space+activename); // print active name into excel
 		    	System.out.println("getprodID--->"+getprodID);
-		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "'"); // get product name id
+		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "' && tenant_id='"+tenant_id+"'"); // get product name id
 		    		// print
 		    	 while(EquipID.next()) {  // print name and sf value from equipment table
 		    	 eqname = EquipID.getString(9); // get name from database
@@ -703,7 +703,7 @@ public class ResidueCalculation {
 		    	 
 		 // Actual Result for L4a, L4b, L4c
 		    			float Ac_L4a = 0,Ac_L4b = 0,Ac_L4c = 0;
-		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "' && active_ingredient_id='"+  activeID+ "' && equipment_id='"+equipmentID+"'");
+		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "' && active_ingredient_id='"+  activeID+ "' && equipment_id='"+equipmentID+"' && tenant_id='"+tenant_id+"'");
 		    		while (ActualequipResult.next()) 
 		    		{
 		    					 Ac_L4a = ActualequipResult.getFloat(5); 
@@ -822,7 +822,7 @@ public class ResidueCalculation {
    		        	List<Integer> currentequipmentID = new ArrayList<>();
    		        	 
    		 //check if only equipmnet used in the product
-   		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + getprodID + "' && set_id ='" + i + "'"); // get product name id
+   		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + getprodID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (getequipfromset.next()) 
    		            {
    		                System.out.println("ony equipment selected");
@@ -832,7 +832,7 @@ public class ResidueCalculation {
    		           
    		            List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
    		            // List<Integer> equipmentgroup = new ArrayList<>();
-   		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
+   		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (getequipgrpfromset.next()) {
    		                System.out.println("ony equipment group selected");
    		                eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
@@ -840,12 +840,12 @@ public class ResidueCalculation {
    		            for (int id : eqgroupIDs) // iterate group id one by one 
    		            {
    		                int equipmentusedcount = 0;
-   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && group_id=" + id + ""); // get product name id
+   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqcountfromgrpID.next()) 
    		                {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
    		                }
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqfromgrpID.next()) 
    		                {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
@@ -856,19 +856,19 @@ public class ResidueCalculation {
    		//end: check if only equipment group used in the product -current product
    		//check if only equipment train used in the product -current product
    		            int gettrainID = 0;
-   		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
+   		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + getprodID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (getequiptrainIDfromset.next()) {
    		                System.out.println("ony equipment train selected");
    		                gettrainID = getequiptrainIDfromset.getInt(4);
    		            }
    		            // if train used only equipmeans used the below query
-   		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
+   		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (eqfromtrain.next()) {
    		                currentequipmentID.add(eqfromtrain.getInt(2));
    		            }
    		            // if train used group means - use the below query
    		            Set<Integer> groupIDs = new HashSet<>();
-   		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
+   		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (eqfromtraingroup.next()) {
    		                groupIDs.add(eqfromtraingroup.getInt(1));
    		            }
@@ -876,12 +876,12 @@ public class ResidueCalculation {
    		            {
    		                //Set<Integer> equipID = new HashSet();
    		                int equipmentusedcount = 0;
-   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
+   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqcountfromgrpID.next()) {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
    		                }
    		                System.out.println("Train group count"+equipmentusedcount);
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqfromgrpID.next()) {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
    		                }
@@ -895,7 +895,7 @@ public class ResidueCalculation {
    		            {
    		            	//------------->if equipment reused in equipment train
    		                Integer equipreusedID=0,equipment_used_count=0;   
-   		                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+""); // get product name id
+   		                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+" && tenant_id='"+tenant_id+"'"); // get product name id
    		                if(equipreused!=null)
    		                {
    		                	while (equipreused.next()) 
@@ -909,7 +909,7 @@ public class ResidueCalculation {
    		                	
    		                	float equipSF=0;
    		                	String equipreusedName =null;
-   		                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + ""); // get product name id
+   		                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                	while (equipreusedSf.next()) 
    		                	{
    		                		equipSF = equipreusedSf.getFloat(1);
@@ -921,7 +921,7 @@ public class ResidueCalculation {
    		                } //<------------------ending if equipment reused in equipment train
    		                
    		            	
-   		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
+   		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+" && tenant_id='"+tenant_id+"'");
    		            	while(getequipdetails.next())
    		            	{
    		            		if(equipment_used_count==0)
@@ -950,14 +950,14 @@ public class ResidueCalculation {
    		           
    			        // Get Train rinse volume for each set
    			        		Integer trainID = null ;
-   			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + TrainRow + " && set_id="+i+"");
+   			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + TrainRow + " && set_id="+i+" && tenant_id='"+tenant_id+"'");
    				         	while(set.next())
    				         	{
    				         		trainID = set.getInt(1);       		
    				         	}
    			      
    				        float TrainRinsevolume=0;
-   			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+"");
+   			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+" && tenant_id='"+tenant_id+"'");
    			         	while(eqtrain.next())
    			         	{
    			         		TrainRinsevolume = eqtrain.getFloat(1);       		
@@ -1015,7 +1015,7 @@ public class ResidueCalculation {
 //L4c Train Result (Opening Actual actual L4c Train Result)
  		       
    			 	    float actualTrainL4c = 0;
-   			    	ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && active_ingredient_id="+activeID+"  && train_id="+trainID+"");
+   			    	ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && active_ingredient_id="+activeID+"  && train_id="+trainID+" && tenant_id='"+tenant_id+"'");
    			       	while(actualTrainresult.next())
    			      	{
    			       		actualTrainL4c = actualTrainresult.getFloat(1);       		
@@ -1091,7 +1091,7 @@ public class ResidueCalculation {
 				
 				System.out.println("prodName"+NextprodName);
 				String nprodname = null;	
-				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+				ResultSet productdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' && tenant_id='"+tenant_id+"' "); // get next prod name from excel and find out in db
 				while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(8); minBatch = productdata.getFloat(9);   }
 				
 				
@@ -1183,11 +1183,11 @@ public class ResidueCalculation {
 			 int actualnextProdID = 0;
 			 int actualresultrow = 41; 
 				 float ActualL0Result = 0,ActualL1Result = 0,ActualL2Result = 0,ActualL3Result = 0;
-				 ResultSet nextproductdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' "); // get next prod name from excel and find out in db
+				 ResultSet nextproductdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' && tenant_id='"+tenant_id+"'"); // get next prod name from excel and find out in db
 					while (nextproductdata.next()) {	actualnextProdID = nextproductdata.getInt(1);    }
 					
 					System.out.println("actualnextProdID"+actualnextProdID);
-					ResultSet prod_cal = stmt.executeQuery("SELECT * FROM product_calculation where product_id= '" + getprodID + "'&& next_prod_ids='"+  actualnextProdID+"'"); /*"' && active_ingredient_id='"+activeID+ "'");*/
+					ResultSet prod_cal = stmt.executeQuery("SELECT * FROM product_calculation where product_id= '" + getprodID + "'&& next_prod_ids='"+  actualnextProdID+"' && tenant_id='"+tenant_id+"'"); /*"' && active_ingredient_id='"+activeID+ "'");*/
 					//While Loop to iterate through all data and print results
 					while (prod_cal.next()) {
 						 ActualL0Result = prod_cal.getFloat(3); ActualL1Result = prod_cal.getFloat(4); ActualL2Result = prod_cal.getFloat(5); ActualL3Result = prod_cal.getFloat(6);
@@ -1279,7 +1279,7 @@ public class ResidueCalculation {
 				currentpname.setCellValue(cprodname); // print product name into excel
 				 
 		    	System.out.println("getprodID--->"+getprodID);
-		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "'"); // get product name id
+		    	ResultSet EquipID = stmt.executeQuery("Select * from equipment where id= '" + equipmentID + "' && tenant_id='"+tenant_id+"'"); // get product name id
 		    		// print
 		    	 while(EquipID.next()) {  // print name and sf value from equipment table
 		    	 eqname = EquipID.getString(9); // get name from database
@@ -1353,7 +1353,7 @@ public class ResidueCalculation {
 		 // Actual Result for L4a, L4b, L4c
 		    			float Ac_L4a = 0,Ac_L4b = 0,Ac_L4c = 0;
 		    					//ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "' && active_ingredient_id='"+  activeID+ "' && equipment_id='"+equipmentID+"'");
-		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "'&& equipment_id='"+equipmentID+"'");
+		    					ResultSet ActualequipResult = stmt.executeQuery("SELECT * FROM product_calculation_equipment_results where product_id= '" + getprodID + "'&& equipment_id='"+equipmentID+"' && tenant_id='"+tenant_id+"'");
 		    		while (ActualequipResult.next()) 
 		    		{
 		    					 Ac_L4a = ActualequipResult.getFloat(5); 
@@ -1472,7 +1472,7 @@ public class ResidueCalculation {
    		        	List<Integer> currentequipmentID = new ArrayList<>();
    		        	 
    		 //check if only equipmnet used in the product
-   		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + getprodID + "' && set_id ='" + i + "'"); // get product name id
+   		            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + getprodID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (getequipfromset.next()) 
    		            {
    		                System.out.println("ony equipment selected");
@@ -1482,7 +1482,7 @@ public class ResidueCalculation {
    		           
    		            List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
    		            // List<Integer> equipmentgroup = new ArrayList<>();
-   		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
+   		            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (getequipgrpfromset.next()) {
    		                System.out.println("ony equipment group selected");
    		                eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
@@ -1490,12 +1490,12 @@ public class ResidueCalculation {
    		            for (int id : eqgroupIDs) // iterate group id one by one 
    		            {
    		                int equipmentusedcount = 0;
-   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && group_id=" + id + ""); // get product name id
+   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + getprodID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqcountfromgrpID.next()) 
    		                {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
    		                }
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqfromgrpID.next()) 
    		                {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
@@ -1506,19 +1506,19 @@ public class ResidueCalculation {
    		//end: check if only equipment group used in the product -current product
    		//check if only equipment train used in the product -current product
    		            int gettrainID = 0;
-   		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + getprodID + " && set_id =" + i + ""); // get product name id
+   		            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + getprodID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (getequiptrainIDfromset.next()) {
    		                System.out.println("ony equipment train selected");
    		                gettrainID = getequiptrainIDfromset.getInt(4);
    		            }
    		            // if train used only equipmeans used the below query
-   		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
+   		            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (eqfromtrain.next()) {
    		                currentequipmentID.add(eqfromtrain.getInt(2));
    		            }
    		            // if train used group means - use the below query
    		            Set<Integer> groupIDs = new HashSet<>();
-   		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
+   		            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
    		            while (eqfromtraingroup.next()) {
    		                groupIDs.add(eqfromtraingroup.getInt(1));
    		            }
@@ -1526,12 +1526,12 @@ public class ResidueCalculation {
    		            {
    		                //Set<Integer> equipID = new HashSet();
    		                int equipmentusedcount = 0;
-   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
+   		                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqcountfromgrpID.next()) {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
    		                }
    		                System.out.println("Train group count"+equipmentusedcount);
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                while (geteqfromgrpID.next()) {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
    		                }
@@ -1545,7 +1545,7 @@ public class ResidueCalculation {
    		            {
    		            	//------------->if equipment reused in equipment train
    		                Integer equipreusedID=0,equipment_used_count=0;   
-   		                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+""); // get product name id
+   		                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+" && tenant_id='"+tenant_id+"'"); // get product name id
    		                if(equipreused!=null)
    		                {
    		                	while (equipreused.next()) 
@@ -1559,7 +1559,7 @@ public class ResidueCalculation {
    		                	
    		                	float equipSF=0;
    		                	String equipreusedName =null;
-   		                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + ""); // get product name id
+   		                	ResultSet equipreusedSf = stmt.executeQuery("SELECT surface_area,name FROM equipment where id=" + equipreusedID + " && tenant_id='"+tenant_id+"'"); // get product name id
    		                	while (equipreusedSf.next()) 
    		                	{
    		                		equipSF = equipreusedSf.getFloat(1);
@@ -1571,7 +1571,7 @@ public class ResidueCalculation {
    		                } //<------------------ending if equipment reused in equipment train
    		                
    		            	
-   		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+"");
+   		            	ResultSet getequipdetails = stmt.executeQuery("SELECT name,surface_area FROM equipment where id="+eqid+" && tenant_id='"+tenant_id+"'");
    		            	while(getequipdetails.next())
    		            	{
    		            		if(equipment_used_count==0)
@@ -1600,14 +1600,14 @@ public class ResidueCalculation {
    		           
    			        // Get Train rinse volume for each set
    			        		Integer trainID = null ;
-   			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + TrainRow + " && set_id="+i+"");
+   			        	    ResultSet set = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + TrainRow + " && set_id="+i+" && tenant_id='"+tenant_id+"'");
    				         	while(set.next())
    				         	{
    				         		trainID = set.getInt(1);       		
    				         	}
    			      
    				        float TrainRinsevolume=0;
-   			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+"");
+   			 	        ResultSet eqtrain = stmt.executeQuery("SELECT rinse_volume FROM equipment_train where id="+trainID+" && tenant_id='"+tenant_id+"'");
    			         	while(eqtrain.next())
    			         	{
    			         		TrainRinsevolume = eqtrain.getFloat(1);       		
@@ -1666,7 +1666,7 @@ public class ResidueCalculation {
  		       
    			 	    float actualTrainL4c = 0;
    			    	//ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && active_ingredient_id="+activeID+"  && train_id="+trainID+"");
-   			 	ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && train_id="+trainID+"");
+   			 	ResultSet actualTrainresult = stmt.executeQuery("SELECT l4c FROM product_calculation_equipment_results where product_id= "+getprodID+" && train_id="+trainID+" && tenant_id='"+tenant_id+"'");
    			       	while(actualTrainresult.next())
    			      	{
    			       		actualTrainL4c = actualTrainresult.getFloat(1);       		
@@ -1821,7 +1821,7 @@ public class ResidueCalculation {
         
         //current product equipment set
         // List<Integer> Currentsetcount = new ArrayList<>();
-        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + CurrenProductName + "'"); // get product name id
+        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + CurrenProductName + "' && tenant_id='"+tenant_id+"'"); // get product name id
         while (currentprod.next()) {
             currentproductID = currentprod.getInt(1);
             currentproductsetcount = currentprod.getInt(33);
@@ -1830,7 +1830,7 @@ public class ResidueCalculation {
         for (int i = 1; i <= currentproductsetcount; i++) 
         { 
  //check if only equipmnet used in the product
-            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "'"); // get product name id
+            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequipfromset.next()) 
             {
                 System.out.println("ony equipment selected");
@@ -1840,7 +1840,7 @@ public class ResidueCalculation {
            
             List<Integer> eqgroupIDs = new ArrayList<>(); // if equipment  group means - use the below query
             // List<Integer> equipmentgroup = new ArrayList<>();
-            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + ""); // get product name id
+            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequipgrpfromset.next()) {
                 System.out.println("ony equipment group selected");
                 eqgroupIDs.add(getequipgrpfromset.getInt(4)); // get group ID
@@ -1848,12 +1848,12 @@ public class ResidueCalculation {
             for (int id : eqgroupIDs) // iterate group id one by one 
             {
                 int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + ""); // get product name id
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (geteqcountfromgrpID.next()) 
                 {
                     equipmentusedcount = geteqcountfromgrpID.getInt(5);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (geteqfromgrpID.next()) 
                 {
                     currentequipmentID.add(geteqfromgrpID.getInt(2));
@@ -1864,19 +1864,19 @@ public class ResidueCalculation {
 //end: check if only equipment group used in the product -current product
 //check if only equipment train used in the product -current product
             int gettrainID = 0;
-            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + ""); // get product name id
+            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequiptrainIDfromset.next()) {
                 System.out.println("ony equipment train selected");
                 gettrainID = getequiptrainIDfromset.getInt(4);
             }
             // if train used only equipmeans used the below query
-            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + ""); // get product name id
+            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (eqfromtrain.next()) {
                 currentequipmentID.add(eqfromtrain.getInt(2));
             }
             // if train used group means - use the below query
             Set<Integer> groupIDs = new HashSet<>();
-            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + ""); // get product name id
+            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (eqfromtraingroup.next()) {
                 groupIDs.add(eqfromtraingroup.getInt(1));
             }
@@ -1884,12 +1884,12 @@ public class ResidueCalculation {
             {
                 //Set<Integer> equipID = new HashSet();
                 int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + ""); // get product name id
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(1);
                 }
                 System.out.println("Train group count"+equipmentusedcount);
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (geteqfromgrpID.next()) {
                     currentequipmentID.add(geteqfromgrpID.getInt(2));
                 }
