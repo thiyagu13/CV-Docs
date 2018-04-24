@@ -9,8 +9,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -24,6 +27,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.mysql.jdbc.Connection;
@@ -216,7 +220,23 @@ public class Utils {
 	        System.out.println("Actual Message: " + s1);
 	        // Checking expected message with altered actual message
 	        Assert.assertEquals("PDF downloaded successfully", s1);
-	    	Thread.sleep(1000);
+	    	//Thread.sleep(1000);
+	        //Check Start Timinig
+	        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+	        LocalDateTime now = LocalDateTime.now();  
+	        System.out.println(dtf.format(now)); 
+	        System.out.println("Start Time");
+	        
+	       // WebDriverWait wait = new WebDriverWait(driver, TimeUnit.SECONDS60);
+	        
+	        
+	    	driver.manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
+	    	
+	    	DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+	        LocalDateTime now1 = LocalDateTime.now();  
+	        System.out.println(dtf1.format(now1)); 
+	    	System.out.println("End Time");
+	    	
 	        // Getting all the files from a folder
 	        File folder = new File(Constant.PDFDownloadedPath);
 	        File[] listOfFiles = folder.listFiles();

@@ -95,7 +95,7 @@ public class SurfaceAreaValue {
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(5);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     currentequipmentID.add(geteqfromgrpID.getInt(2));
                 }
@@ -155,7 +155,7 @@ public class SurfaceAreaValue {
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(3);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     currentequipmentID.add(geteqfromgrpID.getInt(2));
                 }
@@ -186,7 +186,7 @@ public class SurfaceAreaValue {
                     while (geteqcountfromgrpID.next()) {
                         equipmentusedcount = geteqcountfromgrpID.getInt(5);
                     }
-                    ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                    ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit "+ equipmentusedcount +""); // get product name id
                     while (geteqfromgrpID.next()) {
                         nextequipmentIDs.add(geteqfromgrpID.getInt(2));
                     }
@@ -243,7 +243,7 @@ public class SurfaceAreaValue {
                     while (geteqcountfromgrpID.next()) {
                         equipmentusedcount = geteqcountfromgrpID.getInt(1);
                     }
-                    ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                    ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                     while (geteqfromgrpID.next()) {
                         nextequipmentIDs.add(geteqfromgrpID.getInt(2));
                     }
@@ -327,7 +327,7 @@ public class SurfaceAreaValue {
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(5);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     equipmentgroup.add(geteqfromgrpID.getInt(2));
                 }
@@ -386,7 +386,7 @@ public class SurfaceAreaValue {
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(1);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     equipments.add(geteqfromgrpID.getInt(2));
                 }
@@ -431,7 +431,7 @@ public class SurfaceAreaValue {
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(5);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     equipmentgroupNextProd.add(geteqfromgrpID.getInt(2));
                 }
@@ -494,7 +494,7 @@ public class SurfaceAreaValue {
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(3);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     equipments.add(geteqfromgrpID.getInt(2));
                 }

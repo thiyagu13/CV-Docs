@@ -3,12 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.Utility">
+      <class name="com.eDocs.residueCalculation.NewTest">
         <methods>
-          <include name="setUp"/>
-          <include name="ExportUtility"/>
+          <include name="test"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.Utility -->
+      </class> <!-- com.eDocs.residueCalculation.NewTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -304,8 +304,8 @@ public class ResidueCalculation {
 		System.out.println("nextproductlist "+nextproductlist);*/
 		
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("Test Product5");
-		selectedproducts.add("Test Product6");
+		selectedproducts.add("S1");
+		selectedproducts.add("S2");
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
@@ -591,6 +591,9 @@ public class ResidueCalculation {
 				}
 				else 
 				{
+					System.out.println("Expected: "+Solid_Expec_Value_L3);
+					System.out.println("Actual: "+ActualL3Result);
+					
 					if(Utils.toOptimizeDecimalPlacesRoundedOff(Solid_Expec_Value_L3).equals(Utils.toOptimizeDecimalPlacesRoundedOff(ActualL3Result)))
 					{
 						Cell printlowestL3 = sheet.getRow(row).getCell(13);
@@ -845,7 +848,7 @@ public class ResidueCalculation {
    		                {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
    		                }
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
    		                while (geteqfromgrpID.next()) 
    		                {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
@@ -881,7 +884,7 @@ public class ResidueCalculation {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
    		                }
    		                System.out.println("Train group count"+equipmentusedcount);
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
    		                while (geteqfromgrpID.next()) {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
    		                }
@@ -1495,7 +1498,7 @@ public class ResidueCalculation {
    		                {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
    		                }
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
    		                while (geteqfromgrpID.next()) 
    		                {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
@@ -1531,7 +1534,7 @@ public class ResidueCalculation {
    		                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
    		                }
    		                System.out.println("Train group count"+equipmentusedcount);
-   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+   		                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
    		                while (geteqfromgrpID.next()) {
    		                    currentequipmentID.add(geteqfromgrpID.getInt(2));
    		                }
@@ -1787,9 +1790,9 @@ public class ResidueCalculation {
 				Solid_Expec_Value_L1 = default_l1l3_l1;
 				Solid_Expec_Value_L2  = default_l1l3_l1 * minBatch * 1000 ; // Calculated L2 Value for same product
 				double valL3 = Solid_Expec_Value_L2 / Solid_Total_surface_area; // Calculated L3 value using default L1 value
-				if(Solid_Expec_Value_L3<default_l1l3_l3)
+				if(valL3<default_l1l3_l3)
 				{
-				Solid_Expec_Value_L3 = valL3;
+					Solid_Expec_Value_L3 = valL3;
 				} else
 				{	//double L3 = default_l1l3_l3 / Solid_Total_surface_area;
 					Solid_Expec_Value_L3 = default_l1l3_l3; 
@@ -1799,7 +1802,8 @@ public class ResidueCalculation {
 		{		// Formula for L2 
 			Solid_Expec_Value_L1 = value_L1;
 			Solid_Expec_Value_L2 = value_L2; // Calculated L2 Value for same product
-			if(Solid_Expec_Value_L3<default_l1l3_l3)
+			double valL3 = Solid_Expec_Value_L2 / Solid_Total_surface_area;
+			if(valL3<default_l1l3_l3)
 			{   
 				Solid_Expec_Value_L3 = value_L3;
 			} else
@@ -1853,7 +1857,7 @@ public class ResidueCalculation {
                 {
                     equipmentusedcount = geteqcountfromgrpID.getInt(5);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) 
                 {
                     currentequipmentID.add(geteqfromgrpID.getInt(2));
@@ -1889,7 +1893,7 @@ public class ResidueCalculation {
                     equipmentusedcount = geteqcountfromgrpID.getInt(1);
                 }
                 System.out.println("Train group count"+equipmentusedcount);
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " order by sorted_id limit " + equipmentusedcount + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
                     currentequipmentID.add(geteqfromgrpID.getInt(2));
                 }

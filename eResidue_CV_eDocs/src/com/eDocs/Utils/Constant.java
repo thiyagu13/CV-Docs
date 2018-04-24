@@ -31,7 +31,7 @@ public class Constant {
 	
 	public static final String password = "Quascenta@521";	*/
 	
-	public static final String dbUrl = "jdbc:mysql://192.168.1.45:3306/dev_merging";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.45:3306/calculation";
 	
 	public static final String username = "root";
 	

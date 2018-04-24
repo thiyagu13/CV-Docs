@@ -7,19 +7,12 @@
   </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.User">
+      <class name="com.eDocs.SanityTesting.Equipment">
         <methods>
-          <include name="MultiDeleteUser"/>
-          <include name="CreateUSERforPolicy"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.User -->
-      <class name="com.eDocs.SanityTesting.Usergroup">
-        <methods>
-          <include name="CreateUSERGROUPforPlicy"/>
-          <include name="MultiDeleteUser"/>
           <include name="setUp"/>
+          <include name="Login"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.Usergroup -->
+      </class> <!-- com.eDocs.SanityTesting.Equipment -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

@@ -168,7 +168,7 @@ public class UniversalSettings {
 					Thread.sleep(500);
 				  }
 	
-				/*
+				
 				@Test(priority=3)
 				public void GeneralSettings() throws InterruptedException
 				{
@@ -286,6 +286,7 @@ public class UniversalSettings {
 				@Test(priority=6)
 				public void SampleLocation() throws InterruptedException
 				{
+					
 					driver.get(SamplingLocation);
 					Thread.sleep(1000);
 					driver.findElement(By.id("listMOC")).click();
@@ -581,7 +582,7 @@ public class UniversalSettings {
 					Thread.sleep(500);
 				}
 				
-				*/
+				
 				
 				
 				
