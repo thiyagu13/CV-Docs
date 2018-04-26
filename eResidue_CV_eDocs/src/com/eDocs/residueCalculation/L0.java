@@ -19,20 +19,20 @@ public class L0 {
 
 	static String tenant_id=Constant.tenant_id;
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
-		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
+		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
 		System.out.println("");
-		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,dosage_interval,product_dose FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{
 			prodname_id = getprodname_id.getInt(1); // get name id from product table
-			frequency = getprodname_id.getFloat(6); // get frequency from product table
-			Product_Dose = getprodname_id.getFloat(5); //// get product dose from product table
+			frequency = getprodname_id.getFloat(2); // get frequency from product table
+			Product_Dose = getprodname_id.getFloat(3); //// get product dose from product table
 			}
 			System.out.println("name id: " + prodname_id);
 			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
@@ -53,8 +53,6 @@ public class L0 {
 					Active_Concen = basisOfcalc.getFloat(6);
 					Dose_of_active = basisOfcalc.getFloat(7);
 					min_no_of_dose = basisOfcalc.getFloat(8);
-					System.out.println(Safety_Factor);
-					System.out.println(Dose_of_active);
 					}
 				}
 					//get active id for getting health value
@@ -78,15 +76,14 @@ public class L0 {
 										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
 									} else { // if dose of active not null
 										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
-										System.out.println(Safety_Factor);
-										System.out.println(Dose_of_active);
 									}
 									System.out.println("LO"+L0);
 									// get health based L0 from database
-									ResultSet Active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+									ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 									while (Active.next()) 
 									{
-										float health = Active.getFloat(12);
+										float health = Active.getFloat(1);
+										System.out.println(health);
 										if (health <= L0) // compare both dose and health
 										{
 											L0 = health;

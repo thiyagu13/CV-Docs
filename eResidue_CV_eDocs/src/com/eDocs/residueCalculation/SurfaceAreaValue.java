@@ -55,64 +55,64 @@ public class SurfaceAreaValue {
         Statement stmt = connection.createStatement();
         //current product equipment set
         List<Integer> Currentsetcount = new ArrayList<>();
-        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + currentproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
+        ResultSet currentprod = stmt.executeQuery("SELECT id,set_count FROM product where name='" + currentproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
         while (currentprod.next()) {
             currentproductID = currentprod.getInt(1);
-            Currentsetcount.add(currentprod.getInt(33));
-            currentproductsetcount = currentprod.getInt(33);
+            Currentsetcount.add(currentprod.getInt(2));
+            currentproductsetcount = currentprod.getInt(2);
         }
         //next product equipment set
         List<Integer> Nextsetcount = new ArrayList<>();
-        ResultSet nextprod = stmt.executeQuery("SELECT * FROM product where name='" + nextproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
+        ResultSet nextprod = stmt.executeQuery("SELECT id,set_count FROM product where name='" + nextproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
         while (nextprod.next()) {
             nextproductID = nextprod.getInt(1);
-            Nextsetcount.add(nextprod.getInt(33));
-            nextproductsetcount = nextprod.getInt(33);
+            Nextsetcount.add(nextprod.getInt(2));
+            nextproductsetcount = nextprod.getInt(2);
         }
         //find total surface area between two products
         List<Float> TotalactualshreadList = new ArrayList<>();
         for (int i = 1; i <= currentproductsetcount; i++) {
             List<Integer> currentequipmentID = new ArrayList<>();
             //check if only equipmnet used in the product
-            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
+            ResultSet getequipfromset = stmt.executeQuery("SELECT equipment_id FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequipfromset.next()) {
                 System.out.println("ony equipment selected");
-                currentequipmentID.add(getequipfromset.getInt(4));
+                currentequipmentID.add(getequipfromset.getInt(1));
             }
             //check if only equipment group used in the product -current product
             // if equipment  group means - use the below query
             List<Integer> eqgroupIDs = new ArrayList<>();
             // List<Integer> equipmentgroup = new ArrayList<>();
-            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
+            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT group_id FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequipgrpfromset.next()) {
                 System.out.println("ony equipment group selected");
-                eqgroupIDs.add(getequipgrpfromset.getInt(4));
+                eqgroupIDs.add(getequipgrpfromset.getInt(1));
             }
             for (int id : eqgroupIDs) // iterate group id one by one (from train)
             {
                 int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (geteqcountfromgrpID.next()) {
-                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
+                    equipmentusedcount = geteqcountfromgrpID.getInt(1);
                 }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
+                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT equipment_id FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
                 while (geteqfromgrpID.next()) {
-                    currentequipmentID.add(geteqfromgrpID.getInt(2));
+                    currentequipmentID.add(geteqfromgrpID.getInt(1));
                 }
                 //  currentequipmentID.addAll(equipmentgroup);
             }
             //end: check if only equipment group used in the product -current product
             //check if only equipment train used in the product -current product
             int gettrainID = 0;
-            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
+            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT train_id FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequiptrainIDfromset.next()) {
                 System.out.println("ony equipment train selected");
-                gettrainID = getequiptrainIDfromset.getInt(4);
+                gettrainID = getequiptrainIDfromset.getInt(1);
             }
             // if train used only equip means used the below query
-            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
+            ResultSet eqfromtrain = stmt.executeQuery("SELECT equipment_id FROM equipment_train_equipments where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
             while (eqfromtrain.next()) {
-                currentequipmentID.add(eqfromtrain.getInt(2));
+                currentequipmentID.add(eqfromtrain.getInt(1));
             }
             // equipment reused in the train
             List<Integer>  EqNoOfReusedIDS = new ArrayList<>();  		          
@@ -233,13 +233,13 @@ public class SurfaceAreaValue {
                 Set<Integer> nextprodgroupIDs = new HashSet<>();
                 ResultSet eqfromtraingroupNextProd = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + nextprodtrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (eqfromtraingroupNextProd.next()) {
-                    nextprodgroupIDs.add(eqfromtraingroupNextProd.getInt(2));
+                    nextprodgroupIDs.add(eqfromtraingroupNextProd.getInt(1));
                 }
                 for (int ids : nextprodgroupIDs) // iterate group id one by one (from train)
                 {
                     //Set<Integer> equipID = new HashSet();
                     int equipmentusedcount = 0;
-                    ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + ids + " && tenant_id='"+tenant_id+"'"); // get product name id
+                    ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where train_id="+nextprodtrainID+" && group_id=" + ids + " && tenant_id='"+tenant_id+"'"); // get product name id
                     while (geteqcountfromgrpID.next()) {
                         equipmentusedcount = geteqcountfromgrpID.getInt(1);
                     }
@@ -260,9 +260,9 @@ public class SurfaceAreaValue {
                 for (int sharedID : CollectionUtils.intersection(currentequipmentID, nextequipmentIDs)) //calculate shared total SF
                 {
                 	System.out.println("sharedID "+sharedID);
-                    ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + sharedID + "' && tenant_id='"+tenant_id+"'"); // get product name id
+                    ResultSet eqSF = stmt.executeQuery("SELECT surface_area FROM equipment where id='" + sharedID + "' && tenant_id='"+tenant_id+"'"); // get product name id
                     while (eqSF.next()) {
-                        equipTotalSharedSF = equipTotalSharedSF + eqSF.getFloat(13);
+                        equipTotalSharedSF = equipTotalSharedSF + eqSF.getFloat(1);
                     }
                 }
                 actualshread.add(equipTotalSharedSF);
@@ -287,19 +287,19 @@ public class SurfaceAreaValue {
         
 //current product equipment set
         List<Integer> Currentsetcount = new ArrayList<>();
-        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + currentproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
+        ResultSet currentprod = stmt.executeQuery("SELECT id,set_count FROM product where name='" + currentproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
         while (currentprod.next()) {
             currentproductID = currentprod.getInt(1);
-            Currentsetcount.add(currentprod.getInt(33));
-            currentproductsetcount = currentprod.getInt(33);
+            Currentsetcount.add(currentprod.getInt(2));
+            currentproductsetcount = currentprod.getInt(2);
         }
 //next product equipment set
         List<Integer> Nextsetcount = new ArrayList<>();
-        ResultSet nextprod = stmt.executeQuery("SELECT * FROM product where name='" + nextproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
+        ResultSet nextprod = stmt.executeQuery("SELECT id,set_count FROM product where name='" + nextproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
         while (nextprod.next()) {
             nextproductID = nextprod.getInt(1);
-            Nextsetcount.add(nextprod.getInt(33));
-            nextproductsetcount = nextprod.getInt(33);
+            Nextsetcount.add(nextprod.getInt(2));
+            nextproductsetcount = nextprod.getInt(2);
         }
 //Current product equipment set and total surface area
         List<Float> currnetProdeqSettotalSF = new ArrayList<>();
@@ -382,7 +382,7 @@ public class SurfaceAreaValue {
             {
                 //Set<Integer> equipID = new HashSet();
                 int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where train_id="+gettrainID+" && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
                 while (geteqcountfromgrpID.next()) {
                     equipmentusedcount = geteqcountfromgrpID.getInt(1);
                 }
@@ -397,9 +397,9 @@ public class SurfaceAreaValue {
             float equiptotalSF = 0;
             for (int geteqID : equipments) //get equipment surface area
             {
-                ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + geteqID + "' && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet eqSF = stmt.executeQuery("SELECT surface_area FROM equipment where id='" + geteqID + "' && tenant_id='"+tenant_id+"'"); // get product name id
                 while (eqSF.next()) {
-                    equiptotalSF = equiptotalSF + eqSF.getFloat(13);
+                    equiptotalSF = equiptotalSF + eqSF.getFloat(1);
                 }
             }
             currnetProdeqSettotalSF.add(equiptotalSF);
@@ -506,9 +506,9 @@ public class SurfaceAreaValue {
             float equiptotalSF = 0;
             for (int geteqID : equipments) //get equipment surface area
             {
-                ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + geteqID + "' && tenant_id='"+tenant_id+"'"); // get product name id
+                ResultSet eqSF = stmt.executeQuery("SELECT surface_area FROM equipment where id='" + geteqID + "' && tenant_id='"+tenant_id+"'"); // get product name id
                 while (eqSF.next()) {
-                    equiptotalSF = equiptotalSF + eqSF.getFloat(13);
+                    equiptotalSF = equiptotalSF + eqSF.getFloat(1);
                     
                 }
             }

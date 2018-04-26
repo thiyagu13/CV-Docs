@@ -24,238 +24,124 @@ public class NewTest {
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException 
 	{
-		String CurrenProductName= "S1";
+		String CurrenProductName= "Liquid";
 		String nextproductname= "S2";
-		actualSharedbetween2(CurrenProductName,nextproductname);
+		L0forSOLID(3169,CurrenProductName);
 	}
 	
-	public static double actualSharedbetween2(String currentproductname, String nextproductname) throws SQLException, ClassNotFoundException {
-        int currentproductID = 0, nextproductID = 0, currentproductsetcount = 0, nextproductsetcount = 0;
-        //database connection
-        Connection connection = Utils.db_connect();
-        Statement stmt = connection.createStatement();
-        //current product equipment set
-        List<Integer> Currentsetcount = new ArrayList<>();
-        ResultSet currentprod = stmt.executeQuery("SELECT * FROM product where name='" + currentproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
-        while (currentprod.next()) {
-            currentproductID = currentprod.getInt(1);
-            Currentsetcount.add(currentprod.getInt(33));
-            currentproductsetcount = currentprod.getInt(33);
-        }
-        //next product equipment set
-        List<Integer> Nextsetcount = new ArrayList<>();
-        ResultSet nextprod = stmt.executeQuery("SELECT * FROM product where name='" + nextproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
-        while (nextprod.next()) {
-            nextproductID = nextprod.getInt(1);
-            Nextsetcount.add(nextprod.getInt(33));
-            nextproductsetcount = nextprod.getInt(33);
-        }
-        //find total surface area between two products
-        List<Float> TotalactualshreadList = new ArrayList<>();
-        for (int i = 1; i <= currentproductsetcount; i++) {
-            List<Integer> currentequipmentID = new ArrayList<>();
-            //check if only equipmnet used in the product
-            ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + currentproductID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
-            while (getequipfromset.next()) {
-                System.out.println("ony equipment selected");
-                currentequipmentID.add(getequipfromset.getInt(4));
-            }
-            //check if only equipment group used in the product -current product
-            // if equipment  group means - use the below query
-            List<Integer> eqgroupIDs = new ArrayList<>();
-            // List<Integer> equipmentgroup = new ArrayList<>();
-            ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
-            while (getequipgrpfromset.next()) {
-                System.out.println("ony equipment group selected");
-                eqgroupIDs.add(getequipgrpfromset.getInt(4));
-            }
-            for (int id : eqgroupIDs) // iterate group id one by one (from train)
-            {
-                int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + currentproductID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
-                while (geteqcountfromgrpID.next()) {
-                    equipmentusedcount = geteqcountfromgrpID.getInt(5);
-                }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-                while (geteqfromgrpID.next()) {
-                    currentequipmentID.add(geteqfromgrpID.getInt(2));
-                }
-                //  currentequipmentID.addAll(equipmentgroup);
-            }
-            //end: check if only equipment group used in the product -current product
-            //check if only equipment train used in the product -current product
-            int gettrainID = 0;
-            ResultSet getequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + currentproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
-            while (getequiptrainIDfromset.next()) {
-                System.out.println("ony equipment train selected");
-                gettrainID = getequiptrainIDfromset.getInt(4);
-            }
-            // if train used only equip means used the below query
-            ResultSet eqfromtrain = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
-            while (eqfromtrain.next()) {
-                currentequipmentID.add(eqfromtrain.getInt(2));
-            }
-            // equipment reused in the train
-            List<Integer>  EqNoOfReusedIDS = new ArrayList<>();  		          
-	            for(Integer eqid:currentequipmentID)
-	            {
-	            	//------------->if equipment reused in equipment train
-	                Integer equipreusedID=0,equipment_used_count=0;   
-	                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + gettrainID + " && equipment_id="+eqid+" && tenant_id='"+tenant_id+"'"); // get product name id
-	                if(equipreused!=null)
-	                {
-	                	while (equipreused.next()) 
-	                	{
-	                		equipreusedID = equipreused.getInt(1);
-	                		equipment_used_count = equipreused.getInt(2);
-	                	}
-	                	System.out.println("equipment_used_count"+equipment_used_count);
-	                	for(int j=1;j<=equipment_used_count;j++)
-	 	                {
-	                			EqNoOfReusedIDS.add(equipreusedID);
-	 	                }
-	                } //<------------------ending if equipment reused in equipment train
-	            }
-	            currentequipmentID.addAll(EqNoOfReusedIDS);
-            //equipment reused in the train - endloop
-            
-            
-            
-            
-            // if train used group means - use the below query
-            Set<Integer> groupIDs = new HashSet<>();
-            ResultSet eqfromtraingroup = stmt.executeQuery("SELECT * FROM equipment_train_group where train_id=" + gettrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
-            while (eqfromtraingroup.next()) {
-                groupIDs.add(eqfromtraingroup.getInt(2));
-            }
-            for (int id : groupIDs) // iterate group id one by one (from train)
-            {
-                //Set<Integer> equipID = new HashSet();
-                int equipmentusedcount = 0;
-                ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
-                while (geteqcountfromgrpID.next()) {
-                    equipmentusedcount = geteqcountfromgrpID.getInt(3);
-                }
-                ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-                while (geteqfromgrpID.next()) {
-                    currentequipmentID.add(geteqfromgrpID.getInt(2));
-                }
-            }
-            //end: check if only equipment train used in the product -current product
-            List<Float> actualshread = new ArrayList<>();
-     //Next product equipment set and total surface area
-            for (int j = 1; j <= nextproductsetcount; j++) {
-                List<Integer> nextequipmentIDs = new ArrayList<>();
-                //check if only equipment used in the product -Next product
-                ResultSet getequipIDprodset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + nextproductID + "' && set_id ='" + j + "' && tenant_id='"+tenant_id+"'"); // get product name id
-                while (getequipIDprodset.next()) {
-                    nextequipmentIDs.add(getequipIDprodset.getInt(4));
-                }
-     //check if only equipment group used in the product -Next product
-                // if equipment  group means - use the below query
-                List<Integer> eqgroupIDsofNext = new ArrayList<>();
-                // List<Integer> equipmentgroupofNext = new ArrayList<>();
-                ResultSet getequipgrpfromsetNextprod = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + nextproductID + " && set_id =" + j + " && tenant_id='"+tenant_id+"'"); // get product name id
-                while (getequipgrpfromsetNextprod.next()) {
-                    System.out.println("ony equipment group selected");
-                    eqgroupIDsofNext.add(getequipgrpfromsetNextprod.getInt(4));
-                }
-                for (int id : eqgroupIDsofNext) // iterate group id one by one (from train)
-                {
-                    int equipmentusedcount = 0;
-                    ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + nextproductID + " && group_id=" + id + " && tenant_id='"+tenant_id+"'"); // get product name id
-                    while (geteqcountfromgrpID.next()) {
-                        equipmentusedcount = geteqcountfromgrpID.getInt(5);
-                    }
-                    ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id + " && tenant_id='"+tenant_id+"' order by sorted_id limit "+ equipmentusedcount +""); // get product name id
-                    while (geteqfromgrpID.next()) {
-                        nextequipmentIDs.add(geteqfromgrpID.getInt(2));
-                    }
-                    // nextequipmentIDs.addAll(equipmentgroupofNext);
-                }
-                //End: check if only equipment group used in the product -Next product
-//check if only equipment train used in the product -Next product
-                int nextprodtrainID = 0;
-                ResultSet nextgetequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + nextproductID + " && set_id =" + j + " && tenant_id='"+tenant_id+"'"); // get product name id
-                while (nextgetequiptrainIDfromset.next()) {
-                    System.out.println("ony equipment train selected");
-                    nextprodtrainID = nextgetequiptrainIDfromset.getInt(4);
-                }
-// if train used only equip means used the below query
-                ResultSet eqfromtrainnextprod = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + nextprodtrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
-                while (eqfromtrainnextprod.next()) {
-                    nextequipmentIDs.add(eqfromtrainnextprod.getInt(2));
-                }
-             // equipment reused in the train
-                List<Integer>  EqNoOfReusedIDSNext = new ArrayList<>();  		          
-    	            for(Integer eqid:nextequipmentIDs)
-    	            {
-    	            	//------------->if equipment reused in equipment train
-    	                Integer equipreusedID=0,equipment_used_count=0;   
-    	                ResultSet equipreused = stmt.executeQuery("SELECT equipment_id,equipment_used_count FROM train_equipment_count where train_id=" + nextprodtrainID + " && equipment_id="+eqid+" && tenant_id='"+tenant_id+"'"); // get product name id
-    	                if(equipreused!=null)
-    	                {
-    	                	while (equipreused.next()) 
-    	                	{
-    	                		equipreusedID = equipreused.getInt(1);
-    	                		equipment_used_count = equipreused.getInt(2);
-    	                	}
-    	                	System.out.println("equipment_used_count"+equipment_used_count);
-    	                	for(int k=1;k<=equipment_used_count;k++)
-    	 	                {
-    	                		EqNoOfReusedIDSNext.add(equipreusedID);
-    	 	                }
-    	                } //<------------------ending if equipment reused in equipment train
-    	            }
-    	            nextequipmentIDs.addAll(EqNoOfReusedIDSNext);
-                //equipment reused in the train - endloop
-    	            
- // if train used group means - use the below query
-                Set<Integer> nextprodgroupIDs = new HashSet<>();
-                ResultSet eqfromtraingroupNextProd = stmt.executeQuery("SELECT group_id FROM equipment_train_group where train_id=" + nextprodtrainID + " && tenant_id='"+tenant_id+"'"); // get product name id
-                while (eqfromtraingroupNextProd.next()) {
-                    nextprodgroupIDs.add(eqfromtraingroupNextProd.getInt(2));
-                }
-                for (int ids : nextprodgroupIDs) // iterate group id one by one (from train)
-                {
-                    //Set<Integer> equipID = new HashSet();
-                    int equipmentusedcount = 0;
-                    ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT equipment_used_count FROM equipment_train_group where group_id=" + ids + " && tenant_id='"+tenant_id+"'"); // get product name id
-                    while (geteqcountfromgrpID.next()) {
-                        equipmentusedcount = geteqcountfromgrpID.getInt(1);
-                    }
-                    ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids + " && tenant_id='"+tenant_id+"' order by sorted_id limit " + equipmentusedcount + ""); // get product name id
-                    while (geteqfromgrpID.next()) {
-                        nextequipmentIDs.add(geteqfromgrpID.getInt(2));
-                    }
-                }
-                //end: check if only equipment train used in the product -current product
-                System.out.println("Current equipmentID" + currentequipmentID);
-                System.out.println("Next equipmentID" + nextequipmentIDs);
-               // nextequipmentIDs.retainAll(currentequipmentID); // get common id between current and next
-               // System.out.println("Common--->: " + nextequipmentIDs);
-                
-               System.out.println("Final Result:"+CollectionUtils.intersection(currentequipmentID, nextequipmentIDs));
-                
-                float equipTotalSharedSF = 0;
-                for (int sharedID : CollectionUtils.intersection(currentequipmentID, nextequipmentIDs)) //calculate shared total SF
-                {
-                	System.out.println("sharedID "+sharedID);
-                    ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + sharedID + "' && tenant_id='"+tenant_id+"'"); // get product name id
-                    while (eqSF.next()) {
-                        equipTotalSharedSF = equipTotalSharedSF + eqSF.getFloat(13);
-                    }
-                }
-                actualshread.add(equipTotalSharedSF);
-            }
-            TotalactualshreadList.addAll(actualshread);
-        }
-        float actualsharedbetween2 = Collections.max(TotalactualshreadList);
-        System.out.println("Maximum shared SF value:" + actualsharedbetween2);
-        connection.close();
-        return actualsharedbetween2;
-    }
-	 
+	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
+		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
+		int Basislimitoption=0;
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();
+		// get current product name id from product table // for finding dose based and health flag
+		System.out.println("");
+		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
+		int prodname_id = 0;
+		while (getprodname_id.next()) 
+			{
+			prodname_id = getprodname_id.getInt(1); // get name id from product table
+			frequency = getprodname_id.getFloat(6); // get frequency from product table
+			Product_Dose = getprodname_id.getFloat(5); //// get product dose from product table
+			}
+			System.out.println("name id: " + prodname_id);
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
+				//get active multiple active id
+				List<Integer> BasisID = new ArrayList<>(); // get active list from above query
+				while (prod_basis_relation_id.next()) 
+				{
+					BasisID.add(prod_basis_relation_id.getInt(2));
+				}
+			  	//System.out.println("First Active:" +activelist.get(0));// get 1st id
+				System.out.println("BasisID"+BasisID);
+				System.out.println("activeID"+activeID);
+				for(Integer basis:BasisID) {
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"' && tenant_id='"+tenant_id+"'");
+				while (basisOfcalc.next()) 
+					{
+					Safety_Factor = basisOfcalc.getFloat(10);
+					Active_Concen = basisOfcalc.getFloat(6);
+					Dose_of_active = basisOfcalc.getFloat(7);
+					min_no_of_dose = basisOfcalc.getFloat(8);
+					}
+				}
+					//get active id for getting health value
+					/*ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
+					List<Integer> active = new ArrayList<>(); // store multiple equipment id
+				    while (getactiveID.next()) 
+				    {
+				    	active.add(getactiveID.getInt(2)); // get health based value
+				    }*/
+					
+				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
+				    while (residuelimit.next()) 
+					{
+				    Basislimitoption = residuelimit.getInt(2);
+					}
+				    
+				    // When dose and health flag is true in basis of calculation table
+					if (Basislimitoption== 3) {
+									System.out.println("Both enabled");
+									if (Dose_of_active == 0) { // if dose of active is null
+										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
+									} else { // if dose of active not null
+										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
+									}
+									System.out.println("LO"+L0);
+									// get health based L0 from database
+									ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+									while (Active.next()) 
+									{
+										float health = Active.getFloat(1);
+										System.out.println(health);
+										if (health <= L0) // compare both dose and health
+										{
+											L0 = health;
+										}
+									} // closing 1st while
+									System.out.println("Print lowest b/w health & dose L0: "+L0);
+									return L0; // getting lowest L0 b/w 2
+					} // for finding dose based and health flag
+					
+					if (Basislimitoption == 1) {
+						System.out.println("Dose enabled and health disabled");
+							// get dose based information
+							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='" + BasisID + "' && active_ingredient_id="+activeID+"");
+							// While Loop to iterate through all data and print results
+							while (dosebaseddata.next())
+							{
+								Safety_Factor = dosebaseddata.getFloat(10);
+								Active_Concen = dosebaseddata.getFloat(6);
+								Dose_of_active = dosebaseddata.getFloat(7);
+								min_no_of_dose = dosebaseddata.getFloat(8);
+							}*/
+									if (Dose_of_active == 0) { // if dose of active is null
+										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
+									} else { // if dose of active not null
+										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
+									}
+								System.out.println("Print Dose based L0" +L0);
+								return L0; // getting lowest L0 b/w 2
+					} // closing 4th while - health based L0
+					
+					if (Basislimitoption== 2) 
+					{
+						System.out.println("Dose disabled and health enabled");
+						// get health based L0 from database
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+						while (Active.next()) 
+						{
+							float health = Active.getFloat(1);
+							L0 = health;
+						}
+						System.out.println("Print health L0: "+L0);
+						return L0;
+					}
+					connection.close();
+		//writeTooutputFile(workbook); // write output into work sheet
+		return L0; // return that L0 in this method
+	} //closing calculate_P1_active1_L0
 		
 	
 }
