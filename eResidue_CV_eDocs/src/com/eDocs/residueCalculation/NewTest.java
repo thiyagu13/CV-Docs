@@ -24,26 +24,26 @@ public class NewTest {
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException 
 	{
-		String CurrenProductName= "Liquid";
+		String CurrenProductName= "S1";
 		String nextproductname= "S2";
-		L0forSOLID(3169,CurrenProductName);
+		L0forSOLID(3167,CurrenProductName);
 	}
 	
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
-		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
+		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,min_daily_dose=0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();
 		// get current product name id from product table // for finding dose based and health flag
 		System.out.println("");
-		ResultSet getprodname_id = stmt.executeQuery("SELECT * FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id,dosage_interval,product_dose FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
 		int prodname_id = 0;
 		while (getprodname_id.next()) 
 			{
 			prodname_id = getprodname_id.getInt(1); // get name id from product table
-			frequency = getprodname_id.getFloat(6); // get frequency from product table
-			Product_Dose = getprodname_id.getFloat(5); //// get product dose from product table
+			frequency = getprodname_id.getFloat(2); // get frequency from product table
+			Product_Dose = getprodname_id.getFloat(3); //// get product dose from product table
 			}
 			System.out.println("name id: " + prodname_id);
 			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
@@ -57,13 +57,14 @@ public class NewTest {
 				System.out.println("BasisID"+BasisID);
 				System.out.println("activeID"+activeID);
 				for(Integer basis:BasisID) {
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"' && tenant_id='"+tenant_id+"'");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,dose_of_active,min_num_of_dose,min_daily_dose FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"' && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
-					Safety_Factor = basisOfcalc.getFloat(10);
-					Active_Concen = basisOfcalc.getFloat(6);
-					Dose_of_active = basisOfcalc.getFloat(7);
-					min_no_of_dose = basisOfcalc.getFloat(8);
+					Safety_Factor = basisOfcalc.getFloat(1);
+					Active_Concen = basisOfcalc.getFloat(2);
+					Dose_of_active = basisOfcalc.getFloat(3);
+					min_no_of_dose = basisOfcalc.getFloat(4);
+					min_daily_dose = basisOfcalc.getFloat(5);
 					}
 				}
 					//get active id for getting health value
@@ -89,6 +90,11 @@ public class NewTest {
 										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
 									}
 									System.out.println("LO"+L0);
+									if(L0==0)
+									{
+										L0 = min_daily_dose;
+									}
+									System.out.println("Min Daily Dose: "+L0);
 									// get health based L0 from database
 									ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 									while (Active.next()) 
@@ -121,6 +127,11 @@ public class NewTest {
 									} else { // if dose of active not null
 										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
 									}
+									if(L0==0)
+									{
+										L0 = min_daily_dose;
+									}
+									System.out.println("Min Daily Dose: "+L0);
 								System.out.println("Print Dose based L0" +L0);
 								return L0; // getting lowest L0 b/w 2
 					} // closing 4th while - health based L0
@@ -142,6 +153,7 @@ public class NewTest {
 		//writeTooutputFile(workbook); // write output into work sheet
 		return L0; // return that L0 in this method
 	} //closing calculate_P1_active1_L0
+	
 		
 	
 }

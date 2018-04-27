@@ -19,7 +19,7 @@ public class L0 {
 
 	static String tenant_id=Constant.tenant_id;
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
-		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0;
+		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,min_daily_dose=0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -46,13 +46,14 @@ public class L0 {
 				System.out.println("BasisID"+BasisID);
 				System.out.println("activeID"+activeID);
 				for(Integer basis:BasisID) {
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"' && tenant_id='"+tenant_id+"'");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,dose_of_active,min_num_of_dose,min_daily_dose FROM product_basis_of_calculation where id ='"+basis+"' && active_ingredient_id='"+activeID+"' && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
-					Safety_Factor = basisOfcalc.getFloat(10);
-					Active_Concen = basisOfcalc.getFloat(6);
-					Dose_of_active = basisOfcalc.getFloat(7);
-					min_no_of_dose = basisOfcalc.getFloat(8);
+					Safety_Factor = basisOfcalc.getFloat(1);
+					Active_Concen = basisOfcalc.getFloat(2);
+					Dose_of_active = basisOfcalc.getFloat(3);
+					min_no_of_dose = basisOfcalc.getFloat(4);
+					min_daily_dose = basisOfcalc.getFloat(5);
 					}
 				}
 					//get active id for getting health value
@@ -78,6 +79,11 @@ public class L0 {
 										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
 									}
 									System.out.println("LO"+L0);
+									if(L0==0)
+									{
+										L0 = (float) (min_daily_dose *0.001);
+									}
+									System.out.println("Min Daily Dose: "+L0);
 									// get health based L0 from database
 									ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 									while (Active.next()) 
@@ -110,6 +116,11 @@ public class L0 {
 									} else { // if dose of active not null
 										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
 									}
+									if(L0==0)
+									{
+										L0 = (float) (min_daily_dose *0.001);
+									}
+									System.out.println("Min Daily Dose: "+L0);
 								System.out.println("Print Dose based L0" +L0);
 								return L0; // getting lowest L0 b/w 2
 					} // closing 4th while - health based L0
@@ -138,8 +149,7 @@ public class L0 {
 	//@Parameters({"productName1","productName2","productName3","productName4"})
 	public static double groupingApproach_L0forSolid(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
 	{
-		System.out.println("------------------------------------------------------Current product: "+CurrenProductName);
-		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,doseL0=0,healthL0 = 0;
+		double L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,doseL0=0,healthL0 = 0,min_daily_dose=0;
 		int Basislimitoption = 0,frequency = 0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -227,7 +237,7 @@ public class L0 {
 		   
 		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,dose_of_active,min_num_of_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,dose_of_active,min_num_of_dose,min_daily_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 				{
 					//dose_based_flag = basisOfcalc.getInt(5);
@@ -236,6 +246,7 @@ public class L0 {
 					Active_Concen = basisOfcalc.getFloat(2);
 					Dose_of_active = basisOfcalc.getFloat(3);
 					min_no_of_dose = basisOfcalc.getFloat(4);
+					min_daily_dose = basisOfcalc.getFloat(5);
 					System.out.println("Dose_of_active"+Dose_of_active);
 				} 
 		    }	
@@ -268,6 +279,11 @@ public class L0 {
 									} else { // if dose of active not null
 										doseL0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
 									}
+									if(doseL0==0)
+									{
+										doseL0 = min_daily_dose * 0.001;
+									}
+									System.out.println("Min Daily Dose: "+doseL0);
 								System.out.println("Print Dose based L0" +doseL0);
 					} // closing for loop
 					
@@ -336,7 +352,7 @@ public class L0 {
 	
 	public static double L0forPatch(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		float L0 = 0,doseL0=0;
-		float Safety_Factor = 0, Active_Concen = 0, percentageAbsorbtion = 0,minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0;
+		float Safety_Factor = 0, Active_Concen = 0, percentageAbsorbtion = 0,minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,min_daily_dose = 0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -360,13 +376,14 @@ public class L0 {
 				
 				for(Integer basislistID:basislist)
 				{
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time,min_daily_dose FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(1);
 					Active_Concen = basisOfcalc.getFloat(2);
 					minDailyDoseperPatch = basisOfcalc.getFloat(3);
 					minNoOFPatchesWornatTime = basisOfcalc.getFloat(4);
+					min_daily_dose =  basisOfcalc.getFloat(4);
 					}
 				}
 					/*//get active id for getting health value
@@ -392,12 +409,16 @@ public class L0 {
 						health = Active.getFloat(1);
 						L0 = health;
 					}
-					System.out.println("Dose LO: "+doseL0);
 					System.out.println("Health LO: "+health);
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
 									doseL0 = (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+									if(doseL0==0)
+									{
+										doseL0 = (float) (min_daily_dose * 0.001);
+									}
+									System.out.println("Min Daily Dose: "+doseL0);
 									
 										if (health <= doseL0) // compare both dose and health
 										{
@@ -416,6 +437,10 @@ public class L0 {
 						System.out.println("Dose enabled and health disabled");
 							
 						L0 = (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+						if(L0==0)
+						{
+							L0 = (float) (min_daily_dose * 0.001);
+						}
 						System.out.println("Print Dose based L0: " +L0);
 						return L0; // getting does L0 
 					} 
@@ -437,7 +462,7 @@ public class L0 {
 	
 	public static double groupingApproach_L0forPatch(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
 	{
-		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, percentageAbsorbtion = 0, minNoOFPatchesWornatTime = 0, minDailyDoseperPatch = 0,doseL0=0,healthL0 = 0;
+		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, percentageAbsorbtion = 0, minNoOFPatchesWornatTime = 0, minDailyDoseperPatch = 0,doseL0=0,healthL0 = 0,min_daily_dose=0;
 		int Basislimitoption = 0,frequency = 0;
 		
 		//database connection
@@ -527,7 +552,7 @@ public class L0 {
 		   
 		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_daily_dose_per_patch,min_no_of_patches_worn_at_one_time,min_daily_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 				{
 					//dose_based_flag = basisOfcalc.getInt(5);
@@ -536,6 +561,7 @@ public class L0 {
 					Active_Concen = basisOfcalc.getFloat(2);
 					minDailyDoseperPatch = basisOfcalc.getFloat(3);
 					minNoOFPatchesWornatTime = basisOfcalc.getFloat(4);
+					min_daily_dose = basisOfcalc.getFloat(5);
 				} 
 		    }	
 		    
@@ -565,6 +591,11 @@ public class L0 {
 							
 							doseL0 =  (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
 							System.out.println("Print Dose based L0" +doseL0);
+							if(doseL0==0)
+							{
+								doseL0 = (float) (min_daily_dose * 0.001);
+							}
+							System.out.println("Min Daily Dose: "+doseL0);
 					} // closing for loop
 					
 					//Basis of limit option if health or lowest between two
@@ -634,8 +665,8 @@ public class L0 {
 	
 	public static double L0forTOPICALoption2(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		float L0 = 0,doseL0=0;
-		float Safety_Factor = 0, Active_Concen = 0, minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,minAmountApplied=0,
-				minApplnFrequency=0,minBodySF=0;
+		float Safety_Factor = 0, Active_Concen = 0, minAmountApplied=0,
+				minApplnFrequency=0,minBodySF=0,min_daily_dose=0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -658,7 +689,7 @@ public class L0 {
 				
 				for(Integer basislistID:basislist)
 				{
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area,min_daily_dose FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(1);
@@ -666,6 +697,7 @@ public class L0 {
 					minAmountApplied= basisOfcalc.getFloat(3);
 					minApplnFrequency =basisOfcalc.getFloat(4);
 					minBodySF = basisOfcalc.getFloat(5);
+					min_daily_dose = basisOfcalc.getFloat(6);
 					}
 				}
 					/*//get active id for getting health value
@@ -697,6 +729,11 @@ public class L0 {
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
 									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
+									if(doseL0==0)
+									{
+										doseL0 = (float) (min_daily_dose * 0.001);
+									}
+									System.out.println("Min Daily Dose: "+doseL0);
 									
 										if (health <= doseL0) // compare both dose and health
 										{
@@ -715,6 +752,11 @@ public class L0 {
 						System.out.println("Dose enabled and health disabled");
 							
 						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
+						if(L0==0)
+						{
+							L0 = (float) (min_daily_dose * 0.001);
+						}
+						System.out.println("Min Daily Dose: "+L0);
 						System.out.println("Print Dose based L0: " +L0);
 						return L0; // getting does L0 
 					} 
@@ -729,12 +771,12 @@ public class L0 {
 					}
 					connection.close();
 		return L0; // return that L0 in this method
-	} //clsoing topical L0
+	} //closing topical L0
 			
 	
 	public static double L0forTOPICALoption1(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		float L0 = 0,doseL0=0;
-		float Safety_Factor = 0, Active_Concen = 0, minAmountApplied=0,	minApplnFrequency=0;
+		float Safety_Factor = 0, Active_Concen = 0, minAmountApplied=0,	minApplnFrequency=0,min_daily_dose=0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -757,13 +799,14 @@ public class L0 {
 				
 				for(Integer basislistID:basislist)
 				{
-				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_daily_dose FROM product_basis_of_calculation where id =" + basislistID + " && active_ingredient_id="+activeID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 					{
 					Safety_Factor = basisOfcalc.getFloat(1);
 					Active_Concen = basisOfcalc.getFloat(2);
 					minAmountApplied= basisOfcalc.getFloat(3);
 					minApplnFrequency =basisOfcalc.getFloat(4);
+					min_daily_dose = basisOfcalc.getFloat(5);
 					}
 				}
 					/*//get active id for getting health value
@@ -795,6 +838,11 @@ public class L0 {
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
 									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency );
+									if(doseL0==0)
+									{
+										doseL0 = (float) (min_daily_dose *0.001);
+									}
+									System.out.println("Min Daily Dose: "+doseL0);
 									
 										if (health <= doseL0) // compare both dose and health
 										{
@@ -813,6 +861,11 @@ public class L0 {
 						System.out.println("Dose enabled and health disabled");
 							
 						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency);
+						if(L0==0)
+						{
+							L0 = (float) (min_daily_dose * 0.001);
+						}
+						System.out.println("Min Daily Dose: "+L0);
 						System.out.println("Print Dose based L0: " +L0);
 						return L0; // getting does L0 
 					} 
@@ -834,7 +887,7 @@ public class L0 {
 	
 	public static double groupingApproach_L0forTOPICAL(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
 	{
-		float L0 = 0, doseL0=0,healthL0 = 0,Safety_Factor = 0, Active_Concen = 0, minDailyDoseperPatch = 0,minNoOFPatchesWornatTime = 0,minAmountApplied=0,
+		float L0 = 0, doseL0=0,healthL0 = 0,Safety_Factor = 0, Active_Concen = 0,minAmountApplied=0,min_daily_dose=0,
 				minApplnFrequency=0,minBodySF=1;
 		int Basislimitoption = 0;
 		
@@ -924,7 +977,7 @@ public class L0 {
 		   
 		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
+		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area,min_daily_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
 				while (basisOfcalc.next()) 
 				{
 					//dose_based_flag = basisOfcalc.getInt(5);
@@ -934,6 +987,7 @@ public class L0 {
 					minAmountApplied= basisOfcalc.getFloat(3);
 					minApplnFrequency =basisOfcalc.getFloat(4);
 					minBodySF = basisOfcalc.getFloat(5);
+					min_daily_dose = basisOfcalc.getFloat(6);
 				} 
 		    }	
 		    
@@ -962,6 +1016,12 @@ public class L0 {
 							}*/
 							doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
 							System.out.println("Print Dose based L0" +doseL0);
+							if(doseL0==0)
+							{
+								doseL0 = (float) (min_daily_dose * 0.001);
+							}
+							System.out.println("Min Daily Dose: "+doseL0);
+							
 					} // closing for loop
 					
 					//Basis of limit option if health or lowest between two

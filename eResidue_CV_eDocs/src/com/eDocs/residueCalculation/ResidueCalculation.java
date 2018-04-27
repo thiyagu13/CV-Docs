@@ -304,8 +304,8 @@ public class ResidueCalculation {
 		System.out.println("nextproductlist "+nextproductlist);*/
 		
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("S1");
-		selectedproducts.add("S2");
+		selectedproducts.add("Topical1");
+		selectedproducts.add("Topical2");
 		//selectedproducts.add("Inhalant");
 	//	selectedproducts.add("S4");
 		
@@ -417,19 +417,16 @@ public class ResidueCalculation {
 		for(String NextprodName : nextproductlist)  // Next product list
 		{
 			String LimitcalculationType = sheet.getRow(39).getCell(0).getStringCellValue();
-			System.out.println("CurrenProductName----------------->"+CurrenProductName);
-			System.out.println("NextprodName----------------->"+NextprodName);
-			System.out.println("CurrentproductType----------------->"+CurrentproductType);
-			System.out.println("LimitcalculationType----------------->"+LimitcalculationType);
 			
 			//if(CurrenProductName.equals(NextprodName) || LimitcalculationType.equalsIgnoreCase("Manual") ||CurrentproductType==2) // if same product (e.g P1 ->P1)
-			if(CurrenProductName.equals(NextprodName) ||CurrentproductType==2) 
-			{
-				
+		if(CurrenProductName.equals(NextprodName) ||CurrentproductType==2 || LimitcalculationType.equalsIgnoreCase("Campaign")) 
+		{
+			//TO DO
+			
 				//value_L1 = 
-			//	System.out.println("-------------->Same Product");
+				//System.out.println("-------------->Same Product");
 				
-			}else { // if other product (e.g P1 ->P2)
+		}else { // if other product (e.g P1 ->P2)
 				
 				System.out.println("prodName"+NextprodName);
 				String nprodname = null;	
