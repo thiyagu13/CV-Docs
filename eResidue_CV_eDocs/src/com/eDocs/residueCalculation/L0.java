@@ -1548,6 +1548,90 @@ public class L0 {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static double L0forCleaningAgent(String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
+		float L0 = 0, doseL0=0,LD50= 0, ConversionFactor = 0, BodyWeight = 0, HealthL0 = 0;
+		int Basislimitoption=0;
+		//database connection
+		Connection connection = Utils.db_connect();
+		Statement stmt = (Statement) connection.createStatement();
+		// get current product name id from product table // for finding dose based and health flag
+		ResultSet getprodname_id = stmt.executeQuery("SELECT id FROM product where name ='"+CurrenProductName+"' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
+		int prodname_id = 0;
+		while (getprodname_id.next()) 
+			{
+			prodname_id = getprodname_id.getInt(1);
+			}
+			System.out.println("name id: " + prodname_id);
+			ResultSet prod_basis_relation_id = stmt.executeQuery("SELECT * FROM product_basis_of_calculation_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
+				//get active multiple active id
+				List<Integer> BasisID = new ArrayList<>(); // get active list from above query
+				while (prod_basis_relation_id.next()) 
+				{
+					BasisID.add(prod_basis_relation_id.getInt(2));
+				}
+			  	//System.out.println("First Active:" +activelist.get(0));// get 1st id
+				System.out.println("BasisID"+BasisID);
+				for(Integer basis:BasisID) {
+				ResultSet basisOfcalc = stmt.executeQuery("SELECT ld50_value,conversion_factor,body_weight,cleaning_agent_health_based_value FROM product_basis_of_calculation where id ='"+basis+"' && tenant_id='"+tenant_id+"'");
+				while (basisOfcalc.next()) 
+					{
+					LD50 = basisOfcalc.getFloat(1);
+					ConversionFactor = basisOfcalc.getFloat(2);
+					BodyWeight = basisOfcalc.getFloat(3);
+					HealthL0 = basisOfcalc.getFloat(3);
+					}
+				}
+				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
+				    while (residuelimit.next()) 
+					{
+				    Basislimitoption = residuelimit.getInt(2);
+					}
+				    // When dose and health flag is true in basis of calculation table
+					if (Basislimitoption== 3) 
+					{
+										System.out.println("Both enabled");
+										doseL0 = LD50 * ConversionFactor * BodyWeight;
+										System.out.println("LO"+L0);
+										if(doseL0>HealthL0)
+										{
+											L0 = HealthL0;
+										}
+										else
+										{
+											L0 = doseL0;
+										}
+									return L0; // getting lowest L0 b/w 2
+					}
+					
+					if (Basislimitoption == 1) 
+					{
+						System.out.println("Dose enabled and health disabled");
+						L0 = LD50 * ConversionFactor * BodyWeight;
+						System.out.println("Print Dose based L0" +L0);
+						return L0;
+					}
+					
+					if (Basislimitoption== 2) 
+					{
+						L0 = HealthL0;
+						return L0;
+					}
+					connection.close();
+		return L0; // return that L0 in this method
+	} //closing calculate_P1_active1_L0
+	
+	
+	
+	
 	// Write output and close workbook
 	/*public static void writeTooutputFile(Workbook workbook) throws IOException {
 		try {

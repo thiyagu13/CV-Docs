@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.experimental.max.MaxCore;
 import org.testng.annotations.Test;
 
@@ -25,230 +28,248 @@ public class NewTest {
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException 
 	{
-		String CurrenProductName= "Topical1";
-		groupingApproach_L1forTOPICALSameProduct(CurrenProductName);
+		String CurrenProductName= "CA";
+		CleaningAgentCalculation(CurrenProductName);
 	}
 	
-	public static double groupingApproach_L1forTOPICALSameProduct(String CurrenProductName) throws IOException, ClassNotFoundException, SQLException 
-	{
-		float L0 = 0, doseL0=0,healthL0 = 0,Safety_Factor = 0, Active_Concen = 0,minAmountApplied=0,min_daily_dose=0,
-				minApplnFrequency=0,minBodySF=1,max_amount_appled=0,max_ap_freq=0,max_Body_Sf=1;
-		int Basislimitoption = 0,grouping_criteria_option=0;
+	public static void CleaningAgentCalculation(String CurrenProduct) throws IOException, ClassNotFoundException, SQLException 
+	{/*
+		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
+		XSSFSheet sheet = workbook.getSheet("ResidueCalculation");
+		 Connection connection = Utils.db_connect();
+	     Statement stmt = connection.createStatement();
 		
-		//database connection
-		Connection connection = Utils.db_connect();
-		Statement stmt = (Statement) connection.createStatement();
-		ResultSet getprodname_id = stmt.executeQuery("SELECT id,max_amount_applied,max_daily_application_frequency,max_body_surface_area,grouping_criteria_option FROM product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'");// Execute the SQL Query to find prod id from product table
-		int prodname_id = 0, lowestsolubilityID = 0,lowestADEID=0;
-		//Get product id 
-		while (getprodname_id.next()) {
-			prodname_id = getprodname_id.getInt(1); // get name id from product table
-			max_amount_appled = getprodname_id.getInt(2); // get name id from product table
-			max_ap_freq = getprodname_id.getInt(3); // get name id from product table
-			max_Body_Sf = getprodname_id.getInt(4); // get name id from product table
-			grouping_criteria_option =  getprodname_id.getInt(5); 
-			
+		List<String> currentproductlist = new ArrayList<>();
+		currentproductlist.add("CA");
+		currentproductlist.add("S1");
+		currentproductlist.add("S2");
+		
+		List<String> nextproductlist = new ArrayList<>();
+		nextproductlist.add("CA");
+		nextproductlist.add("S1");
+		nextproductlist.add("S2");
+		
+		
+		Set<String> CAName =new HashSet<>(); // store all the product type
+		for(String CurrenProductName : currentproductlist) // Current product list
+		{
+			int CurrentproductType=0;
+			//get current product type
+			ResultSet getproductType = stmt.executeQuery("Select product_type from product where name = '" + CurrenProductName + "' && tenant_id='"+tenant_id+"'"); // get product name id
+			while (getproductType.next()) 
+			{
+				CurrentproductType = getproductType.getInt(1);
 			}
-			System.out.println("name id: " + prodname_id);
-			//get active id
-			ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "' && tenant_id='"+tenant_id+"'");
-				List<Integer> active = new ArrayList<>(); // store multiple equipment id
-		    	while (getactiveID.next()) 
-		    	{
-		    	active.add(getactiveID.getInt(2)); // get health based value
-		    	}
-		    
-		    //get lowest solubility within api from product
-		    List<Float> Solubilities = new ArrayList<>(); // store multiple equipment id
-		    	for(int activeID:active)
-		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
-		    		while(getallActive.next())
-		    		{
-		    			Solubilities.add((float) getallActive.getFloat(1)); // get health based value
-		    			System.out.println("solubilityinWater" +Solubilities + "Active:"+activeID);
-		    		}
-		    	}
-		    	float minsolubility = Collections.min(Solubilities); // get minimum value from awithin active
-		    	
-		    
-		    // find minimum solubility active id
-		    for(int listofactiveID:active)
-		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "' && tenant_id='"+tenant_id+"'");
-		    while(getActive.next())
-		    {
-		    	lowestsolubilityID =getActive.getInt(1); // get health based value
-		    	System.out.println("Lowest solubility active id: "+lowestsolubilityID);
-		    }
-		    } // end - get lowest solubility within api from product
-		    
-		    
-		  //get lowest ADE within api from product
-		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
-		    	for(int activeID:active)
-		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
-		    		while(getallActive.next())
-		    		{
-		    			ade.add((float) getallActive.getFloat(1)); // get health based value
-		    			System.out.println("ADE" +ade + "Active:"+activeID);
-		    		}
-		    	}
-		    	float minade = Collections.min(ade); // get minimum value from awithin active
-		    	System.out.println("Min ADE" +minade);
-		    	
-		    
-		    // find minimum solubility active id
-		    for(int listofactiveID:active)
-		    {
-		    	System.out.println("listofactiveID "+listofactiveID);
-		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+" && tenant_id='"+tenant_id+"'");
-		    	while(getActive.next())
-		    	{
-		    		lowestADEID = getActive.getInt(1); // get health based value
-		    		System.out.println("Lowest ADE active id: "+lowestADEID);
-		    	}
-		    } // end - get lowest solubility within api from product
-		    
-		    //Integer basisofcalID=0;
-		    Set<Integer> basisofcalID = new HashSet<>();
-		    ResultSet basisID = stmt.executeQuery("SELECT basis_of_calc_id FROM product_basis_of_calculation_relation where product_id = '"+prodname_id+ "' && tenant_id='"+tenant_id+"'");
-		    while(basisID.next())
-		    {
-		    	basisofcalID.add(basisID.getInt(1)); // get health based value
-		    }
-		    
-		    
-		    
-		    // get values using lowest active id
-		   
-		    for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
-		    {
-		    	ResultSet basisOfcalc = stmt.executeQuery("SELECT other_safety_factor,active_concentration,min_amount_applied,min_daily_application_frequency,min_body_surface_area,min_daily_dose FROM product_basis_of_calculation where id="+basID+" && active_ingredient_id="+lowestsolubilityID+" && tenant_id='"+tenant_id+"'");
-				while (basisOfcalc.next()) 
+			
+				// Check Cleaning agent included or not in the product list
+				
+				boolean CheckProductType =false;
+				for(String Namelist:currentproductlist)
 				{
-					//dose_based_flag = basisOfcalc.getInt(5);
-					//health_based_flag = basisOfcalc.getInt(11); 
-					Safety_Factor = basisOfcalc.getFloat(1);
-					Active_Concen = basisOfcalc.getFloat(2);
-					minAmountApplied= basisOfcalc.getFloat(3);
-					minApplnFrequency =basisOfcalc.getFloat(4);
-					minBodySF = basisOfcalc.getFloat(5);
-					min_daily_dose = basisOfcalc.getFloat(6);
-				} 
-		    }	
-		    
-				ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
-			    while (residuelimit.next()) 
+					ResultSet checkDiluent = stmt.executeQuery("Select name,product_type from product where name = '" + Namelist + "' && tenant_id='"+tenant_id+"'"); // get product name id
+					Integer Type = 0; // store all the product type
+					while (checkDiluent.next()) 
+					{
+						Type = checkDiluent.getInt(2);
+					}
+					if(Type==1) 
+					{
+						CheckProductType =true;	
+						ResultSet getCAName = stmt.executeQuery("Select name from product where name = '" + Namelist + "' && product_type ='" + Type + "' && tenant_id='"+tenant_id+"'"); // get product name id
+						while (getCAName.next()) 
+						{
+							CAName.add(getCAName.getString(1));
+						}
+					} 	
+				} //end- Check Cleaning agent included or not in the product list
+			}
+				System.out.println("CA Name"+CAName);
+				
+				
+				//Iterate Current product cleaning agent
+				for(String CurrenProductName:CAName)
 				{
-			    Basislimitoption = residuelimit.getInt(1);
-				}
-			    System.out.println("Basislimitoption"+Basislimitoption);
-			    
-			    //Basis of limit option if dose or lowest between two
-					if (Basislimitoption==1 || Basislimitoption==3) 
+					for(String NextprodName : nextproductlist)
 					{
-							System.out.println("Dose enabled and health disabled");
-							// get dose based information
+						if(CurrenProductName.equals(NextprodName))
+						{
 							
-							doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
-							System.out.println("Print Dose based L0" +doseL0);
-							if(doseL0==0)
-							{
-								doseL0 = (float) (min_daily_dose * 0.001);
-							}
-							System.out.println("Min Daily Dose: "+doseL0);
-							
-					} // closing for loop
-					
-					//Basis of limit option if health or lowest between two
-					if (Basislimitoption==2 || Basislimitoption==3) 
-					{
-						System.out.println("Dose disabled and health enabled");
-						System.out.println("lowestsolubilityID"+lowestsolubilityID);
-						System.out.println("lowestADEID: "+lowestADEID);
-						if(lowestADEID == lowestsolubilityID)
-						{
-							System.out.println(" same");
-						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
-							while (Active.next()) 
-							{
-								float health = Active.getFloat(1);
-								healthL0 = health;
-							}
-						}else
-						{
-							System.out.println("Not same");
-							float lowestADEDose=0,lowestADEminDose = 0,lowestADEminBodySF = 0,lowestsolubilityDose = 0,lowestsolubilityminAmount=0,lowestsolubilityminBodySF=0;
-							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
-						    {
-								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_amount_applied,min_body_surface_area FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
-								//TO DO
-								while(LowestPDEactive.next())
-								{
-									
-									lowestADEminDose = LowestPDEactive.getFloat(1);
-									lowestADEminBodySF = LowestPDEactive.getFloat(2);
-									if(grouping_criteria_option==2)
-									{
-										lowestADEDose = lowestADEminDose + lowestADEminBodySF;	
-									}else
-									{
-										lowestADEDose = lowestADEminDose;
-									}
-									
-									System.out.println("lowestADEDose"+lowestADEDose);
-								}
-						    
-								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_amount_applied,min_body_surface_area FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
-								while(Lowestsolubilityactive.next())
-								{
-									lowestsolubilityminAmount = Lowestsolubilityactive.getFloat(1);
-									lowestsolubilityminBodySF = Lowestsolubilityactive.getFloat(2);
-									if(grouping_criteria_option==2)
-									{
-										lowestsolubilityDose = lowestsolubilityminAmount + lowestsolubilityminBodySF;	
-									}else
-									{
-										lowestsolubilityDose = lowestsolubilityminAmount;
-									}
-									
-									System.out.println("lowestsolubilityDose"+lowestsolubilityDose);
-								}
-						    }
-							healthL0 = ((minade/lowestADEDose) *lowestsolubilityDose);
 						}
-					}
-					float L1=0;
-					// get final L0 value
-					if(doseL0==0)
-					{
-						L1 = (healthL0*1000)/(max_amount_appled * max_ap_freq * max_Body_Sf);
-					}
-					if(healthL0==0)
-					{
-						L1 = Safety_Factor * Active_Concen;
-					}
-					if(healthL0!=0 && doseL0!=0)
-					{
-						if(doseL0<healthL0)
+						else
 						{
-							L1 = Safety_Factor * Active_Concen;
+						String LimitcalculationType = sheet.getRow(39).getCell(0).getStringCellValue();
+						String nprodname = null;	
+						Integer nextProdID;
+						float maxDD,minBatch,percentage_absorption;
+						ResultSet productdata = stmt.executeQuery("Select id,name,max_daily_dose,min_batch_size,percentage_absorption from product where name ='"+NextprodName+"' && tenant_id='"+tenant_id+"' "); // get next prod name from excel and find out in db
+						while (productdata.next()) {	nextProdID = productdata.getInt(1); nprodname = productdata.getString(2); maxDD = productdata.getFloat(3); minBatch = productdata.getFloat(4);  percentage_absorption =  productdata.getFloat(5);}
+						
+						String productType = sheet.getRow(39).getCell(1).getStringCellValue();
+						System.out.println("productType--->"+productType);
+						if(productType.equals("Solid")|| productType.equals("Liquid")||productType.equals("Inhalant"))
+						{
+							value_L1 = L0.L0forCleaningAgent(CurrenProductName) / maxDD;
+							Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+							Solid_expec_Value_L0_print.setCellValue(L0.L0forCleaningAgent(CurrenProductName));
 						}
-						else if(doseL0>healthL0)
+						//if product is Transdermal Patch
+						if(productType.equals("Patch"))
 						{
-							L1 = (healthL0*1000)/(max_amount_appled * max_ap_freq * max_Body_Sf);
+							value_L1 = (L0.L0forCleaningAgent(CurrenProductName)*1000) / (maxDD *(percentage_absorption/100));
+							Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+							Solid_expec_Value_L0_print.setCellValue(L0.L0forCleaningAgent(CurrenProductName));
+						}
+						//if product is Topical - Option2
+						if(productType.equals("Topical"))
+						{
+							value_L1 = (L0.L0forCleaningAgent(CurrenProductName)*1000) / maxDD;
+							Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
+							Solid_expec_Value_L0_print.setCellValue(L0.L0forCleaningAgent(CurrenProductName));
 						}
 						
+						Cell nextprodname = sheet.getRow(row).getCell(4); 
+						nextprodname.setCellValue(nprodname); // print next product name
+						
+						value_L2 = value_L1 * minBatch * 1000 ; // Calculated L2 Value
+						
+						//find surface area option in residue limit whether shared or lowest
+						int sharedORLowest=0;
+						ResultSet surfaceAreaOption = stmt.executeQuery("Select l3_surface_area_option from residue_limit where tenant_id='"+tenant_id+"'"); // get equipment id
+					    while (surfaceAreaOption.next()) 
+					    {
+					      sharedORLowest =surfaceAreaOption.getInt(1);
+					    }
+					    // Check same product
+					if(CurrenProductName.equals(NextprodName) && LimitcalculationType.equalsIgnoreCase("Campaign"))
+					{
+						Solid_Total_surface_area =  SurfaceAreaValue.sameProductSF(CurrenProductName);
 					}
-					System.out.println("Print dose L0: "+doseL0);
-					System.out.println("Print health L0: "+healthL0);
-					System.out.println("Print  L1: "+L1);
-					connection.close();
-		return L1; // return that L0 in this method
-	}
+					else
+					{
+					    if(sharedORLowest==0)
+					    {
+					    	System.out.println("SF shread------------->" +SurfaceAreaValue.actualSharedbetween2(CurrenProductName,NextprodName));
+					    	System.out.println("CurrenProductName"+CurrenProductName);
+					    	System.out.println("CurrenProductName"+CurrenProductName);
+					    	Solid_Total_surface_area =  SurfaceAreaValue.actualSharedbetween2(CurrenProductName,NextprodName); // Calculated L3 for actual shared
+					    }else
+					    {
+					    	System.out.println("SF lowest");
+					       	Solid_Total_surface_area =  SurfaceAreaValue.lowestTrainbetween2(CurrenProductName,NextprodName); // Calculated L3 for lowest train between two
+					    }
+					    System.out.println("Surface Area: ----------------------->"+Solid_Total_surface_area);
+					}
+					
+					    value_L3 = value_L2 / Solid_Total_surface_area;
+				if(no_default) // No Default limit
+				{	
+					no_defaultMethod();
+				}
+				if(default_l1) // Default limit for L1 value
+				{
+					defaultL1Method();
+				}
+				if(default_l3) // Default limit for L3 value
+				{
+					defaultL3Method();
+				}
+				if(default_l1_l3)// Default limit for L1 and L3
+				{	
+					defaultL1L3Method();
+				} 
+				
+				Cell Solid_expec_Value_L1_print = sheet.getRow(row).getCell(6); 
+				Solid_expec_Value_L1_print.setCellValue(Solid_Expec_Value_L1 ); // print expected L0 result into excel
+				Cell Solid_expec_Value_L2_print = sheet.getRow(row).getCell(7); 
+				Solid_expec_Value_L2_print.setCellValue(Solid_Expec_Value_L2); // print expected L2 result into excel
+				Cell Solid_expec_Value_L3_print = sheet.getRow(row).getCell(8); 
+				Solid_expec_Value_L3_print.setCellValue(Solid_Expec_Value_L3); // print expected L3 result into excel
+				System.out.println("Expected L1: "+Solid_Expec_Value_L1);
+				System.out.println("Expected L2: "+Solid_Expec_Value_L2);
+				System.out.println("Expected L3: "+Solid_Expec_Value_L3);
+				LowestExpectL3.add((float) Solid_Expec_Value_L3); // get all Expected L3
+						
+				// Get Actual Result from DB
+					 System.out.println("Prouct id: "+getprodID +" Active id: "+activeID); // current product id and active id
+					 int actualnextProdID = 0;
+					 int actualresultrow = 41; 
+						 float ActualL0Result = 0,ActualL1Result = 0,ActualL2Result = 0,ActualL3Result = 0;
+						 ResultSet nextproductdata = stmt.executeQuery("Select * from product where name ='"+NextprodName+"' && tenant_id='"+tenant_id+"' "); // get next prod name from excel and find out in db
+							while (nextproductdata.next()) {	actualnextProdID = nextproductdata.getInt(1);    }
+							
+							System.out.println("actualnextProdID"+actualnextProdID);
+							ResultSet prod_cal = stmt.executeQuery("SELECT l0,l1,l2,l3 FROM product_calculation where product_id= '" + getprodID + "'&& next_prod_ids='"+  actualnextProdID+ "' && active_ingredient_id='"+activeID+ "' && tenant_id='"+tenant_id+"'");
+							//While Loop to iterate through all data and print results
+							while (prod_cal.next()) 
+							{
+								 ActualL0Result = prod_cal.getFloat(1); ActualL1Result = prod_cal.getFloat(2); ActualL2Result = prod_cal.getFloat(3); ActualL3Result = prod_cal.getFloat(4);
+							}
+							// Print Actual result to excel
+							if(ActualL0Result==0)
+							{
+									Cell print_actual_L0 = sheet.getRow(row).getCell(9); 
+									print_actual_L0.setCellValue("NA"); // print actual L0 result into excel
+							}else {
+									Cell print_actual_L0 = sheet.getRow(row).getCell(9); 
+									print_actual_L0.setCellValue(ActualL0Result); // print actual L0 result into excel
+							}			
+							if(ActualL1Result==0)
+							{
+								Cell print_actual_L1 = sheet.getRow(row).getCell(10); 
+								print_actual_L1.setCellValue("NA"); // print actual L1 result into excel
+							}else {
+								Cell print_actual_L1 = sheet.getRow(row).getCell(10); 
+								print_actual_L1.setCellValue(ActualL1Result); // print actual L1 result into excel
+							}		
+							if(ActualL2Result==0)
+							{
+								Cell print_actual_L2 = sheet.getRow(row).getCell(11); 
+								print_actual_L2.setCellValue("NA"); // print actual L2 result into excel
+							}else {
+								Cell print_actual_L2 = sheet.getRow(row).getCell(11); 
+								print_actual_L2.setCellValue(ActualL2Result); // print actual L2 result into excel
+							}
+							if(ActualL3Result==0)
+							{
+								System.out.println("Zero");
+								Cell print_actual_L3 = sheet.getRow(row).getCell(12); 
+								print_actual_L3.setCellValue("NA"); // print actual L3 result into excel
+							}else {
+								System.out.println("Not Zero");
+								Cell print_actual_L3 = sheet.getRow(row).getCell(12); 
+								print_actual_L3.setCellValue(ActualL3Result); // print actual L3 result into excel
+							}
+							if(ActualL3Result!=0) {
+							LowestActualL3.add((float) ActualL3Result);	
+							}
+						
+						if(ActualL3Result==0) // this condition for if actual result not lowest(if zero)
+						{
+							System.out.println("No Result");
+						}
+						else 
+						{
+							System.out.println("Expected: "+Solid_Expec_Value_L3);
+							System.out.println("Actual: "+ActualL3Result);
+							if(Utils.toOptimizeDecimalPlacesRoundedOff(Solid_Expec_Value_L3).equals(Utils.toOptimizeDecimalPlacesRoundedOff(ActualL3Result)))
+							{
+								Cell printlowestL3 = sheet.getRow(row).getCell(13);
+								printlowestL3.setCellValue("Pass");
+								printlowestL3.setCellStyle(Utils.style(workbook, "Pass")); // for print green font				
+							}else
+							{
+								Cell printlowestL3 = sheet.getRow(row).getCell(13);
+								printlowestL3.setCellValue("Fail");
+								printlowestL3.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
+							}
+						}
+								
+				row++;	
+				column++;
+				}
+				}
+				}
+	*/}
 			
 	
 		
