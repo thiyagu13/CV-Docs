@@ -1587,7 +1587,7 @@ public class L0 {
 					LD50 = basisOfcalc.getFloat(1);
 					ConversionFactor = basisOfcalc.getFloat(2);
 					BodyWeight = basisOfcalc.getFloat(3);
-					HealthL0 = basisOfcalc.getFloat(3);
+					HealthL0 = basisOfcalc.getFloat(4);
 					}
 				}
 				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
@@ -1598,9 +1598,7 @@ public class L0 {
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) 
 					{
-										System.out.println("Both enabled");
 										doseL0 = LD50 * ConversionFactor * BodyWeight;
-										System.out.println("LO"+L0);
 										if(doseL0>HealthL0)
 										{
 											L0 = HealthL0;

@@ -226,8 +226,10 @@ public class Equipment {
 			        Thread.sleep(1000);
 			        driver.findElement(By.cssSelector(".remove-row-icon")).click();
 			        Thread.sleep(1000);
-			        driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
-			        Thread.sleep(1000);
+			        driver.findElement(By.id("location2")).sendKeys(EquipmentSamplingLocationCREATE);
+			        Thread.sleep(500);
+			       driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
+			       Thread.sleep(1000);
 					
 					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
 					//Location Risk Assessment -End
@@ -392,13 +394,13 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 						//System.out.println("createEquipment "+createEquipment);
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 						//Assert.assertEquals(createEquipment,"Equipment saved successfully");
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 					
@@ -409,12 +411,13 @@ public class Equipment {
 				public void EditEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//Thread.sleep(31000);
-					Thread.sleep(6000);
+					Thread.sleep(4000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[10]/div/ul/li[3]/a")).click();
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.linkText("Edit")).click();
 					Thread.sleep(500);
 					WebElement locationdropdown = driver.findElement(parser.getbjectLocator("EquipmentLocation"));
 					Select location = new Select(locationdropdown);
@@ -693,9 +696,9 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				} // closing Edit Equipment method
@@ -728,18 +731,19 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				}
 				
 				
-				@Test(priority=12,invocationCount=2)
+				//@Test(priority=12,invocationCount=2)
+				@Test(priority=12)
 				public void CreateEquipmentwithSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
-					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
+					//parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 					Thread.sleep(5000);
 					
 					SampleLocationSamplingSiteType();
@@ -914,6 +918,11 @@ public class Equipment {
 					SelectMOC.selectByIndex(1); 
 					Thread.sleep(1000);
 					
+					WebElement samplingSite = driver.findElement(By.id("mocz0"));
+					Select SelectsamplingSite = new Select(samplingSite);
+					SelectsamplingSite.selectByIndex(1); 
+					Thread.sleep(1000);
+					
 					WebElement Sampling = driver.findElement(By.id("mocy1"));
 					Select SelectSampling = new Select(Sampling);
 					SelectSampling.selectByValue("1");
@@ -1040,13 +1049,13 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 						//System.out.println("createEquipment "+createEquipment);
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 						//Assert.assertEquals(createEquipment,"Equipment saved successfully");
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 					
@@ -1062,7 +1071,8 @@ public class Equipment {
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[10]/div/ul/li[3]/a")).click();
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.linkText("Edit")).click();
 					Thread.sleep(500);
 					WebElement locationdropdown = driver.findElement(parser.getbjectLocator("EquipmentLocation"));
 					Select location = new Select(locationdropdown);
@@ -1343,9 +1353,9 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				} // closing Edit Equipment method
@@ -1378,9 +1388,9 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				}
@@ -1412,9 +1422,9 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				}
@@ -1721,13 +1731,13 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 						//System.out.println("createEquipment "+createEquipment);
 						//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 						//Assert.assertEquals(createEquipment,"Equipment saved successfully");
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				} // closing Create Equipment method
@@ -1802,9 +1812,9 @@ public class Equipment {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				}
@@ -1847,6 +1857,7 @@ public class Equipment {
 					driver.findElement(By.id("listMOC")).click();
 					Thread.sleep(500);
 					System.out.println(driver.findElements(By.className("no")).size());
+					System.out.println("Risk Assessment");
 				if(driver.findElements(By.className("no")).size()!=0)
 				{
 					if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
@@ -1868,9 +1879,10 @@ public class Equipment {
 						String className = this.getClass().getName(); // get current class name - for screenshot
 						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-						if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+						System.out.println("grey:"+driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size());
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 						{
-							driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 						}
 						Thread.sleep(1000);
 						
@@ -1897,37 +1909,38 @@ public class Equipment {
 								String className = this.getClass().getName(); // get current class name - for screenshot
 								String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 								Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-								if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+								if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 								{
-									driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+									driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 								}
 								Thread.sleep(1000);
 						
 					}
 					
-					WebElement Risk = driver.findElement(By.id("samplingType"));
+					Thread.sleep(2000);
+					System.out.println("inside loop");
+					WebElement Risk = driver.findElement(By.name("samplingType"));
 					Select RiskAssement = new Select(Risk);
-					RiskAssement.selectByVisibleText("Based on Risk Assessment");
+					RiskAssement.selectByValue("2");
 					Thread.sleep(1000);
+					System.out.println("xpath: "+driver.findElement(By.xpath(".//*[@id='user_role']/span[1]/span[1]/span")).getText());
 					
-					System.out.println(driver.findElement(By.xpath(".//*[@id='user_role']/div[1]/span/span[1]/span")).getText());
-					if(driver.findElement(By.xpath(".//*[@id='user_role']/div[1]/span/span[1]/span")).getText().equalsIgnoreCase(""))
+					System.out.println("xpath: "+driver.findElement(By.xpath(".//*[@id='user_role']/span[1]/span[1]/span")).getText());
+					if(driver.findElement(By.xpath(".//*[@id='user_role']/span[1]/span[1]/span")).getText().equalsIgnoreCase(""))
 					{
 						driver.findElement(By.id("saveSamplingLocation")).click();
 						Thread.sleep(2000);
-					if(driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Please select Criteria"))
-					{
-						if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+						if(driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Please select Criteria"))
 						{
-							driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
-						}
-						WebElement sampling = driver.findElement(By.xpath(".//*[@id='user_role']/div[1]/span/span[1]/span"));
-						sampling.click();
-						Thread.sleep(500);
-						sampling.sendKeys(Keys.ENTER);
-						Thread.sleep(500);
-						sampling.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-						Thread.sleep(1000);
+							if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+							{
+								driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+							}
+							WebElement sampling = driver.findElement(By.id("sampling-location"));
+							Select s= new Select(sampling);
+							s.selectByValue("1");
+							s.selectByValue("2");
+							Thread.sleep(1000);
 						}
 					}
 					Thread.sleep(1000);
@@ -1946,13 +1959,13 @@ public class Equipment {
 					Thread.sleep(2000);
 					
 					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(SuccessMessage,"SamplingLocationInfo has been saved successfully");
+					Assert.assertEquals(SuccessMessage,"Sampling Location has been saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				}
@@ -1989,9 +2002,9 @@ public class Equipment {
 						String className = this.getClass().getName(); // get current class name - for screenshot
 						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-						if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 						{
-							driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 						}
 						Thread.sleep(1000);
 						
@@ -2018,9 +2031,9 @@ public class Equipment {
 								String className = this.getClass().getName(); // get current class name - for screenshot
 								String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 								Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-								if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+								if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 								{
-									driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+									driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 								}
 								Thread.sleep(1000);
 						
@@ -2062,9 +2075,9 @@ public class Equipment {
 							String className = this.getClass().getName(); // get current class name - for screenshot
 							String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 							Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-							if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+							if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 							{
-								driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+								driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 							}
 							Thread.sleep(1000);
 							
@@ -2091,9 +2104,9 @@ public class Equipment {
 									String className = this.getClass().getName(); // get current class name - for screenshot
 									String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 									Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-									if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+									if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 									{
-										driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+										driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 									}
 									Thread.sleep(1000);
 							
@@ -2103,13 +2116,13 @@ public class Equipment {
 					Thread.sleep(2000);
 					
 					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(SuccessMessage,"SamplingLocationInfo has been saved successfully");
+					Assert.assertEquals(SuccessMessage,"Sampling Location has been saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
 				}

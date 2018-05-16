@@ -28,6 +28,7 @@ import org.testng.annotations.Test;
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
+import com.eDocs.residueCalculation.SurfaceAreaValue;
 
 public class MicrobialCalculation {
 	
@@ -38,12 +39,12 @@ public class MicrobialCalculation {
 	String productName3 ="P33";
 	String productName4 ="P44";*/
 	WebDriver driver;
-	
+	static String tenant_id= Constant.tenant_id;
 	
 	
 	@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException
-	{
+	{/*
 		
 		//XSSFWorkbook workbook;
 		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
@@ -145,9 +146,9 @@ public class MicrobialCalculation {
 					driver.findElement(By.xpath("html/body/div[18]/div/button")).click(); //close the duplicate validation alert
 					if(title_duplicate.equals("Calculation '"+title+i+"' already exists!"))
 					{
-						/*iteratecaltitle.lastIndexOf(i);
+						iteratecaltitle.lastIndexOf(i);
 						System.out.println("Remove---->"+iteratecaltitle.lastIndexOf(i));
-						System.out.println("iteratecaltitle " +iteratecaltitle);*/
+						System.out.println("iteratecaltitle " +iteratecaltitle);
 						System.out.println("duplicate");
 						continue;
 					}
@@ -170,13 +171,22 @@ public class MicrobialCalculation {
   		currentproductlist.addAll(selectedproducts);
   		
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
+		nextproductlist.addAll(selectedproducts);*/
+		Set<String> selectedproducts = new HashSet<>();
+		selectedproducts.add("S1");
+		selectedproducts.add("S2");
+		selectedproducts.add("S3");
+		
+		List<String>  currentproductlist = new ArrayList<>(); //store product list
+  		currentproductlist.addAll(selectedproducts);
+  		
+		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);
 		
 		microbialcalculation(currentproductlist, nextproductlist);
 		
 		//writeTooutputFile(workbook); // write output into work sheet
 	}
-	
 	
 	
 	
@@ -187,14 +197,14 @@ public class MicrobialCalculation {
 		public static void microbialcalculation(List<String> currentproduct,List<String> nextproduct) throws SQLException, ClassNotFoundException, IOException
 		{
 			//XSSFWorkbook workbook;
-			XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result); 
+			XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
 			XSSFSheet sheet = workbook.getSheet("microbial_calculation_result");
 			//database connection
 			Connection connection = Utils.db_connect();
 			Statement stmt = (Statement) connection.createStatement();
 			
 			ResultSet microbialoption = stmt.executeQuery("SELECT limits_setup_option,bioburden_limit_option,bioburden_contribution,contact_plate_surface_area,\n" + 
-					"var_factor_micro_enum,surface_sample_option,preset_apply_default_limit_for_surface,other_default_limit_value_for_surface_value,other_surface_sample_calculate_compare_default_value,rinse_sample_option,preset_apply_default_limit_for_rinse,other_default_limit_for_rinse_value,rinse_sample_calculate_compare_default,other_rinse_sample_calculate_compare_default_value,default_endotoxin_limit,default_rinse_limit_nmt FROM microbial_limit");
+					"var_factor_micro_enum,surface_sample_option,preset_apply_default_limit_for_surface,other_default_limit_value_for_surface_value,other_surface_sample_calculate_compare_default_value,rinse_sample_option,preset_apply_default_limit_for_rinse,other_default_limit_for_rinse_value,rinse_sample_calculate_compare_default,other_rinse_sample_calculate_compare_default_value,default_endotoxin_limit,default_rinse_limit_nmt FROM microbial_limit where tenant_id='"+tenant_id+"'");
 		  	int microLimitOption = 0,bioburderLimit = 0,surfacelimitoption=0,bioburdenContribution=0,factorMicroEnumeraion=0,
 		  			rinseoption=0,rinsedefaultOption=0,rinsebothdefaultvalueOption = 0,endotoxinDefaultvalueOption = 0;
 		  	float rinsedefaultvalueOther=0,surfaceDefaultvalue1 = 0,
@@ -265,6 +275,10 @@ public class MicrobialCalculation {
 	  		int row=8,surface=6,surfaceontact=9,printrinse=12,printCurrentpname=4,printNextpname=5;
 		  		for(String currentproductname:currentproductlist)
 		  		{
+		  			System.out.println("Current Product--->"+currentproductname);
+		  			Cell currentprodname = sheet.getRow(row).getCell(printCurrentpname);
+			  		currentprodname.setCellValue(currentproductname); 
+			  		
 		  			for(String nextproductname:nextproductlist)
 		  			{
 		  				
@@ -407,8 +421,8 @@ public class MicrobialCalculation {
 	  		System.out.println("EndoToxinResult: "+EndoToxinResult);
 	  		
 	  		
-	  		Cell currentprodname = sheet.getRow(row).getCell(printCurrentpname);
-	  		currentprodname.setCellValue(currentproductname); 
+	  		/*Cell currentprodname = sheet.getRow(row).getCell(printCurrentpname);
+	  		currentprodname.setCellValue(currentproductname); */
 	  		
 	  		Cell nextprodname = sheet.getRow(row).getCell(printNextpname); 
 	  		nextprodname.setCellValue(nextproductname); 
@@ -425,26 +439,26 @@ public class MicrobialCalculation {
     		//print actual result
     		int currentproductID=0,nextproductID = 0;
     		//get current product id
-    		ResultSet getcurrentProductID = stmt.executeQuery("SELECT * FROM product where name ='"+currentproductname+"'");
+    		ResultSet getcurrentProductID = stmt.executeQuery("SELECT * FROM product where name ='"+currentproductname+"' && tenant_id='"+tenant_id+"'");
 			while (getcurrentProductID.next())  //check surface or both
 			{	
 				currentproductID = getcurrentProductID.getInt(1);
 			}
 			//get next product id
-    		ResultSet getnextProductID = stmt.executeQuery("SELECT * FROM product where name ='"+nextproductname+"'");
+    		ResultSet getnextProductID = stmt.executeQuery("SELECT * FROM product where name ='"+nextproductname+"' && tenant_id='"+tenant_id+"'");
 			while (getnextProductID.next())  //check surface or both
 			{	
 				nextproductID = getnextProductID.getInt(1);
 			}
     		
 			float actualSurfaceLimit=0,actualSurfaceContactPlateSwab=0,actulaRinse=0;
-    		ResultSet bioburdensurfaceResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" and rinse_or_surface="+1+"");
+    		ResultSet bioburdensurfaceResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" and rinse_or_surface="+1+" && tenant_id='"+tenant_id+"'");
 			while (bioburdensurfaceResult.next())  //check surface or both
 			{	
 				actualSurfaceLimit = bioburdensurfaceResult.getFloat(2);
 				actualSurfaceContactPlateSwab = bioburdensurfaceResult.getFloat(4);
 			}
-			ResultSet bioburdenrinseResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" and rinse_or_surface="+2+"");
+			ResultSet bioburdenrinseResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" and rinse_or_surface="+2+" && tenant_id='"+tenant_id+"'");
 			while (bioburdenrinseResult.next())  //check surface or both
 			{	
 				actulaRinse = bioburdenrinseResult.getFloat(3);
@@ -553,7 +567,7 @@ public class MicrobialCalculation {
 	//database connection
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-	  ResultSet microbialoption = stmt.executeQuery("SELECT limits_setup_option FROM microbial_limit");
+	  ResultSet microbialoption = stmt.executeQuery("SELECT limits_setup_option FROM microbial_limit where tenant_id='"+tenant_id+"'");
 	  	int microLimitOption = 0,bioburderLimit = 0,surfacelimitoption=0,bioburdenContribution=0,
 	  			factorMicroEnumeraion=0,rinseoption=0,endotoxinDefaultvalueOption=0;
 	  	float adjusted_BSP = 0,productBSP=0;
@@ -563,7 +577,7 @@ public class MicrobialCalculation {
 		}
 			if(microLimitOption==1 || microLimitOption==3)
 			{
-				ResultSet bioburderLimitOption = stmt.executeQuery("SELECT bioburden_contribution,var_factor_micro_enum,bioburden_limit_option,surface_sample_option,rinse_sample_option,default_endotoxin_limit FROM microbial_limit");
+				ResultSet bioburderLimitOption = stmt.executeQuery("SELECT bioburden_contribution,var_factor_micro_enum,bioburden_limit_option,surface_sample_option,rinse_sample_option,default_endotoxin_limit FROM microbial_limit where tenant_id='"+tenant_id+"'");
 				while (bioburderLimitOption.next())  //check surface or both
 				{	
 					bioburdenContribution = bioburderLimitOption.getInt(1);
@@ -574,7 +588,7 @@ public class MicrobialCalculation {
 					endotoxinDefaultvalueOption = bioburderLimitOption.getInt(6);
 				}
 				//get basp value rom product
-				ResultSet bspfromProduct = stmt.executeQuery("SELECT * FROM product where name='"+currentproductname+"'");
+				ResultSet bspfromProduct = stmt.executeQuery("SELECT * FROM product where name='"+currentproductname+"' && tenant_id='"+tenant_id+"'");
 				while (bspfromProduct.next())  //check surface or both
 				{	
 					productBSP = bspfromProduct.getFloat(11);
@@ -596,7 +610,7 @@ public class MicrobialCalculation {
 	}
   
   
-  		//get Next Product total surface area value for L3 Surface bioburden
+  		/*//get Next Product total surface area value for L3 Surface bioburden
   		public static float NextproductTotalSF(String nextproductname) throws ClassNotFoundException, SQLException
   		{
   			Float nextProductTotalSurfaceArea;
@@ -606,7 +620,7 @@ public class MicrobialCalculation {
 			
 		    //next product equipment set
 		    List<Integer> Nextsetcount = new ArrayList<>();
-		    ResultSet nextprod = stmt.executeQuery("SELECT * FROM product where name='" + nextproductname + "'"); // get product name id
+		    ResultSet nextprod = stmt.executeQuery("SELECT * FROM product where name='" + nextproductname + "' && tenant_id='"+tenant_id+"'"); // get product name id
 		    while (nextprod.next()) {
 		    	nextproductID = nextprod.getInt(1);
 		    	Nextsetcount.add(nextprod.getInt(33));
@@ -619,7 +633,7 @@ public class MicrobialCalculation {
 		    for(int i=1;i<=nextproductsetcount;i++)
 		    {
 		    	Set<Integer> equipments = new HashSet<>();
-		    	ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + nextproductID + "' && set_id ='" + i + "'"); // get product name id
+		    	ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + nextproductID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
 		 	    while (getequipfromset.next()) 
 		 	    {
 		 	    	equipments.add(getequipfromset.getInt(4));
@@ -629,7 +643,7 @@ public class MicrobialCalculation {
 //check if only equipment group used in the product -Next product
 		 	// if train used group means - use the below query
 			 	   List<Integer> eqgroupIDs = new ArrayList<>();
-			 	   ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + nextproductID + " && set_id =" + i + ""); // get product name id
+			 	   ResultSet getequipgrpfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + nextproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
 			 	   while (getequipgrpfromset.next())
 			 	   {
 			 		  		eqgroupIDs.add(getequipgrpfromset.getInt(4));
@@ -637,12 +651,12 @@ public class MicrobialCalculation {
 			 	   for(int id:eqgroupIDs) // iterate group id one by one (from train)
 			 	   {
 			 		   int equipmentusedcount = 0;
-			 		   ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + nextproductID + " && group_id=" + id +""); // get product name id
+			 		   ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM product_equipment_set_groups where product_id=" + nextproductID + " && group_id=" + id +" && tenant_id='"+tenant_id+"'"); // get product name id
 				 	   while (geteqcountfromgrpID.next()) 
 				 	   {
 				 		 equipmentusedcount = geteqcountfromgrpID.getInt(5);
 				 	   }
-				 	   ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id +" order by sorted_id limit "+equipmentusedcount+""); // get product name id
+				 	   ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + id +" && tenant_id='"+tenant_id+"' order by sorted_id limit "+equipmentusedcount+""); // get product name id
 				 	   while (geteqfromgrpID.next()) 
 				 	   {
 				 		  equipmentgroupNextProd.add(geteqfromgrpID.getInt(2));
@@ -655,21 +669,21 @@ public class MicrobialCalculation {
 
 //check if only equipment train used in the product -current product
 			       int nextprodtrainID = 0;
-			 	   ResultSet nextgetequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + nextproductID + " && set_id =" + i + ""); // get product name id
+			 	   ResultSet nextgetequiptrainIDfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_train where product_id=" + nextproductID + " && set_id =" + i + " && tenant_id='"+tenant_id+"'"); // get product name id
 			 	   while (nextgetequiptrainIDfromset.next())
 			 	   {
 			 		  		nextprodtrainID = nextgetequiptrainIDfromset.getInt(4);
 			 		  		
 			 	   }
 			 	   // if train used only equip means used the below query
-			 	   ResultSet eqfromtrainnextprod = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + nextprodtrainID +""); // get product name id
+			 	   ResultSet eqfromtrainnextprod = stmt.executeQuery("SELECT * FROM equipment_train_equipments where train_id=" + nextprodtrainID +" && tenant_id='"+tenant_id+"'"); // get product name id
 			 	   while (eqfromtrainnextprod.next()) 
 			 	   {
 			 		  equipments.add(eqfromtrainnextprod.getInt(2));
 			 	   }
 			 	  // if train used group means - use the below query
 			 	   Set<Integer> nextprodgroupIDs = new HashSet<>();
-			 	   ResultSet eqfromtraingroupNextProd = stmt.executeQuery("SELECT * FROM equipment_train_group where train_id=" + nextprodtrainID +""); // get product name id
+			 	   ResultSet eqfromtraingroupNextProd = stmt.executeQuery("SELECT * FROM equipment_train_group where train_id=" + nextprodtrainID +" && tenant_id='"+tenant_id+"'"); // get product name id
 			 	   while (eqfromtraingroupNextProd.next()) 
 			 	   {
 			 		  nextprodgroupIDs.add(eqfromtraingroupNextProd.getInt(2));
@@ -679,12 +693,12 @@ public class MicrobialCalculation {
 			 	   {
 			 		   //Set<Integer> equipID = new HashSet();
 			 		   int equipmentusedcount = 0;
-			 		   ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + ids +""); // get product name id
+			 		   ResultSet geteqcountfromgrpID = stmt.executeQuery("SELECT * FROM equipment_train_group where group_id=" + ids +" && tenant_id='"+tenant_id+"'"); // get product name id
 				 	   while (geteqcountfromgrpID.next()) 
 				 	   {
 				 		 equipmentusedcount = geteqcountfromgrpID.getInt(4);
 				 	   }
-				 	   ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids +" order by sorted_id limit "+equipmentusedcount+""); // get product name id
+				 	   ResultSet geteqfromgrpID = stmt.executeQuery("SELECT * FROM equipment_group_relation where group_id=" + ids +" && tenant_id='"+tenant_id+"' order by sorted_id limit "+equipmentusedcount+""); // get product name id
 				 	   while (geteqfromgrpID.next()) 
 				 	   {
 				 		  equipments.add(geteqfromgrpID.getInt(2));
@@ -695,7 +709,7 @@ public class MicrobialCalculation {
 		 	    int equiptotalSF = 0;
 		 	    for(int geteqID:equipments) //get equipment surface area
 		 	    {
-		 	    	ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + geteqID +"'"); // get product name id
+		 	    	ResultSet eqSF = stmt.executeQuery("SELECT * FROM equipment where id='" + geteqID +"' && tenant_id='"+tenant_id+"'"); // get product name id
 		 	    	while (eqSF.next()) {
 		 	    		equiptotalSF = equiptotalSF + eqSF.getInt(13);
 		 	    		}
@@ -706,7 +720,7 @@ public class MicrobialCalculation {
 		    connection.close();
 		    return largestTotalSF;
   		}
-  		
+  		*/
   		
   		
 
@@ -718,13 +732,13 @@ public class MicrobialCalculation {
   			Connection connection = Utils.db_connect();
   			Statement stmt = (Statement) connection.createStatement();// Create Statement ObjectStatement stmt = Utils.db_connect();// Create Statement Object
   			
-  			ResultSet Product = stmt.executeQuery("SELECT * FROM product where name='"+nextproductname+"'");
+  			ResultSet Product = stmt.executeQuery("SELECT * FROM product where name='"+nextproductname+"' && tenant_id='"+tenant_id+"'");
   			float minBatchofNextprod=0;
 			while (Product.next())  //check surface or both
 			{	
 				minBatchofNextprod = Product.getFloat(9);
 			}
-			L3SurfaceBioburden = (adjustedBSP(currentproductname) * minBatchofNextprod * 1000) / NextproductTotalSF(nextproductname);
+			L3SurfaceBioburden = (adjustedBSP(currentproductname) * minBatchofNextprod * 1000) / SurfaceAreaValue.sameProductSF(nextproductname);
 			connection.close();
 			return L3SurfaceBioburden;
   		}
@@ -737,7 +751,7 @@ public class MicrobialCalculation {
   			Connection connection = Utils.db_connect();
   			Statement stmt = (Statement) connection.createStatement();// Create Statement Object
   			
-  			 ResultSet SwabSurfaceLimit = stmt.executeQuery("SELECT contact_plate_surface_area,bioburden_limit_option FROM microbial_limit");
+  			 ResultSet SwabSurfaceLimit = stmt.executeQuery("SELECT contact_plate_surface_area,bioburden_limit_option FROM microbial_limit where tenant_id='"+tenant_id+"'");
   			 float contactPlateORSwab = 0,SurfaceLimitContactORSwab = 0;
   			 int bioburdenoption = 0;
   				while (SwabSurfaceLimit.next())  //check microbial option whether bioburder or both
@@ -760,14 +774,14 @@ public class MicrobialCalculation {
   			float L3RinseBioburden;
   			Connection connection = Utils.db_connect();
   			Statement stmt = (Statement) connection.createStatement();// Create Statement Object
-  			 ResultSet product = stmt.executeQuery("SELECT total_rinse_volume FROM product where name='"+currentproductname+"'");
+  			 ResultSet product = stmt.executeQuery("SELECT total_rinse_volume FROM product where name='"+currentproductname+"' && tenant_id='"+tenant_id+"'");
  			 float rinsevolumeofcurrentproduct = 0;
  				while (product.next())  //check microbial option whether bioburder or both
  				{	
  				rinsevolumeofcurrentproduct = product.getFloat(1);
  				}
  				//get minimum batch of next product
- 				ResultSet Product = stmt.executeQuery("SELECT min_batch_size FROM product where name='"+nextproductname+"'");
+ 				ResultSet Product = stmt.executeQuery("SELECT min_batch_size FROM product where name='"+nextproductname+"' && tenant_id='"+tenant_id+"'");
  	  			float minBatchofNextprod=0;
  				while (Product.next())  //check surface or both
  				{	
@@ -775,7 +789,7 @@ public class MicrobialCalculation {
  				}
  				if(BioburdensurfaceLimit(currentproductname,nextproductname)==0)
  				{
- 					L3RinseBioburden  = (BioburdensurfaceLimit( currentproductname,nextproductname) * NextproductTotalSF(nextproductname)) / (rinsevolumeofcurrentproduct * 1000);
+ 					L3RinseBioburden  = (BioburdensurfaceLimit( currentproductname,nextproductname) * SurfaceAreaValue.sameProductSF(nextproductname)) / (rinsevolumeofcurrentproduct * 1000);
  				}else
  				{
  					L3RinseBioburden  = (adjustedBSP(currentproductname) * minBatchofNextprod * 1000)/ (rinsevolumeofcurrentproduct * 1000);

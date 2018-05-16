@@ -29,13 +29,13 @@ public class SurfaceAreaValue {
     public static String productName2 = "P22";
     public static String productName3 = "P33";
     public static String productName4 = "P44";*/
-    @Test
+   /* @Test
     public void test() throws ClassNotFoundException, SQLException, IOException {
     
     	String currentproductname ="Topical2";
     	String nextproductname = "Topical1";
     		 actualSharedbetween2(currentproductname,nextproductname);
-    }
+    }*/
 	
 			
     //Current to next   - Actual shared SF between two products
@@ -520,7 +520,7 @@ public class SurfaceAreaValue {
     }
 
     
-    public static double sameProductSF(String currentproductname) throws SQLException, ClassNotFoundException {
+    public static float sameProductSF(String currentproductname) throws SQLException, ClassNotFoundException {
         int currentproductID = 0, currentproductsetcount = 0;
         //database connection
         Connection connection = Utils.db_connect();
