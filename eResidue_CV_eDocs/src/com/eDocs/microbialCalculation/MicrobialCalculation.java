@@ -173,9 +173,9 @@ public class MicrobialCalculation {
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);*/
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("S1");
-		selectedproducts.add("S2");
-		selectedproducts.add("S3");
+		selectedproducts.add("Product/Sample/Solid4");
+		selectedproducts.add("Product/Sample/Solid5");
+		//selectedproducts.add("S3");
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
@@ -213,6 +213,7 @@ public class MicrobialCalculation {
 		  		while (microbialoption.next())  //check microbial option whether bioburden or both
 				{
 		  			microLimitOption = microbialoption.getInt(1);
+		  			System.out.println("==>"+microLimitOption);
 		  			bioburderLimit = microbialoption.getInt(2);
 					bioburdenContribution = microbialoption.getInt(3);
 					ContactPlateORSwab = microbialoption.getFloat(4);
@@ -284,14 +285,17 @@ public class MicrobialCalculation {
 		  				
 		  		
 		  		//if only Surface Limit Selected Selected
+		  				System.out.println("-->"+microLimitOption);
 		  		if(microLimitOption==1 || microLimitOption==3) //bioburden(1) or endotoxin(2) or both(3)
 		  		{
+		  			System.out.println(bioburderLimit);
 		  			if(bioburderLimit==1 || bioburderLimit==3)  //Surface(1) or rinse(2) or both(3)
 		  			{
 		  				if(surfacelimitoption==1) //Surface-no default(1)
 		  				{
 		  					L3SurfaceLimit= BioburdensurfaceLimit(currentproductname,nextproductname);
 		  					L3SurfacelimitContactORSwab = surfaceLimitContactPlateORSwab(currentproductname,nextproductname);
+		  					System.out.println("L3SurfaceLimit--->: "+L3SurfaceLimit);
 		  				}
 		  				if(surfacelimitoption==2) //Surface- default(2) 
 		  				{

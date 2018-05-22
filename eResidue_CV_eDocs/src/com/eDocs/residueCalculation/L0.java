@@ -832,15 +832,16 @@ public class L0 {
 						health = Active.getFloat(1);
 						L0 = health;
 					}
-					System.out.println("Dose LO: "+doseL0);
+					
 					System.out.println("Health LO: "+health);
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
-									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency );
+									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency *0.001);
+									System.out.println("Dose LO: "+doseL0);
 									if(doseL0==0)
 									{
-										doseL0 = (float) (min_daily_dose *0.001);
+										doseL0 = (float) (min_daily_dose *Safety_Factor);
 									}
 									System.out.println("Min Daily Dose: "+doseL0);
 									
@@ -860,10 +861,10 @@ public class L0 {
 					{
 						System.out.println("Dose enabled and health disabled");
 							
-						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency);
+						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * 0.001);
 						if(L0==0)
 						{
-							L0 = (float) (min_daily_dose * 0.001);
+							L0 = (float) (min_daily_dose * Safety_Factor);
 						}
 						System.out.println("Min Daily Dose: "+L0);
 						System.out.println("Print Dose based L0: " +L0);

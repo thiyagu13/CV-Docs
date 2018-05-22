@@ -43,11 +43,11 @@ public class EquipmentGroup {
 				static String groupProtocolDocEDIT = "equip Group protocol for edit";
 				static String groupReportIDEDIT = "equip Group report for edit";
 				
-				/*@BeforeClass
+				@BeforeClass
 				public void setUp() throws IOException  
 				{
-					driver = new FirefoxDriver();
-					driver.get("http://192.168.1.45:8092");
+					//driver = new FirefoxDriver();
+					driver.get("http://192.168.1.111:8090/login");
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				}
 			
@@ -55,6 +55,7 @@ public class EquipmentGroup {
 				public void Login() throws InterruptedException, IOException
 				{
 					//Lets see how we can find the first name field
+					Thread.sleep(1000);
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
 					username.sendKeys("thiyagu1");
@@ -63,10 +64,8 @@ public class EquipmentGroup {
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
-					Thread.sleep(500);
-					driver.get("http://192.168.1.45:8092/equipment-group");
-					Thread.sleep(500);
-				}*/
+					//driver.get("http://192.168.1.111:8090/equipment-group");
+				}
 	
 	
 				@Test(priority=15,invocationCount=2)
@@ -74,11 +73,11 @@ public class EquipmentGroup {
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 					
-					Thread.sleep(6000);
-					driver.get("http://192.168.1.45:8092/equipment-group");
+					Thread.sleep(2000);
+					driver.get("http://192.168.1.111:8090/equipment-group");
 					//driver.navigate().refresh();
 					Thread.sleep(1000);
-					driver.findElement(By.xpath(".//*[@id='addGroup']/span")).click(); // Click create equipment button
+					driver.findElement(By.id("addGroup")).click(); // Click create equipment button
 					Thread.sleep(500);
 					String GroupName = EquipmentGroupName;
 					WebElement eqGRPName = driver.findElement(parser.getbjectLocator("EquipmentGroupName")); //Equipment Name field
@@ -88,9 +87,8 @@ public class EquipmentGroup {
 					Thread.sleep(500);
 					WebElement selectcriteria= driver.findElement(parser.getbjectLocator("Feature"));
 					Select SelectGroupCriteria = new Select(selectcriteria);
-					SelectGroupCriteria.selectByIndex(0);
+					SelectGroupCriteria.selectByIndex(1);
 					Thread.sleep(500);
-					
 					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys(groupCommentsCREATE);
 					Thread.sleep(500);
 					
@@ -100,6 +98,8 @@ public class EquipmentGroup {
 					Thread.sleep(200);
 					IdentifuEquip.sendKeys(Keys.ENTER);
 					Thread.sleep(200);
+					IdentifuEquip.sendKeys(groupIdentifyEquipment);
+					Thread.sleep(200);
 					IdentifuEquip.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
 			        Thread.sleep(500);
 			       
@@ -108,7 +108,7 @@ public class EquipmentGroup {
 					equipments.add(driver.findElement(By.cssSelector("ul.select2-selection__rendered>li:nth-child(2)")).getText().substring(1));
 					
 					System.out.println("-->equipments "+ equipments);
-					for(String equipment:equipments)
+					/*for(String equipment:equipments)
 					{
 						Thread.sleep(500);
 						WebElement selectEquipment = driver.findElement(parser.getbjectLocator("IdentifyEquipment"));
@@ -119,7 +119,7 @@ public class EquipmentGroup {
 						selectEquipment.click();
 						Thread.sleep(500);
 					}
-					
+					*/
 					
 					WebElement next = driver.findElement(parser.getbjectLocator("WorstcaseNextButton"));
 					next.click();
@@ -241,9 +241,9 @@ public class EquipmentGroup {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(1000);
 				} // closing create equipment group
@@ -257,7 +257,8 @@ public class EquipmentGroup {
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[2]/a")).click(); // Click edit equipment button
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+					driver.findElement(By.linkText("Edit")).click();
 					Thread.sleep(1000);
 					driver.findElement(parser.getbjectLocator("GroupingCriteriaSimilar")).click();
 					Thread.sleep(500);
@@ -372,9 +373,9 @@ public class EquipmentGroup {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(600);
 				} // closing Edit equipment group
@@ -387,33 +388,34 @@ public class EquipmentGroup {
 				{
 					Thread.sleep(2000);
 					driver.findElement(By.id("dLabel")).click();
-					Thread.sleep(500);
-					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[3]/a")).click(); // Click edit equipment button
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
 					Thread.sleep(1000);
-					driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[3]/a")).click(); // Click edit equipment button
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.linkText("Delete")).click();
+					Thread.sleep(1000);
+					//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					//Thread.sleep(500);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackSubmit")).click();
+					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment Group deleted successfully");
+					Assert.assertEquals(deletemsg,"Equipment Group was deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(600);
 				}
 				
 
-				@Test(priority=18)
+		/*		@Test(priority=18)
 				public void MultiDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);
@@ -438,14 +440,14 @@ public class EquipmentGroup {
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(600);
 					
 				}
-				
+				*/
 				
 				
 				/*@Test(priority=6)

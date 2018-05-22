@@ -38,6 +38,7 @@ public class Equipment {
 				static String EquipmentPreferentialTransferSFCREATE ="100";
 				static String EquipmentPrimaryPackagingeOptionCREATE ="Yes";
 				static String EquipmentSamplingLocationCREATE ="Chennai";
+				static String EquipmentCleaningProcessTypeCREATE ="2";
 
 				static String EquipmentSegmentNameCREATE="Seg name1";
 				static String EquipmentSegmentSFCREATE="100";
@@ -55,7 +56,8 @@ public class Equipment {
 				static String EquipmentCleaningInfoEDIT ="Edit Euipment";
 				static String EquipmentPreferentialTransferEDIT ="No";
 				static String EquipmentSegmentNameEDIT="Seg name2";
-				static String EquipmentSegmentSFEDIT="200";				
+				static String EquipmentSegmentSFEDIT="200";
+				static String EquipmentCleaningProcessTypeEDT ="4";
 				
 				
 				
@@ -65,7 +67,7 @@ public class Equipment {
 				{
 					//driver = new FirefoxDriver();
 					//driver.get("http://192.168.1.111:8090");
-					driver.get("http://192.168.1.45:8092");
+					driver.get("http://192.168.1.111:8090");
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				}
 			
@@ -73,6 +75,7 @@ public class Equipment {
 				public void Login() throws InterruptedException
 				{
 					//Lets see how we can find the first name field
+					Thread.sleep(1000);
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
 					username.sendKeys("thiyagu1");
@@ -82,7 +85,7 @@ public class Equipment {
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.111:8090/equipment");
-					driver.get("http://192.168.1.45:8092/equipment");
+					driver.get("http://192.168.1.111:8090/equipment");
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.45:8091/equipment-group");
 				}
@@ -96,7 +99,7 @@ public class Equipment {
 					
 					SampleLocationRiskAssessment();
 					
-					driver.get("http://192.168.1.45:8092/equipment");
+					driver.get("http://192.168.1.111:8090/equipment");
 					//driver.navigate().refresh();
 					Thread.sleep(2000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
@@ -144,7 +147,7 @@ public class Equipment {
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByIndex(1);
+					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
@@ -487,7 +490,7 @@ public class Equipment {
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByIndex(3);
+					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
 					Thread.sleep(500);
 					
 					String getothercleaningInfo = driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).getAttribute("value"); //verify text presented in the edit
@@ -712,22 +715,25 @@ public class Equipment {
 					Thread.sleep(1000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
-					Thread.sleep(500);
+					Thread.sleep(1000);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[10]/div/ul/li[4]/a")).click(); // click delete button
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.linkText("Delete")).click();
+					//driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
+					Thread.sleep(1000);
+					//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					//Thread.sleep(500);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
-					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackSubmit")).click();
+					//driver.findElement(By.id("ackSubmit")).click();
+					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(1000);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment deleted successfully");
+					Assert.assertEquals(deletemsg,"Equipment was deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -748,7 +754,7 @@ public class Equipment {
 					
 					SampleLocationSamplingSiteType();
 					
-					driver.get("http://192.168.1.45:8092/equipment");
+					driver.get("http://192.168.1.111:8090/equipment");
 					//driver.navigate().refresh();
 					Thread.sleep(2000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
@@ -796,7 +802,7 @@ public class Equipment {
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByIndex(1);
+					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
@@ -918,9 +924,9 @@ public class Equipment {
 					SelectMOC.selectByIndex(1); 
 					Thread.sleep(1000);
 					
-					WebElement samplingSite = driver.findElement(By.id("mocz0"));
+					WebElement samplingSite = driver.findElement(By.id("mocz1"));
 					Select SelectsamplingSite = new Select(samplingSite);
-					SelectsamplingSite.selectByIndex(1); 
+					SelectsamplingSite.selectByIndex(0); 
 					Thread.sleep(1000);
 					
 					WebElement Sampling = driver.findElement(By.id("mocy1"));
@@ -1142,7 +1148,7 @@ public class Equipment {
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByIndex(3);
+					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
 					Thread.sleep(500);
 					
 					String getothercleaningInfo = driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).getAttribute("value"); //verify text presented in the edit
@@ -1371,20 +1377,22 @@ public class Equipment {
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[10]/div/ul/li[4]/a")).click(); // click delete button
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.linkText("Delete")).click();
 					Thread.sleep(500);
-					driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					//Thread.sleep(500);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackSubmit")).click();
+					//driver.findElement(By.id("ackSubmit")).click();
+					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(1000);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment deleted successfully");
+					Assert.assertEquals(deletemsg,"Equipment was deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1435,8 +1443,8 @@ public class Equipment {
 				@Test(priority=16)
 				public void CreateEquipmentforCreatingGroup() throws InterruptedException, SQLException, ClassNotFoundException
 				{
-					Thread.sleep(5000);
-					driver.findElement(By.id("example-select-all")).click(); // un check mutli check box
+					//Thread.sleep(5000);
+					//driver.findElement(By.id("example-select-all")).click(); // un check mutli check box
 					Thread.sleep(1000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
 					Thread.sleep(1000);
@@ -1483,7 +1491,7 @@ public class Equipment {
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByIndex(1);
+					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
@@ -1763,11 +1771,11 @@ public class Equipment {
 					eqName.sendKeys(equipmentName);
 					
 					Thread.sleep(500);
-					driver.findElement(By.id("copySubmit")).click();
+					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(500);
 					
 					
-					if(driver.findElements(By.id("copySubmit")).size()!=0)
+					if(driver.findElements(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).size()!=0)
 					{
 						String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
 						driver.findElement(By.className("custom-notify-close")).click();
@@ -1787,7 +1795,7 @@ public class Equipment {
 							driver.findElement(By.id("nameForCopy")).clear();
 							driver.findElement(By.id("nameForCopy")).sendKeys(equipmentName+i);
 							Thread.sleep(500);
-							driver.findElement(By.id("copySubmit")).click();
+							driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 							Thread.sleep(500);
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment '"+equipmentName+i+"' already exists!"))
 							{
@@ -1808,7 +1816,7 @@ public class Equipment {
 					Thread.sleep(500);
 					String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println(createEquipmentTrain);
-					Assert.assertEquals(createEquipmentTrain,"Equipment copied successfully");
+					Assert.assertEquals(createEquipmentTrain,"Equipment was copied successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1823,15 +1831,12 @@ public class Equipment {
 				
 				
 				
-				
-				/*
-				
-				@Test(priority=15)
+			/*	@Test(priority=18)
 				public void ExportEquipment() throws Exception
 				{
 					Utils.ExportPDF(driver);
-				}*/
-				
+				}
+				*/
 				
 				
 				
@@ -1852,7 +1857,7 @@ public class Equipment {
 				public void SampleLocationRiskAssessment() throws InterruptedException
 				{
 					Thread.sleep(500);
-					driver.get("http://192.168.1.45:8092/sampling-locations");
+					driver.get("http://192.168.1.111:8090/sampling-locations");
 					Thread.sleep(1000);
 					driver.findElement(By.id("listMOC")).click();
 					Thread.sleep(500);
@@ -1976,7 +1981,7 @@ public class Equipment {
 				public void SampleLocationSamplingSiteType() throws InterruptedException
 				{
 					Thread.sleep(500);
-					driver.get("http://192.168.1.45:8092/sampling-locations");
+					driver.get("http://192.168.1.111:8090/sampling-locations");
 					Thread.sleep(1000);
 					driver.findElement(By.id("listMOC")).click();
 					Thread.sleep(500);

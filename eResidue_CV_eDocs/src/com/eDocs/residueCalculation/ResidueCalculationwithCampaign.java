@@ -267,10 +267,10 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("EPref1");
-		selectedproducts.add("EPref2");
-		// selectedproducts.add("Diluent");
-		// selectedproducts.add("S4");
+		//selectedproducts.add("Topical1");
+		selectedproducts.add("Topical2");
+		//selectedproducts.add("Product/ Sample/ Solid1");
+		//selectedproducts.add("Product/ Sample/Solid");
 		//selectedproducts.add("S3");
 		//selectedproducts.add("S4");
 		// selectedproducts.add("S4");
@@ -505,13 +505,12 @@ public class ResidueCalculationwithCampaign {
 									System.out.println("activeID--->" + activeID);
 									value_L1 = (L0.L0forTOPICALoption2(activeID, CurrenProductName) * 1000) / maxDD;
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-									Solid_expec_Value_L0_print
-											.setCellValue(L0.L0forTOPICALoption2(activeID, CurrenProductName));
+									Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICALoption2(activeID, CurrenProductName));
 								}
 								// if product is Topical - Option1
 								if (productType.equals("Topical") && grouping_criteria_option == 1) {
 									System.out.println("activeID--->" + activeID);
-									value_L1 = L0.L0forTOPICALoption1(activeID, CurrenProductName) / maxDD;
+									value_L1 = (L0.L0forTOPICALoption1(activeID, CurrenProductName)*1000) / maxDD;
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 									Solid_expec_Value_L0_print.setCellValue("NA");
 								}
@@ -686,6 +685,7 @@ public class ResidueCalculationwithCampaign {
 								String nprodname = null;
 
 								if (CurrenProductName.equals(NextprodName) && LimitcalculationType.equals("Campaign")) {
+									System.out.println("--------------->");
 									float Safety_Factor = 0, Active_Concen = 0, maxDailyDoseperPatch = 0,
 											NextProdminBatch = 0, minDailyDose = 0, health = 0;
 									ResultSet prod_basis_relation_id = stmt.executeQuery(
@@ -719,10 +719,7 @@ public class ResidueCalculationwithCampaign {
 									// if other product (e.g P1 ->P2)
 									ResultSet productdata = stmt.executeQuery(
 											"Select id,name,max_daily_dose,min_batch_size,max_daily_dose_per_patch from product where name ='"
-													+ CurrenProductName + "' && tenant_id='" + tenant_id + "' "); // get
-																													// next
-																													// prod
-																													// name
+													+ CurrenProductName + "' && tenant_id='" + tenant_id + "' "); // get next prod name
 																													// from
 																													// excel
 																													// and
@@ -762,6 +759,7 @@ public class ResidueCalculationwithCampaign {
 									}
 
 									String productType = sheet.getRow(39).getCell(1).getStringCellValue();
+									
 									if (productType.equals("Solid") || productType.equals("Liquid")
 											|| productType.equals("Inhalant")) {
 										if (BaisLimitOption == 1) {
@@ -779,12 +777,14 @@ public class ResidueCalculationwithCampaign {
 											float doseL0;
 											doseL0 = Safety_Factor * minDailyDose;
 											if (doseL0 < health) {
+												System.out.println("===================>if");
 												value_L1 = Safety_Factor * Active_Concen;
 												Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 												Solid_expec_Value_L0_print.setCellValue("Same");
 
 											} else {
-												value_L1 = health / maxDD;
+												System.out.println("===================>else");
+												value_L1 = (health *1000) / maxDD;
 												Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 												Solid_expec_Value_L0_print.setCellValue(health);
 											}
@@ -801,6 +801,7 @@ public class ResidueCalculationwithCampaign {
 										Solid_expec_Value_L0_print
 												.setCellValue(L0.L0forPatch(activeID, CurrenProductName));
 									}
+									
 									// if product is Topical - Option2
 									if (productType.equals("Topical") && grouping_criteria_option == 2) {
 										if (BaisLimitOption == 1) {
@@ -845,7 +846,7 @@ public class ResidueCalculationwithCampaign {
 										}
 										if (BaisLimitOption == 2) {
 											System.out.println("activeID--->" + activeID);
-											value_L1 = (L0.L0forTOPICALoption1(activeID, CurrenProductName) * 0.001)
+											value_L1 = (L0.L0forTOPICALoption1(activeID, CurrenProductName) * 1000)
 													/ maxDD;
 											Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 											Solid_expec_Value_L0_print.setCellValue("NA");
@@ -853,13 +854,14 @@ public class ResidueCalculationwithCampaign {
 										if (BaisLimitOption == 3) {
 											float doseL0;
 											doseL0 = Safety_Factor * minDailyDose;
+											
 											if (doseL0 < health) {
 												value_L1 = Safety_Factor * Active_Concen;
 												Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 												Solid_expec_Value_L0_print.setCellValue("Same");
 
 											} else {
-												value_L1 = (health * 0.001) / maxDD;
+												value_L1 = (health * 1000) / maxDD;
 												Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 												Solid_expec_Value_L0_print.setCellValue(health);
 											}
@@ -873,8 +875,7 @@ public class ResidueCalculationwithCampaign {
 
 								// other product result
 								if (!CurrenProductName.equals(NextprodName) && LimitcalculationType.equals("Manual")
-										|| !CurrenProductName.equals(NextprodName)
-												&& LimitcalculationType.equals("Campaign")) {
+										|| !CurrenProductName.equals(NextprodName) && LimitcalculationType.equals("Campaign")) {
 									ResultSet productdata = stmt.executeQuery(
 											"Select id,name,max_daily_dose,min_batch_size,percentage_absorption from product where name ='"
 													+ NextprodName + "' && tenant_id='" + tenant_id + "' "); // get next
@@ -917,27 +918,22 @@ public class ResidueCalculationwithCampaign {
 										System.out.println("activeID--->" + activeID);
 										value_L1 = (L0.L0forTOPICALoption2(activeID, CurrenProductName) * 1000) / maxDD;
 										Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-										Solid_expec_Value_L0_print
-												.setCellValue(L0.L0forTOPICALoption2(activeID, CurrenProductName));
+										Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICALoption2(activeID, CurrenProductName));
 									}
 									// if product is Topical - Option1
 									if (productType.equals("Topical") && grouping_criteria_option == 1) {
 										System.out.println("activeID--->" + activeID);
-										value_L1 = ((L0.L0forTOPICALoption1(activeID, CurrenProductName) * 0.001)
-												* 1000) / maxDD;
+										value_L1 = (L0.L0forTOPICALoption1(activeID, CurrenProductName)	* 1000) / maxDD;
 										Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-										Solid_expec_Value_L0_print.setCellValue(
-												L0.L0forTOPICALoption1(activeID, CurrenProductName) * 0.001);
+										Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICALoption1(activeID, CurrenProductName));
 									}
 									Cell nextprodname = sheet.getRow(row).getCell(4);
 									nextprodname.setCellValue(nprodname); // print next product name
 								} // else close - other product
 
 								if (CurrenProductName.equals(NextprodName) && LimitcalculationType.equals("Campaign")
-										|| !CurrenProductName.equals(NextprodName)
-												&& LimitcalculationType.equals("Manual")
-										|| !CurrenProductName.equals(NextprodName)
-												&& LimitcalculationType.equals("Campaign")) {
+										|| !CurrenProductName.equals(NextprodName)&& LimitcalculationType.equals("Manual")
+										|| !CurrenProductName.equals(NextprodName)&& LimitcalculationType.equals("Campaign")) {
 									value_L2 = value_L1 * minBatch * 1000; // Calculated L2 Value
 
 									// find surface area option in residue limit whether shared or lowest
