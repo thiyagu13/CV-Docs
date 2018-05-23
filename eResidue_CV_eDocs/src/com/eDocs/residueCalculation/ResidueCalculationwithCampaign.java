@@ -267,8 +267,11 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		//selectedproducts.add("Topical1");
-		selectedproducts.add("Topical2");
+		selectedproducts.add("S1");
+		selectedproducts.add("S2");
+		selectedproducts.add("S3");
+		selectedproducts.add("S4");
+		//selectedproducts.add("Diluent");
 		//selectedproducts.add("Product/ Sample/ Solid1");
 		//selectedproducts.add("Product/ Sample/Solid");
 		//selectedproducts.add("S3");
@@ -371,10 +374,13 @@ public class ResidueCalculationwithCampaign {
 				System.out.println("Skip Diluent as Current Product");
 
 			}
-
-			if (CheckCleaningAgentType == false && CheckDiluentType == false)// loop if not included diluent or cleaning
-																				// agent
+			else
 			{
+			System.out.println("CurrenProductName: "+CurrenProductName);
+			System.out.println("CheckDiluentType: "+CheckDiluentType);
+			System.out.println("CheckCleaningAgentType: "+CheckCleaningAgentType);
+			//if (CheckCleaningAgentType == false && CheckDiluentType == false)// loop if not included diluent or cleaning
+			//{
 				int getprodID = 0, currentproductsetcount = 0, grouping_criteria_option = 0/* ,CurrentproductType=0 */;
 				String cprodname = null, activename = null;
 				// Get Current product details
@@ -408,7 +414,6 @@ public class ResidueCalculationwithCampaign {
 					Map<Float,Float> lowestExpectedL1AllActive = new LinkedHashMap<Float,Float>(); 
 					for (Integer activeID : activelist) // iterate active presented in the current product
 					{
-						System.out.println("Active List----> " + activelist);
 						// get active name ,prod name and print in excel
 						ResultSet active = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"
 								+ activeID + "' && tenant_id='" + tenant_id + "'");
@@ -1165,7 +1170,6 @@ public class ResidueCalculationwithCampaign {
 							String space = " ";
 							Cell ActiveName = sheet.getRow(L4Row).getCell(16);
 							ActiveName.setCellValue(cprodname + space + activename); // print active name into excel
-							System.out.println("getprodID--->" + getprodID);
 							ResultSet EquipID = stmt.executeQuery(
 									"Select name,surface_area,swab_area,swab_amount,rinse_volume from equipment where id= '"
 											+ equipmentID + "' && tenant_id='" + tenant_id + "'"); // get product name
@@ -1177,7 +1181,6 @@ public class ResidueCalculationwithCampaign {
 								swabamount = EquipID.getFloat(4);
 								rinsevolume = EquipID.getFloat(5); // get SF value from database
 
-								System.out.println("swabArea-->" + swabArea());
 								if (swabArea() == 0) // check swab area from uni setting or each equipment
 								{
 									Solid_Expec_Value_L4a = LowestoneExpectedL3 * swabarea;
@@ -1239,8 +1242,6 @@ public class ResidueCalculationwithCampaign {
 																				// area(used in the product) in excel
 
 								// check whether rinse enabled in universal settings
-								System.out.println("sampling_methodOption" + sampling_methodOption);
-								System.out.println("RinseSampling" + RinseSampling);
 								if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in
 																								// sampling
 								{
@@ -1304,12 +1305,6 @@ public class ResidueCalculationwithCampaign {
 								double AL4a = sheet.getRow(L4Row).getCell(25).getNumericCellValue();
 								double AL4b = sheet.getRow(L4Row).getCell(26).getNumericCellValue();
 								double AL4c = sheet.getRow(L4Row).getCell(27).getNumericCellValue();
-								System.out.println(Utils.toOptimizeDecimalPlacesRoundedOff(EL4a));
-								System.out.println(Utils.toOptimizeDecimalPlacesRoundedOff(EL4b));
-								System.out.println(Utils.toOptimizeDecimalPlacesRoundedOff(EL4c));
-								System.out.println(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a));
-								System.out.println(Utils.toOptimizeDecimalPlacesRoundedOff(AL4b));
-								System.out.println(Utils.toOptimizeDecimalPlacesRoundedOff(AL4c));
 
 								if (Utils.toOptimizeDecimalPlacesRoundedOff(EL4a)
 										.equals(Utils.toOptimizeDecimalPlacesRoundedOff(AL4a))
@@ -1657,8 +1652,18 @@ public class ResidueCalculationwithCampaign {
 	System.out.println("====>"+commonEq +" Name: "+ CurrenProductName);
 	
 
-				
-					L3.put(CurrenProductName, Collections.min(getLowestExpectedL3));
+				System.out.println("CurrenProductName: "+CurrenProductName);
+				//System.out.println("Collections.min(getLowestExpectedL3): "+Collections.min(getLowestExpectedL3));
+					if(CurrentproductType==2 )
+					{
+						
+					}
+					else
+					{
+						L3.put(CurrenProductName, Collections.min(getLowestExpectedL3));
+					}
+					
+					
 					// get lowestL3 of LowestL1 for equipment preferential transfer
 					float getLowestL1value = 0;
 					for (Map.Entry<Float, Float> map : lowestExpectedL1AllActive.entrySet()) {
@@ -1667,7 +1672,7 @@ public class ResidueCalculationwithCampaign {
 						}
 					}
 					
-					System.out.println("LowestL L1: "+getLowestL1value+" L3:"+Collections.min(getLowestExpectedL3)+" Current Name: "+CurrenProductName);
+					//System.out.println("LowestL L1: "+getLowestL1value+" L3:"+Collections.min(getLowestExpectedL3)+" Current Name: "+CurrenProductName);
 					Set<String> s = new HashSet<String>();
 					Map<String,Set<String>> Eqname2 = new LinkedHashMap<String,Set<String>>();
 					for(Integer equipmentID:commonEq)
@@ -1686,14 +1691,20 @@ public class ResidueCalculationwithCampaign {
 						Cell equipName = sheet.getRow(eqPrefrow).getCell(38);
 						equipName.setCellValue(equipmentName);
 						
-						if(NewTest.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value)!=1)
+						if(CurrentproductType==2)
 						{
-							Cell LowestL3 = sheet.getRow(eqPrefrow).getCell(39);
-							LowestL3.setCellValue(Collections.min(getLowestExpectedL3));
 							
-							Cell EqPrefrentialTransfer = sheet.getRow(eqPrefrow).getCell(40);
-							EqPrefrentialTransfer.setCellValue(NewTest.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value));
-							eqPrefrow++;
+						}
+						else
+						{ if(EquipmentPrefTransfer.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value)!=1)
+							{
+								Cell LowestL3 = sheet.getRow(eqPrefrow).getCell(39);
+								LowestL3.setCellValue(Collections.min(getLowestExpectedL3));
+							
+								Cell EqPrefrentialTransfer = sheet.getRow(eqPrefrow).getCell(40);
+								EqPrefrentialTransfer.setCellValue(EquipmentPrefTransfer.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value));
+								eqPrefrow++;
+							}
 						}
 					}
 	// End: Equipment Preferential Transfer 	
@@ -1745,6 +1756,8 @@ public class ResidueCalculationwithCampaign {
 
 					if (CheckProductType == true) // if diluent included skip other products
 					{
+						//if(CurrentproductType ==2)
+						//{
 						System.out.println("DiluentName" + DiluentName);
 						for (String NextprodName : DiluentName) {
 							String LimitcalculationType = sheet.getRow(39).getCell(0).getStringCellValue();
@@ -1768,13 +1781,13 @@ public class ResidueCalculationwithCampaign {
 
 							String productType = sheet.getRow(39).getCell(1).getStringCellValue();
 							System.out.println("productType--->" + productType);
-
-							if (productType.equals("Solid") || productType.equals("Liquid")
-									|| productType.equals("Inhalant")) {
+							System.out.println("CurrenProductName: "+CurrenProductName);
+						//if()
+						//{
+							if (productType.equals("Solid") || productType.equals("Liquid")	|| productType.equals("Inhalant")) {
 								value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
 								Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-								Solid_expec_Value_L0_print
-										.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
+								Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
 							}
 							// if product is Transdermal Patch
 							if (productType.equals("Patch")) {
@@ -1927,7 +1940,7 @@ public class ResidueCalculationwithCampaign {
 							row++;
 							column++;
 						} // closing else loop (other product result loop)
-							// }//closing next product iteration
+					 //}
 
 					} else { // -----------------if diluent not included
 
@@ -2038,8 +2051,7 @@ public class ResidueCalculationwithCampaign {
 								if (productType.equals("Topical")) {
 									value_L1 = (L0.groupingApproach_L0forTOPICAL(CurrenProductName) * 1000) / maxDD;
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-									Solid_expec_Value_L0_print
-											.setCellValue(L0.groupingApproach_L0forTOPICAL(CurrenProductName));
+									Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forTOPICAL(CurrenProductName));
 								}
 
 								Cell nextprodname = sheet.getRow(row).getCell(4);
@@ -2761,7 +2773,7 @@ public class ResidueCalculationwithCampaign {
 								Cell equipName = sheet.getRow(eqPrefrow).getCell(38);
 								equipName.setCellValue(equipmentName);
 								
-								if(NewTest.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value)!=1)
+								if(EquipmentPrefTransfer.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value)!=1)
 								{
 									Cell LowestL3 = sheet.getRow(eqPrefrow).getCell(39);
 									LowestL3.setCellValue(Collections.min(getLowestExpectedL3));
@@ -2769,7 +2781,7 @@ public class ResidueCalculationwithCampaign {
 									System.out.println("Collections.min(getLowestExpectedL3): "+Collections.min(getLowestExpectedL3));
 									System.out.println("getLowestL1value: "+getLowestL1value);
 									Cell EqPrefrentialTransfer = sheet.getRow(eqPrefrow).getCell(40);
-									EqPrefrentialTransfer.setCellValue(NewTest.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value));
+									EqPrefrentialTransfer.setCellValue(EquipmentPrefTransfer.EqPrefrentialTransfer(CurrenProductName,equipmentID, Collections.min(getLowestExpectedL3), getLowestL1value));
 									eqPrefrow++;
 								}
 							}
@@ -2780,7 +2792,7 @@ public class ResidueCalculationwithCampaign {
 			}
 
 			System.out.println("Lowest L3: " + L3);
-			
+		
 		} // Closing current product iteration
 
 		boolean CheckCleaningAgentType = false;

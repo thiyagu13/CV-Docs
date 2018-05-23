@@ -3,12 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.EquipmentGroup">
+      <class name="com.eDocs.residueCalculation.ResidueCalculationwithCampaign">
         <methods>
-          <include name="setUp"/>
-          <include name="SingleDeleteEquipmentGroup"/>
+          <include name="test"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.EquipmentGroup -->
+      </class> <!-- com.eDocs.residueCalculation.ResidueCalculationwithCampaign -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

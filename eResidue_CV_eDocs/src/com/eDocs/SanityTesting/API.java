@@ -51,10 +51,10 @@ public class API {
 			
 			
 			
-			/*@BeforeClass
+			@BeforeClass
 			public void setUp() throws IOException  
 			{
-				driver = new FirefoxDriver();
+				//driver = new FirefoxDriver();
 				driver.get("http://192.168.1.111:8090");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 			}
@@ -65,21 +65,21 @@ public class API {
 				//Lets see how we can find the first name field
 				WebElement username = driver.findElement(By.id("username"));
 				WebElement password = driver.findElement(By.id("password"));
-				username.sendKeys("admin");
+				username.sendKeys("thiyagu1");
 				Thread.sleep(500);
 				password.sendKeys("123456");
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(500);
-				driver.get("http://192.168.1.111:8090/active-ingredients");
+			//	driver.get("http://192.168.1.111:8090/active-ingredients");
 			}
-				*/
+				
 			
 			@Test(priority=23,invocationCount=2)
 			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				driver.get("http://192.168.1.45:8092/active-ingredients");
+				driver.get("http://192.168.1.111:8090/active-ingredients");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
@@ -102,7 +102,11 @@ public class API {
 				Thread.sleep(500);
 				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
 				Thread.sleep(500);
-				driver.findElement(By.id("RouteAdmin")).click();
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
+				{
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				}
+				//driver.findElement(By.id("RouteAdmin")).click();
 				Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
 				Thread.sleep(500);
@@ -120,12 +124,11 @@ public class API {
 				Thread.sleep(500);
 				
 				
-				
 				//if duplicate equipment name
 				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+"' already exists!"))
 				{
 					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
-					driver.findElement(By.className("custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				
 				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 				for(int k=5;k<1000;k++)
@@ -147,7 +150,7 @@ public class API {
 						{
 							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 							System.out.println("Name duplicate: "+nameduplicate);
-							driver.findElement(By.className("custom-notify-close")).click();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+i+"' already exists!"))
 							{
 								continue;
@@ -164,9 +167,9 @@ public class API {
 				String createAPI = driver.findElement(By.className("notify-msg")).getText();
 				Assert.assertEquals(createAPI,"Active Ingredient saved successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create API method
@@ -181,7 +184,8 @@ public class API {
 				Thread.sleep(1000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
-				driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+				driver.findElement(By.linkText("Edit")).click();
 				Thread.sleep(300);
 				String getactiverID = driver.findElement(parser.getbjectLocator("ActiveID")).getAttribute("value"); //verify text presented in the edit
 				Assert.assertEquals(getactiverID, ActiveIDCREATE);
@@ -204,9 +208,13 @@ public class API {
 				Thread.sleep(500);
 				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
 				Thread.sleep(500);
-				driver.findElement(By.id("RouteAdmin")).click();
-				Thread.sleep(200);
-				
+				//driver.findElement(By.id("RouteAdmin")).click();
+				//Thread.sleep(200);
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
+				{
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				}
+				Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueEDIT);
 				Thread.sleep(500);
 				
@@ -242,9 +250,9 @@ public class API {
 				System.out.println(EditAPI);
 				Assert.assertEquals(EditAPI,"Active Ingredient updated successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			}
@@ -259,26 +267,27 @@ public class API {
 				Thread.sleep(2000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='dropdownactionDoc']/li[3]/a")).click(); // Click edit equipment button
+				//driver.findElement(By.xpath(".//*[@id='dropdownactionDoc']/li[3]/a")).click(); // Click edit equipment button
 				Thread.sleep(1000);
-				driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				driver.findElement(By.linkText("Delete")).click();
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(changeControlDELETE);
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys(changeControlDELETE);
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackSubmit")).click();
-				Thread.sleep(1000);
+				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
+				Thread.sleep(1500);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
 				Assert.assertEquals(deletemsg,"Active deleted successfully");
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
@@ -286,7 +295,7 @@ public class API {
 			
 			
 			
-			@Test(priority=26)
+		/*	@Test(priority=26)
 			public void MultiDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -311,18 +320,21 @@ public class API {
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
-			
+			*/
 			
 			@Test(priority=27)
 			public void CreateAPIforProduct() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
+				driver.get("http://192.168.1.111:8090/active-ingredients");
+				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
+				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
 				Thread.sleep(1000);
 				String Name = ActiveIngredientNameCREATE;
@@ -343,7 +355,11 @@ public class API {
 				Thread.sleep(500);
 				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
 				Thread.sleep(500);
-				driver.findElement(By.id("RouteAdmin")).click();
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
+				{
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				}
+				//driver.findElement(By.id("RouteAdmin")).click();
 				Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
 				Thread.sleep(500);
@@ -361,12 +377,11 @@ public class API {
 				Thread.sleep(500);
 				
 				
-				
 				//if duplicate equipment name
 				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+"' already exists!"))
 				{
 					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
-					driver.findElement(By.className("custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				
 				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 				for(int k=5;k<1000;k++)
@@ -388,7 +403,7 @@ public class API {
 						{
 							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 							System.out.println("Name duplicate: "+nameduplicate);
-							driver.findElement(By.className("custom-notify-close")).click();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Active Ingredient '"+Name+i+"' already exists!"))
 							{
 								continue;
@@ -405,9 +420,9 @@ public class API {
 				String createAPI = driver.findElement(By.className("notify-msg")).getText();
 				Assert.assertEquals(createAPI,"Active Ingredient saved successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create API method

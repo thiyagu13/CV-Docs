@@ -21,11 +21,11 @@ import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Utils;
 import com.mysql.jdbc.Connection;
 
-public class NewTest {
+public class EquipmentPrefTransfer {
 	
 	static String tenant_id= Constant.tenant_id;
 			
-	@Test
+	/*@Test
 	public void test() throws ClassNotFoundException, SQLException, IOException, InterruptedException 
 	{
 		String CurrenProductName="S1";
@@ -35,7 +35,7 @@ public class NewTest {
 		
 		
 		EqPrefrentialTransfer(CurrenProductName,equipmentID,LowestoneExpectedL3,getLowestL1value);
-	}
+	}*/
 	
 		public static double EqPrefrentialTransfer(String currentproductName, Integer EquipID,float LowestExpectedL3, float LowestExpectedL1) throws SQLException, ClassNotFoundException, IOException {
 			//database connection

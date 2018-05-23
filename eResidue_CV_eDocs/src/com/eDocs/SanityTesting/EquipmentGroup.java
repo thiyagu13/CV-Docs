@@ -43,7 +43,7 @@ public class EquipmentGroup {
 				static String groupProtocolDocEDIT = "equip Group protocol for edit";
 				static String groupReportIDEDIT = "equip Group report for edit";
 				
-				@BeforeClass
+				/*@BeforeClass
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
@@ -66,9 +66,9 @@ public class EquipmentGroup {
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.111:8090/equipment-group");
 				}
+	*/
 	
-	
-				@Test(priority=15,invocationCount=2)
+				@Test(priority=19,invocationCount=2)
 				public void CreateEquipmentGroup() throws InterruptedException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -250,10 +250,11 @@ public class EquipmentGroup {
 				
 	
 				
-				@Test(priority=16)
+				@Test(priority=20)
 				public void EditEquipmentGroup() throws InterruptedException, IOException
 				{
-					Thread.sleep(6000);
+					//Thread.sleep(6000);
+					Thread.sleep(3000);
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[2]/a")).click(); // Click edit equipment button
@@ -383,7 +384,7 @@ public class EquipmentGroup {
 				
 				
 				
-				@Test(priority=17)
+				@Test(priority=21)
 				public void SingleDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);
@@ -402,6 +403,7 @@ public class EquipmentGroup {
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
+					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
 					Assert.assertEquals(deletemsg,"Equipment Group was deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot

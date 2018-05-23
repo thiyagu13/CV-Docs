@@ -85,8 +85,8 @@ public class Equipment {
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
 					//driver.get("http://192.168.1.111:8090/equipment");
-					driver.get("http://192.168.1.111:8090/equipment");
-					Thread.sleep(500);
+					//driver.get("http://192.168.1.111:8090/equipment");
+					//Thread.sleep(500);
 					//driver.get("http://192.168.1.45:8091/equipment-group");
 				}
 		
@@ -95,8 +95,8 @@ public class Equipment {
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
-					Thread.sleep(5000);
-					
+					//Thread.sleep(5000);
+					Thread.sleep(2000);
 					SampleLocationRiskAssessment();
 					
 					driver.get("http://192.168.1.111:8090/equipment");
@@ -1404,7 +1404,7 @@ public class Equipment {
 				}
 				
 				
-				@Test(priority=15)
+				/*@Test(priority=15)
 				public void MultiDeleteEquipment() throws Exception
 				{
 					Thread.sleep(500);
@@ -1437,7 +1437,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				
+				*/
 				
 				
 				@Test(priority=16)
