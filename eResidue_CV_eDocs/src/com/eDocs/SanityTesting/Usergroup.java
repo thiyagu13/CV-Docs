@@ -39,7 +39,7 @@ public class Usergroup {
 			static String userGroupNameEDIT = "SeleniumGroup";
 			static String userGroupDescEDIT = "Edit user group";
 			static String GroupPermEDIT = "Approve";
-			static String moduleEDIT = "Change Control Management";
+			static String moduleEDIT = "Documents";
 			static String changeControlEDIT  = "CreateUser 111";
 			
 			//Multi Delete Data for user
@@ -51,7 +51,7 @@ public class Usergroup {
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
-				driver.get("http://192.168.1.45:8092");
+				driver.get("http://192.168.1.111:8090");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\UserGroup.properties");
 			}
 		
@@ -67,12 +67,13 @@ public class Usergroup {
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(1000);
-				driver.get("http://192.168.1.45:8092/group-policy");
+				driver.get("http://192.168.1.111:8090/group-policy");
 			}
 				
 			
 			
-			@Test(priority=3,invocationCount=2)
+		//	@Test(priority=3,invocationCount=2)
+			@Test(priority=3)
 			public void CreateUSERGROUP() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
@@ -98,27 +99,27 @@ public class Usergroup {
 				driver.findElement(By.id("add_policy_type")).click();
 				Thread.sleep(500);
 				driver.findElement(By.className("remove-row-icon")).click(); //delete one row
-				Thread.sleep(500);
+				Thread.sleep(100);
 				driver.findElement(By.className("grpmodname")).click();
 				driver.findElement(By.className("grpmodname")).sendKeys("Site Information",Keys.ENTER);
 				Thread.sleep(1000);
-				driver.findElement(By.className("grpsite")).click();
-				driver.findElement(By.className("grpsite")).sendKeys(Keys.ENTER);
-				Thread.sleep(1000);
-				driver.findElement(By.className("grppermission")).click();
-				driver.findElement(By.className("grppermission")).sendKeys("Admin",Keys.ENTER);
+				//driver.findElement(By.className("grpsite")).click();
+				//driver.findElement(By.className("grpsite")).sendKeys(Keys.ENTER);
+				//Thread.sleep(1000);
+				driver.findElement(By.id("grppermission1")).click();
+				driver.findElement(By.id("grppermission1")).sendKeys("Admin",Keys.ENTER);
 				Thread.sleep(1000);
 				
 				WebElement submit = driver.findElement(parser.getbjectLocator("CreateGroupSubmit"));
 				submit.click();
 				Thread.sleep(1000);
 				
-				
+				System.out.println(driver.findElement(By.className("notify-msg")).getText());
 				//if duplicate equipment name
 				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
 				{
 					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
-					driver.findElement(By.className("custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				
 				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 				for(int k=1;k<1000;k++)
@@ -140,7 +141,7 @@ public class Usergroup {
 						{
 							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 							System.out.println("Name duplicate: "+nameduplicate);
-							driver.findElement(By.className("custom-notify-close")).click();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
 							{
 								continue;
@@ -161,9 +162,9 @@ public class Usergroup {
 				}
 				Assert.assertEquals(successMsg,"Group has been added successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create User method
@@ -177,7 +178,8 @@ public class Usergroup {
 				Thread.sleep(2000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
-				driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+				driver.findElement(By.linkText("Edit")).click();
 				
 				Thread.sleep(500);
 				String getgrpDesc = driver.findElement(parser.getbjectLocator("GroupDescription")).getAttribute("value");
@@ -188,11 +190,11 @@ public class Usergroup {
 				
 				
 				//Module name
-				WebElement groupmodname  = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/span/span[1]/span")); // Select ADE
+				/*WebElement groupmodname  = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/span/span[1]/span")); // Select ADE
 				String selected = groupmodname.getText().substring(1);
 				Assert.assertEquals(selected, moduleCREATE);
 				driver.findElement(By.className("grpmodname")).click();
-				driver.findElement(By.className("grpmodname")).sendKeys(moduleEDIT,Keys.ENTER);
+				driver.findElement(By.className("grpmodname")).sendKeys(moduleEDIT,Keys.ENTER);*/
 				
 				//site name
 				//WebElement grpsite  = driver.findElement(By.className("grpsite")); // Select ADE
@@ -203,29 +205,53 @@ public class Usergroup {
 				
 				//site name
 				Thread.sleep(1000);
-				WebElement grppermission  = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")); // Select ADE
-				String selectedPerm = grppermission.getText().substring(1);
-				System.out.println("selectedPerm "+selectedPerm);
-				Assert.assertEquals(selectedPerm, GroupPermCREATE);
-				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")).click();
-				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ARROW_DOWN);
+				
+				
+				WebElement modulename = driver.findElement(By.id("controlNo1"));
+				Select selectmodulename = new Select(modulename);
+				WebElement option = selectmodulename.getFirstSelectedOption(); 
+				String getOption = option.getText();
+				System.out.println("getOption: "+getOption);
+				//WebElement grppermission  = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/span/span[1]/span")); // Select ADE
+				//String selectedPerm = grppermission.getText().substring(1);
+				//System.out.println("selectedPerm "+selectedPerm);
+				Assert.assertEquals(getOption, moduleCREATE);
+				Thread.sleep(1000);
+				driver.findElement(By.className("grpmodname")).sendKeys(moduleEDIT,Keys.ENTER);
+				
+				//driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")).click();
+				//Thread.sleep(500);
+				Thread.sleep(1000);
+				WebElement permission = driver.findElement(By.id("grppermission1"));
+				Select selectpermission = new Select(permission);
+				WebElement option1 = selectpermission.getFirstSelectedOption(); 
+				String getOption1 = option1.getText();
+				System.out.println("getimageOption1 "+getOption1);
+				Assert.assertEquals(getOption1, GroupPermCREATE);
+				driver.findElement(By.id("grppermission1")).sendKeys("Approve",Keys.ENTER);
+				
+				/*driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")).sendKeys(Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ARROW_DOWN);
 				Thread.sleep(500);
 				//GroupPermEDIT
 				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")).sendKeys(Keys.ENTER);
 				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/span/span[1]/span")).sendKeys(Keys.TAB);
+				Thread.sleep(1000);
+				*/
+				
 				Thread.sleep(1000);
 				
 				WebElement submit = driver.findElement(By.id("saveUserGroup"));
 				submit.click();
 				Thread.sleep(1000);
 				
-				driver.findElement(By.id("edtcomments")).sendKeys("Edit user group");
+				driver.findElement(By.name("password")).sendKeys(password);
 				Thread.sleep(500);
-				driver.findElement(By.id("edtcomments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+				
+				driver.findElement(By.id("comments")).sendKeys("Edit user group");
 				Thread.sleep(500);
-				driver.findElement(By.id("updateUserGroup")).click();
+				//driver.findElement(By.id("edtcomments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+				
+				driver.findElement(By.id("ackSubmit")).click();
 				
 				Thread.sleep(2000);
 				String successMsg = null;
@@ -235,9 +261,9 @@ public class Usergroup {
 				}
 				Assert.assertEquals(successMsg,"Group has been updated successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			}
@@ -252,19 +278,21 @@ public class Usergroup {
 				Thread.sleep(2000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
-				driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-				Thread.sleep(300);
+				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+				driver.findElement(By.linkText("Delete")).click();
+				Thread.sleep(500);
 				//driver.findElement(By.xpath(".//*[@id='dropdownactionDoc']/li[3]/a")).click(); // Click edit equipment button
 				//Thread.sleep(1000);
-				driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+			//	driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				//Thread.sleep(500);
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				//driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				driver.findElement(By.name("password")).sendKeys(password);
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete single user group");
-				Thread.sleep(500);
-				driver.findElement(By.id("ackSubmit")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(2000);
 				
 				String successMsg = null;
@@ -272,21 +300,21 @@ public class Usergroup {
 				{
 					successMsg = driver.findElement(By.className("notify-msg")).getText();
 				}
-				Assert.assertEquals(successMsg,"User Group deleted successfully");
+				Assert.assertEquals(successMsg,"User Group was deleted successfully");
 				
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
 			
 			
 			
-			@Test(priority=6)
+		/*	@Test(priority=6)
 			public void MultiDeleteUserGroup() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -317,9 +345,9 @@ public class Usergroup {
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
@@ -373,7 +401,7 @@ public class Usergroup {
 				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
 				{
 					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
-					driver.findElement(By.className("custom-notify-close")).click();
+					driver.findElement(By.className(".grey-text.custom-notify-close")).click();
 				
 				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 				for(int k=1;k<1000;k++)
@@ -395,7 +423,7 @@ public class Usergroup {
 						{
 							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 							System.out.println("Name duplicate: "+nameduplicate);
-							driver.findElement(By.className("custom-notify-close")).click();
+							driver.findElement(By.className(".grey-text.custom-notify-close")).click();
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Group name already exists"))
 							{
 								continue;
@@ -416,15 +444,15 @@ public class Usergroup {
 				}
 				Assert.assertEquals(successMsg,"Group has been added successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create User method
 			
 	
-	
+	*/
 			/*@Test(priority=6)
 			public void ExportUserGroup() throws Exception
 			{

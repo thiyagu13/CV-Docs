@@ -56,11 +56,11 @@ public class User {
 			
 			
 			
-		/*	@BeforeClass
+			@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
-				driver.get("http://192.168.1.45:8092");
+				driver.get("http://192.168.1.111:8090");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\User.properties");
 			}
 		
@@ -76,8 +76,8 @@ public class User {
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(500);
-				driver.get("http://192.168.1.45:8092/users");
-			}*/
+				driver.get("http://192.168.1.111:8090/users");
+			}
 				
 			
 			
@@ -86,7 +86,7 @@ public class User {
 			public void CreateUSER() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				driver.get("http://192.168.1.45:8092/users");
+				driver.get("http://192.168.1.111:8090/users");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\User.properties");
 				Thread.sleep(1000);
 				driver.findElement(By.id("adduser")).click();
@@ -106,14 +106,16 @@ public class User {
 				driver.findElement(parser.getbjectLocator("Telephone")).sendKeys(telephoneNoCREATE);
 				Thread.sleep(500);
 				driver.findElement(parser.getbjectLocator("EmailID")).sendKeys(emailIDCREATE);
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				
+				driver.findElement(By.id("changeControlNo")).click();
+				Thread.sleep(1000);
 				//Create Department
-				driver.findElement(By.id("trigger-add-role")).click();
+				driver.findElement(By.xpath(".//*[@id='trigger-add-role']")).click();
 				Thread.sleep(500);
 				driver.findElement(By.id("manfact_name")).sendKeys(newDepartmentCREATE);
 				Thread.sleep(500);
-				driver.findElement(By.xpath("//i[@onclick='newDepartment()']")).click();
+				driver.findElement(By.xpath("//a[@onclick='newDepartment()']")).click();
 				Thread.sleep(2000);
 				String Success = null;
 				if(driver.findElements(By.className("notify-msg")).size()!=0)
@@ -121,9 +123,9 @@ public class User {
 					Success = driver.findElement(By.className("notify-msg")).getText();
 				}
 				Assert.assertEquals(Success,"Department has been added successfully");
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500); // End  - create Department
 				
@@ -141,9 +143,9 @@ public class User {
 					SuccessDlt = driver.findElement(By.className("notify-msg")).getText();
 				}
 				Assert.assertEquals(SuccessDlt,"Department has been deleted successfully");
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500); // End  - Delete Department
 				
@@ -214,9 +216,9 @@ public class User {
 				}
 				Assert.assertEquals(successMsg,"User account has been registered successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create User method
@@ -284,9 +286,9 @@ public class User {
 					Success = driver.findElement(By.className("notify-msg")).getText();
 				}
 				Assert.assertEquals(Success,"Department has been added successfully");
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500); // End  - create Department
 				
@@ -304,9 +306,9 @@ public class User {
 					SuccessDlt = driver.findElement(By.className("notify-msg")).getText();
 				}
 				Assert.assertEquals(SuccessDlt,"Department has been deleted successfully");
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500); // End  - Delete Department
 				
@@ -344,9 +346,9 @@ public class User {
 				}
 				Assert.assertEquals(successMsg,"User account has been updated successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			}
@@ -368,13 +370,14 @@ public class User {
 				//Thread.sleep(1000);
 				driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				//driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				driver.findElement(By.name("name")).sendKeys(password);
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete single user");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackSubmit")).click();
+				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(2000);
 				
 				String successMsg = null;
@@ -387,9 +390,9 @@ public class User {
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
@@ -428,9 +431,9 @@ public class User {
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
@@ -477,9 +480,9 @@ public class User {
 					Success = driver.findElement(By.className("notify-msg")).getText();
 				}
 				Assert.assertEquals(Success,"Department has been added successfully");
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500); // End  - create Department
 				
@@ -497,9 +500,9 @@ public class User {
 					SuccessDlt = driver.findElement(By.className("notify-msg")).getText();
 				}
 				Assert.assertEquals(SuccessDlt,"Department has been deleted successfully");
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500); // End  - Delete Department
 				
@@ -570,9 +573,9 @@ public class User {
 				}
 				Assert.assertEquals(successMsg,"User account has been registered successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create User method

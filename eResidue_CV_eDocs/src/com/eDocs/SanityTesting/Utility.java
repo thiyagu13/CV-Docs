@@ -31,20 +31,20 @@ public class Utility {
 			
 			private RepositoryParser parser;
 			//private WebDriver driver = Constant.driver;
-			private WebDriver driver;
+			private WebDriver driver =  Constant.driver;
 			public String password = "123456";
 		
 			//Datas for create User
 			static String utilityNameCREATE = "SeleniumUtility";
 			static int locationNameCREATE = 1;
-			static String sopNumberCREATE = "CIP";
+			static String sopNumberCREATE = "1";
 			static String qualificationDocCREATE  = "CIP";
 			static String dateofLastQuaCREATE  = "04/04/1989";
 			static String changeControlCREATE  = "CreateUtil 111";
 			
 			//Datas for Edit User
 			static int locationNameEDIT = 1;
-			static String sopNumberEDIT = "COP";
+			static String sopNumberEDIT = "2";
 			static String qualificationDocEDIT  = "COP";
 			static String dateofLastQuaEDIT  = "05/04/1989";
 			
@@ -56,26 +56,8 @@ public class Utility {
 			@BeforeClass
 			public void setUp() throws IOException  
 			{
-				
-				//Create FireFox Profile object
-				FirefoxProfile profile = new FirefoxProfile();
-		 
-				//Set Location to store files after downloading.
-				profile.setPreference("browser.download.dir", "D:\\WebDriverDownloads");
-				profile.setPreference("browser.download.folderList", 2);
-		 
-				//Set Preference to not show file download confirmation dialogue using MIME types Of different file extension types.
-				profile.setPreference("browser.helperApps.neverAsk.saveToDisk", 
-				    "application/pdf;"); 
-		 
-				profile.setPreference( "browser.download.manager.showWhenStarting", false );
-				profile.setPreference( "pdfjs.disabled", true );
-		 
-				//Pass FProfile parameter In webdriver to use preferences to download file.
-				 FirefoxOptions options = new FirefoxOptions();
-				    options.setProfile(profile);
-				driver = new FirefoxDriver(options);  
-				driver.get("http://192.168.1.45:8092");
+				//driver = new FirefoxDriver();
+				driver.get("http://192.168.1.111:8090");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\utility.properties");
 			}
 		
@@ -91,13 +73,14 @@ public class Utility {
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(500);
-				driver.get("http://192.168.1.45:8092/utility");
+				driver.get("http://192.168.1.111:8090/utility");
+				//Thread.sleep(500);
 			}
+		
+
 				
 			
-			
-			
-			@Test(priority=2,invocationCount=2)
+			/*@Test(priority=2,invocationCount=2)
 			public void CreateUtility() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
@@ -120,7 +103,7 @@ public class Utility {
 				//SOP Number 
 				WebElement UtilitySOPNumber  = driver.findElement(parser.getbjectLocator("UtilitySOPNumber"));
 				Select SelectUtilitySOPNumber  = new Select(UtilitySOPNumber);
-				SelectUtilitySOPNumber.selectByVisibleText(sopNumberCREATE);
+				SelectUtilitySOPNumber.selectByValue(sopNumberCREATE);
 				Thread.sleep(500);
 				
 				//Qualification Documents 	 
@@ -141,7 +124,7 @@ public class Utility {
 				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+"' already exists!"))
 				{
 					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
-					driver.findElement(By.className("custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				
 				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 				for(int k=1;k<1000;k++)
@@ -163,7 +146,7 @@ public class Utility {
 						{
 							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 							System.out.println("Name duplicate: "+nameduplicate);
-							driver.findElement(By.className("custom-notify-close")).click();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+i+"' already exists!"))
 							{
 								continue;
@@ -176,18 +159,21 @@ public class Utility {
 				}// closing if loop duplicate equipment
 				
 				
-				/*//custom loop
-				WebElement samplingbutton = driver.findElement(parser.getbjectLocator("UtilitySubmit")); //submitEquipmentSamplingDetails
+				//custom loop
+				//WebElement submitbutton = driver.findElement(parser.getbjectLocator("UtilitySubmit")); //submitEquipmentSamplingDetails
 				Thread.sleep(500);
-				if(samplingbutton.getText().equalsIgnoreCase("Submit"))
+				//System.out.println("submitbutton: "+submitbutton);
+			if(driver.findElements(By.id("saveCustomDetails")).size()!=0)
+			{
+				//if(driver.findElement(By.id("saveCustomDetails")).getText().equalsIgnoreCase("Submit"))
 				{
 					System.out.println("No Custom loop");
-					driver.findElement(parser.getbjectLocator("TrainSubmitbutton")).click();
+					driver.findElement(By.id("saveCustomDetails")).click();
 					Thread.sleep(500);
 					
 				}else
 				{
-					samplingbutton.click();
+					//submitbutton.click();
 					System.out.println("Custom loop");
 					Thread.sleep(1000);
 					for(int i=0;i<6;i++)
@@ -217,33 +203,35 @@ public class Utility {
 							//click save button in custom fields
 							driver.findElement(By.id("saveCustomDetails")).click();
 							
-				}*/
+				}
 				
-				Thread.sleep(2000);
+				
+				Thread.sleep(1500);
 				String successMsg = null;
 				if(driver.findElements(By.className("notify-msg")).size()!=0)
 				{
 					successMsg = driver.findElement(By.className("notify-msg")).getText();
 				}
-				Assert.assertEquals(successMsg,"Utility saved successfully");
+				Assert.assertEquals(successMsg,"Utility was saved successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			} // closing create User method
 			
 	
-			/*
+			*/
 			@Test(priority=3)
-			public void EditUtility() throws InterruptedException, SQLException, ClassNotFoundException
+			public void EditUtility() throws Exception
 			{
 				Thread.sleep(2000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
 				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-				driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+				driver.findElement(By.linkText("Edit")).click();
 				//Thread.sleep(300);
 				
 				//Location Name
@@ -252,8 +240,13 @@ public class Utility {
 				Select Selectlocation  = new Select(getlocationName);
 				WebElement locationoption = Selectlocation.getFirstSelectedOption();
 				String selectedlocation = locationoption.getText();
-				Assert.assertEquals(selectedlocation, locationNameCREATE);
-				Selectlocation.selectByIndex(locationNameEDIT);
+				if(selectedlocation.equals(""))
+				{
+					throw new Exception();
+				}
+					
+				//Assert.assertEquals(selectedlocation, locationNameCREATE);
+				//Selectlocation.selectByIndex(locationNameEDIT);
 				Thread.sleep(500);
 				
 				//SOP Number
@@ -262,7 +255,7 @@ public class Utility {
 				WebElement sopoption = Selectsop.getFirstSelectedOption();
 				String selectedSOP = sopoption.getText();
 				Assert.assertEquals(selectedSOP, sopNumberCREATE);
-				Selectsop.selectByVisibleText(sopNumberEDIT);
+				Selectsop.selectByValue(sopNumberEDIT);
 				Thread.sleep(500);
 				
 				//Qualification Documents 
@@ -286,7 +279,8 @@ public class Utility {
 				
 				driver.findElement(By.name("comments")).sendKeys("Edit utility");
 				Thread.sleep(500);
-				driver.findElement(By.name("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+				driver.findElement(By.name("password")).sendKeys(password);
+				//driver.findElement(By.name("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
 				Thread.sleep(500);
 				driver.findElement(By.id("ackSubmit")).click();
 				
@@ -298,9 +292,9 @@ public class Utility {
 				}
 				Assert.assertEquals(successMsg,"Utility updated successfully");
 				
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(500);
 			}
@@ -317,20 +311,22 @@ public class Utility {
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
 				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
-				driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+				//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+				driver.findElement(By.linkText("Delete")).click();
 				
 				Thread.sleep(1000);
 				//driver.findElement(By.xpath(".//*[@id='dropdownactionDoc']/li[3]/a")).click(); // Click edit equipment button
 				//Thread.sleep(1000);
-				driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				//Thread.sleep(500);
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				//driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				driver.findElement(By.name("password")).sendKeys(password);
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete single user");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackSubmit")).click();
+				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(2000);
 				
 				String successMsg = null;
@@ -343,9 +339,9 @@ public class Utility {
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
@@ -353,8 +349,8 @@ public class Utility {
 			
 			
 			
-			@Test(priority=5)
-			public void MultiDeleteUser() throws InterruptedException, IOException
+		/*	@Test(priority=5)
+			public void MultiDeleteUtility() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
 				driver.findElement(By.id("searchEquipment")).sendKeys(multiDeleteSearchData);
@@ -384,13 +380,13 @@ public class Utility {
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-				if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
-					driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
 			}
-			
+			*/
 			
 	
 			
@@ -452,7 +448,7 @@ public class Utility {
 				driver.findElement(By.className("cancel-btn")).click();
 			}
 			
-			*/
+			
 			
 			
 			

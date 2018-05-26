@@ -66,7 +66,7 @@ public class EquipmentTrain {
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(500);
-				//driver.get("http://192.168.1.111:8090/equipment-train");
+				driver.get("http://192.168.1.111:8090/equipment-train");
 			}
 				
 			
@@ -88,18 +88,18 @@ public class EquipmentTrain {
 				Thread.sleep(300);
 				IdentifuEquip.sendKeys(Keys.ENTER);
 				Thread.sleep(300);
-				/*String s = driver.findElement(By.name("groupEquipment")).getText();
+				String s = driver.findElement(By.name("groupEquipment")).getText();
 				System.out.println(s);
 				String getselectedEquipName = driver.findElement(By.className("select2-selection__rendered")).getText();
 				System.out.println(getselectedEquipName);
-				*/IdentifuEquip.sendKeys(IdentifyEquipment);
+				IdentifuEquip.sendKeys(IdentifyEquipment);
 				Thread.sleep(500);
 				IdentifuEquip.sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
 		        Thread.sleep(500);
 		        //driver.findElement(By.className("select2-selection__rendered")).getText().substring(1); //get total selectd equipments
 		       
-				/*List<String> equipments = new ArrayList<>();
-				equipments.add(getselectedEquipName);*/
+				List<String> equipments = new ArrayList<>();
+				equipments.add(getselectedEquipName);
 				//equipments.add(driver.findElement(By.className("select2-selection__rendered")).getText().substring(1));
 				//equipments.add(driver.findElement(By.cssSelector("ul.select2-selection__rendered>li:nth-child(1)")).getText().substring(1));
 			
@@ -111,7 +111,7 @@ public class EquipmentTrain {
 		        //Select s = new Select(driver.findElement(By.id("equiptreeMultiple")));
 		        //s.selectByIndex(0);
 		        
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				driver.findElement(parser.getbjectLocator("TrainChangeControlNo")).sendKeys(TrainChnageContorlNoCREATE);
 				
 				Thread.sleep(500);
@@ -203,7 +203,7 @@ public class EquipmentTrain {
 				//Thread.sleep(1000);
 				
 				//add location
-				driver.findElement(By.cssSelector(".form-group.no-margin.add-pain>button")).click();
+				driver.findElement(By.cssSelector(".btn.orange-btn.waves-effect.mr-20")).click();
 				Thread.sleep(500);
 				driver.findElement(parser.getbjectLocator("TrainLocationName")).sendKeys(trainLocationCREATE);
 				Thread.sleep(500);
@@ -219,7 +219,7 @@ public class EquipmentTrain {
 				//Thread.sleep(1000);
 				
 				WebElement samplingbutton = driver.findElement(parser.getbjectLocator("TrainSubmitbutton")); //submitEquipmentSamplingDetails
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 				{
 					System.out.println("No Custom loop");

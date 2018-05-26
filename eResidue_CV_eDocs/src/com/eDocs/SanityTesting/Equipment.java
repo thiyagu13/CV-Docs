@@ -84,13 +84,13 @@ public class Equipment {
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(500);
-					//driver.get("http://192.168.1.111:8090/equipment");
+					driver.get("http://192.168.1.111:8090/equipment");
 					//driver.get("http://192.168.1.111:8090/equipment");
 					//Thread.sleep(500);
 					//driver.get("http://192.168.1.45:8091/equipment-group");
 				}
 		
-				//@Test(priority=9,invocationCount=2)
+			/*	//@Test(priority=9,invocationCount=2)
 				@Test(priority=9)
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
@@ -296,7 +296,7 @@ public class Equipment {
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
 						
-						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("Add Segment"))
 						{
 							Thread.sleep(1000);
 							driver.findElement(By.id("addSegment")).click();
@@ -546,9 +546,11 @@ public class Equipment {
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
 						Thread.sleep(2000);
-						driver.findElement(By.id("comments")).click();
+						//driver.findElement(By.id("comments")).click();
+						//Thread.sleep(1000);
+						driver.findElement(By.id("comments")).sendKeys("Comments");
 						Thread.sleep(500);
-						driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+						driver.findElement(By.name("password")).sendKeys(password);
 						Thread.sleep(500);
 						driver.findElement(By.id("ackSubmit")).click();
 						
@@ -562,7 +564,7 @@ public class Equipment {
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
 						
-						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("Add Segment"))
 						{
 							Thread.sleep(1000);
 							System.out.println(driver.findElements(By.id("segmentName1")).size());
@@ -605,9 +607,11 @@ public class Equipment {
 								System.out.println("SegLoop: No Custom loop");
 								segSubmit.click();
 								Thread.sleep(1000);
-								driver.findElement(By.id("comments")).click();
+								//driver.findElement(By.id("comments")).click();
+								//Thread.sleep(500);
+								driver.findElement(By.id("comments")).sendKeys("comments");
 								Thread.sleep(500);
-								driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+								driver.findElement(By.name("password")).sendKeys(password);
 								Thread.sleep(500);
 								driver.findElement(By.id("ackSubmit")).click();
 								Thread.sleep(2000);
@@ -644,9 +648,11 @@ public class Equipment {
 										//click save button in custom fields
 										driver.findElement(By.id("saveCustomDetails")).click();
 										Thread.sleep(1000);
-										driver.findElement(By.id("comments")).click();
+										//driver.findElement(By.id("comments")).click();
+										//Thread.sleep(500);
+										driver.findElement(By.id("comments")).sendKeys("Comments");
 										Thread.sleep(500);
-										driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+										driver.findElement(By.name("password")).sendKeys(password);
 										Thread.sleep(500);
 										driver.findElement(By.id("ackSubmit")).click();
 										Thread.sleep(2000);
@@ -683,10 +689,10 @@ public class Equipment {
 							}
 									//click save button in custom fields
 									driver.findElement(By.id("saveCustomDetails")).click();
-									Thread.sleep(1000);
-									driver.findElement(By.id("comments")).click();
 									Thread.sleep(500);
-									driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+									driver.findElement(By.id("comments")).sendKeys("Comments");
+									Thread.sleep(500);
+									driver.findElement(By.name("password")).sendKeys(password);
 									Thread.sleep(500);
 									driver.findElement(By.id("ackSubmit")).click();
 									Thread.sleep(2000);
@@ -725,7 +731,8 @@ public class Equipment {
 					//Thread.sleep(500);
 					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					//driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("password")).sendKeys(password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
@@ -954,7 +961,7 @@ public class Equipment {
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
 						
-						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("Add Segment"))
 						{
 							Thread.sleep(1000);
 							driver.findElement(By.id("addSegment")).click();
@@ -1206,11 +1213,13 @@ public class Equipment {
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
 						Thread.sleep(2000);
-						driver.findElement(By.id("comments")).click();
 						Thread.sleep(500);
-						driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+						driver.findElement(By.id("comments")).sendKeys("Comments");
+						Thread.sleep(500);
+						driver.findElement(By.name("password")).sendKeys(password);
 						Thread.sleep(500);
 						driver.findElement(By.id("ackSubmit")).click();
+						Thread.sleep(2000);
 						
 					}
 					//
@@ -1222,7 +1231,7 @@ public class Equipment {
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
 						
-						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("Add Segment"))
 						{
 							Thread.sleep(1000);
 							System.out.println(driver.findElements(By.id("segmentName1")).size());
@@ -1267,7 +1276,9 @@ public class Equipment {
 								Thread.sleep(1000);
 								driver.findElement(By.id("comments")).click();
 								Thread.sleep(500);
-								driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+								driver.findElement(By.id("comments")).sendKeys("Comments");
+								Thread.sleep(500);
+								driver.findElement(By.name("password")).sendKeys(password);
 								Thread.sleep(500);
 								driver.findElement(By.id("ackSubmit")).click();
 								Thread.sleep(2000);
@@ -1304,9 +1315,10 @@ public class Equipment {
 										//click save button in custom fields
 										driver.findElement(By.id("saveCustomDetails")).click();
 										Thread.sleep(1000);
-										driver.findElement(By.id("comments")).click();
 										Thread.sleep(500);
-										driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+										driver.findElement(By.id("comments")).sendKeys("Comments");
+										Thread.sleep(500);
+										driver.findElement(By.name("password")).sendKeys(password);
 										Thread.sleep(500);
 										driver.findElement(By.id("ackSubmit")).click();
 										Thread.sleep(2000);
@@ -1344,9 +1356,9 @@ public class Equipment {
 									//click save button in custom fields
 									driver.findElement(By.id("saveCustomDetails")).click();
 									Thread.sleep(1000);
-									driver.findElement(By.id("comments")).click();
+									driver.findElement(By.id("comments")).sendKeys("Comments");
 									Thread.sleep(500);
-									driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
+									driver.findElement(By.name("password")).sendKeys(password);
 									Thread.sleep(500);
 									driver.findElement(By.id("ackSubmit")).click();
 									Thread.sleep(2000);
@@ -1384,7 +1396,8 @@ public class Equipment {
 					//Thread.sleep(500);
 					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					//driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("password")).sendKeys(password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
@@ -1404,7 +1417,7 @@ public class Equipment {
 				}
 				
 				
-				/*@Test(priority=15)
+				@Test(priority=15)
 				public void MultiDeleteEquipment() throws Exception
 				{
 					Thread.sleep(500);
@@ -1419,7 +1432,8 @@ public class Equipment {
 					Thread.sleep(500);
 					driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					//driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("password")).sendKeys(password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete Multi equipment");
 					Thread.sleep(500);
@@ -1437,7 +1451,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				*/
+				
 				
 				
 				@Test(priority=16)
@@ -1638,7 +1652,7 @@ public class Equipment {
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
 						
-						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("+ Add Segment"))
+						if(driver.findElement(By.id("addSegment")).getText().equalsIgnoreCase("Add Segment"))
 						{
 							Thread.sleep(1000);
 							driver.findElement(By.id("addSegment")).click();
@@ -1813,7 +1827,7 @@ public class Equipment {
 						}
 					} 
 					
-					Thread.sleep(500);
+					Thread.sleep(1000);
 					String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println(createEquipmentTrain);
 					Assert.assertEquals(createEquipmentTrain,"Equipment was copied successfully");
@@ -1827,7 +1841,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				
+				*/
 				
 				
 				

@@ -7,14 +7,10 @@
   </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.EquipmentGroup">
-        <methods>
-          <include name="SingleDeleteEquipmentGroup"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.EquipmentGroup -->
       <class name="com.eDocs.SanityTesting.Equipment">
         <methods>
-          <include name="MultiDeleteEquipment"/>
+          <include name="DeleteEquipmentRiskAssessment"/>
+          <include name="EditEquipmentwithRiskAssessment"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- com.eDocs.SanityTesting.Equipment -->
