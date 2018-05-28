@@ -23,7 +23,7 @@ public class EquipmentSurfaceArea {
 	private RepositoryParser parser;
 	public static WebDriver driver = Constant.driver;
 	
-	
+	/*
 	@BeforeClass
 	public void setUp() throws IOException  
 	{
@@ -54,17 +54,18 @@ public class EquipmentSurfaceArea {
 		Thread.sleep(1500);
 		driver.findElement(By.id("addEquipment")).click(); 
   		Thread.sleep(1500);
-	}
+	}*/
 	
   
-	@Test(priority=2)
+	@Test(priority=6)
 	public void NumericEmptyTest() throws InterruptedException, WriteException, IOException
 	{
+		WebElement Submit = driver.findElement(By.id("saveEquipment"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericEmpty(15);
+		getnumericField.NumericEmpty(Submit,15);
 	}
 	
-	@Test(priority=3)
+	@Test(priority=7)
 	public void NumericZEROTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
@@ -72,7 +73,7 @@ public class EquipmentSurfaceArea {
 		getnumericField.NumericZERO(numericField,16);
 	}
 	
-	@Test(priority=4)
+	@Test(priority=8)
 	public void NumericMaxLengthTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
@@ -80,7 +81,7 @@ public class EquipmentSurfaceArea {
 		getnumericField.NumericMaxLength(numericField,17);
 	}
 	
-	@Test(priority=5)
+	@Test(priority=9)
 	public void numericFieldAlphabetsCheckTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
@@ -88,7 +89,7 @@ public class EquipmentSurfaceArea {
 		getnumericField.numericFieldAlphabetsCheck(numericField,18);
 	}
 	
-	@Test(priority=6)
+	@Test(priority=10)
 	public void numericSpaceCheckTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
@@ -96,7 +97,7 @@ public class EquipmentSurfaceArea {
 		getnumericField.numericSpaceCheck(numericField,19);
 	}
 	
-	@Test(priority=7)
+	@Test(priority=11)
 	public void numericMultiDecimalTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));

@@ -23,106 +23,57 @@ public class EquipmentMinimumBatch {
 	private RepositoryParser parser;
 	public static WebDriver driver = Constant.driver;
 	
-	
-	@BeforeClass
-	public void setUp() throws IOException  
-	{
-		driver.get("http://192.168.1.111:8090");
-		parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
-	}
-
-	@Test(priority=1)
-	public void Login() throws InterruptedException
-	{
-		Thread.sleep(1000);
-		WebElement username = driver.findElement(By.id("username"));
-		WebElement password = driver.findElement(By.id("password"));
-		username.sendKeys("thiyagu1");
-		Thread.sleep(500);
-		password.sendKeys("123456");
-		Thread.sleep(500);
-		driver.findElement(By.id("loginsubmit")).click();
-		Thread.sleep(1000);
-  		if (driver.findElements(By.id("forcelogin")).size()!=0)
-  		{
-  			// Force Login
-  			Thread.sleep(1000);
-  			driver.findElement(By.id("forcelogin")).click();
-  		}
-  		Thread.sleep(1500);
-		driver.get("http://192.168.1.111:8090/equipment");
-		Thread.sleep(1500);
-		driver.findElement(By.id("addEquipment")).click(); 
-  		Thread.sleep(1500);
-  		driver.findElement(By.id("surfaceArea")).sendKeys("100");
-  		Thread.sleep(500);
-  		Select preferentialTransferOption = new Select(driver.findElement(By.id("preferentialTransferOption")));
-  		preferentialTransferOption.selectByValue("2");
-  		Thread.sleep(500);
-	}
-	
   
-	@Test(priority=2)
+	@Test(priority=21)
 	public void NumericEmptyTest() throws InterruptedException, WriteException, IOException
 	{
+		// For min BAtch Empty check - Pref transer to be filled (Bcz previous field)
+		//Select prefTransfer =  new Select(driver.findElement(By.id("preferentialTransferOption")));
+		//prefTransfer.selectByValue("2"); // select no
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericEmpty(32);
+		WebElement Submit = driver.findElement(By.id("saveEquipment"));
+		getnumericField.NumericEmpty(Submit,31);
 	}
 	
-	@Test(priority=3)
+	@Test(priority=22)
 	public void NumericZEROTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericZERO(numericField,33);
+		getnumericField.NumericZERO(numericField,32);
 	}
 	
-	@Test(priority=4)
+	@Test(priority=23)
 	public void NumericMaxLengthTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericMaxLength(numericField,34);
+		getnumericField.NumericMaxLength(numericField,33);
 	}
 	
-	@Test(priority=5)
+	@Test(priority=24)
 	public void numericFieldAlphabetsCheckTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericFieldAlphabetsCheck(numericField,35);
+		getnumericField.numericFieldAlphabetsCheck(numericField,34);
 	}
 	
-	@Test(priority=6)
+	@Test(priority=25)
 	public void numericSpaceCheckTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericSpaceCheck(numericField,36);
+		getnumericField.numericSpaceCheck(numericField,35);
 	}
 	
-	@Test(priority=7)
+	@Test(priority=26)
 	public void numericMultiDecimalTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericMultiDecimal(numericField,37);
+		getnumericField.numericMultiDecimal(numericField,36);
 	}
-  	
-	/*@Test (priority=5)
-	public void  nameBeginingSpaceCheck() throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
-	{
-		
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

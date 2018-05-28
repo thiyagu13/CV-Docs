@@ -91,7 +91,7 @@ public class EquipmentName {
 		textField.nameBeginingSpaceCheck(alphanumericField,10);
   	}
 	
-  	@Test (priority=5)
+  /*	@Test (priority=5)
   	public void  nameDuplicate() throws IOException, WriteException, InterruptedException
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
@@ -147,7 +147,7 @@ public class EquipmentName {
 			}
 		Utils.writeTooutputFile(workbook); // write output to the workbook
 		}
-  	
+  	*/
   	
 	/*@Test (priority=5)
 	public void  nameBeginingSpaceCheck() throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg

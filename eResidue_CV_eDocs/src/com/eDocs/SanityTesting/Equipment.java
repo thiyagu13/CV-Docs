@@ -90,7 +90,7 @@ public class Equipment {
 					//driver.get("http://192.168.1.45:8091/equipment-group");
 				}
 		
-			/*	//@Test(priority=9,invocationCount=2)
+				//@Test(priority=9,invocationCount=2)
 				@Test(priority=9)
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
@@ -738,7 +738,7 @@ public class Equipment {
 					Thread.sleep(500);
 					//driver.findElement(By.id("ackSubmit")).click();
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
 					Assert.assertEquals(deletemsg,"Equipment was deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -1403,7 +1403,7 @@ public class Equipment {
 					Thread.sleep(500);
 					//driver.findElement(By.id("ackSubmit")).click();
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
 					Assert.assertEquals(deletemsg,"Equipment was deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -1416,7 +1416,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				
+				/*
 				@Test(priority=15)
 				public void MultiDeleteEquipment() throws Exception
 				{
@@ -1451,7 +1451,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				
+				*/
 				
 				
 				@Test(priority=16)
@@ -1841,7 +1841,7 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				*/
+				
 				
 				
 				

@@ -59,7 +59,7 @@ public class NumericValidation {
 		driver.findElement(By.id("addEquipment")).click(); 
   		Thread.sleep(1500);
 	}
-	
+	/*
 	
 		@Test(priority=2)
 		public void NumericEmptyTest() throws InterruptedException, WriteException, IOException
@@ -102,7 +102,7 @@ public class NumericValidation {
 			numericMultiDecimal(numericField,20);
 		}
 		
-		
+		*/
 		
 		
 		
@@ -112,16 +112,16 @@ public class NumericValidation {
 		
 
   	//@Test (priority=2)
-  	public void  NumericEmpty(int row) throws IOException, WriteException, InterruptedException
+  	public void  NumericEmpty(WebElement sumit, int row) throws IOException, WriteException, InterruptedException
   	{
   		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-  		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH);
+  		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
 		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
 		Thread.sleep(1000);
-		driver.findElement(By.name("name")).sendKeys("test");// for surface empty check
-		Thread.sleep(1000);
-  		WebElement savebtn = driver.findElement(By.id("saveEquipment"));
-  		savebtn.click();
+		//driver.findElement(By.name("name")).sendKeys("test");// for surface empty check
+		//Thread.sleep(1000);
+  		//WebElement savebtn = driver.findElement(By.id("saveEquipment"));
+		sumit.click();
 		Thread.sleep(500);
 		String emptyExpected = sheet.getRow(row).getCell(5).getStringCellValue(); 
 		String actualMSG = null;
@@ -170,7 +170,7 @@ public class NumericValidation {
   		
 		String expectedMSG = sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel
 		String actualMSG = null;
-		Thread.sleep(1000);
+		Thread.sleep(500);
 			if(driver.findElements(By.className("notify-msg")).size()!=0)
 			{
 				actualMSG = driver.findElement(By.className("notify-msg")).getText();

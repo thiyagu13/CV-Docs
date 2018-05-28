@@ -1,41 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="6" passed="6">
+<testng-results skipped="0" failed="0" ignored="0" total="35" passed="35">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="32368" started-at="2018-05-26T07:55:42Z" finished-at="2018-05-26T07:56:14Z">
+  <suite name="Suite" duration-ms="126799" started-at="2018-05-28T13:29:43Z" finished-at="2018-05-28T13:31:49Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="32368" started-at="2018-05-26T07:55:42Z" finished-at="2018-05-26T07:56:14Z">
+    <test name="Test" duration-ms="126799" started-at="2018-05-28T13:29:43Z" finished-at="2018-05-28T13:31:49Z">
+      <class name="com.eDocs.Equipment.EquipmentSurfaceArea">
+        <test-method status="PASS" signature="NumericEmptyTest()[pri:6, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="NumericEmptyTest" duration-ms="3410" started-at="2018-05-28T19:00:11Z" finished-at="2018-05-28T19:00:15Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericEmptyTest -->
+        <test-method status="PASS" signature="NumericZEROTest()[pri:7, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="NumericZEROTest" duration-ms="3264" started-at="2018-05-28T19:00:15Z" finished-at="2018-05-28T19:00:18Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericZEROTest -->
+        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:8, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="NumericMaxLengthTest" duration-ms="3466" started-at="2018-05-28T19:00:18Z" finished-at="2018-05-28T19:00:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericMaxLengthTest -->
+        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:9, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="numericFieldAlphabetsCheckTest" duration-ms="3356" started-at="2018-05-28T19:00:21Z" finished-at="2018-05-28T19:00:25Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericFieldAlphabetsCheckTest -->
+        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:10, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="numericSpaceCheckTest" duration-ms="3775" started-at="2018-05-28T19:00:25Z" finished-at="2018-05-28T19:00:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericSpaceCheckTest -->
+        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:11, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="numericMultiDecimalTest" duration-ms="3399" started-at="2018-05-28T19:00:29Z" finished-at="2018-05-28T19:00:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericMultiDecimalTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentSurfaceArea -->
+      <class name="com.eDocs.Equipment.EquipmentNonMandatoryFields">
+        <test-method status="PASS" signature="ModelMaxLengthTest()[pri:30, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="ModelMaxLengthTest" duration-ms="3379" started-at="2018-05-28T19:01:29Z" finished-at="2018-05-28T19:01:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ModelMaxLengthTest -->
+        <test-method status="PASS" signature="SerialNoMaxLengthTest()[pri:31, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="SerialNoMaxLengthTest" duration-ms="3393" started-at="2018-05-28T19:01:32Z" finished-at="2018-05-28T19:01:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SerialNoMaxLengthTest -->
+        <test-method status="PASS" signature="ManufacturerMaxLengthTest()[pri:32, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="ManufacturerMaxLengthTest" duration-ms="3398" started-at="2018-05-28T19:01:36Z" finished-at="2018-05-28T19:01:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- ManufacturerMaxLengthTest -->
+        <test-method status="PASS" signature="SurfaceDataSourceMaxLengthTest()[pri:33, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="SurfaceDataSourceMaxLengthTest" duration-ms="3396" started-at="2018-05-28T19:01:39Z" finished-at="2018-05-28T19:01:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SurfaceDataSourceMaxLengthTest -->
+        <test-method status="PASS" signature="QualificationDocIDMaxLengthTest()[pri:34, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="QualificationDocIDMaxLengthTest" duration-ms="3330" started-at="2018-05-28T19:01:43Z" finished-at="2018-05-28T19:01:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- QualificationDocIDMaxLengthTest -->
+        <test-method status="PASS" signature="OtherCleaningInfoMaxLengthTest()[pri:35, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="OtherCleaningInfoMaxLengthTest" duration-ms="3581" started-at="2018-05-28T19:01:46Z" finished-at="2018-05-28T19:01:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- OtherCleaningInfoMaxLengthTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentNonMandatoryFields -->
       <class name="com.eDocs.Equipment.EquipmentName">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="setUp" is-config="true" duration-ms="851" started-at="2018-05-26T13:25:42Z" finished-at="2018-05-26T13:25:43Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="setUp" is-config="true" duration-ms="947" started-at="2018-05-28T18:59:43Z" finished-at="2018-05-28T18:59:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="Login" duration-ms="10939" started-at="2018-05-26T13:25:43Z" finished-at="2018-05-26T13:25:54Z">
+        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="Login" duration-ms="11540" started-at="2018-05-28T18:59:44Z" finished-at="2018-05-28T18:59:55Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="nameEmpty()[pri:1, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="nameEmpty" duration-ms="4892" started-at="2018-05-26T13:25:54Z" finished-at="2018-05-26T13:25:58Z">
+        <test-method status="PASS" signature="nameEmpty()[pri:1, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameEmpty" duration-ms="5303" started-at="2018-05-28T18:59:55Z" finished-at="2018-05-28T19:00:00Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameEmpty -->
-        <test-method status="PASS" signature="nameMaxFieldLength()[pri:2, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="nameMaxFieldLength" duration-ms="3659" started-at="2018-05-26T13:25:58Z" finished-at="2018-05-26T13:26:02Z">
+        <test-method status="PASS" signature="nameMaxFieldLength()[pri:2, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameMaxFieldLength" duration-ms="3899" started-at="2018-05-28T19:00:00Z" finished-at="2018-05-28T19:00:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameMaxFieldLength -->
-        <test-method status="PASS" signature="nameSpecialChar()[pri:3, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="nameSpecialChar" duration-ms="3532" started-at="2018-05-26T13:26:02Z" finished-at="2018-05-26T13:26:06Z">
+        <test-method status="PASS" signature="nameSpecialChar()[pri:3, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameSpecialChar" duration-ms="3475" started-at="2018-05-28T19:00:04Z" finished-at="2018-05-28T19:00:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameSpecialChar -->
-        <test-method status="PASS" signature="nameBeginingSpaceCheck()[pri:4, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="nameBeginingSpaceCheck" duration-ms="3398" started-at="2018-05-26T13:26:06Z" finished-at="2018-05-26T13:26:09Z">
+        <test-method status="PASS" signature="nameBeginingSpaceCheck()[pri:4, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameBeginingSpaceCheck" duration-ms="3424" started-at="2018-05-28T19:00:08Z" finished-at="2018-05-28T19:00:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameBeginingSpaceCheck -->
-        <test-method status="PASS" signature="nameDuplicate()[pri:5, instance:com.eDocs.Equipment.EquipmentName@1972e513]" name="nameDuplicate" duration-ms="5065" started-at="2018-05-26T13:26:09Z" finished-at="2018-05-26T13:26:14Z">
+      </class> <!-- com.eDocs.Equipment.EquipmentName -->
+      <class name="com.eDocs.Equipment.EquipmentMinimumBatch">
+        <test-method status="PASS" signature="NumericEmptyTest()[pri:21, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="NumericEmptyTest" duration-ms="3358" started-at="2018-05-28T19:01:00Z" finished-at="2018-05-28T19:01:04Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- nameDuplicate -->
-      </class> <!-- com.eDocs.Equipment.EquipmentName -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        </test-method> <!-- NumericEmptyTest -->
+        <test-method status="PASS" signature="NumericZEROTest()[pri:22, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="NumericZEROTest" duration-ms="3125" started-at="2018-05-28T19:01:04Z" finished-at="2018-05-28T19:01:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericZEROTest -->
+        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:23, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="NumericMaxLengthTest" duration-ms="3313" started-at="2018-05-28T19:01:07Z" finished-at="2018-05-28T19:01:10Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericMaxLengthTest -->
+        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:24, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="numericFieldAlphabetsCheckTest" duration-ms="3301" started-at="2018-05-28T19:01:10Z" finished-at="2018-05-28T19:01:14Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericFieldAlphabetsCheckTest -->
+        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:25, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="numericSpaceCheckTest" duration-ms="3306" started-at="2018-05-28T19:01:14Z" finished-at="2018-05-28T19:01:17Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericSpaceCheckTest -->
+        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:26, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="numericMultiDecimalTest" duration-ms="3294" started-at="2018-05-28T19:01:17Z" finished-at="2018-05-28T19:01:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericMultiDecimalTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentMinimumBatch -->
+      <class name="com.eDocs.Equipment.EquipmentCleaningProcessType">
+        <test-method status="PASS" signature="CleaningProcessTypeEmptyTest()[pri:27, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@7fd50002]" name="CleaningProcessTypeEmptyTest" duration-ms="3298" started-at="2018-05-28T19:01:20Z" finished-at="2018-05-28T19:01:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CleaningProcessTypeEmptyTest -->
+        <test-method status="PASS" signature="CleaningProcessTypeManual()[pri:28, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@7fd50002]" name="CleaningProcessTypeManual" duration-ms="365" started-at="2018-05-28T19:01:23Z" finished-at="2018-05-28T19:01:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CleaningProcessTypeManual -->
+        <test-method status="PASS" signature="CleaningProcessTypeAuto()[pri:29, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@7fd50002]" name="CleaningProcessTypeAuto" duration-ms="5190" started-at="2018-05-28T19:01:24Z" finished-at="2018-05-28T19:01:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CleaningProcessTypeAuto -->
+      </class> <!-- com.eDocs.Equipment.EquipmentCleaningProcessType -->
+      <class name="com.eDocs.Equipment.EquipmentPrefTransfr">
+        <test-method status="PASS" signature="EqupmentPrefTransferEmptyTest()[pri:12, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="EqupmentPrefTransferEmptyTest" duration-ms="3344" started-at="2018-05-28T19:00:32Z" finished-at="2018-05-28T19:00:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EqupmentPrefTransferEmptyTest -->
+        <test-method status="PASS" signature="EqupmentPrefTransferNo()[pri:13, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="EqupmentPrefTransferNo" duration-ms="1464" started-at="2018-05-28T19:00:35Z" finished-at="2018-05-28T19:00:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EqupmentPrefTransferNo -->
+        <test-method status="PASS" signature="EqupmentPrefTransferYes()[pri:14, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="EqupmentPrefTransferYes" duration-ms="3642" started-at="2018-05-28T19:00:37Z" finished-at="2018-05-28T19:00:40Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EqupmentPrefTransferYes -->
+        <test-method status="PASS" signature="NumericEmptyTest()[pri:15, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="NumericEmptyTest" duration-ms="3303" started-at="2018-05-28T19:00:40Z" finished-at="2018-05-28T19:00:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericEmptyTest -->
+        <test-method status="PASS" signature="NumericZEROTest()[pri:16, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="NumericZEROTest" duration-ms="3148" started-at="2018-05-28T19:00:44Z" finished-at="2018-05-28T19:00:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericZEROTest -->
+        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:17, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="NumericMaxLengthTest" duration-ms="3405" started-at="2018-05-28T19:00:47Z" finished-at="2018-05-28T19:00:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- NumericMaxLengthTest -->
+        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:18, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="numericFieldAlphabetsCheckTest" duration-ms="3345" started-at="2018-05-28T19:00:50Z" finished-at="2018-05-28T19:00:54Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericFieldAlphabetsCheckTest -->
+        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:19, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="numericSpaceCheckTest" duration-ms="3345" started-at="2018-05-28T19:00:54Z" finished-at="2018-05-28T19:00:57Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericSpaceCheckTest -->
+        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:20, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="numericMultiDecimalTest" duration-ms="3416" started-at="2018-05-28T19:00:57Z" finished-at="2018-05-28T19:01:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- numericMultiDecimalTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentPrefTransfr -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

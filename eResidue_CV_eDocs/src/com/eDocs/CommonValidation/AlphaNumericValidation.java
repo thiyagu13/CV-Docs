@@ -25,7 +25,7 @@ public class AlphaNumericValidation {
 	private RepositoryParser parser;
 	public static WebDriver driver = Constant.driver;
 	
-
+/*
 	@BeforeClass
 	public void setUp() throws IOException  
 	{
@@ -91,7 +91,7 @@ public class AlphaNumericValidation {
 			WebElement alphanumericField = driver.findElement(By.name("name"));
 			nameBeginingSpaceCheck(alphanumericField,10);
 		}
-		
+		*/
 		
 		
 	
@@ -147,10 +147,10 @@ public class AlphaNumericValidation {
   		Thread.sleep(2000);
 		
 		double expectedMSG = sheet.getRow(row).getCell(5).getNumericCellValue(); // get expected value from excel
-		String actualMSG = driver.findElement(By.name("name")).getAttribute("value"); //get actual value from site
+		String actualMSG = alphanumericField.getAttribute("value"); //get actual value from site
 		double length = actualMSG.length();
-		
-		XSSFCell maxLength_actual_print = sheet.getRow(8).getCell(6); //Print actual result in the excel cell
+		System.out.println("Length:---> "+length);
+		XSSFCell maxLength_actual_print = sheet.getRow(row).getCell(6); //Print actual result in the excel cell
 		maxLength_actual_print.setCellValue(length);
 		
 		if(expectedMSG == length)

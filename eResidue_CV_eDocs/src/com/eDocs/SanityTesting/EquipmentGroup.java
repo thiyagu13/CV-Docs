@@ -405,7 +405,7 @@ public class EquipmentGroup {
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment Group was deleted successfully");
+					Assert.assertEquals(deletemsg,"Equipment Group deleted successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name

@@ -7,13 +7,12 @@
   </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.Equipment">
+      <class name="com.eDocs.Equipment.EquipmentPrefTransfr">
         <methods>
-          <include name="DeleteEquipmentRiskAssessment"/>
-          <include name="EditEquipmentwithRiskAssessment"/>
-          <include name="setUp"/>
+          <include name="numericSpaceCheckTest"/>
+          <include name="numericMultiDecimalTest"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.Equipment -->
+      </class> <!-- com.eDocs.Equipment.EquipmentPrefTransfr -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
