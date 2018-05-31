@@ -6,14 +6,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
@@ -95,12 +89,19 @@ public class AlphaNumericValidation {
 		
 		
 	
-  	public void  AlphaNumericEmpty(WebElement Submit,WebElement alphanumericField,int row) throws IOException, WriteException, InterruptedException
+  	public void  AlphaNumericEmpty(String path,WebElement Submit,int row) throws IOException, WriteException, InterruptedException
   	{
-  		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH);
+  		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH);
+  		XSSFWorkbook workbook = Utils.getExcelSheet(path);
 		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
   		Thread.sleep(1000);
-  		alphanumericField.clear();
+  		/*System.out.println("alphanumericField.getSize()Tag : "+alphanumericField.getTagName());
+  		if(!alphanumericField.getTagName().equals("select"))
+  		{
+  			System.out.println("No Loop");
+  			alphanumericField.clear();
+  		}*/
+  		
   		Thread.sleep(500);
   		Submit.click();
 		String expectedMSG = sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel

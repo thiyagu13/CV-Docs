@@ -3,19 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.Equipment.EquipmentPrefTransfr">
+      <class name="com.eDocs.Equipment.EquipmentRiskAssessment">
         <methods>
-          <include name="NumericZEROTest"/>
-          <include name="numericFieldAlphabetsCheckTest"/>
-          <include name="numericSpaceCheckTest"/>
-          <include name="NumericEmptyTest"/>
-          <include name="NumericMaxLengthTest"/>
-          <include name="numericMultiDecimalTest"/>
-          <include name="EqupmentPrefTransferYes"/>
-          <include name="EqupmentPrefTransferEmptyTest"/>
-          <include name="EqupmentPrefTransferNo"/>
+          <include name="RiskLocationMaxLengthTest"/>
+          <include name="setUp"/>
+          <include name="RiskLocationEmptyTest"/>
         </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentPrefTransfr -->
+      </class> <!-- com.eDocs.Equipment.EquipmentRiskAssessment -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

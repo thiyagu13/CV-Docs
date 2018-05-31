@@ -267,9 +267,9 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("EvaP1");
+		selectedproducts.add("L1");
 		//selectedproducts.add("S2");
-		selectedproducts.add("EvaP2");
+		selectedproducts.add("L2");
 		//selectedproducts.add("S4");
 		//selectedproducts.add("Diluent");
 		//selectedproducts.add("Product/ Sample/ Solid1");

@@ -74,20 +74,28 @@ public class Equipment {
 				@Test(priority=1)
 				public void Login() throws InterruptedException
 				{
-					//Lets see how we can find the first name field
 					Thread.sleep(1000);
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
-					username.sendKeys("thiyagu1");
+					username.sendKeys("user5");
 					Thread.sleep(500);
 					password.sendKeys("123456");
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
-					Thread.sleep(500);
+					Thread.sleep(1000);
+			  		if (driver.findElements(By.id("forcelogin")).size()!=0)
+			  		{
+			  			// Force Login
+			  			Thread.sleep(1000);
+			  			driver.findElement(By.id("forcelogin")).click();
+			  		}
+			  		Thread.sleep(1500);
 					driver.get("http://192.168.1.111:8090/equipment");
-					//driver.get("http://192.168.1.111:8090/equipment");
-					//Thread.sleep(500);
-					//driver.get("http://192.168.1.45:8091/equipment-group");
+					Thread.sleep(1500);
+				//	driver.findElement(By.id("addEquipment")).click(); 
+			  		//Thread.sleep(1500);
+			  		//WebElement alphanumericField = driver.findElement(By.name("name"));
+			  		//alphanumericField.sendKeys("test");
 				}
 		
 				//@Test(priority=9,invocationCount=2)
@@ -229,7 +237,7 @@ public class Equipment {
 			        Thread.sleep(1000);
 			        driver.findElement(By.cssSelector(".remove-row-icon")).click();
 			        Thread.sleep(1000);
-			        driver.findElement(By.id("location2")).sendKeys(EquipmentSamplingLocationCREATE);
+			        driver.findElement(By.id("location1")).sendKeys(EquipmentSamplingLocationCREATE);
 			        Thread.sleep(500);
 			       driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
 			       Thread.sleep(1000);

@@ -1,167 +1,1092 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="35" passed="35">
+<testng-results skipped="0" failed="13" ignored="0" total="50" passed="37">
   <reporter-output>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingLocationEmptyPinTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingLocationEmptyPinTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingInfoSamplingMethodEmptyTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingInfoSamplingMethodEmptyTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNamePinEmptyOREquipSaveTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNamePinEmptyOREquipSaveTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameEmptyTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameEmptyTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameMaxLengthTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameMaxLengthTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaEmptyTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaEmptyTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaZeroTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaZeroTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMaxLengthTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMaxLengthTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaInvalidCharTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaInvalidCharTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaSpaceTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaSpaceTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMultiDecimalTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMultiDecimalTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentlocationTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentlocationTest.png'> </a>]]>
+    </line>
+    <line>
+      <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\equipmentIFCustomFieldorSAVETest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\equipmentIFCustomFieldorSAVETest.png'> </a>]]>
+    </line>
   </reporter-output>
-  <suite name="Suite" duration-ms="126799" started-at="2018-05-28T13:29:43Z" finished-at="2018-05-28T13:31:49Z">
+  <suite name="Suite" duration-ms="152103" started-at="2018-05-31T14:19:19Z" finished-at="2018-05-31T14:21:51Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="126799" started-at="2018-05-28T13:29:43Z" finished-at="2018-05-28T13:31:49Z">
+    <test name="Test" duration-ms="152103" started-at="2018-05-31T14:19:19Z" finished-at="2018-05-31T14:21:51Z">
       <class name="com.eDocs.Equipment.EquipmentSurfaceArea">
-        <test-method status="PASS" signature="NumericEmptyTest()[pri:6, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="NumericEmptyTest" duration-ms="3410" started-at="2018-05-28T19:00:11Z" finished-at="2018-05-28T19:00:15Z">
+        <test-method status="PASS" signature="NumericEmptyTest()[pri:6, instance:com.eDocs.Equipment.EquipmentSurfaceArea@533bda92]" name="NumericEmptyTest" duration-ms="3526" started-at="2018-05-31T19:49:47Z" finished-at="2018-05-31T19:49:51Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericEmptyTest -->
-        <test-method status="PASS" signature="NumericZEROTest()[pri:7, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="NumericZEROTest" duration-ms="3264" started-at="2018-05-28T19:00:15Z" finished-at="2018-05-28T19:00:18Z">
+        <test-method status="PASS" signature="NumericZEROTest()[pri:7, instance:com.eDocs.Equipment.EquipmentSurfaceArea@533bda92]" name="NumericZEROTest" duration-ms="3223" started-at="2018-05-31T19:49:51Z" finished-at="2018-05-31T19:49:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericZEROTest -->
-        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:8, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="NumericMaxLengthTest" duration-ms="3466" started-at="2018-05-28T19:00:18Z" finished-at="2018-05-28T19:00:21Z">
+        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:8, instance:com.eDocs.Equipment.EquipmentSurfaceArea@533bda92]" name="NumericMaxLengthTest" duration-ms="3405" started-at="2018-05-31T19:49:54Z" finished-at="2018-05-31T19:49:57Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericMaxLengthTest -->
-        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:9, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="numericFieldAlphabetsCheckTest" duration-ms="3356" started-at="2018-05-28T19:00:21Z" finished-at="2018-05-28T19:00:25Z">
+        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:9, instance:com.eDocs.Equipment.EquipmentSurfaceArea@533bda92]" name="numericFieldAlphabetsCheckTest" duration-ms="3330" started-at="2018-05-31T19:49:57Z" finished-at="2018-05-31T19:50:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericFieldAlphabetsCheckTest -->
-        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:10, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="numericSpaceCheckTest" duration-ms="3775" started-at="2018-05-28T19:00:25Z" finished-at="2018-05-28T19:00:29Z">
+        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:10, instance:com.eDocs.Equipment.EquipmentSurfaceArea@533bda92]" name="numericSpaceCheckTest" duration-ms="3318" started-at="2018-05-31T19:50:01Z" finished-at="2018-05-31T19:50:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericSpaceCheckTest -->
-        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:11, instance:com.eDocs.Equipment.EquipmentSurfaceArea@433defed]" name="numericMultiDecimalTest" duration-ms="3399" started-at="2018-05-28T19:00:29Z" finished-at="2018-05-28T19:00:32Z">
+        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:11, instance:com.eDocs.Equipment.EquipmentSurfaceArea@533bda92]" name="numericMultiDecimalTest" duration-ms="3320" started-at="2018-05-31T19:50:04Z" finished-at="2018-05-31T19:50:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericMultiDecimalTest -->
       </class> <!-- com.eDocs.Equipment.EquipmentSurfaceArea -->
       <class name="com.eDocs.Equipment.EquipmentNonMandatoryFields">
-        <test-method status="PASS" signature="ModelMaxLengthTest()[pri:30, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="ModelMaxLengthTest" duration-ms="3379" started-at="2018-05-28T19:01:29Z" finished-at="2018-05-28T19:01:32Z">
+        <test-method status="PASS" signature="ModelMaxLengthTest()[pri:30, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@28dcca0c]" name="ModelMaxLengthTest" duration-ms="3391" started-at="2018-05-31T19:51:04Z" finished-at="2018-05-31T19:51:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ModelMaxLengthTest -->
-        <test-method status="PASS" signature="SerialNoMaxLengthTest()[pri:31, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="SerialNoMaxLengthTest" duration-ms="3393" started-at="2018-05-28T19:01:32Z" finished-at="2018-05-28T19:01:36Z">
+        <test-method status="PASS" signature="SerialNoMaxLengthTest()[pri:31, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@28dcca0c]" name="SerialNoMaxLengthTest" duration-ms="3453" started-at="2018-05-31T19:51:08Z" finished-at="2018-05-31T19:51:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SerialNoMaxLengthTest -->
-        <test-method status="PASS" signature="ManufacturerMaxLengthTest()[pri:32, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="ManufacturerMaxLengthTest" duration-ms="3398" started-at="2018-05-28T19:01:36Z" finished-at="2018-05-28T19:01:39Z">
+        <test-method status="PASS" signature="ManufacturerMaxLengthTest()[pri:32, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@28dcca0c]" name="ManufacturerMaxLengthTest" duration-ms="3351" started-at="2018-05-31T19:51:11Z" finished-at="2018-05-31T19:51:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ManufacturerMaxLengthTest -->
-        <test-method status="PASS" signature="SurfaceDataSourceMaxLengthTest()[pri:33, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="SurfaceDataSourceMaxLengthTest" duration-ms="3396" started-at="2018-05-28T19:01:39Z" finished-at="2018-05-28T19:01:43Z">
+        <test-method status="PASS" signature="SurfaceDataSourceMaxLengthTest()[pri:33, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@28dcca0c]" name="SurfaceDataSourceMaxLengthTest" duration-ms="3393" started-at="2018-05-31T19:51:15Z" finished-at="2018-05-31T19:51:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SurfaceDataSourceMaxLengthTest -->
-        <test-method status="PASS" signature="QualificationDocIDMaxLengthTest()[pri:34, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="QualificationDocIDMaxLengthTest" duration-ms="3330" started-at="2018-05-28T19:01:43Z" finished-at="2018-05-28T19:01:46Z">
+        <test-method status="PASS" signature="QualificationDocIDMaxLengthTest()[pri:34, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@28dcca0c]" name="QualificationDocIDMaxLengthTest" duration-ms="3414" started-at="2018-05-31T19:51:18Z" finished-at="2018-05-31T19:51:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- QualificationDocIDMaxLengthTest -->
-        <test-method status="PASS" signature="OtherCleaningInfoMaxLengthTest()[pri:35, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@533bda92]" name="OtherCleaningInfoMaxLengthTest" duration-ms="3581" started-at="2018-05-28T19:01:46Z" finished-at="2018-05-28T19:01:49Z">
+        <test-method status="PASS" signature="OtherCleaningInfoMaxLengthTest()[pri:35, instance:com.eDocs.Equipment.EquipmentNonMandatoryFields@28dcca0c]" name="OtherCleaningInfoMaxLengthTest" duration-ms="10926" started-at="2018-05-31T19:51:21Z" finished-at="2018-05-31T19:51:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- OtherCleaningInfoMaxLengthTest -->
       </class> <!-- com.eDocs.Equipment.EquipmentNonMandatoryFields -->
       <class name="com.eDocs.Equipment.EquipmentName">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="setUp" is-config="true" duration-ms="947" started-at="2018-05-28T18:59:43Z" finished-at="2018-05-28T18:59:44Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.Equipment.EquipmentName@7fd50002]" name="setUp" is-config="true" duration-ms="938" started-at="2018-05-31T19:49:19Z" finished-at="2018-05-31T19:49:20Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="Login" duration-ms="11540" started-at="2018-05-28T18:59:44Z" finished-at="2018-05-28T18:59:55Z">
+        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.Equipment.EquipmentName@7fd50002]" name="Login" duration-ms="11184" started-at="2018-05-31T19:49:20Z" finished-at="2018-05-31T19:49:31Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Login -->
-        <test-method status="PASS" signature="nameEmpty()[pri:1, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameEmpty" duration-ms="5303" started-at="2018-05-28T18:59:55Z" finished-at="2018-05-28T19:00:00Z">
+        <test-method status="PASS" signature="nameEmpty()[pri:1, instance:com.eDocs.Equipment.EquipmentName@7fd50002]" name="nameEmpty" duration-ms="4893" started-at="2018-05-31T19:49:31Z" finished-at="2018-05-31T19:49:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameEmpty -->
-        <test-method status="PASS" signature="nameMaxFieldLength()[pri:2, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameMaxFieldLength" duration-ms="3899" started-at="2018-05-28T19:00:00Z" finished-at="2018-05-28T19:00:04Z">
+        <test-method status="PASS" signature="nameMaxFieldLength()[pri:2, instance:com.eDocs.Equipment.EquipmentName@7fd50002]" name="nameMaxFieldLength" duration-ms="3841" started-at="2018-05-31T19:49:36Z" finished-at="2018-05-31T19:49:40Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameMaxFieldLength -->
-        <test-method status="PASS" signature="nameSpecialChar()[pri:3, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameSpecialChar" duration-ms="3475" started-at="2018-05-28T19:00:04Z" finished-at="2018-05-28T19:00:08Z">
+        <test-method status="PASS" signature="nameSpecialChar()[pri:3, instance:com.eDocs.Equipment.EquipmentName@7fd50002]" name="nameSpecialChar" duration-ms="3579" started-at="2018-05-31T19:49:40Z" finished-at="2018-05-31T19:49:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameSpecialChar -->
-        <test-method status="PASS" signature="nameBeginingSpaceCheck()[pri:4, instance:com.eDocs.Equipment.EquipmentName@548a24a]" name="nameBeginingSpaceCheck" duration-ms="3424" started-at="2018-05-28T19:00:08Z" finished-at="2018-05-28T19:00:11Z">
+        <test-method status="PASS" signature="nameBeginingSpaceCheck()[pri:4, instance:com.eDocs.Equipment.EquipmentName@7fd50002]" name="nameBeginingSpaceCheck" duration-ms="3408" started-at="2018-05-31T19:49:44Z" finished-at="2018-05-31T19:49:47Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- nameBeginingSpaceCheck -->
       </class> <!-- com.eDocs.Equipment.EquipmentName -->
       <class name="com.eDocs.Equipment.EquipmentMinimumBatch">
-        <test-method status="PASS" signature="NumericEmptyTest()[pri:21, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="NumericEmptyTest" duration-ms="3358" started-at="2018-05-28T19:01:00Z" finished-at="2018-05-28T19:01:04Z">
+        <test-method status="PASS" signature="NumericEmptyTest()[pri:21, instance:com.eDocs.Equipment.EquipmentMinimumBatch@723ca036]" name="NumericEmptyTest" duration-ms="3378" started-at="2018-05-31T19:50:36Z" finished-at="2018-05-31T19:50:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericEmptyTest -->
-        <test-method status="PASS" signature="NumericZEROTest()[pri:22, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="NumericZEROTest" duration-ms="3125" started-at="2018-05-28T19:01:04Z" finished-at="2018-05-28T19:01:07Z">
+        <test-method status="PASS" signature="NumericZEROTest()[pri:22, instance:com.eDocs.Equipment.EquipmentMinimumBatch@723ca036]" name="NumericZEROTest" duration-ms="3201" started-at="2018-05-31T19:50:39Z" finished-at="2018-05-31T19:50:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericZEROTest -->
-        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:23, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="NumericMaxLengthTest" duration-ms="3313" started-at="2018-05-28T19:01:07Z" finished-at="2018-05-28T19:01:10Z">
+        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:23, instance:com.eDocs.Equipment.EquipmentMinimumBatch@723ca036]" name="NumericMaxLengthTest" duration-ms="3314" started-at="2018-05-31T19:50:42Z" finished-at="2018-05-31T19:50:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericMaxLengthTest -->
-        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:24, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="numericFieldAlphabetsCheckTest" duration-ms="3301" started-at="2018-05-28T19:01:10Z" finished-at="2018-05-28T19:01:14Z">
+        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:24, instance:com.eDocs.Equipment.EquipmentMinimumBatch@723ca036]" name="numericFieldAlphabetsCheckTest" duration-ms="3346" started-at="2018-05-31T19:50:46Z" finished-at="2018-05-31T19:50:49Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericFieldAlphabetsCheckTest -->
-        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:25, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="numericSpaceCheckTest" duration-ms="3306" started-at="2018-05-28T19:01:14Z" finished-at="2018-05-28T19:01:17Z">
+        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:25, instance:com.eDocs.Equipment.EquipmentMinimumBatch@723ca036]" name="numericSpaceCheckTest" duration-ms="3332" started-at="2018-05-31T19:50:49Z" finished-at="2018-05-31T19:50:52Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericSpaceCheckTest -->
-        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:26, instance:com.eDocs.Equipment.EquipmentMinimumBatch@3f4faf53]" name="numericMultiDecimalTest" duration-ms="3294" started-at="2018-05-28T19:01:17Z" finished-at="2018-05-28T19:01:20Z">
+        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:26, instance:com.eDocs.Equipment.EquipmentMinimumBatch@723ca036]" name="numericMultiDecimalTest" duration-ms="3343" started-at="2018-05-31T19:50:52Z" finished-at="2018-05-31T19:50:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericMultiDecimalTest -->
       </class> <!-- com.eDocs.Equipment.EquipmentMinimumBatch -->
-      <class name="com.eDocs.Equipment.EquipmentCleaningProcessType">
-        <test-method status="PASS" signature="CleaningProcessTypeEmptyTest()[pri:27, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@7fd50002]" name="CleaningProcessTypeEmptyTest" duration-ms="3298" started-at="2018-05-28T19:01:20Z" finished-at="2018-05-28T19:01:23Z">
+      <class name="com.eDocs.Equipment.EquipmentSegment">
+        <test-method status="FAIL" signature="segmentNamePinEmptyOREquipSaveTest()[pri:40, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentNamePinEmptyOREquipSaveTest" duration-ms="559" started-at="2018-05-31T19:51:35Z" finished-at="2018-05-31T19:51:36Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at com.eDocs.Equipment.EquipmentSegment.segmentNamePinEmptyOREquipSaveTest(EquipmentSegment.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
           <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNamePinEmptyOREquipSaveTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNamePinEmptyOREquipSaveTest.png'> </a>]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- CleaningProcessTypeEmptyTest -->
-        <test-method status="PASS" signature="CleaningProcessTypeManual()[pri:28, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@7fd50002]" name="CleaningProcessTypeManual" duration-ms="365" started-at="2018-05-28T19:01:23Z" finished-at="2018-05-28T19:01:24Z">
+        </test-method> <!-- segmentNamePinEmptyOREquipSaveTest -->
+        <test-method status="FAIL" signature="segmentNameEmptyTest()[pri:41, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentNameEmptyTest" duration-ms="1137" started-at="2018-05-31T19:51:36Z" finished-at="2018-05-31T19:51:37Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at com.eDocs.Equipment.EquipmentSegment.segmentNameEmptyTest(EquipmentSegment.java:62)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
           <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameEmptyTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameEmptyTest.png'> </a>]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- CleaningProcessTypeManual -->
-        <test-method status="PASS" signature="CleaningProcessTypeAuto()[pri:29, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@7fd50002]" name="CleaningProcessTypeAuto" duration-ms="5190" started-at="2018-05-28T19:01:24Z" finished-at="2018-05-28T19:01:29Z">
+        </test-method> <!-- segmentNameEmptyTest -->
+        <test-method status="FAIL" signature="segmentNameMaxLengthTest()[pri:42, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentNameMaxLengthTest" duration-ms="1117" started-at="2018-05-31T19:51:37Z" finished-at="2018-05-31T19:51:38Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Unable to locate element: #segmentName1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=segmentName1}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: #segmentName1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=segmentName1}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:317)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:363)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:309)
+	at com.eDocs.Equipment.EquipmentSegment.segmentNameMaxLengthTest(EquipmentSegment.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameMaxLengthTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentNameMaxLengthTest.png'> </a>]]>
+            </line>
           </reporter-output>
-        </test-method> <!-- CleaningProcessTypeAuto -->
-      </class> <!-- com.eDocs.Equipment.EquipmentCleaningProcessType -->
+        </test-method> <!-- segmentNameMaxLengthTest -->
+        <test-method status="FAIL" signature="segmentSurfaceAreaEmptyTest()[pri:43, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentSurfaceAreaEmptyTest" duration-ms="2719" started-at="2018-05-31T19:51:38Z" finished-at="2018-05-31T19:51:41Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at com.eDocs.CommonValidation.NumericValidation.NumericEmpty(NumericValidation.java:124)
+	at com.eDocs.Equipment.EquipmentSegment.segmentSurfaceAreaEmptyTest(EquipmentSegment.java:111)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaEmptyTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaEmptyTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentSurfaceAreaEmptyTest -->
+        <test-method status="FAIL" signature="segmentSurfaceAreaZeroTest()[pri:44, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentSurfaceAreaZeroTest" duration-ms="1071" started-at="2018-05-31T19:51:41Z" finished-at="2018-05-31T19:51:42Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:317)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:363)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:309)
+	at com.eDocs.Equipment.EquipmentSegment.segmentSurfaceAreaZeroTest(EquipmentSegment.java:130)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaZeroTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaZeroTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentSurfaceAreaZeroTest -->
+        <test-method status="FAIL" signature="segmentSurfaceAreaMaxLengthTest()[pri:45, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentSurfaceAreaMaxLengthTest" duration-ms="1103" started-at="2018-05-31T19:51:42Z" finished-at="2018-05-31T19:51:43Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:317)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:363)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:309)
+	at com.eDocs.Equipment.EquipmentSegment.segmentSurfaceAreaMaxLengthTest(EquipmentSegment.java:152)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMaxLengthTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMaxLengthTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentSurfaceAreaMaxLengthTest -->
+        <test-method status="FAIL" signature="segmentSurfaceAreaInvalidCharTest()[pri:46, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentSurfaceAreaInvalidCharTest" duration-ms="1092" started-at="2018-05-31T19:51:43Z" finished-at="2018-05-31T19:51:44Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:317)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:363)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:309)
+	at com.eDocs.Equipment.EquipmentSegment.segmentSurfaceAreaInvalidCharTest(EquipmentSegment.java:174)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaInvalidCharTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaInvalidCharTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentSurfaceAreaInvalidCharTest -->
+        <test-method status="FAIL" signature="segmentSurfaceAreaSpaceTest()[pri:47, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentSurfaceAreaSpaceTest" duration-ms="1085" started-at="2018-05-31T19:51:45Z" finished-at="2018-05-31T19:51:46Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:317)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:363)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:309)
+	at com.eDocs.Equipment.EquipmentSegment.segmentSurfaceAreaSpaceTest(EquipmentSegment.java:196)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaSpaceTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaSpaceTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentSurfaceAreaSpaceTest -->
+        <test-method status="FAIL" signature="segmentSurfaceAreaMultiDecimalTest()[pri:48, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentSurfaceAreaMultiDecimalTest" duration-ms="1081" started-at="2018-05-31T19:51:46Z" finished-at="2018-05-31T19:51:47Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: Unable to locate element: #surfaceArea1
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+*** Element info: {Using=id, value=surfaceArea1}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:317)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:363)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:309)
+	at com.eDocs.Equipment.EquipmentSegment.segmentSurfaceAreaMultiDecimalTest(EquipmentSegment.java:218)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMultiDecimalTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentSurfaceAreaMultiDecimalTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentSurfaceAreaMultiDecimalTest -->
+        <test-method status="FAIL" signature="segmentlocationTest()[pri:49, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="segmentlocationTest" duration-ms="3192" started-at="2018-05-31T19:51:47Z" finished-at="2018-05-31T19:51:50Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at com.eDocs.CommonValidation.AlphaNumericValidation.AlphaNumericEmpty(AlphaNumericValidation.java:106)
+	at com.eDocs.Equipment.EquipmentSegment.segmentlocationTest(EquipmentSegment.java:243)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentlocationTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\segmentlocationTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- segmentlocationTest -->
+        <test-method status="FAIL" signature="equipmentIFCustomFieldorSAVETest()[pri:50, instance:com.eDocs.Equipment.EquipmentSegment@4c163e3]" name="equipmentIFCustomFieldorSAVETest" duration-ms="1106" started-at="2018-05-31T19:51:50Z" finished-at="2018-05-31T19:51:51Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at com.eDocs.Equipment.EquipmentSegment.equipmentIFCustomFieldorSAVETest(EquipmentSegment.java:279)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\equipmentIFCustomFieldorSAVETest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSegment\equipmentIFCustomFieldorSAVETest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- equipmentIFCustomFieldorSAVETest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentSegment -->
       <class name="com.eDocs.Equipment.EquipmentPrefTransfr">
-        <test-method status="PASS" signature="EqupmentPrefTransferEmptyTest()[pri:12, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="EqupmentPrefTransferEmptyTest" duration-ms="3344" started-at="2018-05-28T19:00:32Z" finished-at="2018-05-28T19:00:35Z">
+        <test-method status="PASS" signature="EqupmentPrefTransferEmptyTest()[pri:12, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="EqupmentPrefTransferEmptyTest" duration-ms="3291" started-at="2018-05-31T19:50:07Z" finished-at="2018-05-31T19:50:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- EqupmentPrefTransferEmptyTest -->
-        <test-method status="PASS" signature="EqupmentPrefTransferNo()[pri:13, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="EqupmentPrefTransferNo" duration-ms="1464" started-at="2018-05-28T19:00:35Z" finished-at="2018-05-28T19:00:37Z">
+        <test-method status="PASS" signature="EqupmentPrefTransferNo()[pri:13, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="EqupmentPrefTransferNo" duration-ms="1453" started-at="2018-05-31T19:50:11Z" finished-at="2018-05-31T19:50:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- EqupmentPrefTransferNo -->
-        <test-method status="PASS" signature="EqupmentPrefTransferYes()[pri:14, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="EqupmentPrefTransferYes" duration-ms="3642" started-at="2018-05-28T19:00:37Z" finished-at="2018-05-28T19:00:40Z">
+        <test-method status="PASS" signature="EqupmentPrefTransferYes()[pri:14, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="EqupmentPrefTransferYes" duration-ms="3731" started-at="2018-05-31T19:50:12Z" finished-at="2018-05-31T19:50:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- EqupmentPrefTransferYes -->
-        <test-method status="PASS" signature="NumericEmptyTest()[pri:15, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="NumericEmptyTest" duration-ms="3303" started-at="2018-05-28T19:00:40Z" finished-at="2018-05-28T19:00:44Z">
+        <test-method status="PASS" signature="NumericEmptyTest()[pri:15, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="NumericEmptyTest" duration-ms="3291" started-at="2018-05-31T19:50:16Z" finished-at="2018-05-31T19:50:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericEmptyTest -->
-        <test-method status="PASS" signature="NumericZEROTest()[pri:16, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="NumericZEROTest" duration-ms="3148" started-at="2018-05-28T19:00:44Z" finished-at="2018-05-28T19:00:47Z">
+        <test-method status="PASS" signature="NumericZEROTest()[pri:16, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="NumericZEROTest" duration-ms="3119" started-at="2018-05-31T19:50:19Z" finished-at="2018-05-31T19:50:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericZEROTest -->
-        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:17, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="NumericMaxLengthTest" duration-ms="3405" started-at="2018-05-28T19:00:47Z" finished-at="2018-05-28T19:00:50Z">
+        <test-method status="PASS" signature="NumericMaxLengthTest()[pri:17, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="NumericMaxLengthTest" duration-ms="3368" started-at="2018-05-31T19:50:22Z" finished-at="2018-05-31T19:50:26Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- NumericMaxLengthTest -->
-        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:18, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="numericFieldAlphabetsCheckTest" duration-ms="3345" started-at="2018-05-28T19:00:50Z" finished-at="2018-05-28T19:00:54Z">
+        <test-method status="PASS" signature="numericFieldAlphabetsCheckTest()[pri:18, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="numericFieldAlphabetsCheckTest" duration-ms="3284" started-at="2018-05-31T19:50:26Z" finished-at="2018-05-31T19:50:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericFieldAlphabetsCheckTest -->
-        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:19, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="numericSpaceCheckTest" duration-ms="3345" started-at="2018-05-28T19:00:54Z" finished-at="2018-05-28T19:00:57Z">
+        <test-method status="PASS" signature="numericSpaceCheckTest()[pri:19, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="numericSpaceCheckTest" duration-ms="3334" started-at="2018-05-31T19:50:29Z" finished-at="2018-05-31T19:50:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericSpaceCheckTest -->
-        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:20, instance:com.eDocs.Equipment.EquipmentPrefTransfr@2a693f59]" name="numericMultiDecimalTest" duration-ms="3416" started-at="2018-05-28T19:00:57Z" finished-at="2018-05-28T19:01:00Z">
+        <test-method status="PASS" signature="numericMultiDecimalTest()[pri:20, instance:com.eDocs.Equipment.EquipmentPrefTransfr@304bb45b]" name="numericMultiDecimalTest" duration-ms="3445" started-at="2018-05-31T19:50:32Z" finished-at="2018-05-31T19:50:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- numericMultiDecimalTest -->
       </class> <!-- com.eDocs.Equipment.EquipmentPrefTransfr -->
+      <class name="com.eDocs.Equipment.EquipmentCleaningProcessType">
+        <test-method status="PASS" signature="CleaningProcessTypeEmptyTest()[pri:27, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@25be7b63]" name="CleaningProcessTypeEmptyTest" duration-ms="3305" started-at="2018-05-31T19:50:56Z" finished-at="2018-05-31T19:50:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CleaningProcessTypeEmptyTest -->
+        <test-method status="PASS" signature="CleaningProcessTypeManual()[pri:28, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@25be7b63]" name="CleaningProcessTypeManual" duration-ms="346" started-at="2018-05-31T19:50:59Z" finished-at="2018-05-31T19:50:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CleaningProcessTypeManual -->
+        <test-method status="PASS" signature="CleaningProcessTypeAuto()[pri:29, instance:com.eDocs.Equipment.EquipmentCleaningProcessType@25be7b63]" name="CleaningProcessTypeAuto" duration-ms="5227" started-at="2018-05-31T19:50:59Z" finished-at="2018-05-31T19:51:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CleaningProcessTypeAuto -->
+      </class> <!-- com.eDocs.Equipment.EquipmentCleaningProcessType -->
+      <class name="com.eDocs.Equipment.EquipmentSamplingInfo">
+        <test-method status="FAIL" signature="SamplingLocationEmptyPinTest()[pri:38, instance:com.eDocs.Equipment.EquipmentSamplingInfo@52f27fbd]" name="SamplingLocationEmptyPinTest" duration-ms="1118" started-at="2018-05-31T19:51:33Z" finished-at="2018-05-31T19:51:34Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at org.openqa.selenium.support.ui.Select.setSelected(Select.java:324)
+	at org.openqa.selenium.support.ui.Select.selectByVisibleText(Select.java:120)
+	at com.eDocs.Equipment.EquipmentSamplingInfo.SamplingLocationEmptyPinTest(EquipmentSamplingInfo.java:35)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingLocationEmptyPinTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingLocationEmptyPinTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- SamplingLocationEmptyPinTest -->
+        <test-method status="FAIL" signature="SamplingInfoSamplingMethodEmptyTest()[pri:39, instance:com.eDocs.Equipment.EquipmentSamplingInfo@52f27fbd]" name="SamplingInfoSamplingMethodEmptyTest" duration-ms="1037" started-at="2018-05-31T19:51:34Z" finished-at="2018-05-31T19:51:35Z">
+          <exception class="org.openqa.selenium.ElementNotInteractableException">
+            <message>
+              <![CDATA[
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.ElementNotInteractableException: 
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T15:15:03.216Z'
+System info: host: 'EZS013', ip: '192.168.1.45', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_05'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 56.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 6584, moz:profile: C:\Users\Easy solutions\App..., pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, specificationLevel: 0, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
+Session ID: 32c061e0-cbd3-4a74-aee9-2bef27e1d3a7
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:543)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:276)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:83)
+	at com.eDocs.Equipment.EquipmentSamplingInfo.SamplingInfoSamplingMethodEmptyTest(EquipmentSamplingInfo.java:56)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:669)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:877)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1201)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:776)
+	at org.testng.TestRunner.run(TestRunner.java:634)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:425)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:420)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:385)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:334)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1318)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1243)
+	at org.testng.TestNG.runSuites(TestNG.java:1161)
+	at org.testng.TestNG.run(TestNG.java:1129)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.ElementNotInteractableException -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingInfoSamplingMethodEmptyTest.png'> <img width='100' height='100' src='file://C:\Users\Easy solutions\git\CV-Docs\eResidue_CV_eDocs\screenshots\LatestResults\EquipmentSamplingInfo\SamplingInfoSamplingMethodEmptyTest.png'> </a>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- SamplingInfoSamplingMethodEmptyTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentSamplingInfo -->
+      <class name="com.eDocs.Equipment.EquipmentRiskAssessment">
+        <test-method status="PASS" signature="RiskLocationEmptyTest()[pri:36, instance:com.eDocs.Equipment.EquipmentRiskAssessment@45d84a20]" name="RiskLocationEmptyTest" duration-ms="143" started-at="2018-05-31T19:51:32Z" finished-at="2018-05-31T19:51:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- RiskLocationEmptyTest -->
+        <test-method status="PASS" signature="RiskLocationMaxLengthTest()[pri:37, instance:com.eDocs.Equipment.EquipmentRiskAssessment@45d84a20]" name="RiskLocationMaxLengthTest" duration-ms="131" started-at="2018-05-31T19:51:33Z" finished-at="2018-05-31T19:51:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- RiskLocationMaxLengthTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentRiskAssessment -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>

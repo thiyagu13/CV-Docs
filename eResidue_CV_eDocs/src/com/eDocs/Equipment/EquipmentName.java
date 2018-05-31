@@ -1,20 +1,14 @@
 package com.eDocs.Equipment;
 
 import java.io.IOException;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.eDocs.CommonValidation.AlphaNumericValidation;
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.RepositoryParser;
-import com.eDocs.Utils.Utils;
-
 import jxl.write.WriteException;
 
 public class EquipmentName {
@@ -36,7 +30,7 @@ public class EquipmentName {
 		Thread.sleep(1000);
 		WebElement username = driver.findElement(By.id("username"));
 		WebElement password = driver.findElement(By.id("password"));
-		username.sendKeys("thiyagu1");
+		username.sendKeys("user5");
 		Thread.sleep(500);
 		password.sendKeys("123456");
 		Thread.sleep(500);
@@ -64,7 +58,8 @@ public class EquipmentName {
   		AlphaNumericValidation textField = new AlphaNumericValidation();
   		WebElement alphanumericField = driver.findElement(By.name("name"));
 		WebElement Submit = driver.findElement(By.id("saveEquipment"));
-  		textField.AlphaNumericEmpty(Submit,alphanumericField,6);
+		
+  		textField.AlphaNumericEmpty(Constant.EXCEL_PATH,Submit,6);
   	}
   	
   	@Test (priority=2)

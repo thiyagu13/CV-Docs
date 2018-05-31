@@ -25,7 +25,7 @@ public class Constant {
 	
 	public static WebDriver driver = WD.getWebDriver();
 
-	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/calculation";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs-testing";
 	
 	public static final String username = "thiyagu";
 	
@@ -43,7 +43,7 @@ public class Constant {
 	
 	public static final String PDFDownloadedPath = "D:\\WebDriverDownloads";	
 	
-	public static String tenant_id="20180416";
+	public static String tenant_id="20180530";
 	//public static String tenant_id="20180999";
 	
 	

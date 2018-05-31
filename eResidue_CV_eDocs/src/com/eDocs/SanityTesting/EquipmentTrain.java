@@ -45,7 +45,7 @@ public class EquipmentTrain {
 			static String trainLocationEDIT="BangChennai";
 			static String trainRationaleEDIT="Rationale Edit";
 			
-			
+		/*	
 			@BeforeClass
 			public void setUp() throws IOException  
 			{
@@ -68,7 +68,7 @@ public class EquipmentTrain {
 				Thread.sleep(500);
 				driver.get("http://192.168.1.111:8090/equipment-train");
 			}
-				
+				*/
 			
 			@Test(priority=19,invocationCount=2)
 			public void CreateEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
@@ -203,7 +203,8 @@ public class EquipmentTrain {
 				//Thread.sleep(1000);
 				
 				//add location
-				driver.findElement(By.cssSelector(".btn.orange-btn.waves-effect.mr-20")).click();
+				//driver.findElement(By.cssSelector(".btn.orange-btn.waves-effect.mr-20")).click();
+				driver.findElement(By.id("addPinName")).click();
 				Thread.sleep(500);
 				driver.findElement(parser.getbjectLocator("TrainLocationName")).sendKeys(trainLocationCREATE);
 				Thread.sleep(500);
@@ -262,7 +263,7 @@ public class EquipmentTrain {
 				Thread.sleep(5000);
 				String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 				System.out.println(createEquipmentTrain);
-				Assert.assertEquals(createEquipmentTrain,"Equipment train saved successfully");
+				Assert.assertEquals(createEquipmentTrain,"Equipment train added successfully");
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name

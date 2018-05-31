@@ -1,21 +1,13 @@
 package com.eDocs.Equipment;
 
 import java.io.IOException;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import com.eDocs.CommonValidation.AlphaNumericValidation;
 import com.eDocs.CommonValidation.NumericValidation;
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.RepositoryParser;
-import com.eDocs.Utils.Utils;
-
 import jxl.write.WriteException;
 
 public class EquipmentMinimumBatch {
