@@ -3,13 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.Equipment.EquipmentRiskAssessment">
+      <class name="evaluateCalculation.NewTest">
         <methods>
-          <include name="RiskLocationMaxLengthTest"/>
-          <include name="setUp"/>
-          <include name="RiskLocationEmptyTest"/>
+          <include name="f"/>
         </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentRiskAssessment -->
+      </class> <!-- evaluateCalculation.NewTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

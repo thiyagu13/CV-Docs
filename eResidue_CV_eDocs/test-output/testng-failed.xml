@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <listeners>
-    <listener class-name="com.eDocs.result.LocalScreenshot"/>
-    <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
-  </listeners>
-  <test name="Test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.Equipment.EquipmentSamplingInfo">
+      <class name="evaluateCalculation.NewTest">
         <methods>
-          <include name="SamplingInfoSamplingMethodEmptyTest"/>
-          <include name="SamplingLocationEmptyPinTest"/>
+          <include name="f"/>
         </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentSamplingInfo -->
-      <class name="com.eDocs.Equipment.EquipmentSegment">
-        <methods>
-          <include name="equipmentIFCustomFieldorSAVETest"/>
-          <include name="segmentNamePinEmptyOREquipSaveTest"/>
-          <include name="segmentNameMaxLengthTest"/>
-          <include name="segmentSurfaceAreaEmptyTest"/>
-          <include name="segmentSurfaceAreaZeroTest"/>
-          <include name="segmentSurfaceAreaInvalidCharTest"/>
-          <include name="segmentNameEmptyTest"/>
-          <include name="segmentSurfaceAreaSpaceTest"/>
-          <include name="segmentlocationTest"/>
-          <include name="segmentSurfaceAreaMultiDecimalTest"/>
-          <include name="segmentSurfaceAreaMaxLengthTest"/>
-        </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentSegment -->
+      </class> <!-- evaluateCalculation.NewTest -->
     </classes>
-  </test> <!-- Test(failed) -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

@@ -19,7 +19,7 @@ public class L0 {
 
 	static String tenant_id=Constant.tenant_id;
 	public static double L0forSOLID(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
-		float L0 = 0, Safety_Factor = 0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,min_daily_dose=0;
+		float L0 = 0, Safety_Factor = 0,DoseL0=0, Active_Concen = 0, Dose_of_active = 0, Product_Dose = 0, min_no_of_dose = 0,frequency = 0,min_daily_dose=0;
 		int Basislimitoption=0;
 		//database connection
 		Connection connection = Utils.db_connect();
@@ -57,84 +57,83 @@ public class L0 {
 					}
 				}
 					//get active id for getting health value
-					/*ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
-					List<Integer> active = new ArrayList<>(); // store multiple equipment id
-				    while (getactiveID.next()) 
-				    {
-				    	active.add(getactiveID.getInt(2)); // get health based value
-				    }*/
-					
 				    ResultSet residuelimit = stmt.executeQuery("SELECT * FROM residue_limit where tenant_id='"+tenant_id+"'");
 				    while (residuelimit.next()) 
 					{
 				    Basislimitoption = residuelimit.getInt(2);
 					}
 				    
+				 // get health based L0 from database
+				    float health=0;
+					Integer HealthTerm = 0;
+					float repiratoryVolume = 0;
+					float healthL0=0;
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+					while (Active.next()) 
+					{
+						health = Active.getFloat(1);
+						HealthTerm = Active.getInt(2);
+						repiratoryVolume = Active.getFloat(3);
+					}
+						System.out.println(health);
+						if(HealthTerm==4)
+						{
+							healthL0 = health *repiratoryVolume;
+						}
+						else
+						{
+							healthL0 = health;
+						}
+						
+						//Get Dose L0
+						if (Dose_of_active == 0) { // if dose of active is null
+							DoseL0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
+						} else { // if dose of active not null
+							DoseL0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
+						}
+						if(DoseL0==0)
+						{
+							DoseL0 = (float) (min_daily_dose *0.001);
+						}
+						
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
-									if (Dose_of_active == 0) { // if dose of active is null
-										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
-									} else { // if dose of active not null
-										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
-									}
-									System.out.println("LO"+L0);
-									if(L0==0)
-									{
-										L0 = (float) (min_daily_dose *0.001);
-									}
-									System.out.println("Min Daily Dose: "+L0);
-									// get health based L0 from database
-									ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
-									while (Active.next()) 
-									{
-										float health = Active.getFloat(1);
-										System.out.println(health);
-										if (health <= L0) // compare both dose and health
+										if(healthL0!=0 && DoseL0!=0)
 										{
-											L0 = health;
+											if (healthL0 <= DoseL0) // compare both dose and health
+											{
+												L0 = healthL0;
+											}
+											else
+											{
+												L0= DoseL0;
+											}
 										}
-									} // closing 1st while
+										if(healthL0==0 && DoseL0!=0)
+										{
+											L0= DoseL0;
+										}
+										if(healthL0!=0 && DoseL0==0)
+										{
+											L0= healthL0;
+										}
+										
 									System.out.println("Print lowest b/w health & dose L0: "+L0);
 									return L0; // getting lowest L0 b/w 2
-					} // for finding dose based and health flag
-					
+					} 
 					if (Basislimitoption == 1) {
 						System.out.println("Dose enabled and health disabled");
 							// get dose based information
-							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id ='" + BasisID + "' && active_ingredient_id="+activeID+"");
-							// While Loop to iterate through all data and print results
-							while (dosebaseddata.next())
-							{
-								Safety_Factor = dosebaseddata.getFloat(10);
-								Active_Concen = dosebaseddata.getFloat(6);
-								Dose_of_active = dosebaseddata.getFloat(7);
-								min_no_of_dose = dosebaseddata.getFloat(8);
-							}*/
-									if (Dose_of_active == 0) { // if dose of active is null
-										L0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
-									} else { // if dose of active not null
-										L0 = Safety_Factor * Dose_of_active * (min_no_of_dose / frequency);
-									}
-									if(L0==0)
-									{
-										L0 = (float) (min_daily_dose *0.001);
-									}
-									System.out.println("Min Daily Dose: "+L0);
+									L0 = DoseL0;
 								System.out.println("Print Dose based L0" +L0);
 								return L0; // getting lowest L0 b/w 2
-					} // closing 4th while - health based L0
+					}
 					
 					if (Basislimitoption== 2) 
 					{
-						System.out.println("Dose disabled and health enabled");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
-						while (Active.next()) 
-						{
-							float health = Active.getFloat(1);
-							L0 = health;
-						}
+						L0 = healthL0;
 						System.out.println("Print health L0: "+L0);
 						return L0;
 					}
@@ -178,7 +177,7 @@ public class L0 {
 		    		ResultSet getallActive = stmt.executeQuery("SELECT solubility_in_water FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
-		    			Solubilities.add((float) getallActive.getFloat(1)); // get health based value
+		    			Solubilities.add((float) getallActive.getFloat(1)); 
 		    			System.out.println("solubilityinWater" +Solubilities + "Active:"+activeID);
 		    		}
 		    	}
@@ -191,21 +190,28 @@ public class L0 {
 		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+"' && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
-		    	lowestsolubilityID =getActive.getInt(1); // get health based value
+		    	lowestsolubilityID =getActive.getInt(1); 
 		    	System.out.println("Lowest solubility active id: "+lowestsolubilityID);
 		    }
 		    } // end - get lowest solubility within api from product
 		    
-		    
 		  //get lowest ADE within api from product
-		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
+		    List<Float> ade = new ArrayList<>(); 
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+		    		Integer HealthTerm = 0;
+				    float repiratoryVolume = 0;
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
-		    			ade.add((float) getallActive.getFloat(1)); // get health based value
+		    			if(HealthTerm==4) {
+		    			ade.add((float) getallActive.getFloat(1) * repiratoryVolume); // get health based value
 		    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    			}
+		    			else {
+		    				ade.add((float) getallActive.getFloat(1)); // get health based value
+			    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    				}
 		    		}
 		    	}
 		    	float minade = Collections.min(ade); // get minimum value from awithin active
@@ -262,18 +268,6 @@ public class L0 {
 					if (Basislimitoption==1 || Basislimitoption==3) {
 							System.out.println("Dose enabled and health disabled");
 							// get dose based information
-							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id="+basisofcalID+" && active_ingredient_id ='" + lowestsolubilityID + "'");
-							//System.out.println("activelist.get(0)" +activelist.get(0));
-							System.out.println("lowestsolubilityID" +lowestsolubilityID);
-							// While Loop to iterate through all data and print results
-							while (dosebaseddata.next())
-							{
-								Safety_Factor = dosebaseddata.getFloat(10);
-								Active_Concen = dosebaseddata.getFloat(6);
-								Dose_of_active = dosebaseddata.getFloat(7);
-								min_no_of_dose = dosebaseddata.getFloat(8);
-							}*/
-							
 									if (Dose_of_active == 0) { // if dose of active is null
 										doseL0 = Safety_Factor * Active_Concen * Product_Dose* (min_no_of_dose / frequency);
 									} else { // if dose of active not null
@@ -290,18 +284,26 @@ public class L0 {
 					//Basis of limit option if health or lowest between two
 					if (Basislimitoption==2 || Basislimitoption==3) 
 					{
-						System.out.println("Dose disabled and health enabled");
-						System.out.println("lowestsolubilityID"+lowestsolubilityID);
-						System.out.println("lowestADEID"+lowestADEID);
+						 	Integer HealthTerm = 0;
+						    float repiratoryVolume = 0;
 						if(lowestADEID == lowestsolubilityID)
 						{
 							System.out.println(" same");
 							// get health based L0 from database
-							ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
+							ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
-								healthL0 = health;
+								HealthTerm = Active.getInt(2);
+								repiratoryVolume = Active.getFloat(3);
+								if(HealthTerm==4)
+								{
+									healthL0 = health *repiratoryVolume;
+								}
+								else
+								{
+									healthL0 = health;
+								}
 							}
 						}else
 						{
@@ -383,16 +385,9 @@ public class L0 {
 					Active_Concen = basisOfcalc.getFloat(2);
 					minDailyDoseperPatch = basisOfcalc.getFloat(3);
 					minNoOFPatchesWornatTime = basisOfcalc.getFloat(4);
-					min_daily_dose =  basisOfcalc.getFloat(4);
+					min_daily_dose =  basisOfcalc.getFloat(5);
 					}
 				}
-					/*//get active id for getting health value
-					ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
-					List<Integer> active = new ArrayList<>(); // store multiple equipment id
-				    while (getactiveID.next()) 
-				    {
-				    	active.add(getactiveID.getInt(2)); // get health based value
-				    }*/
 					
 				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
 				    while (residuelimit.next()) 
@@ -401,32 +396,55 @@ public class L0 {
 					}
 				    
 				    //find health value for each active
+				   float  DoseL0=0;
 				    float health = 0;
+				    float healthL0 = 0;
+				    Integer HealthTerm = 0;
+				    float repiratoryVolume = 0;
 				    //get health based L0 from database
-					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
-						L0 = health;
+						HealthTerm = Active.getInt(2);
+						repiratoryVolume = Active.getFloat(3);
+						if(HealthTerm==4)
+						{
+							healthL0 = health *repiratoryVolume;
+						}
+						else
+						{
+							healthL0 = health;
+						}
 					}
-					System.out.println("Health LO: "+health);
+					doseL0 = (float) (Safety_Factor * Active_Concen * (percentageAbsorbtion/100) * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+					if(doseL0==0)
+					{
+						doseL0 = (float) min_daily_dose * Safety_Factor * (percentageAbsorbtion/100);
+					}
+					
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
-									doseL0 = (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
-									if(doseL0==0)
+									if(healthL0!=0 && DoseL0!=0)
 									{
-										doseL0 = (float) (min_daily_dose * 0.001);
-									}
-									System.out.println("Min Daily Dose: "+doseL0);
-									
-										if (health <= doseL0) // compare both dose and health
+										if (healthL0 <= DoseL0) // compare both dose and health
 										{
-											L0 = health;
-										}else
-										{
-											L0=doseL0;
+											L0 = healthL0;
 										}
+										else
+										{
+											L0= DoseL0;
+										}
+									}
+									if(healthL0==0 && DoseL0!=0)
+									{
+										L0= DoseL0;
+									}
+									if(healthL0!=0 && DoseL0==0)
+									{
+										L0= healthL0;
+									}
 										
 									System.out.println("Print lowest b/w health & dose L0: "+L0);
 									return L0; // getting lowest L0 b/w 2
@@ -434,12 +452,10 @@ public class L0 {
 					
 					if (Basislimitoption == 1) 
 					{
-						System.out.println("Dose enabled and health disabled");
-							
-						L0 = (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+						L0 = (float) (Safety_Factor * Active_Concen * (percentageAbsorbtion/100) * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
 						if(L0==0)
 						{
-							L0 = (float) (min_daily_dose * 0.001);
+							L0 = (float) min_daily_dose * Safety_Factor * (percentageAbsorbtion/100);
 						}
 						System.out.println("Print Dose based L0: " +L0);
 						return L0; // getting does L0 
@@ -447,9 +463,8 @@ public class L0 {
 					
 					if (Basislimitoption== 2) 
 					{
-						System.out.println("Dose disabled and health enabled");
 						// get health based L0 from database
-							L0 = health;
+							L0 = healthL0;
 						System.out.println("Print health L0: "+L0);
 						return L0;
 					}
@@ -512,14 +527,22 @@ public class L0 {
 		    
 		    
 		  //get lowest ADE within api from product
+		    
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+		    		Integer HealthTerm = 0;
+				    float repiratoryVolume = 0;
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
-		    			ade.add((float) getallActive.getFloat(1)); // get health based value
-		    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    			if(HealthTerm==4)
+		    			{
+		    				ade.add((float) getallActive.getFloat(1) * repiratoryVolume); // get health based value
+		    			}else
+		    			{
+		    				ade.add((float) getallActive.getFloat(1)); // get health based value
+		    			}
 		    		}
 		    	}
 		    	float minade = Collections.min(ade); // get minimum value from awithin active
@@ -570,12 +593,9 @@ public class L0 {
 				{
 			    Basislimitoption = residuelimit.getInt(1);
 				}
-			    System.out.println("Basislimitoption"+Basislimitoption);
-			    
 			    //Basis of limit option if dose or lowest between two
 					if (Basislimitoption==1 || Basislimitoption==3) 
 					{
-							System.out.println("Dose enabled and health disabled");
 							// get dose based information
 							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id="+basisofcalID+" && active_ingredient_id ='" + lowestsolubilityID + "'");
 							//System.out.println("activelist.get(0)" +activelist.get(0));
@@ -589,30 +609,37 @@ public class L0 {
 								min_no_of_dose = dosebaseddata.getFloat(8);
 							}*/
 							
-							doseL0 =  (float) (Safety_Factor * Active_Concen * percentageAbsorbtion * minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
+							doseL0 =  (float) (Safety_Factor * Active_Concen * (percentageAbsorbtion /100)* minDailyDoseperPatch * minNoOFPatchesWornatTime * 0.001);
 							System.out.println("Print Dose based L0" +doseL0);
 							if(doseL0==0)
 							{
-								doseL0 = (float) (min_daily_dose * 0.001);
+								doseL0 = (float) min_daily_dose * Safety_Factor * (percentageAbsorbtion /100);
 							}
-							System.out.println("Min Daily Dose: "+doseL0);
 					} // closing for loop
 					
 					//Basis of limit option if health or lowest between two
 					if (Basislimitoption==2 || Basislimitoption==3) 
 					{
-						System.out.println("Dose disabled and health enabled");
-						System.out.println("lowestsolubilityID"+lowestsolubilityID);
-						System.out.println("lowestADEID: "+lowestADEID);
 						if(lowestADEID == lowestsolubilityID)
 						{
 							System.out.println(" same");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
+							  Integer HealthTerm = 0;
+							  float repiratoryVolume = 0;
+							ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
-								healthL0 = health;
+								HealthTerm = Active.getInt(2);
+								repiratoryVolume = Active.getFloat(3);
+								if(HealthTerm==4)
+								{
+									healthL0 = health *repiratoryVolume;
+								}
+								else
+								{
+									healthL0 = health;
+								}
 							}
 						}else
 						{
@@ -700,13 +727,6 @@ public class L0 {
 					min_daily_dose = basisOfcalc.getFloat(6);
 					}
 				}
-					/*//get active id for getting health value
-					ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
-					List<Integer> active = new ArrayList<>(); // store multiple equipment id
-				    while (getactiveID.next()) 
-				    {
-				    	active.add(getactiveID.getInt(2)); // get health based value
-				    }*/
 					
 				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
 				    while (residuelimit.next()) 
@@ -716,32 +736,57 @@ public class L0 {
 				    
 				    //find health value for each active
 				    float health = 0;
+				    float healthL0=0,DoseL0=0;
+				    Integer HealthTerm = 0;
+					float repiratoryVolume = 0;
 				    //get health based L0 from database
 					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
-						L0 = health;
+						HealthTerm = Active.getInt(2);
+						repiratoryVolume = Active.getFloat(3);
+						
+						if(HealthTerm==4)
+						{
+							healthL0 = health *repiratoryVolume;
+						}
+						else
+						{
+							healthL0 = health;
+						}
 					}
-					System.out.println("Dose LO: "+doseL0);
-					System.out.println("Health LO: "+health);
+					
+					doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
+					if(doseL0==0)
+					{
+						doseL0 = (float) (min_daily_dose * 0.001);
+					}
+					
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
-									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
-									if(doseL0==0)
-									{
-										doseL0 = (float) (min_daily_dose * 0.001);
-									}
-									System.out.println("Min Daily Dose: "+doseL0);
 									
-										if (health <= doseL0) // compare both dose and health
+									System.out.println("Min Daily Dose: "+doseL0);
+									if(healthL0!=0 && DoseL0!=0)
+									{
+										if (healthL0 <= DoseL0) // compare both dose and health
 										{
-											L0 = health;
-										}else
-										{
-											L0=doseL0;
+											L0 = healthL0;
 										}
+										else
+										{
+											L0= DoseL0;
+										}
+									}
+									if(healthL0==0 && DoseL0!=0)
+									{
+										L0= DoseL0;
+									}
+									if(healthL0!=0 && DoseL0==0)
+									{
+										L0= healthL0;
+									}
 										
 									System.out.println("Print lowest b/w health & dose L0: "+L0);
 									return L0; // getting lowest L0 b/w 2
@@ -749,14 +794,7 @@ public class L0 {
 					
 					if (Basislimitoption == 1) 
 					{
-						System.out.println("Dose enabled and health disabled");
-							
-						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
-						if(L0==0)
-						{
-							L0 = (float) (min_daily_dose * 0.001);
-						}
-						System.out.println("Min Daily Dose: "+L0);
+							L0 = doseL0;
 						System.out.println("Print Dose based L0: " +L0);
 						return L0; // getting does L0 
 					} 
@@ -765,7 +803,7 @@ public class L0 {
 					{
 						System.out.println("Dose disabled and health enabled");
 						// get health based L0 from database
-							L0 = health;
+							L0 = healthL0;
 						System.out.println("Print health L0: "+L0);
 						return L0;
 					}
@@ -809,13 +847,6 @@ public class L0 {
 					min_daily_dose = basisOfcalc.getFloat(5);
 					}
 				}
-					/*//get active id for getting health value
-					ResultSet getactiveID = stmt.executeQuery("SELECT * FROM product_active_ingredient_relation where product_id='" + prodname_id + "'");
-					List<Integer> active = new ArrayList<>(); // store multiple equipment id
-				    while (getactiveID.next()) 
-				    {
-				    	active.add(getactiveID.getInt(2)); // get health based value
-				    }*/
 					
 				    ResultSet residuelimit = stmt.executeQuery("SELECT l0_option FROM residue_limit where tenant_id='"+tenant_id+"'");
 				    while (residuelimit.next()) 
@@ -825,57 +856,70 @@ public class L0 {
 				    
 				    //find health value for each active
 				    float health = 0;
+				    float healthL0 = 0,DoseL0=0;
+				    Integer HealthTerm = 0;
+				    float repiratoryVolume = 0;
 				    //get health based L0 from database
-					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
-						L0 = health;
+						HealthTerm = Active.getInt(2);
+						repiratoryVolume = Active.getFloat(3);
+						if(HealthTerm==4)
+						{
+							healthL0 = health *repiratoryVolume;
+						}
+						else
+						{
+							healthL0 = health;
+						}
 					}
-					
-					System.out.println("Health LO: "+health);
+					doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency *0.001);
+					if(doseL0==0)
+					{
+						doseL0 = (float) (min_daily_dose *Safety_Factor);
+					}
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
-									System.out.println("Both enabled");
-									doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency *0.001);
-									System.out.println("Dose LO: "+doseL0);
-									if(doseL0==0)
+									if(healthL0!=0 && DoseL0!=0)
 									{
-										doseL0 = (float) (min_daily_dose *Safety_Factor);
-									}
-									System.out.println("Min Daily Dose: "+doseL0);
-									
-										if (health <= doseL0) // compare both dose and health
+										if (healthL0 <= DoseL0) // compare both dose and health
 										{
-											L0 = health;
-										}else
-										{
-											L0=doseL0;
+											L0 = healthL0;
 										}
-										
+										else
+										{
+											L0= DoseL0;
+										}
+									}
+									if(healthL0==0 && DoseL0!=0)
+									{
+										L0= DoseL0;
+									}
+									if(healthL0!=0 && DoseL0==0)
+									{
+										L0= healthL0;
+									}
 									System.out.println("Print lowest b/w health & dose L0: "+L0);
 									return L0; // getting lowest L0 b/w 2
 					} // for finding dose based and health flag
 					
 					if (Basislimitoption == 1) 
 					{
-						System.out.println("Dose enabled and health disabled");
-							
 						L0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * 0.001);
 						if(L0==0)
 						{
 							L0 = (float) (min_daily_dose * Safety_Factor);
 						}
-						System.out.println("Min Daily Dose: "+L0);
 						System.out.println("Print Dose based L0: " +L0);
 						return L0; // getting does L0 
 					} 
 					
 					if (Basislimitoption== 2) 
 					{
-						System.out.println("Dose disabled and health enabled");
 						// get health based L0 from database
-							L0 = health;
+							L0 = healthL0;
 						System.out.println("Print health L0: "+L0);
 						return L0;
 					}
@@ -942,13 +986,20 @@ public class L0 {
 		    
 		  //get lowest ADE within api from product
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
+		    Integer HealthTerm = 0;
+		    float repiratoryVolume = 0;
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
-		    			ade.add((float) getallActive.getFloat(1)); // get health based value
-		    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    			if(HealthTerm==4)
+		    			{
+		    				ade.add((float) getallActive.getFloat(1) * repiratoryVolume); // get health based value
+		    			}else
+		    			{
+		    				ade.add((float) getallActive.getFloat(1)); // get health based value
+		    			}
 		    		}
 		    	}
 		    	float minade = Collections.min(ade); // get minimum value from awithin active
@@ -1007,17 +1058,6 @@ public class L0 {
 					{
 							System.out.println("Dose enabled and health disabled");
 							// get dose based information
-							/*ResultSet dosebaseddata = stmt.executeQuery("SELECT * FROM product_basis_of_calculation where id="+basisofcalID+" && active_ingredient_id ='" + lowestsolubilityID + "'");
-							//System.out.println("activelist.get(0)" +activelist.get(0));
-							System.out.println("lowestsolubilityID" +lowestsolubilityID);
-							// While Loop to iterate through all data and print results
-							while (dosebaseddata.next())
-							{
-								Safety_Factor = dosebaseddata.getFloat(10);
-								Active_Concen = dosebaseddata.getFloat(6);
-								Dose_of_active = dosebaseddata.getFloat(7);
-								min_no_of_dose = dosebaseddata.getFloat(8);
-							}*/
 							doseL0 = (float) (Safety_Factor * Active_Concen * minAmountApplied * minApplnFrequency * minBodySF * 0.001);
 							System.out.println("Print Dose based L0" +doseL0);
 							if(doseL0==0)
@@ -1038,11 +1078,23 @@ public class L0 {
 						{
 							System.out.println(" same");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
+							
+							ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
+								 Integer HealthTerm1 = 0;
+								 float repiratoryVolume1 = 0;
 								float health = Active.getFloat(1);
-								healthL0 = health;
+								HealthTerm1 = Active.getInt(2);
+								repiratoryVolume1 = Active.getFloat(3);
+								if(HealthTerm1==4)
+								{
+									healthL0 = health *repiratoryVolume1;
+								}
+								else
+								{
+									healthL0 = health;
+								}
 							}
 						}else
 						{
@@ -1165,11 +1217,18 @@ public class L0 {
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
-		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+		    		Integer HealthTerm = 0;
+				    float repiratoryVolume = 0;
+		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
-		    			ade.add((float) getallActive.getFloat(1)); // get health based value
-		    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    			if(HealthTerm==4)
+		    			{	
+		    				ade.add((float) getallActive.getFloat(1)*repiratoryVolume); // get health based value
+		    			}else
+		    			{
+		    				ade.add((float) getallActive.getFloat(1)); // get health based value
+		    			}
 		    		}
 		    	}
 		    	float minade = Collections.min(ade); // get minimum value from awithin active
@@ -1258,11 +1317,22 @@ public class L0 {
 						{
 							System.out.println(" same");
 							// get health based L0 from database
-							ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
+							 Integer HealthTerm = 0;
+							    float repiratoryVolume = 0;
+							ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
-								healthL0 = health;
+								HealthTerm = Active.getInt(2);
+								repiratoryVolume = Active.getFloat(3);
+								if(HealthTerm==4)
+								{
+									healthL0 = health *repiratoryVolume;
+								}
+								else
+								{
+									healthL0 = health;
+								}
 							}
 						}else
 						{
@@ -1384,11 +1454,18 @@ public class L0 {
 		    List<Float> ade = new ArrayList<>(); // store multiple equipment id
 		    	for(int activeID:active)
 		    	{
+		    		Integer HealthTerm = 0;
+				    float repiratoryVolume = 0;
 		    		ResultSet getallActive = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 		    		while(getallActive.next())
 		    		{
-		    			ade.add((float) getallActive.getFloat(1)); // get health based value
-		    			System.out.println("ADE" +ade + "Active:"+activeID);
+		    			if(HealthTerm==4)
+		    			{	
+		    				ade.add((float) getallActive.getFloat(1)*repiratoryVolume); // get health based value
+		    			}else
+		    			{
+		    				ade.add((float) getallActive.getFloat(1)); // get health based value
+		    			}
 		    		}
 		    	}
 		    	float minade = Collections.min(ade); // get minimum value from awithin active
@@ -1468,11 +1545,22 @@ public class L0 {
 						{
 							System.out.println(" same");
 						// get health based L0 from database
-						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
+							Integer HealthTerm = 0;
+						    float repiratoryVolume = 0;
+						ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+lowestsolubilityID+ "' && tenant_id='"+tenant_id+"'");
 							while (Active.next()) 
 							{
 								float health = Active.getFloat(1);
-								healthL0 = health;
+								HealthTerm = Active.getInt(2);
+								repiratoryVolume = Active.getFloat(3);
+								if(HealthTerm==4)
+								{
+									healthL0 = health *repiratoryVolume;
+								}
+								else
+								{
+									healthL0 = health;
+								}
 							}
 						}else
 						{
@@ -1552,12 +1640,6 @@ public class L0 {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	public static double L0forCleaningAgent(String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
 		float L0 = 0, doseL0=0,LD50= 0, ConversionFactor = 0, BodyWeight = 0, HealthL0 = 0;
 		int Basislimitoption=0;
@@ -1600,14 +1682,26 @@ public class L0 {
 					if (Basislimitoption== 3) 
 					{
 										doseL0 = LD50 * ConversionFactor * BodyWeight;
-										if(doseL0>HealthL0)
+										if(HealthL0!=0 && doseL0!=0)
 										{
-											L0 = HealthL0;
+											if (HealthL0 <= doseL0) // compare both dose and health
+											{
+												L0 = HealthL0;
+											}
+											else
+											{
+												L0= doseL0;
+											}
 										}
-										else
+										if(HealthL0==0 && doseL0!=0)
 										{
-											L0 = doseL0;
+											L0= doseL0;
 										}
+										if(HealthL0!=0 && doseL0==0)
+										{
+											L0= HealthL0;
+										}
+										
 									return L0; // getting lowest L0 b/w 2
 					}
 					

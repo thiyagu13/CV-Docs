@@ -7,16 +7,9 @@
   </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.Equipment.EquipmentSamplingInfo">
-        <methods>
-          <include name="SamplingInfoSamplingMethodEmptyTest"/>
-          <include name="SamplingLocationEmptyPinTest"/>
-        </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentSamplingInfo -->
       <class name="com.eDocs.Equipment.EquipmentSegment">
         <methods>
           <include name="equipmentIFCustomFieldorSAVETest"/>
-          <include name="segmentNamePinEmptyOREquipSaveTest"/>
           <include name="segmentNameMaxLengthTest"/>
           <include name="segmentSurfaceAreaEmptyTest"/>
           <include name="segmentSurfaceAreaZeroTest"/>

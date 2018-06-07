@@ -173,8 +173,8 @@ public class MicrobialCalculation {
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);*/
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("L1");
-		selectedproducts.add("L2");
+		selectedproducts.add("T1");
+		selectedproducts.add("T2");
 		//selectedproducts.add("S3");
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
@@ -191,12 +191,8 @@ public class MicrobialCalculation {
 	
 	
 		static float L3SurfaceLimit,L3SurfacelimitContactORSwab,L3Rinse,EndoToxinResult;
-		//@Parameters({"productName1","productName2","productName3","productName4"})
-		//public static float microbialcalculation(String productName1,String productName2,String productName3,String productName4) throws SQLException, ClassNotFoundException, IOException
-		
 		public static void microbialcalculation(List<String> currentproduct,List<String> nextproduct) throws SQLException, ClassNotFoundException, IOException
 		{
-			//XSSFWorkbook workbook;
 			XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
 			XSSFSheet sheet = workbook.getSheet("microbial_calculation_result");
 			//database connection
@@ -233,26 +229,7 @@ public class MicrobialCalculation {
 					
 					endotoxinDefaultvalueOption = microbialoption.getInt(15);
 					endotoxinDefaultvalue = microbialoption.getFloat(16); //rinse default value 2
-					/*microLimitOption = microbialoption.getInt(2);
-					bioburderLimit = microbialoption.getInt(8);
-					bioburdenContribution = microbialoption.getInt(6);
-					factorMicroEnumeraion = microbialoption.getInt(7);
-					ContactPlateORSwab = microbialoption.getFloat(4);
-					surfacelimitoption = microbialoption.getInt(9);
-					surfaceDefaultvalue1 = microbialoption.getFloat(10);
-					surfaceDefaultvalueOther = microbialoption.getFloat(11);
-					surfaceBothDefaultvalueOther = microbialoption.getFloat(13);
-					
-					rinseoption = microbialoption.getInt(14);
-					rinsedefaultOption = microbialoption.getInt(15);
-					rinsedefaultvalueOther = microbialoption.getFloat(16); ////rinse other default value
-					
-					rinsebothdefaultvalueOption = microbialoption.getInt(17); //rinse both option (1 or 2 other)
-					rinsebothdefaultvalueOther = microbialoption.getFloat(18);
-					
-					endotoxinDefaultvalueOption = microbialoption.getInt(20);
-					endotoxinDefaultvalue = microbialoption.getFloat(21); //rinse default value 2
-*/				}
+				}
 			
 		  		List<String>  currentproductlist = new ArrayList<>();
 		  		currentproductlist.addAll(currentproduct);
@@ -283,7 +260,6 @@ public class MicrobialCalculation {
 		  			for(String nextproductname:nextproductlist)
 		  			{
 		  				
-		  		
 		  		//if only Surface Limit Selected Selected
 		  				System.out.println("-->"+microLimitOption);
 		  		if(microLimitOption==1 || microLimitOption==3) //bioburden(1) or endotoxin(2) or both(3)
@@ -310,7 +286,7 @@ public class MicrobialCalculation {
 		  					}
 		  				}
 		  				if(surfacelimitoption==3) //Surface- Both default & no default (3) 
-	  				{
+		  				{
 		  					if(surfaceBothDefaultvalueOther==0) // surface both - if other value not set
 		  					{
 		  						if(BioburdensurfaceLimit(currentproductname,nextproductname)<1)  // surface both - if other value not set
@@ -320,7 +296,8 @@ public class MicrobialCalculation {
 		  						}else
 		  						{
 		  							L3SurfaceLimit = 1;
-	  							L3SurfacelimitContactORSwab = L3SurfaceLimit * ContactPlateORSwab;
+		  							L3SurfacelimitContactORSwab = L3SurfaceLimit * ContactPlateORSwab;
+		  							System.out.println("============>"+L3SurfaceLimit);
 		  						}
 		  				
 		  					}if(surfaceBothDefaultvalueOther!=0) // surface both - if other value not set
@@ -335,7 +312,7 @@ public class MicrobialCalculation {
   							L3SurfacelimitContactORSwab = L3SurfaceLimit * ContactPlateORSwab;
 	  						}
 		  					}
-	  				}
+		  				}
 		  				
 		  			}
 		  		}
@@ -347,7 +324,7 @@ public class MicrobialCalculation {
 		  			{
 		  				if(rinseoption==1) //Rinse-no default(1) 
 		  				{
-		  					L3Rinse= rinseLimit(currentproductname,nextproductname);
+		  					L3Rinse= rinseLimit(currentproductname,nextproductname, L3SurfaceLimit);
 		  				}
 		  				
 		  				if(rinseoption==2) //Rinse - default(2) 
@@ -366,33 +343,33 @@ public class MicrobialCalculation {
 		  					}	
 		  				}
 		  				
-		  				if(rinseoption==3) //Rinse - Compare default & no default(3) 
+		  			if(rinseoption==3) //Rinse - Compare default & no default(3) 
 	  				{
 		  					if(rinsebothdefaultvalueOption==1) //compare default 1 value with calculated value
 		  					{
-		  						if(rinseLimit(currentproductname,nextproductname)<1)
+		  						if(rinseLimit(currentproductname,nextproductname,L3SurfaceLimit)<0.1)
 		  						{
-		  							L3Rinse = rinseLimit(currentproductname,nextproductname);
+		  							L3Rinse = rinseLimit(currentproductname,nextproductname,L3SurfaceLimit);
 		  						}else
 		  						{
-		  							L3Rinse = 1;
+		  							L3Rinse = (float)0.1;
 		  						}
 		  					}
 		  					if(rinsebothdefaultvalueOption==2) //compare default 100 value with calculated value
-	  					{
-	  						if(rinseLimit(currentproductname,nextproductname)<100)
-	  						{
-	  							L3Rinse = rinseLimit(currentproductname,nextproductname);
-	  						}else
-	  						{
-	  							L3Rinse = 100;
-	  						}
-	  					}
+		  					{
+		  						if(rinseLimit(currentproductname,nextproductname,L3SurfaceLimit)<100)
+		  						{
+		  							L3Rinse = rinseLimit(currentproductname,nextproductname,L3SurfaceLimit);
+		  						}else
+		  						{
+		  							L3Rinse = 100;
+		  						}
+		  					}
 		  					if(rinsebothdefaultvalueOption==3) //compare default other value with calculated value
 		  					{
-		  						if(rinseLimit(currentproductname,nextproductname)<rinsebothdefaultvalueOther)
+		  						if(rinseLimit(currentproductname,nextproductname,L3SurfaceLimit)<rinsebothdefaultvalueOther)
 		  						{
-		  							L3Rinse = rinseLimit(currentproductname,nextproductname);
+		  							L3Rinse = rinseLimit(currentproductname,nextproductname,L3SurfaceLimit);
 		  						}else
 		  						{
 		  							L3Rinse = rinsebothdefaultvalueOther;
@@ -400,8 +377,8 @@ public class MicrobialCalculation {
 		  					}
 		  					
 	  				}
-		  			}
 		  		}
+		  	}
 		  		
 		  		
 		  		//if endotoxin result
@@ -424,9 +401,6 @@ public class MicrobialCalculation {
 	  		System.out.println("L3Rinse: "+L3Rinse);
 	  		System.out.println("EndoToxinResult: "+EndoToxinResult);
 	  		
-	  		
-	  		/*Cell currentprodname = sheet.getRow(row).getCell(printCurrentpname);
-	  		currentprodname.setCellValue(currentproductname); */
 	  		
 	  		Cell nextprodname = sheet.getRow(row).getCell(printNextpname); 
 	  		nextprodname.setCellValue(nextproductname); 
@@ -773,7 +747,7 @@ public class MicrobialCalculation {
   
   
   	//To get L3surfacelimit - Contact plate or swab
-  		public static float rinseLimit(String currentproductname, String nextproductname)   throws ClassNotFoundException, SQLException
+  		public static float rinseLimit(String currentproductname, String nextproductname,float L3SurfaceLimit)   throws ClassNotFoundException, SQLException
   		{
   			float L3RinseBioburden;
   			Connection connection = Utils.db_connect();
@@ -791,15 +765,17 @@ public class MicrobialCalculation {
  				{	
  					minBatchofNextprod = Product.getFloat(1);
  				}
- 				if(BioburdensurfaceLimit(currentproductname,nextproductname)==0)
- 				{
- 					L3RinseBioburden  = (BioburdensurfaceLimit( currentproductname,nextproductname) * SurfaceAreaValue.sameProductSF(nextproductname)) / (rinsevolumeofcurrentproduct * 1000);
- 				}else
- 				{
- 					L3RinseBioburden  = (adjustedBSP(currentproductname) * minBatchofNextprod * 1000)/ (rinsevolumeofcurrentproduct * 1000);
- 				}
+ 				
+ 				if(L3SurfaceLimit!=0)
+ 					{
+ 					L3RinseBioburden  = (L3SurfaceLimit * SurfaceAreaValue.sameProductSF(nextproductname)) / (rinsevolumeofcurrentproduct * 1000);
+ 					}else
+ 					{
+ 						L3RinseBioburden  = (adjustedBSP(currentproductname) * minBatchofNextprod * 1000)/ (rinsevolumeofcurrentproduct * 1000);
+ 					}
  				connection.close();
 				return L3RinseBioburden;
+				
   		}
   		
   		
