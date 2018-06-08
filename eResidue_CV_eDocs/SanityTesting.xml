@@ -10,11 +10,32 @@
   <test name="Test">
     <classes>
     	<!--  <class name="com.eDocs.SanityTesting.UniversalSettings"/>  -->
-         <class name="com.eDocs.SanityTesting.Equipment"/>  
+      <!--    <class name="com.eDocs.SanityTesting.Equipment"/>  
          <class name="com.eDocs.SanityTesting.EquipmentGroup"/> 
-         <class name="com.eDocs.SanityTesting.EquipmentTrain"/>    
-       <!--  <class name="com.eDocs.SanityTesting.API"/> 
-        <class name="com.eDocs.SanityTesting.Product"/>   -->
+         <class name="com.eDocs.SanityTesting.EquipmentTrain"/>     -->
+       <class name="com.eDocs.SanityTesting.API"/> 
+        <class name="com.eDocs.SanityTesting.Product">  
+       		 <methods>
+       		 <include name="Login" />		<!--  Login for test purpose -->
+       		 <include name="CreateProductSOLID" />
+       		 <exclude name="EditProductSOLID" />
+       		 <include name="CreateProductLIQUID" />
+       		 <exclude name="EditProductLIQUID" />
+       		 <include name="CreateProductINHALANT" />
+       		 <exclude name="EditProductINHALANT" />
+       		 <include name="CreateProductPATCH" />
+       		 <exclude name="EditProductPATCH" />
+       		 <include name="CreateProductTopical" />
+       		 <exclude name="EditProductTOPICAL" />
+       		 <include name="CreateProductDILUENT" />
+       		 <exclude name="EditProductDILUENT" />
+       		 <include name="CreateProductCLENAINGAGENT" />
+       		 <exclude name="EditProductCLEANINGAGENT" />
+       		 <include name="SingleDeleteProduct" />
+       		 <include name="MultiDeleteProduct" />
+       		 
+      		</methods> 
+      	</class>
     <!--     <class name="com.eDocs.SanityTesting.Usergroup"/>
             <class name="com.eDocs.SanityTesting.User"/>
                     <class name="com.eDocs.SanityTesting.ReviewPolicy"/> -->

@@ -110,11 +110,11 @@ public class L0 {
 												L0= DoseL0;
 											}
 										}
-										if(healthL0==0 && DoseL0!=0)
+										if(healthL0==0)
 										{
 											L0= DoseL0;
 										}
-										if(healthL0!=0 && DoseL0==0)
+										if(DoseL0==0)
 										{
 											L0= healthL0;
 										}
@@ -396,7 +396,7 @@ public class L0 {
 					}
 				    
 				    //find health value for each active
-				   float  DoseL0=0;
+				  // float  DoseL0=0;
 				    float health = 0;
 				    float healthL0 = 0;
 				    Integer HealthTerm = 0;
@@ -426,24 +426,33 @@ public class L0 {
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
-									if(healthL0!=0 && DoseL0!=0)
+									if(healthL0==0)
 									{
-										if (healthL0 <= DoseL0) // compare both dose and health
+										System.out.println("Dose 0");
+										L0= doseL0;
+									}
+									System.out.println("doseL0: "+doseL0);
+									if(doseL0==0)
+									{
+										System.out.println("Health L0");
+										L0= healthL0;
+									}
+									System.out.println("Print lowest b/w health & dose L0: "+L0);
+									System.out.println("doseL0: "+doseL0);
+									System.out.println("healthL0: "+healthL0);
+									if(healthL0!=0 && doseL0!=0)
+									{
+										System.out.println("Loop");
+										if (healthL0 <= doseL0) // compare both dose and health
 										{
+											System.out.println("heath");
 											L0 = healthL0;
 										}
 										else
 										{
-											L0= DoseL0;
+											System.out.println("dose");
+											L0= doseL0;
 										}
-									}
-									if(healthL0==0 && DoseL0!=0)
-									{
-										L0= DoseL0;
-									}
-									if(healthL0!=0 && DoseL0==0)
-									{
-										L0= healthL0;
 									}
 										
 									System.out.println("Print lowest b/w health & dose L0: "+L0);
@@ -736,11 +745,11 @@ public class L0 {
 				    
 				    //find health value for each active
 				    float health = 0;
-				    float healthL0=0,DoseL0=0;
+				    float healthL0=0;
 				    Integer HealthTerm = 0;
 					float repiratoryVolume = 0;
 				    //get health based L0 from database
-					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
+					ResultSet Active = stmt.executeQuery("SELECT lowest_route_of_admin_value,health_based_term_id,respiratory_volume FROM product_active_ingredient where id = '"+activeID+ "' && tenant_id='"+tenant_id+"'");
 					while (Active.next()) 
 					{
 						health = Active.getFloat(1);
@@ -767,25 +776,30 @@ public class L0 {
 					if (Basislimitoption== 3) {
 									System.out.println("Both enabled");
 									
-									System.out.println("Min Daily Dose: "+doseL0);
-									if(healthL0!=0 && DoseL0!=0)
+									if(healthL0==0)
 									{
-										if (healthL0 <= DoseL0) // compare both dose and health
+										System.out.println("health 0");
+										L0= doseL0;
+									}
+									if(doseL0==0)
+									{
+										System.out.println("Dose 0");
+										L0= healthL0;
+									}
+									
+									if(healthL0!=0 && doseL0!=0)
+									{
+										System.out.println("Both Compare");
+										if (healthL0 <= doseL0) // compare both dose and health
 										{
+											System.out.println("health Lowest");
 											L0 = healthL0;
 										}
 										else
 										{
-											L0= DoseL0;
+											System.out.println("Dose Lowest");
+											L0= doseL0;
 										}
-									}
-									if(healthL0==0 && DoseL0!=0)
-									{
-										L0= DoseL0;
-									}
-									if(healthL0!=0 && DoseL0==0)
-									{
-										L0= healthL0;
 									}
 										
 									System.out.println("Print lowest b/w health & dose L0: "+L0);
@@ -856,7 +870,7 @@ public class L0 {
 				    
 				    //find health value for each active
 				    float health = 0;
-				    float healthL0 = 0,DoseL0=0;
+				    float healthL0 = 0;
 				    Integer HealthTerm = 0;
 				    float repiratoryVolume = 0;
 				    //get health based L0 from database
@@ -882,22 +896,22 @@ public class L0 {
 					}
 				    // When dose and health flag is true in basis of calculation table
 					if (Basislimitoption== 3) {
-									if(healthL0!=0 && DoseL0!=0)
+									if(healthL0!=0 && doseL0!=0)
 									{
-										if (healthL0 <= DoseL0) // compare both dose and health
+										if (healthL0 <= doseL0) // compare both dose and health
 										{
 											L0 = healthL0;
 										}
 										else
 										{
-											L0= DoseL0;
+											L0= doseL0;
 										}
 									}
-									if(healthL0==0 && DoseL0!=0)
+									if(healthL0==0)
 									{
-										L0= DoseL0;
+										L0= doseL0;
 									}
-									if(healthL0!=0 && DoseL0==0)
+									if(doseL0==0)
 									{
 										L0= healthL0;
 									}
@@ -1693,11 +1707,11 @@ public class L0 {
 												L0= doseL0;
 											}
 										}
-										if(HealthL0==0 && doseL0!=0)
+										if(HealthL0==0)
 										{
 											L0= doseL0;
 										}
-										if(HealthL0!=0 && doseL0==0)
+										if(HealthL0!=0)
 										{
 											L0= HealthL0;
 										}

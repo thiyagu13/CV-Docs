@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="evaluateCalculation.NewTest">
+      <class name="com.eDocs.residueCalculation.ResidueCalculationwithCampaign">
         <methods>
-          <include name="f"/>
+          <include name="test"/>
         </methods>
-      </class> <!-- evaluateCalculation.NewTest -->
+      </class> <!-- com.eDocs.residueCalculation.ResidueCalculationwithCampaign -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

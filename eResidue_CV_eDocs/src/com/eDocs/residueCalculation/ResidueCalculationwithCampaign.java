@@ -267,8 +267,8 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("L3 min batch L");
-		selectedproducts.add("L4 min batch L");
+		selectedproducts.add("T1");
+		selectedproducts.add("T2");
 		//selectedproducts.add("S2");
 		//selectedproducts.add("S2");
 		//selectedproducts.add("S4");
@@ -511,8 +511,9 @@ public class ResidueCalculationwithCampaign {
 								}
 								// if product is Transdermal Patch
 								if (productType.equals("Patch")) {
-									System.out.println("activeID--->" + activeID);
+									
 									value_L1 = (L0.L0forPatch(activeID, CurrenProductName) * 1000) / (maxDD *(percentage_absorption/100)) ;
+									
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 									Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID, CurrenProductName));
 								}
@@ -949,15 +950,18 @@ public class ResidueCalculationwithCampaign {
 									}
 									// if product is Transdermal Patch
 									if (productType.equals("Patch")) {
-										System.out.println("activeID--->" + activeID);
+										
 										value_L1 = (L0.L0forPatch(activeID, CurrenProductName) * 1000) / (maxDD *(percentage_absorption/100));
 										Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-										Solid_expec_Value_L0_print
-												.setCellValue(L0.L0forPatch(activeID, CurrenProductName));
+										Solid_expec_Value_L0_print.setCellValue(L0.L0forPatch(activeID, CurrenProductName));
+										
 									}
 									// if product is Topical - Option2
 									if (productType.equals("Topical") && grouping_criteria_option == 2) {
 										System.out.println("activeID--->" + activeID);
+										System.out.println("maxDD--->" + maxDD);
+										System.out.println("L0.L0forTOPICALoption2(activeID, CurrenProductName)--->" + L0.L0forTOPICALoption2(activeID, CurrenProductName));
+										
 										value_L1 = (L0.L0forTOPICALoption2(activeID, CurrenProductName) * 1000) / maxDD;
 										Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 										Solid_expec_Value_L0_print.setCellValue(L0.L0forTOPICALoption2(activeID, CurrenProductName));

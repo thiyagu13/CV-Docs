@@ -55,23 +55,29 @@ public class API {
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
-				driver.get("http://192.168.1.111:8090");
+				driver.get("http://192.168.1.45:8092");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 			}
 		
 			@Test(priority=1)
 			public void Login() throws InterruptedException
 			{
-				//Lets see how we can find the first name field
+				Thread.sleep(1000);
 				WebElement username = driver.findElement(By.id("username"));
 				WebElement password = driver.findElement(By.id("password"));
-				username.sendKeys("thiyagu1");
+				username.sendKeys("user6");
 				Thread.sleep(500);
 				password.sendKeys("123456");
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
-				Thread.sleep(500);
-			//	driver.get("http://192.168.1.111:8090/active-ingredients");
+				Thread.sleep(1000);
+		  		if (driver.findElements(By.id("forcelogin")).size()!=0)
+		  		{
+		  			// Force Login
+		  			Thread.sleep(1000);
+		  			driver.findElement(By.id("forcelogin")).click();
+		  		}
+		  		Thread.sleep(1500);
 			}
 				
 			
@@ -79,7 +85,7 @@ public class API {
 			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				driver.get("http://192.168.1.111:8090/active-ingredients");
+				driver.get("http://192.168.1.45:8092/active-ingredients");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
@@ -281,7 +287,7 @@ public class API {
 				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(1500);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-				Assert.assertEquals(deletemsg,"Active deleted successfully");
+				Assert.assertEquals(deletemsg,"Active Ingredient deleted successfully");
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -295,28 +301,29 @@ public class API {
 			
 			
 			
-		/*	@Test(priority=26)
+			@Test(priority=26)
 			public void MultiDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
-				driver.findElement(By.id("searchEquipment")).sendKeys(multiDeleteSearchData);
+				driver.findElement(By.id("searchDataTable")).sendKeys(multiDeleteSearchData);
 				Thread.sleep(1000);
 				driver.findElement(By.id("example-select-all")).click();
 				Thread.sleep(1000);
 				driver.findElement(By.id("deleteSelectedActive")).click(); // multi delete
 				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				//Thread.sleep(500);
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys(changeControlDELETE);
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(changeControlDELETE);
-				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				//driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				driver.findElement(By.name("password")).sendKeys(password);
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackSubmit")).click();
+				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(1000);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-				Assert.assertEquals(deletemsg,"Active deleted successfully");
+				Assert.assertEquals(deletemsg,"Active Ingredient deleted successfully");
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -326,13 +333,13 @@ public class API {
 				}
 				Thread.sleep(600);
 			}
-			*/
+			
 			
 			@Test(priority=27)
 			public void CreateAPIforProduct() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
-				Thread.sleep(2000);
-				driver.get("http://192.168.1.111:8090/active-ingredients");
+				//Thread.sleep(2000);
+				//driver.get("http://192.168.1.111:8090/active-ingredients");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
