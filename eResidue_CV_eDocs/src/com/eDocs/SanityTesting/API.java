@@ -55,7 +55,7 @@ public class API {
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
-				driver.get("http://192.168.1.45:8092");
+				driver.get("http://192.168.1.111:8090");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 			}
 		
@@ -65,7 +65,7 @@ public class API {
 				Thread.sleep(1000);
 				WebElement username = driver.findElement(By.id("username"));
 				WebElement password = driver.findElement(By.id("password"));
-				username.sendKeys("user6");
+				username.sendKeys("user5");
 				Thread.sleep(500);
 				password.sendKeys("123456");
 				Thread.sleep(500);
@@ -85,7 +85,7 @@ public class API {
 			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				driver.get("http://192.168.1.45:8092/active-ingredients");
+				driver.get("http://192.168.1.111:8090/active-ingredients");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
@@ -96,10 +96,15 @@ public class API {
 				Thread.sleep(500);
 				
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDCREATE);
+				Thread.sleep(1500);
+				
+				driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).click();
 				Thread.sleep(500);
-				WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
+				driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
+			/*	WebElement HBEL = driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")); 
 				Select SelectHBEL = new Select(HBEL);
-				SelectHBEL.selectByIndex(1);
+				SelectHBEL.selectByValue("1");*/
 				Thread.sleep(500);
 				
 				

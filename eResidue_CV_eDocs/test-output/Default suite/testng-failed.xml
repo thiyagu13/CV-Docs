@@ -3,11 +3,15 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="evaluateCalculation.NewTest">
+      <class name="com.eDocs.Equipment.EquipmentNonMandatoryFields">
         <methods>
-          <include name="f"/>
+          <include name="SurfaceDataSourceMaxLengthTest"/>
+          <include name="ManufacturerMaxLengthTest"/>
+          <include name="ModelMaxLengthTest"/>
+          <include name="OtherCleaningInfoMaxLengthTest"/>
+          <include name="SerialNoMaxLengthTest"/>
         </methods>
-      </class> <!-- evaluateCalculation.NewTest -->
+      </class> <!-- com.eDocs.Equipment.EquipmentNonMandatoryFields -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -168,10 +168,11 @@ public class NumericValidation {
   		//WebElement savebtn = driver.findElement(By.id("saveEquipment"));
   		//savebtn.click();
   		
-		String expectedMSG = sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel
-		String actualMSG = null;
+  		String expectedMSG="";
+		//String expectedMSG = sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel
+		//String actualMSG = null;
 		Thread.sleep(500);
-			if(driver.findElements(By.className("notify-msg")).size()!=0)
+		/*	if(driver.findElements(By.className("notify-msg")).size()!=0)
 			{
 				actualMSG = driver.findElement(By.className("notify-msg")).getText();
 				String className = this.getClass().getName(); // get current class name - for screenshot
@@ -182,8 +183,8 @@ public class NumericValidation {
 		
 			XSSFCell actualMSGprint = sheet.getRow(row).getCell(6); //Print actual result in the excel cell
 			actualMSGprint.setCellValue(actualMSG);
-		
-			if(expectedMSG.equalsIgnoreCase(actualMSG))
+		*/
+			if(expectedMSG.equalsIgnoreCase(numericField.getAttribute("value")))
 			{
 				XSSFCell status = sheet.getRow(row).getCell(7);
 				status.setCellValue("Pass"); //Print status in excel

@@ -311,6 +311,8 @@ public class L0 {
 							float lowestADEDose = 0,lowestsolubilityDose = 0;
 							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 						    {
+								System.out.println("basID: "+basID);
+								System.out.println("lowestADEID: "+lowestADEID);
 								ResultSet LowestPDEactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
 								//TO DO
 								while(LowestPDEactive.next())
@@ -1698,6 +1700,7 @@ public class L0 {
 										doseL0 = LD50 * ConversionFactor * BodyWeight;
 										if(HealthL0!=0 && doseL0!=0)
 										{
+											System.out.println("Both not empty: "+doseL0+"Health"+HealthL0);
 											if (HealthL0 <= doseL0) // compare both dose and health
 											{
 												L0 = HealthL0;

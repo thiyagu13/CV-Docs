@@ -15,12 +15,12 @@ public class EquipmentName {
 	
 	private RepositoryParser parser;
 	public static WebDriver driver = Constant.driver;
-	
+	String testcaseSheetName = "EquipmentTC";
 	
 	@BeforeClass
 	public void setUp() throws IOException  
 	{
-		driver.get("http://192.168.1.111:8090");
+		driver.get(Constant.URL);
 		parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 	}
 
@@ -30,9 +30,9 @@ public class EquipmentName {
 		Thread.sleep(1000);
 		WebElement username = driver.findElement(By.id("username"));
 		WebElement password = driver.findElement(By.id("password"));
-		username.sendKeys("user5");
+		username.sendKeys(Constant.siteusername);
 		Thread.sleep(500);
-		password.sendKeys("123456");
+		password.sendKeys(Constant.sitepassword);
 		Thread.sleep(500);
 		driver.findElement(By.id("loginsubmit")).click();
 		Thread.sleep(1000);
@@ -43,7 +43,7 @@ public class EquipmentName {
   			driver.findElement(By.id("forcelogin")).click();
   		}
   		Thread.sleep(1500);
-		driver.get("http://192.168.1.111:8090/equipment");
+		driver.get(Constant.URL+"/equipment");
 		Thread.sleep(1500);
 		driver.findElement(By.id("addEquipment")).click(); 
   		Thread.sleep(1500);
@@ -59,7 +59,7 @@ public class EquipmentName {
   		WebElement alphanumericField = driver.findElement(By.name("name"));
 		WebElement Submit = driver.findElement(By.id("saveEquipment"));
 		
-  		textField.AlphaNumericEmpty(Constant.EXCEL_PATH,Submit,6);
+  		textField.AlphaNumericEmpty(testcaseSheetName,Constant.EXCEL_PATH,Submit,6);
   	}
   	
   	@Test (priority=2)
@@ -67,7 +67,7 @@ public class EquipmentName {
   	{	
   		WebElement alphanumericField = driver.findElement(By.name("name"));
   		AlphaNumericValidation textField = new AlphaNumericValidation();
-		textField.MaxLengthCheck(alphanumericField,8);
+		textField.MaxLengthCheck(testcaseSheetName,alphanumericField,8);
 	}
   	
   	@Test (priority=3)
@@ -75,7 +75,7 @@ public class EquipmentName {
   	{
   		WebElement alphanumericField = driver.findElement(By.name("name"));
   		AlphaNumericValidation textField = new AlphaNumericValidation();
-		textField.nameSpecialCharCheck(alphanumericField,9);
+		textField.nameSpecialCharCheck(testcaseSheetName,alphanumericField,9);
   	}
   	
   	@Test (priority=4)
@@ -83,7 +83,7 @@ public class EquipmentName {
   	{
   		WebElement alphanumericField = driver.findElement(By.name("name"));
   		AlphaNumericValidation textField = new AlphaNumericValidation();
-		textField.nameBeginingSpaceCheck(alphanumericField,10);
+		textField.nameBeginingSpaceCheck(testcaseSheetName,alphanumericField,10);
   	}
 	
   /*	@Test (priority=5)

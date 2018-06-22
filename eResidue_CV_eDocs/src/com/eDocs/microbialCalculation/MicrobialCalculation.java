@@ -173,8 +173,8 @@ public class MicrobialCalculation {
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);*/
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("T1");
-		selectedproducts.add("T2");
+		selectedproducts.add("L3 min batch L");
+		selectedproducts.add("L4 min batch L");
 		//selectedproducts.add("S3");
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
@@ -573,7 +573,6 @@ public class MicrobialCalculation {
 				}
 				if(bioburderLimit == 1 || bioburderLimit==2 || bioburderLimit ==3  ) // check surface or rinse or both
 				{
-					//System.out.println("rinseoption"+rinseoption);
 					if(surfacelimitoption ==1 || surfacelimitoption==3 || rinseoption ==1 || rinseoption==3) //check surface limit whther default or not default or both
 					{
 					float bioburden = 100-bioburdenContribution;
@@ -716,6 +715,10 @@ public class MicrobialCalculation {
 			{	
 				minBatchofNextprod = Product.getFloat(9);
 			}
+			System.out.println("nextproductname: "+nextproductname);
+			System.out.println("adjustedBSP(currentproductname): "+adjustedBSP(currentproductname));
+			System.out.println("minBatchofNextprod: "+minBatchofNextprod);
+			System.out.println("SurfaceAreaValue.sameProductSF(nextproductname): "+SurfaceAreaValue.sameProductSF(nextproductname));
 			L3SurfaceBioburden = (adjustedBSP(currentproductname) * minBatchofNextprod * 1000) / SurfaceAreaValue.sameProductSF(nextproductname);
 			connection.close();
 			return L3SurfaceBioburden;

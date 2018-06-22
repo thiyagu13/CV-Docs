@@ -267,10 +267,26 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("T1");
-		selectedproducts.add("T2");
-		//selectedproducts.add("S2");
-		//selectedproducts.add("S2");
+		selectedproducts.add("S1");
+		selectedproducts.add("S2");
+		
+		/*selectedproducts.add("Aspirin 20 mg");
+		selectedproducts.add("Aspirin 300 mg E/C tablets");
+		selectedproducts.add("Orphenadrine Tablets");
+		selectedproducts.add("Furosemide 40 mg Tablets");
+		selectedproducts.add("Pseudoephedrine Tablets");*/
+		/*selectedproducts.add("Detergent");
+		selectedproducts.add("Aspirin 300 mg E/C tablets");
+		selectedproducts.add("Orphenadrine Tablets");
+		selectedproducts.add("Furosemide 40 mg Tablets");
+		selectedproducts.add("Pseudoephedrine Tablets");
+		selectedproducts.add("Attapulgite Tablets");
+		selectedproducts.add("Vitamin C 500 mg Tablets");
+		selectedproducts.add("Anti Flu Tablets");
+		selectedproducts.add("Albendazole Tablets");
+		selectedproducts.add("Thyroxine tablets");
+		selectedproducts.add("B-complex tablets");
+		selectedproducts.add("Multivitamin M Tablets");*/
 		//selectedproducts.add("S4");
 		//selectedproducts.add("Diluent");
 		//selectedproducts.add("Product/ Sample/ Solid1");
@@ -370,7 +386,7 @@ public class ResidueCalculationwithCampaign {
 				}
 			} // end- Check Cleaning agent or diluent
 
-			if (CurrentproductType == 2 )// loop if included diluent
+			if (CurrentproductType == 2 ||CheckCleaningAgentType == true )// loop if included diluent
 			{
 				System.out.println("Skip Diluent as Current Product");
 
@@ -946,6 +962,8 @@ public class ResidueCalculationwithCampaign {
 											value_L1 = L0.L0forSOLID(activeID, CurrenProductName) / maxDD;
 										}
 										Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
+										System.out.println("L0: "+L0.L0forSOLID(activeID, CurrenProductName));
+										System.out.println("row: "+row);
 										Solid_expec_Value_L0_print.setCellValue(L0.L0forSOLID(activeID, CurrenProductName));
 									}
 									// if product is Transdermal Patch

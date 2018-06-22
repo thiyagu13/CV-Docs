@@ -88,12 +88,11 @@ public class AlphaNumericValidation {
 		*/
 		
 		
-	
-  	public void  AlphaNumericEmpty(String path,WebElement Submit,int row) throws IOException, WriteException, InterruptedException
+	//"EquipmentTC"
+  	public void  AlphaNumericEmpty(String testcaseSheetName, String path,WebElement Submit,int row) throws IOException, WriteException, InterruptedException
   	{
-  		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH);
   		XSSFWorkbook workbook = Utils.getExcelSheet(path);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
   		Thread.sleep(1000);
   		/*System.out.println("alphanumericField.getSize()Tag : "+alphanumericField.getTagName());
   		if(!alphanumericField.getTagName().equals("select"))
@@ -106,7 +105,7 @@ public class AlphaNumericValidation {
   		Submit.click();
 		String expectedMSG = sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel
 		String actualMSG = null;
-		Thread.sleep(1000);
+		Thread.sleep(2000);
 		if(driver.findElements(By.className("notify-msg")).size()!=0)
 		{
 			actualMSG = driver.findElement(By.className("notify-msg")).getText();
@@ -117,6 +116,7 @@ public class AlphaNumericValidation {
 		}
 		XSSFCell actualMSGprint = sheet.getRow(row).getCell(6); //Print actual result in the excel cell
 		actualMSGprint.setCellValue(actualMSG);
+		System.out.println("actualMSG----->"+actualMSG);
 		
 		if(expectedMSG.equalsIgnoreCase(actualMSG))
 		{
@@ -134,10 +134,10 @@ public class AlphaNumericValidation {
   	
   	
   	
-  	public void  MaxLengthCheck(WebElement alphanumericField,int row) throws IOException, WriteException, InterruptedException
+  	public void  MaxLengthCheck(String testcaseSheetName, WebElement alphanumericField,int row) throws IOException, WriteException, InterruptedException
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
   		String maxLength = sheet.getRow(row).getCell(4).getStringCellValue(); // get name from excel
   		//WebElement alphanumericField = driver.findElement(By.name("name"));
@@ -175,10 +175,10 @@ public class AlphaNumericValidation {
   	
   	
   	
-  	public void  nameSpecialCharCheck(WebElement alphanumericField, int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
+  	public void  nameSpecialCharCheck(String testcaseSheetName, WebElement alphanumericField, int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
   		String maxLength = sheet.getRow(row).getCell(4).getStringCellValue(); // get name from excel
   		//WebElement alphanumericField = driver.findElement(By.name("name"));
@@ -215,10 +215,10 @@ public class AlphaNumericValidation {
   	
   	
   	
-	public void  nameBeginingSpaceCheck(WebElement alphanumericField, int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
+	public void  nameBeginingSpaceCheck(String testcaseSheetName, WebElement alphanumericField, int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
   		String data = sheet.getRow(row).getCell(4).getStringCellValue(); // get name from excel
   		//WebElement alphanumericField = driver.findElement(By.name("name"));

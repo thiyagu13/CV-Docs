@@ -10,8 +10,12 @@ public class Constant {
 	public static String GECKO_DRIVER_PATH = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe";
 
 	// Site URL
-	public static String URL = "https://www.google.co.in";
-
+	public static String URL = "http://192.168.1.45:8092";
+	
+	public static String siteusername = "user5";
+	
+	public static String sitepassword = "karthik";
+	
 	// Screenshot folder - Contains screenshot of testcases
 	public static final String SCREENSHOT_FOLDER = ".\\Screenshot\\";
 
@@ -29,13 +33,13 @@ public class Constant {
 	
 	public static final String username = "thiyagu";
 	
-	public static final String password = "Quascenta@521";	*/
+	public static final String password = "Quascenta@521";*/	
 	
-		public static final String dbUrl = "jdbc:mysql://192.168.1.45:3306/edocs-testing-schema";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.45:3306/edocs-testing-schema";
 	
 	public static final String username = "root";
 	
-	public static final String password = "root123";	
+	public static final String password = "root123";
 	
 	public static final String equipment_Properties_Path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties";
 	
@@ -43,8 +47,9 @@ public class Constant {
 	
 	public static final String PDFDownloadedPath = "D:\\WebDriverDownloads";	
 	
-	public static String tenant_id="20180530";
-	
+	public static String tenant_id="20180530"; // user 5
+	//public static String tenant_id="20187666"; //ravi sir
+	//public static String tenant_id="20180534"; // karthik user 10 
 	//public static String tenant_id="20180999";
 	
 	
