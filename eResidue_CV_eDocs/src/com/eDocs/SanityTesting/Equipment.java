@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Message;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
 
@@ -22,7 +23,7 @@ public class Equipment {
   
 				private RepositoryParser parser;
 				private WebDriver driver = Constant.driver;
-				public String password = "123456";
+				public String password = Constant.sitepassword;
 				static String EquipmentName ="Test Equipment";
 				
 				//Create Equipment Data's
@@ -67,7 +68,7 @@ public class Equipment {
 				{
 					//driver = new FirefoxDriver();
 					//driver.get("http://192.168.1.111:8090");
-					driver.get("http://192.168.1.111:8090");
+					driver.get(Constant.URL);
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				}
 			
@@ -77,9 +78,9 @@ public class Equipment {
 					Thread.sleep(1000);
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
-					username.sendKeys("user5");
+					username.sendKeys(Constant.siteusername);
 					Thread.sleep(500);
-					password.sendKeys("123456");
+					password.sendKeys(Constant.sitepassword);
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
 					Thread.sleep(1000);
@@ -90,16 +91,15 @@ public class Equipment {
 			  			driver.findElement(By.id("forcelogin")).click();
 			  		}
 			  		Thread.sleep(1500);
-					driver.get("http://192.168.1.111:8090/equipment");
+					driver.get(Constant.URL+"/equipment");
 					Thread.sleep(1500);
-				//	driver.findElement(By.id("addEquipment")).click(); 
+					//driver.findElement(By.id("addEquipment")).click(); 
 			  		//Thread.sleep(1500);
 			  		//WebElement alphanumericField = driver.findElement(By.name("name"));
 			  		//alphanumericField.sendKeys("test");
 				}
 		
-				//@Test(priority=9,invocationCount=2)
-				@Test(priority=9)
+			/*	@Test(priority=9)
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -107,7 +107,7 @@ public class Equipment {
 					Thread.sleep(2000);
 					SampleLocationRiskAssessment();
 					
-					driver.get("http://192.168.1.111:8090/equipment");
+					driver.get(Constant.URL+"/equipment");
 					//driver.navigate().refresh();
 					Thread.sleep(2000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
@@ -116,9 +116,10 @@ public class Equipment {
 					WebElement eqName = driver.findElement(parser.getbjectLocator("EquipmentName")); //Equipment Name field
 					eqName.sendKeys(equipmentName);
 					Thread.sleep(500);
-					WebElement locationdropdown = driver.findElement(parser.getbjectLocator("EquipmentLocation"));
-					Select location = new Select(locationdropdown);
-					location.selectByIndex(1);
+					//WebElement locationdropdown = driver.findElement(By.name("location"));
+					//Select location = new Select(locationdropdown);
+					//location.selectByIndex(1);
+					driver.findElement(By.name("name")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("Model")).sendKeys(EquipmentModelCREATE);
 					Thread.sleep(500);
@@ -132,30 +133,36 @@ public class Equipment {
 					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(EquipmentSFDataSourceCREATE);
 					Thread.sleep(500);
 					
-					WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
-					Select preferentialTransferType = new Select(preferentialTransfer);
-					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
+					//Select preferentialTransferType = new Select(preferentialTransfer);
+					//preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(EquipmentPreferentialTransferSFCREATE);
 					Thread.sleep(500);
 
-					WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
-					Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
-					SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
+					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
+					//Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
+					//SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
 					Thread.sleep(500);
-					
 					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 					Thread.sleep(500);
-					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
-					Select CleaningSOP = new Select(SOP);
-					CleaningSOP.selectByIndex(1);
+					//Cleaning SOP
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
+					//Select CleaningSOP = new Select(SOP);
+					//CleaningSOP.selectByIndex(1);
 					Thread.sleep(500);
-					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
-					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
+					//cleaing proceess type
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
+					
+					//WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
+					//Select CleaningProcessType = new Select(processType);
+					//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
@@ -249,9 +256,11 @@ public class Equipment {
 					
 					Thread.sleep(1000);
 					//Do you want to upload images?
-					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
-					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(2); // select Yes option
+					driver.findElement(By.xpath(".//*[@id='needUloadImages']/div/div/span/span[1]/span/span[2]")).click();
+					driver.findElement(By.xpath(".//*[@id='needUloadImages']/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					//WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
+					//Select YesorNo = new Select(uploadsamplingimage);
+					//YesorNo.selectByIndex(2); // select No option
 					Thread.sleep(1000);
 					//upload image
 					//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
@@ -269,19 +278,31 @@ public class Equipment {
 						Thread.sleep(500);
 						driver.findElement(By.id("locationName1")).clear();
 						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-						
+						Thread.sleep(500);
+						//select MOC
+						driver.findElement(By.id("locationName1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+						Thread.sleep(500);
 					}
 					Thread.sleep(1000);
-					
 					//MOC Selection
-					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
-					Select SelectMOC = new Select(MOCSelection);
-					SelectMOC.selectByIndex(1); 
-					Thread.sleep(1000);
+					System.out.println("-->"+driver.findElement(By.id("locationName1")).getAttribute("type"));
+					if(driver.findElement(By.id("locationName1")).getAttribute("type").equals("select"))
+					{
+						driver.findElement(By.xpath(".//*[@id='marker-num1']/div[3]/span/span[1]/span")).click();
+						driver.findElement(By.xpath(".//*[@id='marker-num1']/div[3]/span/span[1]/span")).sendKeys(Keys.ENTER);
+						//WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
+						//Select SelectMOC = new Select(MOCSelection);
+						//SelectMOC.selectByIndex(1); 
+						Thread.sleep(1000);
+					}
 					
-					WebElement Sampling = driver.findElement(By.id("mocy1"));
-					Select SelectSampling = new Select(Sampling);
-					SelectSampling.selectByValue("1");
+					//select sampling method and test
+					driver.findElement(By.xpath(".//*[@id='marker-num1']/div[4]/span/span[1]/span")).click();
+					driver.findElement(By.xpath(".//*[@id='marker-num1']/div[4]/span/span[1]/span")).sendKeys(Keys.ENTER);
+					
+				//	WebElement Sampling = driver.findElement(By.id("mocy1"));
+					//Select SelectSampling = new Select(Sampling);
+					//SelectSampling.selectByValue("1");
 					
 					
 					//save image
@@ -311,8 +332,10 @@ public class Equipment {
 							Thread.sleep(500);
 							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
 							Thread.sleep(500);
-							driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
+							driver.findElement(By.id("segSurfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
 							Thread.sleep(500);
+							//select segment locations
+							driver.findElement(By.id("segSurfaceArea1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 							WebElement Seglocation = driver.findElement(By.id("select1"));
 							Select SelectLocation = new Select(Seglocation);
 							SelectLocation.selectByIndex(0);
@@ -401,7 +424,7 @@ public class Equipment {
 					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("createEquipment "+createEquipment);
 					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(createEquipment,"Equipment saved successfully");
+					Assert.assertEquals(createEquipment,Message.equipmentCREATE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -416,10 +439,12 @@ public class Equipment {
 					Thread.sleep(500);
 					
 				} // closing Create Equipment method
-			
 				
+				
+				
+			
 				@Test(priority=10)
-				public void EditEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException
+				public void EditEquipmentwithRiskAssessment() throws Exception
 				{
 					//Thread.sleep(31000);
 					Thread.sleep(4000);
@@ -475,7 +500,8 @@ public class Equipment {
 					WebElement option = preferentialTransferType.getFirstSelectedOption(); 
 					String getpreTransfer = option.getText();
 					Assert.assertEquals(getpreTransfer,EquipmentPreferentialTransferCREATE);
-					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferEDIT);
+					//preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferEDIT);
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
 					Thread.sleep(500);
 					
 					String getMinBatch = driver.findElement(parser.getbjectLocator("MinimumBatchSize")).getAttribute("value"); //verify text presented in the edit
@@ -485,21 +511,36 @@ public class Equipment {
 					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchEDIT);
 					Thread.sleep(500);
 					
-					String getQAID = driver.findElement(parser.getbjectLocator("QualificationDocumentId")).getAttribute("value"); //verify text presented in the edit
-					Assert.assertEquals(getQAID,EquipmentQuaDocIDCREATE);
-					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).clear();
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
+				//	String getQAID = driver.findElement(parser.getbjectLocator("QualificationDocumentId")).getAttribute("value"); //verify text presented in the edit
+					//Assert.assertEquals(getQAID,EquipmentQuaDocIDCREATE);
+				//	Thread.sleep(500);
+				//	driver.findElement(parser.getbjectLocator("QualificationDocumentId")).clear();
+				//	driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
 					Thread.sleep(500);
 					
 					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
 					Select CleaningSOP = new Select(SOP);
-					CleaningSOP.selectByIndex(1);
+					//CleaningSOP.selectByIndex(1);
+					WebElement getSOP = CleaningSOP.getFirstSelectedOption(); 
+					String getSOPText = getSOP.getText();
+					//Assert.assertEquals(getSOPText,EquipmentPreferentialTransferCREATE);
+					System.out.println("getSOPText: "+getSOPText);
+					if(getSOPText.equalsIgnoreCase(""))
+					{
+						throw new Exception();
+					}
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+					//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+					WebElement getCleaningProcessType = CleaningProcessType.getFirstSelectedOption(); 
+					String getCleaningProcessTypeText = getCleaningProcessType.getText();
+					System.out.println("getCleaningProcessTypeText: "+getCleaningProcessTypeText);
 					Thread.sleep(500);
+					if(getCleaningProcessTypeText.equalsIgnoreCase(""))
+					{
+						throw new Exception();
+					}
 					
 					String getothercleaningInfo = driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).getAttribute("value"); //verify text presented in the edit
 					Assert.assertEquals(getothercleaningInfo,EquipmentCleaningInfoCREATE);
@@ -525,7 +566,7 @@ public class Equipment {
 					//Do you want to upload images?
 					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
 					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(2); // select Yes option
+				//	YesorNo.selectByIndex(2); // select Yes option
 					Thread.sleep(1000);
 					
 					WebElement Sampling = driver.findElement(By.id("mocy1"));
@@ -533,7 +574,7 @@ public class Equipment {
 					WebElement selected = SelectSampling.getFirstSelectedOption();
 					String getSelected = selected.getText();
 					System.out.println("getSelected--->"+getSelected);
-					Assert.assertEquals(getSelected,"Swab");
+					Assert.assertEquals(getSelected,"Swab Surface Area");
 					
 					
 					Thread.sleep(1000);
@@ -554,9 +595,11 @@ public class Equipment {
 						System.out.println("No Custom loop");
 						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
 						Thread.sleep(2000);
-						//driver.findElement(By.id("comments")).click();
-						//Thread.sleep(1000);
 						driver.findElement(By.id("comments")).sendKeys("Comments");
+						Thread.sleep(500);
+						driver.findElement(By.name("password")).clear();
+						Thread.sleep(500);
+						driver.findElement(By.id("ackSubmit")).click();
 						Thread.sleep(500);
 						driver.findElement(By.name("password")).sendKeys(password);
 						Thread.sleep(500);
@@ -583,12 +626,20 @@ public class Equipment {
 								driver.findElement(By.id("segmentName1")).clear();
 								driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
 								Thread.sleep(500);
-								driver.findElement(By.id("surfaceArea1")).clear();
-								driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
+								driver.findElement(By.id("sugSurfaceArea1")).clear();
+								driver.findElement(By.id("sugSurfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
 								Thread.sleep(500);
 								WebElement Seglocation = driver.findElement(By.id("select1"));
 								Select SelectLocation = new Select(Seglocation);
-								SelectLocation.selectByIndex(0);
+								//SelectLocation.selectByIndex(0);
+								WebElement getseglocation = SelectLocation.getFirstSelectedOption(); 
+								String getseglocationText = getseglocation.getText();
+								System.out.println("getseglocationText: "+getseglocationText);
+								Thread.sleep(500);
+								if(getseglocationText.equalsIgnoreCase(""))
+								{
+									driver.findElement(By.id("sugSurfaceArea1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+								}
 								Thread.sleep(1000);
 							}
 							String getsegmentName = driver.findElement(By.id("segmentName1")).getAttribute("value"); //verify text presented in the edit
@@ -598,11 +649,11 @@ public class Equipment {
 							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameEDIT);
 							Thread.sleep(500);
 
-							String getsegmentSF= driver.findElement(By.id("surfaceArea1")).getAttribute("value"); //verify text presented in the edit
+							String getsegmentSF= driver.findElement(By.id("sugSurfaceArea1")).getAttribute("value"); //verify text presented in the edit
 							Assert.assertEquals(getsegmentSF,EquipmentSegmentSFCREATE);
 							Thread.sleep(500);
-							driver.findElement(By.id("surfaceArea1")).clear();
-							driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFEDIT);
+							driver.findElement(By.id("sugSurfaceArea1")).clear();
+							driver.findElement(By.id("sugSurfaceArea1")).sendKeys(EquipmentSegmentSFEDIT);
 							Thread.sleep(500);
 							
 							WebElement segSubmit = driver.findElement(By.id("next-gotoeqpSamplingCustom")); //submitEquipmentSamplingDetails
@@ -618,6 +669,10 @@ public class Equipment {
 								//driver.findElement(By.id("comments")).click();
 								//Thread.sleep(500);
 								driver.findElement(By.id("comments")).sendKeys("comments");
+								Thread.sleep(500);
+								driver.findElement(By.name("password")).clear();
+								Thread.sleep(500);
+								driver.findElement(By.id("ackSubmit")).click();
 								Thread.sleep(500);
 								driver.findElement(By.name("password")).sendKeys(password);
 								Thread.sleep(500);
@@ -660,6 +715,10 @@ public class Equipment {
 										//Thread.sleep(500);
 										driver.findElement(By.id("comments")).sendKeys("Comments");
 										Thread.sleep(500);
+										driver.findElement(By.name("password")).clear();
+										Thread.sleep(500);
+										driver.findElement(By.id("ackSubmit")).click();
+										Thread.sleep(500);
 										driver.findElement(By.name("password")).sendKeys(password);
 										Thread.sleep(500);
 										driver.findElement(By.id("ackSubmit")).click();
@@ -700,6 +759,10 @@ public class Equipment {
 									Thread.sleep(500);
 									driver.findElement(By.id("comments")).sendKeys("Comments");
 									Thread.sleep(500);
+									driver.findElement(By.name("password")).clear();
+									Thread.sleep(500);
+									driver.findElement(By.id("ackSubmit")).click();
+									Thread.sleep(500);
 									driver.findElement(By.name("password")).sendKeys(password);
 									Thread.sleep(500);
 									driver.findElement(By.id("ackSubmit")).click();
@@ -709,7 +772,7 @@ public class Equipment {
 					//
 					Thread.sleep(2000);
 					String EditEquipment = driver.findElement(By.className("notify-msg")).getText(); 
-					Assert.assertEquals(EditEquipment,"Equipment updated successfully");
+					Assert.assertEquals(EditEquipment,Message.equipmentEDIT);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -719,10 +782,9 @@ public class Equipment {
 					}
 					Thread.sleep(500);
 				} // closing Edit Equipment method
+
 				
-				
-				
-				
+						
 				@Test(priority=11)
 				public void DeleteEquipmentRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
@@ -740,6 +802,8 @@ public class Equipment {
 					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
 					//driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("password")).click();
+					Thread.sleep(500);
 					driver.findElement(By.name("password")).sendKeys(password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
@@ -748,7 +812,7 @@ public class Equipment {
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment was deleted successfully");
+					Assert.assertEquals(deletemsg,Message.equipmentDELETE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -764,12 +828,12 @@ public class Equipment {
 				@Test(priority=12)
 				public void CreateEquipmentwithSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
-					//parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
-					Thread.sleep(5000);
-					
+					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
+					//Thread.sleep(5000);
+					Thread.sleep(2000);
 					SampleLocationSamplingSiteType();
 					
-					driver.get("http://192.168.1.111:8090/equipment");
+					driver.get(Constant.URL+"/equipment");
 					//driver.navigate().refresh();
 					Thread.sleep(2000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
@@ -778,9 +842,10 @@ public class Equipment {
 					WebElement eqName = driver.findElement(parser.getbjectLocator("EquipmentName")); //Equipment Name field
 					eqName.sendKeys(equipmentName);
 					Thread.sleep(500);
-					WebElement locationdropdown = driver.findElement(parser.getbjectLocator("EquipmentLocation"));
-					Select location = new Select(locationdropdown);
-					location.selectByIndex(1);
+					//WebElement locationdropdown = driver.findElement(By.name("location"));
+					//Select location = new Select(locationdropdown);
+					//location.selectByIndex(1);
+					driver.findElement(By.name("name")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("Model")).sendKeys(EquipmentModelCREATE);
 					Thread.sleep(500);
@@ -794,30 +859,36 @@ public class Equipment {
 					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(EquipmentSFDataSourceCREATE);
 					Thread.sleep(500);
 					
-					WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
-					Select preferentialTransferType = new Select(preferentialTransfer);
-					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
+					//Select preferentialTransferType = new Select(preferentialTransfer);
+					//preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(EquipmentPreferentialTransferSFCREATE);
 					Thread.sleep(500);
 
-					WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
-					Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
-					SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
+					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
+					//Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
+					//SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
 					Thread.sleep(500);
-					
 					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 					Thread.sleep(500);
-					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
-					Select CleaningSOP = new Select(SOP);
-					CleaningSOP.selectByIndex(1);
+					//Cleaning SOP
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
+					//Select CleaningSOP = new Select(SOP);
+					//CleaningSOP.selectByIndex(1);
 					Thread.sleep(500);
-					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
-					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
+					//cleaing proceess type
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
+					
+					//WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
+					//Select CleaningProcessType = new Select(processType);
+					//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
@@ -899,8 +970,10 @@ public class Equipment {
 			        Thread.sleep(1000);
 			        driver.findElement(By.cssSelector(".remove-row-icon")).click();
 			        Thread.sleep(1000);
-			        driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
-			        Thread.sleep(1000);
+			        driver.findElement(By.id("location1")).sendKeys(EquipmentSamplingLocationCREATE);
+			        Thread.sleep(500);
+			       driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
+			       Thread.sleep(1000);
 					
 					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
 					//Location Risk Assessment -End
@@ -909,9 +982,11 @@ public class Equipment {
 					
 					Thread.sleep(1000);
 					//Do you want to upload images?
-					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
-					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(2); // select Yes option
+					driver.findElement(By.xpath(".//*[@id='needUloadImages']/div/div/span/span[1]/span/span[2]")).click();
+					driver.findElement(By.xpath(".//*[@id='needUloadImages']/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					//WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
+					//Select YesorNo = new Select(uploadsamplingimage);
+					//YesorNo.selectByIndex(2); // select No option
 					Thread.sleep(1000);
 					//upload image
 					//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
@@ -929,42 +1004,55 @@ public class Equipment {
 						Thread.sleep(500);
 						driver.findElement(By.id("locationName1")).clear();
 						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						Thread.sleep(500);
+						//select MOC
+						driver.findElement(By.id("locationName1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+						Thread.sleep(500);
+						//Select Sampling Type
+						driver.findElement(By.id("locationName1")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 						
 					}
 					Thread.sleep(1000);
-					
 					//MOC Selection
-					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
-					Select SelectMOC = new Select(MOCSelection);
-					SelectMOC.selectByIndex(1); 
-					Thread.sleep(1000);
+					System.out.println("-->"+driver.findElement(By.id("locationName1")).getAttribute("type"));
+					if(driver.findElement(By.id("locationName1")).getAttribute("type").equals("select"))
+					{
+						driver.findElement(By.xpath(".//*[@id='marker-num1']/div[3]/span/span[1]/span")).click();
+						driver.findElement(By.xpath(".//*[@id='marker-num1']/div[3]/span/span[1]/span")).sendKeys(Keys.ENTER);
+						//WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
+						//Select SelectMOC = new Select(MOCSelection);
+						//SelectMOC.selectByIndex(1); 
+						Thread.sleep(1000);
+					}
 					
-					WebElement samplingSite = driver.findElement(By.id("mocz1"));
-					Select SelectsamplingSite = new Select(samplingSite);
-					SelectsamplingSite.selectByIndex(0); 
-					Thread.sleep(1000);
+					//select sampling method and test
+					driver.findElement(By.xpath(".//*[@id='marker-num1']/div[4]/span/span[1]/span")).click();
+					driver.findElement(By.xpath(".//*[@id='marker-num1']/div[4]/span/span[1]/span")).sendKeys(Keys.ENTER);
 					
-					WebElement Sampling = driver.findElement(By.id("mocy1"));
-					Select SelectSampling = new Select(Sampling);
-					SelectSampling.selectByValue("1");
+				//	WebElement Sampling = driver.findElement(By.id("mocy1"));
+					//Select SelectSampling = new Select(Sampling);
+					//SelectSampling.selectByValue("1");
+					
+					
 					
 					
 					//save image
 					//driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
 					//Thread.sleep(1000);
 					Thread.sleep(1000);
-					WebElement samplingbutton = driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")); //submitEquipmentSamplingDetails
+					WebElement samplingbutton = driver.findElement(By.id("submitEquipmentSamplingDetails")); //submitEquipmentSamplingDetails
+					System.out.println("samplingbutton: "+samplingbutton);
 					if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 					{
 						System.out.println("No Custom loop");
-						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						driver.findElement(By.id("submitEquipmentSamplingDetails")).click();
 						Thread.sleep(2000);
 					}
 					
 					if(samplingbutton.getText().equalsIgnoreCase("Next"))
 					{
 						Thread.sleep(1000);
-						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						driver.findElement(By.id("submitEquipmentSamplingDetails")).click();
 						Thread.sleep(1000);
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
@@ -976,8 +1064,10 @@ public class Equipment {
 							Thread.sleep(500);
 							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
 							Thread.sleep(500);
-							driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
+							driver.findElement(By.id("segSurfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
 							Thread.sleep(500);
+							//select segment locations
+							driver.findElement(By.id("segSurfaceArea1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 							WebElement Seglocation = driver.findElement(By.id("select1"));
 							Select SelectLocation = new Select(Seglocation);
 							SelectLocation.selectByIndex(0);
@@ -1066,7 +1156,7 @@ public class Equipment {
 					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("createEquipment "+createEquipment);
 					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(createEquipment,"Equipment saved successfully");
+					Assert.assertEquals(createEquipment,Message.equipmentCREATE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1084,7 +1174,7 @@ public class Equipment {
 			
 				
 				@Test(priority=13)
-				public void EditEquipmentwithSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException
+				public void EditEquipmentwithSamplingSiteType() throws Exception
 				{
 					//Thread.sleep(31000);
 					Thread.sleep(6000);
@@ -1140,7 +1230,8 @@ public class Equipment {
 					WebElement option = preferentialTransferType.getFirstSelectedOption(); 
 					String getpreTransfer = option.getText();
 					Assert.assertEquals(getpreTransfer,EquipmentPreferentialTransferCREATE);
-					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferEDIT);
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
+					//preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferEDIT);
 					Thread.sleep(500);
 					
 					String getMinBatch = driver.findElement(parser.getbjectLocator("MinimumBatchSize")).getAttribute("value"); //verify text presented in the edit
@@ -1150,20 +1241,41 @@ public class Equipment {
 					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchEDIT);
 					Thread.sleep(500);
 					
-					String getQAID = driver.findElement(parser.getbjectLocator("QualificationDocumentId")).getAttribute("value"); //verify text presented in the edit
-					Assert.assertEquals(getQAID,EquipmentQuaDocIDCREATE);
-					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).clear();
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
-					Thread.sleep(500);
+					//String getQAID = driver.findElement(parser.getbjectLocator("QualificationDocumentId")).getAttribute("value"); //verify text presented in the edit
+					//Assert.assertEquals(getQAID,EquipmentQuaDocIDCREATE);
+					//Thread.sleep(500);
+					//driver.findElement(parser.getbjectLocator("QualificationDocumentId")).clear();
+					//driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
+					//Thread.sleep(500);
 					
 					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
 					Select CleaningSOP = new Select(SOP);
-					CleaningSOP.selectByIndex(1);
+					//CleaningSOP.selectByIndex(1);
+					WebElement getSOP = CleaningSOP.getFirstSelectedOption(); 
+					String getSOPText = getSOP.getText();
+					//Assert.assertEquals(getSOPText,EquipmentPreferentialTransferCREATE);
+					System.out.println("getSOPText: "+getSOPText);
+					if(getSOPText.equalsIgnoreCase(""))
+					{
+						throw new Exception();
+					}
 					Thread.sleep(500);
 					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
 					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+					//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+					WebElement getCleaningProcessType = CleaningProcessType.getFirstSelectedOption(); 
+					String getCleaningProcessTypeText = getCleaningProcessType.getText();
+					System.out.println("getCleaningProcessTypeText: "+getCleaningProcessTypeText);
+					Thread.sleep(500);
+					if(getCleaningProcessTypeText.equalsIgnoreCase(""))
+					{
+						throw new Exception();
+					}
+					
+					//CleaningSOP.selectByIndex(1);
+					Thread.sleep(500);
+					//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
 					Thread.sleep(500);
 					
 					String getothercleaningInfo = driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).getAttribute("value"); //verify text presented in the edit
@@ -1180,18 +1292,18 @@ public class Equipment {
 					System.out.println("submitLocationAssessment: "+driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size());
 					if(driver.findElements(parser.getbjectLocator("submitLocationAssessment")).size()!=0)
 					{
-					//Location Risk Assessment
-					Thread.sleep(1000);
-					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
-					//Location Risk Assessment -End
+						//Location Risk Assessment
+						Thread.sleep(1000);
+						driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
+						//Location Risk Assessment -End
 					}
 					
 					Thread.sleep(3000);
 					//Do you want to upload images?
-					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
-					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByValue("2"); // select No option
-					Thread.sleep(1000);
+					//WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
+					//Select YesorNo = new Select(uploadsamplingimage);
+					//YesorNo.selectByValue("2"); // select No option
+					//Thread.sleep(1000);
 					
 					//addPinName
 				//	driver.findElement(By.id("addPinName")).click();
@@ -1200,8 +1312,7 @@ public class Equipment {
 					WebElement selected = SelectSampling.getFirstSelectedOption();
 					String getSelected = selected.getText();
 					System.out.println("getSelected--->"+getSelected);
-					Assert.assertEquals(getSelected,"Swab");
-					
+					Assert.assertEquals(getSelected,"Swab Surface Area");
 					
 					Thread.sleep(1000);
 					System.out.println("locationName1:" +driver.findElement(By.id("locationName1")).getAttribute("type"));
@@ -1210,19 +1321,59 @@ public class Equipment {
 						Thread.sleep(500);
 						driver.findElement(By.id("locationName1")).clear();
 						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						Thread.sleep(500);
+						WebElement moc = driver.findElement(By.id("moc1"));
+						Select selectMOC = new Select(moc);
+						//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+						WebElement getMOC = selectMOC.getFirstSelectedOption(); 
+						String getMOCText = getMOC.getText();
+						System.out.println("getMOCText: "+getMOCText);
+						Thread.sleep(500);
+						if(getMOCText.equalsIgnoreCase(""))
+						{
+							throw new Exception();
+						}
+						Thread.sleep(500);
+						//Sampling Type check whther selected or not
+						WebElement sampleType = driver.findElement(By.id("mocz1"));
+						Select selectsampleType = new Select(sampleType);
+						//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeEDT);
+						WebElement getsampleType = selectsampleType.getFirstSelectedOption(); 
+						String getsampleTypeText = getsampleType.getText();
+						System.out.println("getsampleTypeText: "+getsampleTypeText);
+						Thread.sleep(500);
+						if(getsampleTypeText.equalsIgnoreCase(""))
+						{
+							throw new Exception();
+						}
+						//Sampling and test method - check wehter selected or not
+						WebElement sampleTest = driver.findElement(By.id("mocy1"));
+						Select selectsampleTest = new Select(sampleTest);
+						WebElement getsampleTest = selectsampleTest.getFirstSelectedOption(); 
+						String getsampleTestText = getsampleTest.getText();
+						System.out.println("getsampleTestText: "+getsampleTestText);
+						Thread.sleep(500);
+						if(getsampleTestText.equalsIgnoreCase(""))
+						{
+							throw new Exception();
+						}
 					}
 					
 					
 					Thread.sleep(1000);
-					WebElement samplingbutton = driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")); //submitEquipmentSamplingDetails
+					WebElement samplingbutton = driver.findElement(By.id("submitEquipmentSamplingDetails")); //submitEquipmentSamplingDetails
 					
 					if(samplingbutton.getText().equals("Submit"))
 					{
 						System.out.println("No Custom loop");
-						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						driver.findElement(By.id("submitEquipmentSamplingDetails")).click();
 						Thread.sleep(2000);
 						Thread.sleep(500);
 						driver.findElement(By.id("comments")).sendKeys("Comments");
+						Thread.sleep(500);
+						driver.findElement(By.name("password")).clear();
+						Thread.sleep(500);
+						driver.findElement(By.id("ackSubmit")).click();
 						Thread.sleep(500);
 						driver.findElement(By.name("password")).sendKeys(password);
 						Thread.sleep(500);
@@ -1234,7 +1385,7 @@ public class Equipment {
 					if(samplingbutton.getText().equalsIgnoreCase("Next"))
 					{
 						Thread.sleep(1000);
-						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						driver.findElement(By.id("submitEquipmentSamplingDetails")).click();
 						Thread.sleep(1000);
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
@@ -1250,8 +1401,8 @@ public class Equipment {
 								driver.findElement(By.id("segmentName1")).clear();
 								driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
 								Thread.sleep(500);
-								driver.findElement(By.id("surfaceArea1")).clear();
-								driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
+								driver.findElement(By.id("sugSurfaceArea1")).clear();
+								driver.findElement(By.id("sugSurfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
 								Thread.sleep(500);
 								WebElement Seglocation = driver.findElement(By.id("select1"));
 								Select SelectLocation = new Select(Seglocation);
@@ -1265,11 +1416,11 @@ public class Equipment {
 							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameEDIT);
 							Thread.sleep(500);
 
-							String getsegmentSF= driver.findElement(By.id("surfaceArea1")).getAttribute("value"); //verify text presented in the edit
+							String getsegmentSF= driver.findElement(By.id("sugSurfaceArea1")).getAttribute("value"); //verify text presented in the edit
 							Assert.assertEquals(getsegmentSF,EquipmentSegmentSFCREATE);
 							Thread.sleep(500);
-							driver.findElement(By.id("surfaceArea1")).clear();
-							driver.findElement(By.id("surfaceArea1")).sendKeys(EquipmentSegmentSFEDIT);
+							driver.findElement(By.id("sugSurfaceArea1")).clear();
+							driver.findElement(By.id("sugSurfaceArea1")).sendKeys(EquipmentSegmentSFEDIT);
 							Thread.sleep(500);
 							
 							WebElement segSubmit = driver.findElement(By.id("next-gotoeqpSamplingCustom")); //submitEquipmentSamplingDetails
@@ -1285,6 +1436,10 @@ public class Equipment {
 								driver.findElement(By.id("comments")).click();
 								Thread.sleep(500);
 								driver.findElement(By.id("comments")).sendKeys("Comments");
+								Thread.sleep(500);
+								driver.findElement(By.name("password")).clear();
+								Thread.sleep(500);
+								driver.findElement(By.id("ackSubmit")).click();
 								Thread.sleep(500);
 								driver.findElement(By.name("password")).sendKeys(password);
 								Thread.sleep(500);
@@ -1326,6 +1481,10 @@ public class Equipment {
 										Thread.sleep(500);
 										driver.findElement(By.id("comments")).sendKeys("Comments");
 										Thread.sleep(500);
+										driver.findElement(By.name("password")).clear();
+										Thread.sleep(500);
+										driver.findElement(By.id("ackSubmit")).click();
+										Thread.sleep(500);
 										driver.findElement(By.name("password")).sendKeys(password);
 										Thread.sleep(500);
 										driver.findElement(By.id("ackSubmit")).click();
@@ -1366,6 +1525,10 @@ public class Equipment {
 									Thread.sleep(1000);
 									driver.findElement(By.id("comments")).sendKeys("Comments");
 									Thread.sleep(500);
+									driver.findElement(By.name("password")).clear();
+									Thread.sleep(500);
+									driver.findElement(By.id("ackSubmit")).click();
+									Thread.sleep(500);
 									driver.findElement(By.name("password")).sendKeys(password);
 									Thread.sleep(500);
 									driver.findElement(By.id("ackSubmit")).click();
@@ -1375,7 +1538,7 @@ public class Equipment {
 					//
 					Thread.sleep(2000);
 					String EditEquipment = driver.findElement(By.className("notify-msg")).getText(); 
-					Assert.assertEquals(EditEquipment,"Equipment updated successfully");
+					Assert.assertEquals(EditEquipment,Message.equipmentEDIT);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1413,7 +1576,7 @@ public class Equipment {
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment was deleted successfully");
+					Assert.assertEquals(deletemsg,Message.equipmentDELETE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1424,21 +1587,21 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				/*
+				
 				@Test(priority=15)
 				public void MultiDeleteEquipment() throws Exception
 				{
 					Thread.sleep(500);
-					driver.findElement(By.id("searchEquipment")).sendKeys("test Equipment");
+					driver.findElement(By.id("searchDataTable")).sendKeys("test Equipment");
 					Thread.sleep(500);
 					driver.findElement(By.id("example-select-all")).click();
 					Thread.sleep(1500);
 					driver.findElement(By.id("deleteSelectedEquipment")).click(); // multi delete
-					Thread.sleep(1500);
+					Thread.sleep(1000);
 					//driver.findElement(By.id("deleteSelectedEquipment")).sendKeys(Keys.ENTER);
-					driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
-					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
+					//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					//Thread.sleep(500);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
 					//driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 					driver.findElement(By.name("password")).sendKeys(password);
@@ -1448,7 +1611,7 @@ public class Equipment {
 					driver.findElement(By.id("ackSubmit")).click();
 					Thread.sleep(1000);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment deleted successfully");
+					Assert.assertEquals(deletemsg,Message.equipmentDELETE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1459,24 +1622,29 @@ public class Equipment {
 					Thread.sleep(500);
 				}
 				
-				*/
 				
 				
 				@Test(priority=16)
-				public void CreateEquipmentforCreatingGroup() throws InterruptedException, SQLException, ClassNotFoundException
+				public void CreateEquipmentforCreatingGroup() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
+					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 					//Thread.sleep(5000);
-					//driver.findElement(By.id("example-select-all")).click(); // un check mutli check box
-					Thread.sleep(1000);
+					Thread.sleep(2000);
+					SampleLocationSamplingSiteType();
+					
+					driver.get(Constant.URL+"/equipment");
+					//driver.navigate().refresh();
+					Thread.sleep(2000);
 					driver.findElement(parser.getbjectLocator("CreateEquipment")).click(); // Click create equipment button
 					Thread.sleep(1000);
 					String equipmentName = EquipmentName;
 					WebElement eqName = driver.findElement(parser.getbjectLocator("EquipmentName")); //Equipment Name field
 					eqName.sendKeys(equipmentName);
 					Thread.sleep(500);
-					WebElement locationdropdown = driver.findElement(parser.getbjectLocator("EquipmentLocation"));
-					Select location = new Select(locationdropdown);
-					location.selectByIndex(1);
+					//WebElement locationdropdown = driver.findElement(By.name("location"));
+					//Select location = new Select(locationdropdown);
+					//location.selectByIndex(1);
+					driver.findElement(By.name("name")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("Model")).sendKeys(EquipmentModelCREATE);
 					Thread.sleep(500);
@@ -1490,30 +1658,36 @@ public class Equipment {
 					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(EquipmentSFDataSourceCREATE);
 					Thread.sleep(500);
 					
-					WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
-					Select preferentialTransferType = new Select(preferentialTransfer);
-					preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
+					driver.findElement(parser.getbjectLocator("SurfaceAreaDataSource")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement preferentialTransfer = driver.findElement(parser.getbjectLocator("CanPreferentialTransferofResidueOccurwiththisEquipment?"));
+					//Select preferentialTransferType = new Select(preferentialTransfer);
+					//preferentialTransferType.selectByVisibleText(EquipmentPreferentialTransferCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(EquipmentPreferentialTransferSFCREATE);
 					Thread.sleep(500);
 
-					WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
-					Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
-					SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
+					driver.findElement(By.id("preferentialTransferSurfaceArea")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement PrimaryPackaging = driver.findElement(By.id("primaryPackaging"));
+					//Select SelectPrimaryPackaging = new Select(PrimaryPackaging);
+					//SelectPrimaryPackaging.selectByVisibleText(EquipmentPrimaryPackagingeOptionCREATE);
 					Thread.sleep(500);
-					
 					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(EquipmentMinBatchCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("QualificationDocumentId")).sendKeys(EquipmentQuaDocIDCREATE);
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 					Thread.sleep(500);
-					WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
-					Select CleaningSOP = new Select(SOP);
-					CleaningSOP.selectByIndex(1);
+					//Cleaning SOP
+					driver.findElement(parser.getbjectLocator("MinimumBatchSize")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement SOP = driver.findElement(parser.getbjectLocator("CleaningSOPNo"));
+					//Select CleaningSOP = new Select(SOP);
+					//CleaningSOP.selectByIndex(1);
 					Thread.sleep(500);
-					WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
-					Select CleaningProcessType = new Select(processType);
-					CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
+					//cleaing proceess type
+					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
+					
+					//WebElement processType = driver.findElement(parser.getbjectLocator("CleaningProcessType"));
+					//Select CleaningProcessType = new Select(processType);
+					//CleaningProcessType.selectByValue(EquipmentCleaningProcessTypeCREATE);
 					Thread.sleep(500);
 					
 					driver.findElement(parser.getbjectLocator("OtherCleaningRelevantInformation")).sendKeys(EquipmentCleaningInfoCREATE);
@@ -1595,8 +1769,10 @@ public class Equipment {
 			        Thread.sleep(1000);
 			        driver.findElement(By.cssSelector(".remove-row-icon")).click();
 			        Thread.sleep(1000);
-			        driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
-			        Thread.sleep(1000);
+			        driver.findElement(By.id("location1")).sendKeys(EquipmentSamplingLocationCREATE);
+			        Thread.sleep(500);
+			       driver.findElement(By.cssSelector(".remove-row-icon")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB,Keys.SHIFT,Keys.TAB);
+			       Thread.sleep(1000);
 					
 					driver.findElement(parser.getbjectLocator("submitLocationAssessment")).click(); // submit location assessment
 					//Location Risk Assessment -End
@@ -1605,9 +1781,11 @@ public class Equipment {
 					
 					Thread.sleep(1000);
 					//Do you want to upload images?
-					WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
-					Select YesorNo = new Select(uploadsamplingimage);
-					YesorNo.selectByIndex(2); // select Yes option
+					driver.findElement(By.xpath(".//*[@id='needUloadImages']/div/div/span/span[1]/span/span[2]")).click();
+					driver.findElement(By.xpath(".//*[@id='needUloadImages']/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					//WebElement uploadsamplingimage = driver.findElement(parser.getbjectLocator("Doyouwanttouploadimages?"));
+					//Select YesorNo = new Select(uploadsamplingimage);
+					//YesorNo.selectByIndex(2); // select No option
 					Thread.sleep(1000);
 					//upload image
 					//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
@@ -1625,37 +1803,55 @@ public class Equipment {
 						Thread.sleep(500);
 						driver.findElement(By.id("locationName1")).clear();
 						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						Thread.sleep(500);
+						//select MOC
+						driver.findElement(By.id("locationName1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+						Thread.sleep(500);
+						//Select Sampling Type
+						driver.findElement(By.id("locationName1")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 						
 					}
 					Thread.sleep(1000);
-					
 					//MOC Selection
-					WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
-					Select SelectMOC = new Select(MOCSelection);
-					SelectMOC.selectByIndex(1); 
-					Thread.sleep(1000);
+					System.out.println("-->"+driver.findElement(By.id("locationName1")).getAttribute("type"));
+					if(driver.findElement(By.id("locationName1")).getAttribute("type").equals("select"))
+					{
+						driver.findElement(By.xpath(".//*[@id='marker-num1']/div[3]/span/span[1]/span")).click();
+						driver.findElement(By.xpath(".//*[@id='marker-num1']/div[3]/span/span[1]/span")).sendKeys(Keys.ENTER);
+						//WebElement MOCSelection = driver.findElement(parser.getbjectLocator("Moc"));
+						//Select SelectMOC = new Select(MOCSelection);
+						//SelectMOC.selectByIndex(1); 
+						Thread.sleep(1000);
+					}
+					
+					//select sampling method and test
+					driver.findElement(By.xpath(".//*[@id='marker-num1']/div[4]/span/span[1]/span")).click();
+					driver.findElement(By.xpath(".//*[@id='marker-num1']/div[4]/span/span[1]/span")).sendKeys(Keys.ENTER);
+					
+				//	WebElement Sampling = driver.findElement(By.id("mocy1"));
+					//Select SelectSampling = new Select(Sampling);
+					//SelectSampling.selectByValue("1");
 					
 					
-					WebElement Sampling = driver.findElement(By.id("mocy1"));
-					Select SelectSampling = new Select(Sampling);
-					SelectSampling.selectByValue("1");
+					
 					
 					//save image
 					//driver.findElement(By.xpath(".//*[@id='preview-image']/div/div[2]/img")).click(); //click to save uploaded image
 					//Thread.sleep(1000);
 					Thread.sleep(1000);
-					WebElement samplingbutton = driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")); //submitEquipmentSamplingDetails
+					WebElement samplingbutton = driver.findElement(By.id("submitEquipmentSamplingDetails")); //submitEquipmentSamplingDetails
+					System.out.println("samplingbutton: "+samplingbutton);
 					if(samplingbutton.getText().equalsIgnoreCase("Submit"))
 					{
 						System.out.println("No Custom loop");
-						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						driver.findElement(By.id("submitEquipmentSamplingDetails")).click();
 						Thread.sleep(2000);
 					}
 					
 					if(samplingbutton.getText().equalsIgnoreCase("Next"))
 					{
 						Thread.sleep(1000);
-						driver.findElement(parser.getbjectLocator("samplingDetailsNextButton")).click();
+						driver.findElement(By.id("submitEquipmentSamplingDetails")).click();
 						Thread.sleep(1000);
 						System.out.println("----->"+driver.findElement(By.id("addSegment")).getText());
 						System.out.println("----->size"+driver.findElements(By.id("next-gotoeqpSamplingCustom")).size());
@@ -1665,10 +1861,12 @@ public class Equipment {
 							Thread.sleep(1000);
 							driver.findElement(By.id("addSegment")).click();
 							Thread.sleep(500);
-							driver.findElement(By.id("segmentName1")).sendKeys("Seg 1");
+							driver.findElement(By.id("segmentName1")).sendKeys(EquipmentSegmentNameCREATE);
 							Thread.sleep(500);
-							driver.findElement(By.id("surfaceArea1")).sendKeys("100");
+							driver.findElement(By.id("segSurfaceArea1")).sendKeys(EquipmentSegmentSFCREATE);
 							Thread.sleep(500);
+							//select segment locations
+							driver.findElement(By.id("segSurfaceArea1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 							WebElement Seglocation = driver.findElement(By.id("select1"));
 							Select SelectLocation = new Select(Seglocation);
 							SelectLocation.selectByIndex(0);
@@ -1757,7 +1955,7 @@ public class Equipment {
 					String createEquipment = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("createEquipment "+createEquipment);
 					//String createEquipment = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(createEquipment,"Equipment saved successfully");
+					Assert.assertEquals(createEquipment,Message.equipmentCREATE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1770,22 +1968,24 @@ public class Equipment {
 						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
 					Thread.sleep(500);
+					
 				} // closing Create Equipment method
 				
 				
+				*/
 				
 				
-				
-				@Test(priority=17,invocationCount=3)
+				@Test(priority=17,invocationCount=5)
 				public void CopyEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//driver.navigate().refresh();
-					Thread.sleep(6000);
+					Thread.sleep(2000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[10]/div/ul/li[2]/a")).click(); // click delete button
-					driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+					//driver.findElement(By.className("dropdown-item")).sendKeys(Keys.ENTER);
+					driver.findElement(By.linkText("Copy")).click();
 					Thread.sleep(500);
 					
 					String equipmentName = "Test Equipment";
@@ -1793,15 +1993,21 @@ public class Equipment {
 					eqName.sendKeys(equipmentName);
 					
 					Thread.sleep(500);
-					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
-					Thread.sleep(500);
+					//driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
+					driver.findElement(By.cssSelector(".btn.blue-btn.waves-effect.copyData")).click();
+					Thread.sleep(1000);
 					
-					
-					if(driver.findElements(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).size()!=0)
+					String successMSG;
+					if(driver.findElements(By.cssSelector(".btn.blue-btn.waves-effect.copyData")).size()!=0)
 					{
 						String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
 						driver.findElement(By.className("custom-notify-close")).click();
-					
+						if(getduplicatename.equalsIgnoreCase(Message.equipmentCOPY))
+						{
+							successMSG = getduplicatename;
+						}
+						
+						
 					Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 					for(int k=25;k<1000;k++)
 					{
@@ -1817,12 +2023,15 @@ public class Equipment {
 							driver.findElement(By.id("nameForCopy")).clear();
 							driver.findElement(By.id("nameForCopy")).sendKeys(equipmentName+i);
 							Thread.sleep(500);
-							driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
+							driver.findElement(By.cssSelector(".btn.blue-btn.waves-effect.copyData")).click();
 							Thread.sleep(500);
 							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment '"+equipmentName+i+"' already exists!"))
 							{
 								String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
-								System.out.println("Name duplicate: "+nameduplicate);
+								if(nameduplicate.equalsIgnoreCase(Message.equipmentCOPY))
+								{
+									successMSG = nameduplicate;
+								}
 								driver.findElement(By.className("custom-notify-close")).click();
 								if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment '"+equipmentName+i+"' already exists!"))
 								{
@@ -1834,11 +2043,10 @@ public class Equipment {
 							}
 						}
 					} 
-					
-					Thread.sleep(1000);
-					String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
-					System.out.println(createEquipmentTrain);
-					Assert.assertEquals(createEquipmentTrain,"Equipment was copied successfully");
+					Thread.sleep(2000);
+					successMSG = driver.findElement(By.className("notify-msg")).getText();
+					System.out.println("MSG: "+successMSG);
+					Assert.assertEquals(successMSG,Message.equipmentCOPY);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -1853,12 +2061,11 @@ public class Equipment {
 				
 				
 				
-			/*	@Test(priority=18)
+				/*@Test(priority=18)
 				public void ExportEquipment() throws Exception
 				{
 					Utils.ExportPDF(driver);
 				}
-				*/
 				
 				
 				
@@ -1868,45 +2075,42 @@ public class Equipment {
 				
 				
 				
-				/*@AfterClass
+				
+				@AfterClass
 				public void tearDown()
 				{
 					driver.quit();
-				}*/
+				}
 				
-	
+	*/
 				
 				public void SampleLocationRiskAssessment() throws InterruptedException
 				{
 					Thread.sleep(500);
-					driver.get("http://192.168.1.111:8090/sampling-locations");
+					driver.get(Constant.URL+"/sampling-locations");
 					Thread.sleep(1000);
 					driver.findElement(By.id("listMOC")).click();
 					Thread.sleep(500);
-					System.out.println(driver.findElements(By.className("no")).size());
-					System.out.println("Risk Assessment");
-				if(driver.findElements(By.className("no")).size()!=0)
-				{
-					if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
+					driver.findElement(By.id("saveMoc")).click(); // Click Save in MOC tab
+					Thread.sleep(1000);
+					String msg = driver.findElement(By.className("notify-msg")).getText();
+					Thread.sleep(500);
+					/*if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						Thread.sleep(500);
-						System.out.println(driver.findElement(By.id("locationName1")).getAttribute("value"));
-						if(driver.findElement(By.id("locationName1")).getAttribute("value").equalsIgnoreCase(""))
-						{
-							driver.findElement(By.id("locationName1")).clear();
-							driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-						}
-						
-						Thread.sleep(500);
-						driver.findElement(By.id("saveMoc")).click();
-						Thread.sleep(1000);
-						
-						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-						Assert.assertEquals(SuccessMessage,"MOC has been saved successfully");
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+					}*/
+					System.out.println("Msg: "+msg);
+					if(!msg.equalsIgnoreCase("Material Of Construction cannot be empty")&& 
+							msg.equalsIgnoreCase("MOC has been saved successfully"))
+					{
+						//Thread.sleep(500);
+						//driver.findElement(By.id("saveMoc")).click();
+						//Thread.sleep(1000);
+						//String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+						Assert.assertEquals(msg,"MOC has been saved successfully");
 						String className = this.getClass().getName(); // get current class name - for screenshot
 						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-						System.out.println("grey:"+driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size());
 						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 						{
 							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
@@ -1914,46 +2118,45 @@ public class Equipment {
 						Thread.sleep(1000);
 						
 					}
-				}
 					else
 					{
 						Thread.sleep(500);
-						driver.findElement(By.xpath(".//*[@id='addMOC']")).click();
+						driver.findElement(By.id("addMOC")).click();
 						Thread.sleep(500);
-						//if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
-						//{
-						//	if(driver.findElement(By.id("marker-num1")).getText().equalsIgnoreCase(""))
-							//{
-								driver.findElement(By.id("locationName1")).clear();
-								driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-							//}
-						//}
-								Thread.sleep(500);
-								driver.findElement(By.id("saveMoc")).click();
-								Thread.sleep(1000);
-								String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-								Assert.assertEquals(SuccessMessage,"MOC has been saved successfully");
-								String className = this.getClass().getName(); // get current class name - for screenshot
-								String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
-								Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-								if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
-								{
-									driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-								}
-								Thread.sleep(1000);
-						
+						driver.findElement(By.id("locationName1")).clear();
+						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						Thread.sleep(500);
+						driver.findElement(By.id("saveMoc")).click();
+						Thread.sleep(1000);
+						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+						Assert.assertEquals(SuccessMessage,"MOC has been saved successfully");
+						String className = this.getClass().getName(); // get current class name - for screenshot
+						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
+						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+						{
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+						}
+						Thread.sleep(1000);
 					}
 					
 					Thread.sleep(2000);
-					System.out.println("inside loop");
-					WebElement Risk = driver.findElement(By.name("samplingType"));
-					Select RiskAssement = new Select(Risk);
-					RiskAssement.selectByValue("2");
-					Thread.sleep(1000);
-					System.out.println("xpath: "+driver.findElement(By.xpath(".//*[@id='user_role']/span[1]/span[1]/span")).getText());
+					//WebElement Risk = driver.findElement(By.name("samplingType"));
+					//Select RiskAssement = new Select(Risk);
+					//Risk.click();
+					//Select criteria fro Risk	
+					//driver.findElement(By.id("trigger-add-role")).click();
+					//Thread.sleep(500);
 					
-					System.out.println("xpath: "+driver.findElement(By.xpath(".//*[@id='user_role']/span[1]/span[1]/span")).getText());
-					if(driver.findElement(By.xpath(".//*[@id='user_role']/span[1]/span[1]/span")).getText().equalsIgnoreCase(""))
+					//driver.findElement(By.id("criteria-name")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.xpath(".//*[@id='limitTerminologyDefinition']/div/div/div/div[2]/div/div/span/span[1]/span/span[2]")).click();
+					driver.findElement(By.xpath(".//*[@id='limitTerminologyDefinition']/div/div/div/div[2]/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+					Thread.sleep(500);
+					//RiskAssement.selectByValue("2");
+					Thread.sleep(1000);
+					System.out.println("xpath: "+driver.findElement(By.xpath(".//*[@id='user_role']/span/span[1]/span/ul")).getText());
+					
+					if(driver.findElement(By.xpath(".//*[@id='user_role']/span/span[1]/span/ul")).getText().equalsIgnoreCase(""))
 					{
 						driver.findElement(By.id("saveSamplingLocation")).click();
 						Thread.sleep(2000);
@@ -1963,28 +2166,60 @@ public class Equipment {
 							{
 								driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 							}
-							WebElement sampling = driver.findElement(By.id("sampling-location"));
-							Select s= new Select(sampling);
-							s.selectByValue("1");
-							s.selectByValue("2");
+							Thread.sleep(500);
+							driver.findElement(By.id("trigger-add-role")).click();
+							Thread.sleep(300);
+							driver.findElement(By.id("criteria-name")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.CONTROL,Keys.ARROW_DOWN,Keys.ENTER);
+							Thread.sleep(300);
+							driver.findElement(By.id("trigger-cancel-role")).click();
+							//WebElement sampling = driver.findElement(By.id("sampling-location"));
+							//sampling.click();
+							//Select s= new Select(sampling);
+							//s.selectByValue("1");
+							//s.selectByValue("2");
 							Thread.sleep(1000);
 						}
 					}
-					Thread.sleep(1000);
-					WebElement rating = driver.findElement(By.id("rating"));
-					Select SelectRating = new Select(rating);
-					WebElement option = SelectRating.getFirstSelectedOption();
-					String getvalue = option.getText();
-					System.out.println("getpreTransfer"+getvalue);
-					if(getvalue.equalsIgnoreCase("Select"))
-					{
-						SelectRating.selectByValue("1");
-						Thread.sleep(1000);
-					}
+					
 					Thread.sleep(500);
 					driver.findElement(By.id("saveSamplingLocation")).click();
-					Thread.sleep(2000);
+					Thread.sleep(500);
 					
+					if(driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Please select Rating"))
+					{
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+						{
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+						}
+						Thread.sleep(500);
+						driver.findElement(By.id("trigger-add-role")).click();
+						Thread.sleep(300);
+						driver.findElement(By.id("criteria-name")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+						Thread.sleep(300);
+						driver.findElement(By.id("trigger-cancel-role")).click();
+						Thread.sleep(1000);
+						driver.findElement(By.id("saveSamplingLocation")).click();
+					}
+					
+					//WebElement rating = driver.findElement(By.id("rating"));
+					//Select SelectRating = new Select(rating);
+					//WebElement option = SelectRating.getFirstSelectedOption();
+					//String getvalue = option.getText();
+					//System.out.println("getpreTransfer"+getvalue);
+					//if(getvalue.equalsIgnoreCase("Select"))
+					//{
+						//SelectRating.selectByValue("1");
+						//Thread.sleep(1000);
+					//}
+					
+					//Acknowledge
+					Thread.sleep(1000);
+					driver.findElement(By.name("password")).sendKeys(password);
+					Thread.sleep(500);
+					driver.findElement(By.name("comments")).sendKeys("Test comments");
+					Thread.sleep(500);
+					driver.findElement(By.xpath(".//*[@id='ackSubmit']")).click();
+					Thread.sleep(1000);
 					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
 					Assert.assertEquals(SuccessMessage,"Sampling Location has been saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -2003,29 +2238,27 @@ public class Equipment {
 				public void SampleLocationSamplingSiteType() throws InterruptedException
 				{
 					Thread.sleep(500);
-					driver.get("http://192.168.1.111:8090/sampling-locations");
+					driver.get(Constant.URL+"/sampling-locations");
 					Thread.sleep(1000);
 					driver.findElement(By.id("listMOC")).click();
 					Thread.sleep(500);
-					System.out.println(driver.findElements(By.className("no")).size());
-				if(driver.findElements(By.className("no")).size()!=0)
-				{
-					if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
+					driver.findElement(By.id("saveMoc")).click(); // Click Save in MOC tab
+					Thread.sleep(1000);
+					String msg = driver.findElement(By.className("notify-msg")).getText();
+					Thread.sleep(500);
+					/*if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
-						Thread.sleep(500);
-						System.out.println(driver.findElement(By.id("locationName1")).getAttribute("value"));
-						if(driver.findElement(By.id("locationName1")).getAttribute("value").equalsIgnoreCase(""))
-						{
-							driver.findElement(By.id("locationName1")).clear();
-							driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-						}
-						
-						Thread.sleep(500);
-						driver.findElement(By.id("saveMoc")).click();
-						Thread.sleep(1000);
-						
-						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-						Assert.assertEquals(SuccessMessage,"MOC has been saved successfully");
+						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+					}*/
+					System.out.println("Msg: "+msg);
+					if(!msg.equalsIgnoreCase("Material Of Construction cannot be empty")&& 
+							msg.equalsIgnoreCase("MOC has been saved successfully"))
+					{
+						//Thread.sleep(500);
+						//driver.findElement(By.id("saveMoc")).click();
+						//Thread.sleep(1000);
+						//String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+						Assert.assertEquals(msg,"MOC has been saved successfully");
 						String className = this.getClass().getName(); // get current class name - for screenshot
 						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -2036,112 +2269,91 @@ public class Equipment {
 						Thread.sleep(1000);
 						
 					}
-				}
 					else
 					{
 						Thread.sleep(500);
-						driver.findElement(By.xpath(".//*[@id='addMOC']")).click();
+						driver.findElement(By.id("addMOC")).click();
 						Thread.sleep(500);
-						//if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
-						//{
-						//	if(driver.findElement(By.id("marker-num1")).getText().equalsIgnoreCase(""))
-							//{
-								driver.findElement(By.id("locationName1")).clear();
-								driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-							//}
-						//}
-								Thread.sleep(500);
-								driver.findElement(By.id("saveMoc")).click();
-								Thread.sleep(1000);
-								String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-								Assert.assertEquals(SuccessMessage,"MOC has been saved successfully");
-								String className = this.getClass().getName(); // get current class name - for screenshot
-								String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
-								Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-								if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
-								{
-									driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-								}
-								Thread.sleep(1000);
-						
+						driver.findElement(By.id("locationName1")).clear();
+						driver.findElement(By.id("locationName1")).sendKeys("Chennai");
+						Thread.sleep(500);
+						driver.findElement(By.id("saveMoc")).click();
+						Thread.sleep(1000);
+						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+						Assert.assertEquals(SuccessMessage,"MOC has been saved successfully");
+						String className = this.getClass().getName(); // get current class name - for screenshot
+						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
+						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+						{
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+						}
+						Thread.sleep(1000);
 					}
 					
-					WebElement Risk = driver.findElement(By.id("samplingType"));
-					Select RiskAssement = new Select(Risk);
-					RiskAssement.selectByVisibleText("Based on Sampling Site Type");
+					
+					
+					//WebElement Risk = driver.findElement(By.id("samplingType"));
+					//Select RiskAssement = new Select(Risk);
+					//RiskAssement.selectByVisibleText("Based on Sampling Site Type");
+					driver.findElement(By.xpath(".//*[@id='limitTerminologyDefinition']/div/div/div/div[2]/div/div/span/span[1]/span/span[2]")).click();
+					driver.findElement(By.xpath(".//*[@id='limitTerminologyDefinition']/div/div/div/div[2]/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_UP,Keys.ENTER);
 					Thread.sleep(1000);
 					
 					//listLocation
 					driver.findElement(By.id("listLocation")).click();
 					Thread.sleep(1000);
-					System.out.println("Sampling no Size: "+driver.findElements(By.className("no")).size());
-					System.out.println("Sampling no text: "+driver.findElement(By.className("no")).getText());
-					if(driver.findElements(By.className("no")).size()>1)
+					WebElement samplinglocation = driver.findElement(By.id("saveLoc"));
+					samplinglocation.click();
+					Thread.sleep(500);
+					String samplingMSG = driver.findElement(By.className("notify-msg")).getText();
+					Thread.sleep(500);
+					if(!samplingMSG.equalsIgnoreCase("Sampling Location Type cannot be empty")&& 
+							samplingMSG.equalsIgnoreCase("Sampling Location Type Definition has been saved successfully"))
 					{
-						Thread.sleep(1000);
-						System.out.println("Test");
-						System.out.println(driver.findElement(By.cssSelector(".no")).getText());
-						//if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
-						//{
-							Thread.sleep(500);
-							System.out.println(driver.findElement(By.xpath(".//*[@id='locationName1']")).getAttribute("value"));
-							System.out.println("------------");
-							if(driver.findElement(By.id("locationName1")).getAttribute("value").equalsIgnoreCase(""))
-							{
-								System.out.println("------------");
-								driver.findElement(By.id("locationName1")).clear();
-								driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-							}
-							
-							Thread.sleep(500);
-							driver.findElement(By.id("saveLoc")).click();
-							Thread.sleep(1000);
-							
-							String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-							Assert.assertEquals(SuccessMessage,"Sampling Location Type Definition has been saved successfully");
-							String className = this.getClass().getName(); // get current class name - for screenshot
-							String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
-							Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-							if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
-							{
-								driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-							}
-							Thread.sleep(1000);
-							
-						//}
-					}
-						else
+						Assert.assertEquals(samplingMSG,"Sampling Location Type Definition has been saved successfully");
+						String className = this.getClass().getName(); // get current class name - for screenshot
+						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
+						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 						{
-							Thread.sleep(500);
-							driver.findElement(By.id("addLOC")).click();
-							Thread.sleep(500);
-							//if(driver.findElement(By.className("no")).getText().equalsIgnoreCase("1."))
-							//{
-							//	if(driver.findElement(By.id("marker-num1")).getText().equalsIgnoreCase(""))
-								//{
-									driver.findElement(By.id("locationName1")).clear();
-									driver.findElement(By.id("locationName1")).sendKeys("Chennai");
-								//}
-							//}
-									Thread.sleep(500);
-									driver.findElement(By.id("saveLoc")).click();
-									Thread.sleep(1000);
-									String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-									Assert.assertEquals(SuccessMessage,"Sampling Location Type Definition has been saved successfully");
-									String className = this.getClass().getName(); // get current class name - for screenshot
-									String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
-									Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-									if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
-									{
-										driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-									}
-									Thread.sleep(1000);
-							
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 						}
+						Thread.sleep(1000);
+						
+					}
+					else
+					{
+						Thread.sleep(500);
+						driver.findElement(By.id("addLOC")).click();
+						Thread.sleep(500);
+						driver.findElement(By.id("locationName11")).clear();
+						driver.findElement(By.id("locationName11")).sendKeys("Bottom");
+						Thread.sleep(500);
+						driver.findElement(By.id("saveLoc")).click();
+						Thread.sleep(1000);
+						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+						Assert.assertEquals(SuccessMessage,"Sampling Location Type Definition has been saved successfully");
+						String className = this.getClass().getName(); // get current class name - for screenshot
+						String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
+						Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+						{
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+						}
+						Thread.sleep(1000);
+					}
 					
 					driver.findElement(By.id("saveSamplingLocation")).click();
 					Thread.sleep(2000);
-					
+					//Acknowledge
+					Thread.sleep(1000);
+					driver.findElement(By.name("password")).sendKeys(password);
+					Thread.sleep(500);
+					driver.findElement(By.name("comments")).sendKeys("Test comments");
+					Thread.sleep(500);
+					driver.findElement(By.xpath(".//*[@id='ackSubmit']")).click();
+					Thread.sleep(1000);
 					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
 					Assert.assertEquals(SuccessMessage,"Sampling Location has been saved successfully");
 					String className = this.getClass().getName(); // get current class name - for screenshot

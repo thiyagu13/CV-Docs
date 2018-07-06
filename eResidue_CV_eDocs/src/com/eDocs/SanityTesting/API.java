@@ -19,6 +19,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Message;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
 
@@ -27,7 +28,7 @@ public class API {
 		
 			private RepositoryParser parser;
 			private WebDriver driver = Constant.driver;;
-			public String password = "123456";
+			public String password = Constant.sitepassword;
 		
 			//Datas for create API
 			static String ActiveIngredientNameCREATE = "Test API";
@@ -50,12 +51,12 @@ public class API {
 			static String multiDeleteSearchData="Test API";
 			
 			
-			
+		/*	
 			@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
-				driver.get("http://192.168.1.111:8090");
+				driver.get(Constant.URL);
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 			}
 		
@@ -65,9 +66,9 @@ public class API {
 				Thread.sleep(1000);
 				WebElement username = driver.findElement(By.id("username"));
 				WebElement password = driver.findElement(By.id("password"));
-				username.sendKeys("user5");
+				username.sendKeys(Constant.siteusername);
 				Thread.sleep(500);
-				password.sendKeys("123456");
+				password.sendKeys(Constant.sitepassword);
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
 				Thread.sleep(1000);
@@ -78,14 +79,14 @@ public class API {
 		  			driver.findElement(By.id("forcelogin")).click();
 		  		}
 		  		Thread.sleep(1500);
-			}
+			}*/
 				
 			
-			@Test(priority=23,invocationCount=2)
+			@Test(priority=27,invocationCount=2)
 			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
-				driver.get("http://192.168.1.111:8090/active-ingredients");
+				driver.get(Constant.URL+"/active-ingredients");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
 				Thread.sleep(1000);
 				driver.findElement(By.id("addApi")).click();
@@ -95,28 +96,33 @@ public class API {
 				APIName.sendKeys(Name);
 				Thread.sleep(500);
 				
+				
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDCREATE);
 				Thread.sleep(1500);
-				
-				driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).click();
-				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+				//select HBEL Term
+				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(1000);
+				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(1000);
+				//driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).click();
+				//Thread.sleep(500);
+				//driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
 				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
-			/*	WebElement HBEL = driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")); 
-				Select SelectHBEL = new Select(HBEL);
-				SelectHBEL.selectByValue("1");*/
-				Thread.sleep(500);
+				//WebElement HBEL = driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")); 
+				//Select SelectHBEL = new Select(HBEL);
+				//SelectHBEL.selectByValue("1");
+				//Thread.sleep(500);
 				
 				
 				
-				driver.findElement(By.id("RouteAdmin")).click();
-				Thread.sleep(500);
-				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
-				Thread.sleep(500);
-				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
-				{
-					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				}
+				//driver.findElement(By.id("RouteAdmin")).click();
+				//Thread.sleep(500);
+				//driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
+				//Thread.sleep(500);
+				//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
+				//{
+					//driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				//}
 				//driver.findElement(By.id("RouteAdmin")).click();
 				Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
@@ -176,7 +182,7 @@ public class API {
 				
 				Thread.sleep(1000);
 				String createAPI = driver.findElement(By.className("notify-msg")).getText();
-				Assert.assertEquals(createAPI,"Active Ingredient saved successfully");
+				Assert.assertEquals(createAPI,Message.productAPICREATE);
 				
 				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
@@ -189,7 +195,7 @@ public class API {
 			
 			
 			
-			@Test(priority=24)
+			@Test(priority=28)
 			public void EditAPI() throws InterruptedException, SQLException, ClassNotFoundException
 			{
 				Thread.sleep(1000);
@@ -204,30 +210,32 @@ public class API {
 				driver.findElement(parser.getbjectLocator("ActiveID")).clear();
 				Thread.sleep(300);
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDEDIT);
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				
 				String getHBELvalue = driver.findElement(By.id("hbelValue1")).getAttribute("value");
-				Thread.sleep(300);
+				Thread.sleep(500);
 				Assert.assertEquals(getHBELvalue, HBELValueCREATE); // verify HBEL value
-				
-				WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // select PDE
-				Select SelectHBEL = new Select(HBEL);
-				SelectHBEL.selectByIndex(2);
-				Thread.sleep(500);
-				
-				driver.findElement(By.id("RouteAdmin")).click();
-				Thread.sleep(500);
-				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-				Thread.sleep(500);
-				//driver.findElement(By.id("RouteAdmin")).click();
-				//Thread.sleep(200);
-				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
-				{
-					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				}
-				Thread.sleep(500);
+				driver.findElement(By.id("hbelValue1")).clear();
+				Thread.sleep(300);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueEDIT);
 				Thread.sleep(500);
+				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // select PDE
+				//Select SelectHBEL = new Select(HBEL);
+				//SelectHBEL.selectByIndex(2);
+				//Thread.sleep(500);
+				
+				//driver.findElement(By.id("RouteAdmin")).click();
+				//Thread.sleep(500);
+				//driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
+				//Thread.sleep(500);
+				//driver.findElement(By.id("RouteAdmin")).click();
+				//Thread.sleep(200);
+				//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
+				//{
+				//	driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				//}
+				//Thread.sleep(500);
+				
 				
 				String getsolubility = driver.findElement(parser.getbjectLocator("SolubilityinWater")).getAttribute("value");
 				Thread.sleep(300);
@@ -252,6 +260,7 @@ public class API {
 				
 				driver.findElement(By.id("comments")).sendKeys(EditComments);
 				Thread.sleep(500);
+				System.out.println("password: "+password);
 				driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
 				Thread.sleep(500);
 				driver.findElement(By.id("ackSubmit")).click();
@@ -259,7 +268,7 @@ public class API {
 				Thread.sleep(1000);
 				String EditAPI = driver.findElement(By.className("notify-msg")).getText();
 				System.out.println(EditAPI);
-				Assert.assertEquals(EditAPI,"Active Ingredient updated successfully");
+				Assert.assertEquals(EditAPI,Message.productAPIEDIT);
 				
 				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{
@@ -272,7 +281,7 @@ public class API {
 			
 			
 			
-			@Test(priority=25)
+			@Test(priority=29)
 			public void SingleDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -292,7 +301,7 @@ public class API {
 				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(1500);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-				Assert.assertEquals(deletemsg,"Active Ingredient deleted successfully");
+				Assert.assertEquals(deletemsg,Message.productAPIDELETE);
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -306,11 +315,11 @@ public class API {
 			
 			
 			
-			@Test(priority=26)
+			@Test(priority=30)
 			public void MultiDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
-				driver.findElement(By.id("searchDataTable")).sendKeys(multiDeleteSearchData);
+				driver.findElement(By.id("searchDataTable")).sendKeys(ActiveIngredientNameCREATE);
 				Thread.sleep(1000);
 				driver.findElement(By.id("example-select-all")).click();
 				Thread.sleep(1000);
@@ -328,7 +337,7 @@ public class API {
 				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 				Thread.sleep(1000);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-				Assert.assertEquals(deletemsg,"Active Ingredient deleted successfully");
+				Assert.assertEquals(deletemsg,Message.productAPIDELETE);
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -340,9 +349,11 @@ public class API {
 			}
 			
 			
-			@Test(priority=27)
+			@Test(priority=31)
 			public void CreateAPIforProduct() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
+				Thread.sleep(1000);
+				driver.get(Constant.URL+"/active-ingredients");
 				//Thread.sleep(2000);
 				//driver.get("http://192.168.1.111:8090/active-ingredients");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Product.properties");
@@ -352,27 +363,32 @@ public class API {
 				String Name = ActiveIngredientNameCREATE;
 				WebElement APIName = driver.findElement(parser.getbjectLocator("ActiveIngredientName"));
 				APIName.sendKeys(Name);
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDCREATE);
-				Thread.sleep(500);
-				WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
-				Select SelectHBEL = new Select(HBEL);
-				SelectHBEL.selectByIndex(1);
+				Thread.sleep(1000);
+				
+				//select HBEL Term
+				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(1000);
+				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(1000);
+				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
+				//Select SelectHBEL = new Select(HBEL);
+				//SelectHBEL.selectByIndex(1);
 				Thread.sleep(500);
 				
 				
-				
-				driver.findElement(By.id("RouteAdmin")).click();
-				Thread.sleep(500);
-				driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
-				Thread.sleep(500);
-				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
-				{
-					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				}
 				//driver.findElement(By.id("RouteAdmin")).click();
-				Thread.sleep(500);
+				//Thread.sleep(500);
+				//driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
+				//Thread.sleep(500);
+				//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
+				//{
+				//	driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				//}
+				//driver.findElement(By.id("RouteAdmin")).click();
+				//Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
 				Thread.sleep(500);
 				
@@ -430,7 +446,7 @@ public class API {
 				
 				Thread.sleep(1000);
 				String createAPI = driver.findElement(By.className("notify-msg")).getText();
-				Assert.assertEquals(createAPI,"Active Ingredient saved successfully");
+				Assert.assertEquals(createAPI,Message.productAPICREATE);
 				
 				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 				{

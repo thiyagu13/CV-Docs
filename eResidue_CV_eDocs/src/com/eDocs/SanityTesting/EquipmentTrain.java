@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Message;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
 
@@ -26,7 +27,7 @@ public class EquipmentTrain {
 	
 			private RepositoryParser parser;
 			private WebDriver driver = Constant.driver;
-			public String password = "123456";
+			public String password = Constant.sitepassword;
 			static String EquipmenttrainName= "Selenium Train";
 			static String TrainMultiDeleteSEARCH="Test Train";
 			static String IdentifyEquipment="Test Equipment";
@@ -45,37 +46,44 @@ public class EquipmentTrain {
 			static String trainLocationEDIT="BangChennai";
 			static String trainRationaleEDIT="Rationale Edit";
 			
-		/*	
-			@BeforeClass
+			
+		/*	@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
-				driver.get("http://192.168.1.111:8090/login");
+				driver.get(Constant.URL+"/login");
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 			}
 		
-			@Test(priority=1)
-			public void Login() throws InterruptedException
+			@Test(priority=2)
+			public void Login() throws InterruptedException, IOException
 			{
-				//Lets see how we can find the first name field
+				Thread.sleep(1000);
 				WebElement username = driver.findElement(By.id("username"));
 				WebElement password = driver.findElement(By.id("password"));
-				username.sendKeys("thiyagu1");
+				username.sendKeys(Constant.siteusername);
 				Thread.sleep(500);
-				password.sendKeys("123456");
+				password.sendKeys(Constant.sitepassword);
 				Thread.sleep(500);
 				driver.findElement(By.id("loginsubmit")).click();
-				Thread.sleep(500);
-				driver.get("http://192.168.1.111:8090/equipment-train");
-			}
-				*/
+				Thread.sleep(1000);
+		  		if (driver.findElements(By.id("forcelogin")).size()!=0)
+		  		{
+		  			// Force Login
+		  			Thread.sleep(1000);
+		  			driver.findElement(By.id("forcelogin")).click();
+		  		}
+		  		Thread.sleep(1500);
+		  		//driver.get(Constant.URL+"/equipment-train");
+			}*/
+				
 			
-			@Test(priority=19,invocationCount=2)
+			@Test(priority=23,invocationCount=2)
 			public void CreateEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
-			//	Thread.sleep(6500);
-				driver.get("http://192.168.1.111:8090/equipment-train");
+				Thread.sleep(1000);
+				driver.get(Constant.URL+"/equipment-train");
 				Thread.sleep(1000);
 				driver.findElement(parser.getbjectLocator("createTrain")).click(); // Click create equipment button
 				Thread.sleep(1000);
@@ -102,12 +110,11 @@ public class EquipmentTrain {
 				equipments.add(getselectedEquipName);
 				//equipments.add(driver.findElement(By.className("select2-selection__rendered")).getText().substring(1));
 				//equipments.add(driver.findElement(By.cssSelector("ul.select2-selection__rendered>li:nth-child(1)")).getText().substring(1));
-			
 				//System.out.println("equipments"+equipments);
 		        
 		        
-		        driver.findElement(By.id("equiptreeMultiple")).click();
-		        driver.findElement(By.id("equiptreeMultiple")).sendKeys(Keys.ENTER);
+		        //driver.findElement(By.id("equiptreeMultiple")).click();
+		        //driver.findElement(By.id("equiptreeMultiple")).sendKeys(Keys.ENTER);
 		        //Select s = new Select(driver.findElement(By.id("equiptreeMultiple")));
 		        //s.selectByIndex(0);
 		        
@@ -194,9 +201,11 @@ public class EquipmentTrain {
 				//driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeCREATE);
 				//Thread.sleep(1000);
 				
-				WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
-				Select YesorNo = new Select(uploadimage);
-				YesorNo.selectByVisibleText(uploadImageOptionCREATE);
+				//WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
+				//Select YesorNo = new Select(uploadimage);
+				//YesorNo.selectByVisibleText(uploadImageOptionCREATE);
+				//upload image NO
+				driver.findElement(By.id("saveEquipmentTrainSamplingDetails")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
 				Thread.sleep(500);
 				//upload image if yes
 				//driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/div/div/input")).sendKeys("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\Test Data\\equipTrain.jpg");
@@ -208,10 +217,14 @@ public class EquipmentTrain {
 				Thread.sleep(500);
 				driver.findElement(parser.getbjectLocator("TrainLocationName")).sendKeys(trainLocationCREATE);
 				Thread.sleep(500);
-				WebElement MOC = driver.findElement(parser.getbjectLocator("TrainMoc")); //MOC
-				Select selectMOC = new Select(MOC);
-				selectMOC.selectByIndex(1);
+				//Select MOC
+				driver.findElement(parser.getbjectLocator("TrainLocationName")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
+				//WebElement MOC = driver.findElement(parser.getbjectLocator("TrainMoc")); //MOC
+				//Select selectMOC = new Select(MOC);
+				//selectMOC.selectByIndex(1);
+				
+				//Rationale
 				driver.findElement(parser.getbjectLocator("TrainRationale")).sendKeys(trainRationaleCREATE);
 				Thread.sleep(500);
 				
@@ -260,10 +273,10 @@ public class EquipmentTrain {
 							driver.findElement(By.id("saveCustomDetails")).click();
 							
 				}
-				Thread.sleep(5000);
+				Thread.sleep(4000);
 				String createEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 				System.out.println(createEquipmentTrain);
-				Assert.assertEquals(createEquipmentTrain,"Equipment train added successfully");
+				Assert.assertEquals(createEquipmentTrain,Message.equipementTrainCREATE);
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -276,7 +289,7 @@ public class EquipmentTrain {
 		
 	
 			
-			@Test(priority=20)
+			@Test(priority=24)
 			public void EditEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(1000);
@@ -297,12 +310,10 @@ public class EquipmentTrain {
 				//Thread.sleep(500);
 				//driver.findElement(By.id("rinseVolume")).sendKeys(TrainRinseVolumeEDIT);
 				
-				
-				
 				//WebElement s = driver.findElement(By.xpath(".//*[@id='upload-images']/div/div/div/div/input"));
 				//System.out.println("s "+s.getText());
 				//System.out.println("SRC: "+s.getAttribute("src"));	
-				Thread.sleep(6500);
+				Thread.sleep(1500);
 				WebElement uploadimage = driver.findElement(parser.getbjectLocator("TrainDoyouwanttouploadimages?"));
 				Select YesorNo = new Select(uploadimage);
 				WebElement option = YesorNo.getFirstSelectedOption(); 
@@ -311,27 +322,28 @@ public class EquipmentTrain {
 				Assert.assertEquals(getimageOption,uploadImageOptionCREATE);
 				Thread.sleep(500);
 				
-				//driver.findElement(By.xpath(".//*[@id='fs2']/div[7]/div/div/button")).click(); // click add location button
 				
 				//add location
 				Thread.sleep(500);
-				String getTrainLocation = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).getAttribute("value"); //verify text presented in the edit
+				String getTrainLocation = driver.findElement(By.id("locationName1")).getAttribute("value"); //verify text presented in the edit
 				Assert.assertEquals(getTrainLocation,trainLocationCREATE);
 				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).clear();
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[2]/input")).sendKeys(trainLocationEDIT);
+				driver.findElement(By.id("locationName1")).clear();
+				Thread.sleep(500);
+				driver.findElement(By.id("locationName1")).sendKeys(trainLocationEDIT);
 				Thread.sleep(500);
 				
 				//WebElement moc = driver.findElement(By.xpath(".//*[@id='moc1']"));
 				//Select SelectMOC = new Select(moc);
 				//SelectMOC.selectByIndex(1);
 				
-				String getRationale = driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).getAttribute("value"); //verify text presented in the edit
-				Assert.assertEquals(getRationale,trainRationaleCREATE);
-				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).clear();
-				driver.findElement(By.xpath(".//*[@id='marker-num1']/td[4]/input")).sendKeys(trainRationaleEDIT);
-				Thread.sleep(500);
+				//String getRationale = driver.findElement(By.name("rationale1")).getAttribute("value"); //verify text presented in the edit
+				//Assert.assertEquals(getRationale,trainRationaleCREATE);
+				//Thread.sleep(500);
+				//driver.findElement(By.name("rationale1")).clear();
+				//Thread.sleep(500);
+				//driver.findElement(By.name("rationale1")).sendKeys(trainRationaleEDIT);
+				//Thread.sleep(500);
 				
 				WebElement samplingbutton = driver.findElement(parser.getbjectLocator("TrainSubmitbutton")); //submitEquipmentSamplingDetails
 				Thread.sleep(200);
@@ -389,7 +401,7 @@ public class EquipmentTrain {
 				Thread.sleep(6000);
 				String EditEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
 				System.out.println(EditEquipmentTrain);
-				Assert.assertEquals(EditEquipmentTrain,"Equipment train updated successfully");
+				Assert.assertEquals(EditEquipmentTrain,Message.equipmentTrainEDIT);
 				
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
@@ -404,7 +416,7 @@ public class EquipmentTrain {
 			
 			
 			
-			@Test(priority=21)
+			@Test(priority=25)
 			public void SingleDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -421,10 +433,11 @@ public class EquipmentTrain {
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
-				Thread.sleep(1000);
+				//driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
+				driver.findElement(By.id("comments")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER); //Submit
+				Thread.sleep(1500);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-				Assert.assertEquals(deletemsg,"Equipment train deleted Successfully!");
+				Assert.assertEquals(deletemsg,Message.equipmentTrainDELETE);
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -436,29 +449,30 @@ public class EquipmentTrain {
 			}
 			
 
-		/*	@Test(priority=22)
+			@Test(priority=26)
 			public void MultiDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
-				driver.findElement(By.id("searchEquipment")).sendKeys(TrainMultiDeleteSEARCH);
+				driver.findElement(By.id("searchDataTable")).sendKeys(EquipmenttrainName);
 				Thread.sleep(1000);
 				driver.findElement(By.id("example-select-all")).click();
 				Thread.sleep(1000);
-				driver.findElement(By.xpath(".//*[@id='deleteSelectedEquipmentTrain']")).click(); // multi delete
+				driver.findElement(By.id("deleteSelectedEquipmentTrain")).click(); // multi delete
 				//driver.findElement(By.id("deleteSelectedEquipmentGroup")).sendKeys(Keys.ENTER); // multi delete
+				//Thread.sleep(500);
+				//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
 				Thread.sleep(500);
-				driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-				Thread.sleep(500);
-				driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+				driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 				Thread.sleep(500);
 				driver.findElement(By.id("comments")).sendKeys("Delete multiple equipment");
 				Thread.sleep(500);
-				driver.findElement(By.id("ackSubmit")).click();
-				Thread.sleep(1000);
+				//driver.findElement(By.id("ackSubmit")).click();
+				driver.findElement(By.id("comments")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER); //Submit
+				Thread.sleep(1500);
 				String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-				Assert.assertEquals(deletemsg,"Equipment Train deleted successfully");
+				Assert.assertEquals(deletemsg,Message.equipmentTrainDELETE);
 				String className = this.getClass().getName(); // get current class name - for screenshot
 				String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 				Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -469,7 +483,7 @@ public class EquipmentTrain {
 				Thread.sleep(600);
 			}
 			
-			*/
+			
 			
 			/*@Test(priority=6)
 			public void ExportEquipmentTrain() throws Exception

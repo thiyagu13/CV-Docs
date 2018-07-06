@@ -9,23 +9,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
+import com.eDocs.Utils.Message;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
 
 public class EquipmentGroup {
  
-	//RepositoryParser parser = new RepositoryParser("");
+				//RepositoryParser parser = new RepositoryParser("");
 				//static Utils WD = new Utils();	
 				private RepositoryParser parser;
 				private WebDriver driver = Constant.driver;
-				public String password = "123456";
+				public String password = Constant.sitepassword;
 				static String EquipmentGroupName = "Test Group";
 				static String groupIdentifyEquipment = "Test Equipment";
 				
@@ -47,34 +47,41 @@ public class EquipmentGroup {
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
-					driver.get("http://192.168.1.111:8090/login");
+					driver.get(Constant.URL+"/login");
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 				}
 			
 				@Test(priority=2)
 				public void Login() throws InterruptedException, IOException
 				{
-					//Lets see how we can find the first name field
 					Thread.sleep(1000);
 					WebElement username = driver.findElement(By.id("username"));
 					WebElement password = driver.findElement(By.id("password"));
-					username.sendKeys("thiyagu1");
+					username.sendKeys(Constant.siteusername);
 					Thread.sleep(500);
-					password.sendKeys("123456");
+					password.sendKeys(Constant.sitepassword);
 					Thread.sleep(500);
 					driver.findElement(By.id("loginsubmit")).click();
-					Thread.sleep(500);
+					Thread.sleep(1000);
+			  		if (driver.findElements(By.id("forcelogin")).size()!=0)
+			  		{
+			  			// Force Login
+			  			Thread.sleep(1000);
+			  			driver.findElement(By.id("forcelogin")).click();
+			  		}
+			  		Thread.sleep(1500);
+					//Thread.sleep(500);
 					//driver.get("http://192.168.1.111:8090/equipment-group");
-				}
-	*/
+			  		//driver.get(Constant.URL+"/equipment-group");
+				}*/
+	
 	
 				@Test(priority=19,invocationCount=2)
 				public void CreateEquipmentGroup() throws InterruptedException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
-					
 					Thread.sleep(2000);
-					driver.get("http://192.168.1.111:8090/equipment-group");
+					driver.get(Constant.URL+"/equipment-group");
 					//driver.navigate().refresh();
 					Thread.sleep(1000);
 					driver.findElement(By.id("addGroup")).click(); // Click create equipment button
@@ -85,9 +92,12 @@ public class EquipmentGroup {
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("GroupingCriteriaSimilar")).click();
 					Thread.sleep(500);
-					WebElement selectcriteria= driver.findElement(parser.getbjectLocator("Feature"));
-					Select SelectGroupCriteria = new Select(selectcriteria);
-					SelectGroupCriteria.selectByIndex(1);
+			  		//Select Feature
+			  		driver.findElement(By.name("name")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+			  		
+					//WebElement selectcriteria= driver.findElement(parser.getbjectLocator("Feature"));
+					//Select SelectGroupCriteria = new Select(selectcriteria);
+					//SelectGroupCriteria.selectByIndex(1);
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("GroupComments")).sendKeys(groupCommentsCREATE);
 					Thread.sleep(500);
@@ -174,25 +184,35 @@ public class EquipmentGroup {
 					
 					//worst case equipment selection
 					Thread.sleep(500);
-					WebElement worstcase = driver.findElement(parser.getbjectLocator("WorstCaseDetermination"));
-					worstcase.click();
-					worstcase.sendKeys(equipments.get(0));
-					worstcase.sendKeys(Keys.ENTER);
-					worstcase.click();
+					driver.findElement(By.id("worstCase-step")).click();
+			  		driver.findElement(By.id("worstCase-step")).sendKeys(Keys.ENTER);
+					//WebElement worstcase = driver.findElement(parser.getbjectLocator("WorstCaseDetermination"));
+					//worstcase.click();
+					//worstcase.sendKeys(equipments.get(0));
+					//worstcase.sendKeys(Keys.ENTER);
+					//worstcase.click();
 					Thread.sleep(1000);	
 					//no of runs
-					WebElement noofruns = driver.findElement(parser.getbjectLocator("No.ofRuns"));
-					Select noofRunsforWorstcaseeq = new Select(noofruns);
-					noofRunsforWorstcaseeq.selectByVisibleText(groupNoOfRunsCREATE);
+					driver.findElement(By.id("wcderesult")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
+					
+					//WebElement noofruns = driver.findElement(parser.getbjectLocator("No.ofRuns"));
+					//Select noofRunsforWorstcaseeq = new Select(noofruns);
+					//noofRunsforWorstcaseeq.selectByVisibleText(groupNoOfRunsCREATE);
 					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys(groupProtocolDocCREATE);//protocol id
+					//Select protocol document id
+			  		driver.findElement(By.id("wcderesult")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys(groupProtocolDocCREATE);//protocol id
+			  		
 					Thread.sleep(500);
 					driver.findElement(parser.getbjectLocator("ReportID")).sendKeys(groupReportIDCREATE);
 					Thread.sleep(500);
-					//Worstcase equipment
-					WebElement worstcaseEQ = driver.findElement(parser.getbjectLocator("WorstCaseEquipment"));
-					Select worstquipment = new Select(worstcaseEQ);
-					worstquipment.selectByIndex(1);
+					
+					//Select worstcase product
+			  		Thread.sleep(500);
+			  		driver.findElement(By.id("wcderesult")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					//WebElement worstcaseEQ = driver.findElement(parser.getbjectLocator("WorstCaseEquipment"));
+					//Select worstquipment = new Select(worstcaseEQ);
+					//worstquipment.selectByIndex(1);
 					Thread.sleep(500);
 					
 					
@@ -237,7 +257,7 @@ public class EquipmentGroup {
 					}
 					Thread.sleep(2000);
 					String createGroup = driver.findElement(By.className("notify-msg")).getText(); 
-					Assert.assertEquals(createGroup,"Equipment group saved successfully");
+					Assert.assertEquals(createGroup,Message.equipementGroupCREATE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -285,39 +305,46 @@ public class EquipmentGroup {
 					if(driver.findElements(parser.getbjectLocator("No.ofRuns")).size()!=0)
 					{
 					//no of runs
+						WebElement noofruns = driver.findElement(parser.getbjectLocator("No.ofRuns"));
+						Select noofRunsforWorstcaseeq = new Select(noofruns);
+						WebElement option = noofRunsforWorstcaseeq.getFirstSelectedOption(); 
+						String getNoofRuns = option.getText();
+						Assert.assertEquals(getNoofRuns,groupNoOfRunsCREATE);
+						//noofRunsforWorstcaseeq.selectByVisibleText(groupNoOfRunsEDIT);
+						driver.findElement(By.id("wcderesult")).sendKeys(Keys.SHIFT,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ARROW_DOWN,Keys.ENTER);
 						
-					WebElement noofruns = driver.findElement(parser.getbjectLocator("No.ofRuns"));
-					Select noofRunsforWorstcaseeq = new Select(noofruns);
-					WebElement option = noofRunsforWorstcaseeq.getFirstSelectedOption(); 
-					String getNoofRuns = option.getText();
-					Assert.assertEquals(getNoofRuns,groupNoOfRunsCREATE);
-					noofRunsforWorstcaseeq.selectByVisibleText(groupNoOfRunsEDIT);
-					Thread.sleep(500);
-					
-					String getProtocolID = driver.findElement(parser.getbjectLocator("ProtocolDocID")).getAttribute("value"); //verify text presented in the edit
-					Assert.assertEquals(getProtocolID,groupProtocolDocCREATE);
-					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("ProtocolDocID")).clear();//protocol id
-					driver.findElement(parser.getbjectLocator("ProtocolDocID")).sendKeys(groupProtocolDocEDIT);//protocol id
-					Thread.sleep(500);
-					
-					String getReportID = driver.findElement(parser.getbjectLocator("ReportID")).getAttribute("value"); //verify text presented in the edit
-					Assert.assertEquals(getReportID,groupReportIDCREATE);
-					Thread.sleep(500);
-					driver.findElement(parser.getbjectLocator("ReportID")).clear();
-					driver.findElement(parser.getbjectLocator("ReportID")).sendKeys(groupReportIDEDIT);
-					Thread.sleep(500);
-					//Worstcase equipment
-					WebElement worstcaseEQ = driver.findElement(parser.getbjectLocator("WorstCaseEquipment"));
-					Select worstquipment = new Select(worstcaseEQ);
-					worstquipment.selectByIndex(1);
-					Thread.sleep(500);
+						Thread.sleep(500);
+						//Select protocol document id
+				  		WebElement protocol = driver.findElement(parser.getbjectLocator("ProtocolDocID"));
+						Select selectprotocol = new Select(protocol);
+						WebElement getprotocol = selectprotocol.getFirstSelectedOption(); 
+						String getprotocolText = getprotocol.getText();
+						if(getprotocolText.equalsIgnoreCase(""))
+						{
+							new Exception();
+						}
+						//Report ID
+						String getReportID = driver.findElement(parser.getbjectLocator("ReportID")).getAttribute("value"); //verify text presented in the edit
+						Assert.assertEquals(getReportID,groupReportIDCREATE);
+						Thread.sleep(500);
+						driver.findElement(parser.getbjectLocator("ReportID")).clear();
+						driver.findElement(parser.getbjectLocator("ReportID")).sendKeys(groupReportIDEDIT);
+						Thread.sleep(500);
+						
+						//Worstcase equipment
+						WebElement worstcaseEQ = driver.findElement(parser.getbjectLocator("WorstCaseEquipment"));
+						Select worstquipment = new Select(worstcaseEQ);
+						WebElement getworstquipment = worstquipment.getFirstSelectedOption(); 
+						String getgetworstquipmentText = getworstquipment.getText();
+						if(getgetworstquipmentText.equalsIgnoreCase(""))
+						{
+							new Exception();
+						}
+						Thread.sleep(500);
 					}
-					
 					
 					Thread.sleep(1000);
 					WebElement worstcasesubmit = driver.findElement(By.id("saveEquipmentGroup")); //submitEquipmentSamplingDetails
-					
 					
 					if(worstcasesubmit.getText().equals("Submit"))
 					{
@@ -370,7 +397,7 @@ public class EquipmentGroup {
 						}
 					Thread.sleep(1000);
 					String EditGroup = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(EditGroup,"Equipment group updated successfully");
+					Assert.assertEquals(EditGroup,Message.equipmentGroupEDIT);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -387,7 +414,7 @@ public class EquipmentGroup {
 				@Test(priority=21)
 				public void SingleDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(1000);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[3]/a")).click(); // Click edit equipment button
@@ -405,7 +432,7 @@ public class EquipmentGroup {
 					driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					Thread.sleep(1500);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment Group deleted successfully");
+					Assert.assertEquals(deletemsg,Message.equipmentGroupDELETE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -417,28 +444,30 @@ public class EquipmentGroup {
 				}
 				
 
-		/*		@Test(priority=18)
+				@Test(priority=22)
 				public void MultiDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);
-					driver.findElement(By.id("searchEquipment")).sendKeys(EquipmentGroupName);
+					driver.findElement(By.id("searchDataTable")).sendKeys(EquipmentGroupName);
 					Thread.sleep(1000);
 					driver.findElement(By.id("example-select-all")).click();
 					Thread.sleep(1000);
 					driver.findElement(By.id("deleteSelectedEquipmentGroup")).click(); // multi delete
-					driver.findElement(By.id("deleteSelectedEquipmentGroup")).sendKeys(Keys.ENTER); // multi delete
+					//driver.findElement(By.id("deleteSelectedEquipmentGroup")).sendKeys(Keys.ENTER); // multi delete
+					//Thread.sleep(500);
+					//driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
 					Thread.sleep(500);
-					driver.findElement(By.xpath(".//*[@id='openAckModal']")).click();//click Yes in popup
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys("111");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys("111");
-					Thread.sleep(500);
-					driver.findElement(By.id("ackChangeControlNo")).sendKeys(Keys.TAB +password);
+					driver.findElement(By.name("ackChangeControlNo")).sendKeys(Keys.TAB +password);
 					Thread.sleep(500);
 					driver.findElement(By.id("comments")).sendKeys("Delete single equipment");
 					Thread.sleep(500);
-					driver.findElement(By.id("ackSubmit")).click();
+					//driver.findElement(By.id("ackSubmit")).click();
+					driver.findElement(By.cssSelector(".btn.blue-btn.red.waves-effect.deleteData")).click();
+					Thread.sleep(1000);
 					String deletemsg = driver.findElement(By.className("notify-msg")).getText(); // get deleted esuccess message
-					Assert.assertEquals(deletemsg,"Equipment Group deleted successfully");
+					Assert.assertEquals(deletemsg,Message.equipmentGroupDELETE);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
@@ -449,7 +478,7 @@ public class EquipmentGroup {
 					Thread.sleep(600);
 					
 				}
-				*/
+				
 				
 				
 				/*@Test(priority=6)

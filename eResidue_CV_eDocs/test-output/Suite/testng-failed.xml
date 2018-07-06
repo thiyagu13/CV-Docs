@@ -7,20 +7,30 @@
   </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.Equipment.EquipmentSegment">
+      <class name="com.eDocs.SanityTesting.API">
         <methods>
-          <include name="equipmentIFCustomFieldorSAVETest"/>
-          <include name="segmentNameMaxLengthTest"/>
-          <include name="segmentSurfaceAreaEmptyTest"/>
-          <include name="segmentSurfaceAreaZeroTest"/>
-          <include name="segmentSurfaceAreaInvalidCharTest"/>
-          <include name="segmentNameEmptyTest"/>
-          <include name="segmentSurfaceAreaSpaceTest"/>
-          <include name="segmentlocationTest"/>
-          <include name="segmentSurfaceAreaMultiDecimalTest"/>
-          <include name="segmentSurfaceAreaMaxLengthTest"/>
+          <include name="MultiDeleteAPI"/>
         </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentSegment -->
+      </class> <!-- com.eDocs.SanityTesting.API -->
+      <class name="com.eDocs.SanityTesting.Equipment">
+        <methods>
+          <include name="CopyEquipment"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- com.eDocs.SanityTesting.Equipment -->
+      <class name="com.eDocs.SanityTesting.EquipmentTrain">
+        <methods>
+          <include name="MultiDeleteEquipmentTrain"/>
+          <include name="SingleDeleteEquipmentTrain"/>
+        </methods>
+      </class> <!-- com.eDocs.SanityTesting.EquipmentTrain -->
+      <class name="com.eDocs.SanityTesting.Product">
+        <methods>
+          <include name="setUp"/>
+          <include name="SingleDeleteProduct"/>
+          <include name="MultiDeleteProduct"/>
+        </methods>
+      </class> <!-- com.eDocs.SanityTesting.Product -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

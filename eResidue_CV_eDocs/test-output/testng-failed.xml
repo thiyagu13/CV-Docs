@@ -1,28 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <listeners>
-    <listener class-name="com.eDocs.result.LocalScreenshot"/>
-    <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
-  </listeners>
-  <test name="Test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.Equipment.EquipmentSamplingInfo">
+      <class name="com.eDocs.SanityTesting.Equipment">
         <methods>
-          <include name="SamplingInfoSamplingMethodEmptyTest"/>
-          <include name="SamplingLocationEmptyPinTest"/>
+          <include name="CopyEquipment"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentSamplingInfo -->
-      <class name="com.eDocs.Equipment.EquipmentSegment">
-        <methods>
-          <include name="segmentNamePinEmptyOREquipSaveTest"/>
-        </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentSegment -->
-      <class name="com.eDocs.Equipment.EquipmentNonMandatoryFields">
-        <methods>
-          <include name="OtherCleaningInfoMaxLengthTest"/>
-        </methods>
-      </class> <!-- com.eDocs.Equipment.EquipmentNonMandatoryFields -->
+      </class> <!-- com.eDocs.SanityTesting.Equipment -->
     </classes>
-  </test> <!-- Test(failed) -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

@@ -39,7 +39,7 @@ public class SurfaceAreaValue {
 	
 			
     //Current to next   - Actual shared SF between two products
-    public static double actualSharedbetween2(String currentproductname, String nextproductname) throws SQLException, ClassNotFoundException {
+    public static float actualSharedbetween2(String currentproductname, String nextproductname) throws SQLException, ClassNotFoundException {
         int currentproductID = 0, nextproductID = 0, currentproductsetcount = 0, nextproductsetcount = 0;
         //database connection
         Connection connection = Utils.db_connect();
@@ -260,6 +260,7 @@ public class SurfaceAreaValue {
             }
             TotalactualshreadList.addAll(actualshread);
         }
+        System.out.println("TotalactualshreadList: "+TotalactualshreadList);
         float actualsharedbetween2 = Collections.max(TotalactualshreadList);
         System.out.println("Maximum shared SF value:" + actualsharedbetween2);
         connection.close();
@@ -267,7 +268,7 @@ public class SurfaceAreaValue {
     }
 
     //Current to next  -lowest train SF between two products
-    public static double lowestTrainbetween2(String currentproductname, String nextproductname) throws SQLException, ClassNotFoundException {
+    public static float lowestTrainbetween2(String currentproductname, String nextproductname) throws SQLException, ClassNotFoundException {
         int currentproductID = 0, nextproductID = 0, currentproductsetcount = 0, nextproductsetcount = 0;
         //database connection
         Connection connection = Utils.db_connect();

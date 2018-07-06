@@ -10,7 +10,7 @@ public class Constant {
 	public static String GECKO_DRIVER_PATH = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\geckodriver.exe";
 
 	// Site URL
-	public static String URL = "http://192.168.1.45:8092";
+	public static String URL = "http://192.168.1.111:8090";
 	
 	public static String siteusername = "user5";
 	
@@ -33,9 +33,9 @@ public class Constant {
 	
 	public static final String username = "thiyagu";
 	
-	public static final String password = "Quascenta@521";*/	
+	public static final String password = "Quascenta@521";	*/
 	
-	public static final String dbUrl = "jdbc:mysql://192.168.1.45:3306/edocs-testing-schema";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs-testing-schema";
 	
 	public static final String username = "root";
 	

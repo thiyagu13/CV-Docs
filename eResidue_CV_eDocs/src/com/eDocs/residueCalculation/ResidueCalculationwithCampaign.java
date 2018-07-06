@@ -139,11 +139,11 @@ public class ResidueCalculationwithCampaign {
 
 	}
 
-	String sampling_methodOption;
-	int RinseSampling;
+	static String sampling_methodOption;
+	static int RinseSampling;
 
 	// Get equipment rinse volume from universal settings
-	public double eqRinseVolume() throws ClassNotFoundException, SQLException {// Get value from universal settings
+	public static double eqRinseVolume() throws ClassNotFoundException, SQLException {// Get value from universal settings
 		Connection connection = Utils.db_connect();
 		Statement stmt = (Statement) connection.createStatement();// Create Statement Object
 		ResultSet residueLimit = stmt.executeQuery(
@@ -320,7 +320,9 @@ public class ResidueCalculationwithCampaign {
 
 	double value_L1, value_L2, value_L3, Solid_Total_surface_area, maxDD, minBatch, Solid_Expec_Value_L2,
 			Solid_Expec_Value_L3, Solid_Expec_Value_L4a, Solid_Expec_Value_L4b, Solid_Expec_Value_L1, swabSurfaceArea,
-			swabAmount, rinsevolume, L4cEquipment;
+			swabAmount;
+	static double rinsevolume;
+	double L4cEquipment;
 	float L4cTrain = 0;
 
 	public void calculation(List<String> CurrenProduct, List<String> Nextprod)
@@ -363,17 +365,16 @@ public class ResidueCalculationwithCampaign {
 			
 			int CurrentproductType = 0;
 			// get current product type
-			ResultSet getproductType = stmt.executeQuery("Select product_type from product where name = '"
-					+ CurrenProductName + "' && tenant_id='" + tenant_id + "'"); // get product name id
-			while (getproductType.next()) {
+			ResultSet getproductType = stmt.executeQuery("Select product_type from product where name = '"	+ CurrenProductName + "' && tenant_id='" + tenant_id + "'"); // get product name id
+			while (getproductType.next()) 
+			{
 				CurrentproductType = getproductType.getInt(1);
 			}
 
 			boolean CheckCleaningAgentType = false;
 			boolean CheckDiluentType = false;
 			for (String Namelist : currentproductlist) {
-				ResultSet checkType = stmt.executeQuery("Select name,product_type from product where name = '"
-						+ Namelist + "' && tenant_id='" + tenant_id + "'"); // get product name id
+				ResultSet checkType = stmt.executeQuery("Select name,product_type from product where name = '"+ Namelist + "' && tenant_id='" + tenant_id + "'"); // get product name id
 				Integer Type = 0; // store all the product type
 				while (checkType.next()) {
 					Type = checkType.getInt(2);
@@ -1401,6 +1402,7 @@ public class ResidueCalculationwithCampaign {
 							}
 							L4Row++;
 						} // closing for equipment ID loop
+
 						L4Row++; // Leave one row for each product
 
 						if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in sampling
