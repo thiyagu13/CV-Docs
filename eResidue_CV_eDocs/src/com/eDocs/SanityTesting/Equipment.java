@@ -63,7 +63,7 @@ public class Equipment {
 				
 				
 				
-				@BeforeClass
+				/*@BeforeClass
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
@@ -97,9 +97,9 @@ public class Equipment {
 			  		//Thread.sleep(1500);
 			  		//WebElement alphanumericField = driver.findElement(By.name("name"));
 			  		//alphanumericField.sendKeys("test");
-				}
+				}*/
 		
-			/*	@Test(priority=9)
+				@Test(priority=9)
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -1972,13 +1972,12 @@ public class Equipment {
 				} // closing Create Equipment method
 				
 				
-				*/
-				
 				
 				@Test(priority=17,invocationCount=5)
 				public void CopyEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//driver.navigate().refresh();
+					driver.get(Constant.URL+"/equipment");
 					Thread.sleep(2000);
 					//driver.findElement(parser.getbjectLocator("EquipmentAction")).click(); // Click action icon
 					driver.findElement(By.id("dLabel")).click();
@@ -1995,9 +1994,9 @@ public class Equipment {
 					Thread.sleep(500);
 					//driver.findElement(By.xpath(".//*[@id='dynamicModal']/div[3]/div/button[2]")).click();
 					driver.findElement(By.cssSelector(".btn.blue-btn.waves-effect.copyData")).click();
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 					
-					String successMSG;
+					String successMSG = null;
 					if(driver.findElements(By.cssSelector(".btn.blue-btn.waves-effect.copyData")).size()!=0)
 					{
 						String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
@@ -2006,7 +2005,6 @@ public class Equipment {
 						{
 							successMSG = getduplicatename;
 						}
-						
 						
 					Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
 					for(int k=25;k<1000;k++)
@@ -2024,13 +2022,16 @@ public class Equipment {
 							driver.findElement(By.id("nameForCopy")).sendKeys(equipmentName+i);
 							Thread.sleep(500);
 							driver.findElement(By.cssSelector(".btn.blue-btn.waves-effect.copyData")).click();
-							Thread.sleep(500);
-							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment '"+equipmentName+i+"' already exists!"))
+							Thread.sleep(3000);
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 
+									&& driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment '"+equipmentName+i+"' already exists!"))
 							{
-								String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+								System.out.println("nameduplicate: "+nameduplicate);
 								if(nameduplicate.equalsIgnoreCase(Message.equipmentCOPY))
 								{
 									successMSG = nameduplicate;
+									System.out.println("For Loop: "+successMSG);
 								}
 								driver.findElement(By.className("custom-notify-close")).click();
 								if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment '"+equipmentName+i+"' already exists!"))
@@ -2039,21 +2040,26 @@ public class Equipment {
 								}
 							}
 									System.out.println("Not duplicate so break the loop");
+									if(nameduplicate.equalsIgnoreCase(Message.equipmentCOPY))
+									{
+										successMSG = nameduplicate;
+										System.out.println("For Loop: "+successMSG);
+									}
 									break;
 							}
 						}
 					} 
-					Thread.sleep(2000);
-					successMSG = driver.findElement(By.className("notify-msg")).getText();
+					Thread.sleep(3000);
+					//successMSG = driver.findElement(By.className("notify-msg")).getText();
 					System.out.println("MSG: "+successMSG);
 					Assert.assertEquals(successMSG,Message.equipmentCOPY);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
-					{
-						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-					}
+					//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+					//{
+					//	driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+					//}
 					Thread.sleep(500);
 				}
 				

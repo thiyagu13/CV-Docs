@@ -10,9 +10,19 @@
   <test name="Test">
     <classes>
     	<!--  <class name="com.eDocs.SanityTesting.UniversalSettings"/>  -->
+    	  <class name="com.eDocs.SanityTesting.Utility">  
+    		<methods>
+       			 <include name="Login" />		 
+       			 <include name="CreateUtility" />
+       			 <exclude name="EditUtility" />
+       			 <include name="SingleDeleteUser" />
+       			 <exclude name="ExportUtility" />
+       			 <include name="MultiDeleteUtility" />
+      		</methods>
+      	  </class> 
           <class name="com.eDocs.SanityTesting.Equipment">
          	<methods>
-       			 <include name="Login" />		 
+       			 <exclude name="Login" />		 
        			 <exclude name="CreateEquipmentwithRiskAssessment" />
        			 <exclude name="EditEquipmentwithRiskAssessment" />
        			 <exclude name="DeleteEquipmentRiskAssessment" />

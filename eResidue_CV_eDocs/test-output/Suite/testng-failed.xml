@@ -7,30 +7,12 @@
   </listeners>
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.API">
-        <methods>
-          <include name="MultiDeleteAPI"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.API -->
-      <class name="com.eDocs.SanityTesting.Equipment">
-        <methods>
-          <include name="CopyEquipment"/>
-          <include name="setUp"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.Equipment -->
       <class name="com.eDocs.SanityTesting.EquipmentTrain">
         <methods>
           <include name="MultiDeleteEquipmentTrain"/>
           <include name="SingleDeleteEquipmentTrain"/>
         </methods>
       </class> <!-- com.eDocs.SanityTesting.EquipmentTrain -->
-      <class name="com.eDocs.SanityTesting.Product">
-        <methods>
-          <include name="setUp"/>
-          <include name="SingleDeleteProduct"/>
-          <include name="MultiDeleteProduct"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.Product -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->
