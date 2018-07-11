@@ -35,7 +35,7 @@ public class Constant {
 	
 	public static final String password = "Quascenta@521";	*/
 	
-	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs-testing-schema";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs-testing-admin";
 	
 	public static final String username = "root";
 	

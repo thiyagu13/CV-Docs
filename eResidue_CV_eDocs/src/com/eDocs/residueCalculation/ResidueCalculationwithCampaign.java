@@ -406,10 +406,9 @@ public class ResidueCalculationwithCampaign {
 				int getprodID = 0, currentproductsetcount = 0, grouping_criteria_option = 0/* ,CurrentproductType=0 */;
 				String cprodname = null, activename = null;
 				// Get Current product details
-				ResultSet productID = stmt
-						.executeQuery("Select id,name,grouping_criteria_option,set_count from product where name = '"
-								+ CurrenProductName + "' && tenant_id='" + tenant_id + "'"); // get product name id
-				while (productID.next()) {
+				ResultSet productID = stmt.executeQuery("Select id,name,grouping_criteria_option,set_count from product where name = '"+ CurrenProductName + "' && tenant_id='" + tenant_id + "'"); // get product name id
+				while (productID.next()) 
+				{
 					getprodID = productID.getInt(1);
 					cprodname = productID.getString(2); // get name id from product table
 					grouping_criteria_option = productID.getInt(3);
