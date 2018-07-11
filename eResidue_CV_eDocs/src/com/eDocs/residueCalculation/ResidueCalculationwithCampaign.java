@@ -427,6 +427,7 @@ public class ResidueCalculationwithCampaign {
 				}
 
 				System.out.println("Get current product ID: " + getprodID);
+				System.out.println("Get current product ID: " + getprodID);
 				if (limitDetermination() == 2)// Start: Lowest based on lowest amongst all actives within a product
 				{
 					
