@@ -11,6 +11,7 @@
         <methods>
           <include name="MultiDeleteEquipmentTrain"/>
           <include name="SingleDeleteEquipmentTrain"/>
+          <include name="CreateEquipmentTrain"/>
         </methods>
       </class> <!-- com.eDocs.SanityTesting.EquipmentTrain -->
     </classes>

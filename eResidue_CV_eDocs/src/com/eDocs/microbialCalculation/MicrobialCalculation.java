@@ -39,7 +39,7 @@ public class MicrobialCalculation {
 	String productName2 ="P22";
 	String productName3 ="P33";
 	String productName4 ="P44";*/
-	WebDriver driver;
+	//WebDriver driver;
 	static String tenant_id= Constant.tenant_id;
 	
 	
@@ -170,10 +170,11 @@ public class MicrobialCalculation {
 		List<String>  nextproductlist = new ArrayList<>(); //store product list
 		nextproductlist.addAll(selectedproducts);*/
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("S1");
-		selectedproducts.add("S2");
-		selectedproducts.add("Diluent");
-		//selectedproducts.add("S3");
+		//selectedproducts.add("L5");
+		//selectedproducts.add("L6");
+		selectedproducts.add("L7");
+		selectedproducts.add("L8");
+		//selectedproducts.add("S3");	
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);
@@ -628,7 +629,8 @@ public class MicrobialCalculation {
 			  				{
 			  					if(preset_apply_default_limit_for_rinse==1) //rinse default value 1
 			  					{
-			  						ExpectedL4RiseEquipment = (1/10); //(NMT 1 CFU/10mL)
+			  						ExpectedL4RiseEquipment = (float) 0.1; //(NMT 1 CFU/10mL)
+			  						System.out.println("ExpectedL4RiseEquipment--: "+ExpectedL4RiseEquipment);
 			  					}
 			  					if(preset_apply_default_limit_for_rinse==2) //rinse default value 2
 			  					{
