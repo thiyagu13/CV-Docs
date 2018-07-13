@@ -1759,7 +1759,7 @@ public class ResidueCalculationwithCampaign {
 																										// transfer
 
 					Cell prodName1 = sheet.getRow(row).getCell(3); // print current product name
-					prodName1.setCellValue(cprodname+activename);
+					prodName1.setCellValue(cprodname);
 
 					defaultValueSet(CurrenProductName);
 					List<Float> LowestExpectL3 = new ArrayList<>();
@@ -1824,21 +1824,20 @@ public class ResidueCalculationwithCampaign {
 									|| productType.equals("Inhalant")) {
 
 								if (min_batch_size_unit == 1) {
-									value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / (maxDD * 0.001);
+									value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet) / (maxDD * 0.001);
 								} else {
-									value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
+									value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet) / maxDD;
 								}
 								Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-								Solid_expec_Value_L0_print
-										.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
+								Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet));
 							}
 							// if product is Transdermal Patch
 							if (productType.equals("Patch")) {
-								value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName) * 1000)
+								value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet) * 1000)
 										/ (maxDD * (percentage_absorption / 100));
 								Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 								Solid_expec_Value_L0_print
-										.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+										.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName, row, sheet));
 							}
 							// if product is Topical
 							if (productType.equals("Topical")) {
@@ -2021,11 +2020,11 @@ public class ResidueCalculationwithCampaign {
 
 								// if product is Transdermal Patch
 								if (productType.equals("Patch")) {
-									value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName) * 1000)
+									value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet) * 1000)
 											/ maxDailyDoseperPatch;
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
 									Solid_expec_Value_L0_print
-											.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+											.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet));
 								}
 								// if product is Topical - Option2
 								if (productType.equals("Topical")) {
@@ -2068,20 +2067,20 @@ public class ResidueCalculationwithCampaign {
 								{
 									if (min_batch_size_unit == 1) 
 									{
-										value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / (maxDD * 0.001);
+										value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet) / (maxDD * 0.001);
 									} else 
 									{
-										value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
+										value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet) / maxDD;
 									}
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-									Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
+									Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet));
 								}
 								
 								// if product is Transdermal Patch
 								if (productType.equals("Patch")) {
-									value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName) * 1000)/ (maxDD * (percentage_absorption / 100));
+									value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet) * 1000)/ (maxDD * (percentage_absorption / 100));
 									Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5);
-									Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+									Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet));
 								}
 
 								// if product is Topical
@@ -2274,10 +2273,9 @@ public class ResidueCalculationwithCampaign {
 
 					for (Integer equipmentID : getEquipment(CurrenProductName)) // get id from set
 					{
-						
 						String space = " ";
 						Cell currentpname = sheet.getRow(L4Row).getCell(16);
-						currentpname.setCellValue(cprodname+space+activename); // print product name into excel
+						currentpname.setCellValue(cprodname); // print product name into excel
 						ResultSet EquipID = stmt.executeQuery("Select name,surface_area,swab_area,swab_amount,rinse_volume from equipment where id= '"
 										+ equipmentID + "' && tenant_id='" + tenant_id + "'"); // get product name id
 						// print
@@ -2404,10 +2402,9 @@ public class ResidueCalculationwithCampaign {
 									L4cEquipactual.setCellValue("NA");
 								}
 							}
-
 						} // closing ActualequipResult while loop
 
-						if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in sampling
+						/*if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in sampling
 						{
 							// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
 							double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
@@ -2430,10 +2427,9 @@ public class ResidueCalculationwithCampaign {
 								verify_result.setCellValue("Fail");
 								verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
 							}
-						}
+						}*/
 						if (sampling_methodOption.equals("1")
-								|| (sampling_methodOption.equals("1,2") && RinseSampling == 2)) // if rinse enabled in
-																								// sampling
+								|| (sampling_methodOption.equals("1,2") && RinseSampling == 2)) // if rinse enabled in sampling
 						{
 							// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
 							double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();

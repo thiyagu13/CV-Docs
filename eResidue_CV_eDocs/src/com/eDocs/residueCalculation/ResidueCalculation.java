@@ -1125,16 +1125,16 @@ public class ResidueCalculation {
 				
 				if(productType.equals("Solid")|| productType.equals("Liquid")||productType.equals("Inhalant"))
 				{
-					value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName) / maxDD;
+					value_L1 = L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet) / maxDD;
 					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName));
+					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forSolid(CurrenProductName,row,sheet));
 				}
 				//if product is Transdermal Patch
 				if(productType.equals("Patch"))
 				{
-					value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName)*1000) / maxDD;
+					value_L1 = (L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet)*1000) / maxDD;
 					Cell Solid_expec_Value_L0_print = sheet.getRow(row).getCell(5); 
-					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName));
+					Solid_expec_Value_L0_print.setCellValue(L0.groupingApproach_L0forPatch(CurrenProductName,row,sheet));
 				}
 				
 				//if product is Topical
