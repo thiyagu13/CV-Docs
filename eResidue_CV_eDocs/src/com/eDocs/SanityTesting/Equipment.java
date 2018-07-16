@@ -99,7 +99,7 @@ public class Equipment {
 			  		//alphanumericField.sendKeys("test");
 				}*/
 		
-				@Test(priority=9)
+				@Test(priority=10)
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -443,7 +443,7 @@ public class Equipment {
 				
 				
 			
-				@Test(priority=10)
+				@Test(priority=11)
 				public void EditEquipmentwithRiskAssessment() throws Exception
 				{
 					//Thread.sleep(31000);
@@ -785,7 +785,7 @@ public class Equipment {
 
 				
 						
-				@Test(priority=11)
+				@Test(priority=12)
 				public void DeleteEquipmentRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					Thread.sleep(1000);
@@ -825,7 +825,7 @@ public class Equipment {
 				
 				
 				//@Test(priority=12,invocationCount=2)
-				@Test(priority=12)
+				@Test(priority=13)
 				public void CreateEquipmentwithSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -1173,7 +1173,7 @@ public class Equipment {
 				} // closing Create Equipment method
 			
 				
-				@Test(priority=13)
+				@Test(priority=14)
 				public void EditEquipmentwithSamplingSiteType() throws Exception
 				{
 					//Thread.sleep(31000);
@@ -1552,7 +1552,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=14)
+				@Test(priority=15)
 				public void SingleDeleteEquipmentSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					Thread.sleep(1000);
@@ -1588,7 +1588,7 @@ public class Equipment {
 				}
 				
 				
-				@Test(priority=15)
+				@Test(priority=16)
 				public void MultiDeleteEquipment() throws Exception
 				{
 					Thread.sleep(500);
@@ -1624,7 +1624,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=16)
+				@Test(priority=17)
 				public void CreateEquipmentforCreatingGroup() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -1973,7 +1973,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=17,invocationCount=5)
+				@Test(priority=18,invocationCount=5)
 				public void CopyEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//driver.navigate().refresh();

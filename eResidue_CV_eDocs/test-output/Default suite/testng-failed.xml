@@ -3,11 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.microbialCalculation.MicrobialCalculation">
+      <class name="com.eDocs.SanityTesting.DMS">
         <methods>
-          <include name="test"/>
+          <include name="setUp"/>
+          <include name="DeleteDMS"/>
+          <include name="CreateDMSforValidationDocument"/>
+          <include name="CreateDMSforSOP"/>
         </methods>
-      </class> <!-- com.eDocs.microbialCalculation.MicrobialCalculation -->
+      </class> <!-- com.eDocs.SanityTesting.DMS -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

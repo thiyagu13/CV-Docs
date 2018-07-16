@@ -24,6 +24,7 @@ import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Message;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
+import com.eDocs.email.SendMail;
 
 public class Utility {
   
@@ -424,7 +425,7 @@ public class Utility {
 			}
 			
 			@Test(priority=6)
-			public void MultiDeleteUtility() throws InterruptedException, IOException
+			public void MultiDeleteUtility() throws Exception
 			{
 				Thread.sleep(2000);
 				driver.findElement(By.id("searchDataTable")).clear();
@@ -461,6 +462,7 @@ public class Utility {
 					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
+				SendMail.execute("customized-emailable-report.html"); 
 			}
 			
 			

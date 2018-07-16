@@ -16,10 +16,9 @@
 		
 		<classes>
 			<class name="com.eResidue.Equipment.ScreenshotInResultsTest" />
-		<!-- 	<class name="com.eResidue.Equipment.Equipment_Name" /> -->
+			<!--  <class name="com.eResidue.Equipment.Equipment_Name" /> -->
 			<!--  <class name="com.eResidue.TestSuitebackup.CreateFolderewithTimeStamp"/> -->  <!--  Class to create folder for each execution -->
     		<!--  <class name="com.eResidue.email.SendMail"/>  --> 	<!--  class to send report to email-->	
-    	
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -25,16 +25,16 @@ public class SendMail
 	public static void execute(String reportFileName) throws Exception
 
 	{
-		String path = "C:\\selenium\\eResidue_CV_eDocs\\test-output\\customized-emailable-report.html";
+		String path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\test-output\\customized-emailable-report.html";
 
 		String[] to = { "thiyagu@easysolutions.in" };
-		String[] cc = { "thiyagu@easysolutions.in" };
-		String[] bcc = { "thiyagu@easysolutions.in" };
+		String[] cc = { "karthik@easysolutions.in" };
+		String[] bcc = { "mohanbabu@easysolutions.in" };
 
 		SendMail.sendMail("thiyagu@easysolutions.in", "thiyagu13",
 				"smtp.gmail.com", "465", "true", "true", true,
 				"javax.net.ssl.SSLSocketFactory", "false", to, cc, bcc,
-				"Selenium TestCase Report_In Progress",
+				"Selenium TestCase Report for eDocs",
 				"Please find the selenium test case status", path,
 				reportFileName);
 	}

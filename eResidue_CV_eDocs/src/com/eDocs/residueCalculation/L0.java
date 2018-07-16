@@ -924,14 +924,14 @@ public class L0 {
 							float lowestADEDose = 0,lowestsolubilityDose = 0;
 							for(Integer basID:basisofcalID) //get on basis of limit with active ingredient ID
 						    {
-								ResultSet LowestPDEactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
+								ResultSet LowestPDEactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+lowestADEID+ "' && tenant_id='"+tenant_id+"'");
 								//TO DO
 								while(LowestPDEactive.next())
 								{
 									lowestADEDose = LowestPDEactive.getFloat(1);
 								}
 						    
-								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT dose_of_active FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+LowestSolubilityActiveIDforHealth+ "' && tenant_id='"+tenant_id+"'");
+								ResultSet Lowestsolubilityactive = stmt.executeQuery("SELECT min_daily_dose_per_patch FROM product_basis_of_calculation where id ="+basID+" && active_ingredient_id='"+LowestSolubilityActiveIDforHealth+ "' && tenant_id='"+tenant_id+"'");
 								while(Lowestsolubilityactive.next())
 								{
 									lowestsolubilityDose = Lowestsolubilityactive.getFloat(1);
@@ -961,10 +961,6 @@ public class L0 {
 						Cell activename = sheet.getRow(row).getCell(2); // print current product name
 						activename.setCellValue(activeNameDose);
 					}
-					/*if(healthL0!=0 && doseL0!=0)
-					{
-						L0 = Math.min(doseL0,healthL0);
-					}*/
 					if(healthL0!=0 && doseL0!=0)
 					{
 						if(healthL0<doseL0)
@@ -1200,7 +1196,6 @@ public class L0 {
 		return L0; // return that L0 in this method
 	}
 	*/
-	
 	
 	
 	public static double L0forTOPICALoption2(Integer activeID,String CurrenProductName) throws SQLException, ClassNotFoundException, IOException {
@@ -1444,7 +1439,6 @@ public class L0 {
 					connection.close();
 		return L0; // return that L0 in this method
 	} //clsoing topical L0
-			
 	
 	
 	

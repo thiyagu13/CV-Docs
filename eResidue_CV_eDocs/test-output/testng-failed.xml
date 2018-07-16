@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <parameter name="Email Report" value="customized-emailable-report.html"/>
+  <listeners>
+    <listener class-name="com.eDocs.result.LocalScreenshot"/>
+    <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
+  </listeners>
+  <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.microbialCalculation.MicrobialCalculation">
+      <class name="com.eDocs.SanityTesting.Utility">
         <methods>
-          <include name="test"/>
+          <include name="MultiDeleteUtility"/>
+          <include name="setUp"/>
+          <include name="SingleDeleteUser"/>
         </methods>
-      </class> <!-- com.eDocs.microbialCalculation.MicrobialCalculation -->
+      </class> <!-- com.eDocs.SanityTesting.Utility -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

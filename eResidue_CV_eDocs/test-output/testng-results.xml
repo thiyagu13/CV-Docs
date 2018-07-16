@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" ignored="2" total="7" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="26918" started-at="2018-07-12T13:56:00Z" finished-at="2018-07-12T13:56:26Z">
+  <suite name="Suite" duration-ms="55060" started-at="2018-07-16T13:12:27Z" finished-at="2018-07-16T13:13:22Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="26918" started-at="2018-07-12T13:56:00Z" finished-at="2018-07-12T13:56:26Z">
-      <class name="com.eDocs.residueCalculation.ResidueCalculationwithCampaign">
-        <test-method status="PASS" signature="test()[pri:0, instance:com.eDocs.residueCalculation.ResidueCalculationwithCampaign@247310d0]" name="test" duration-ms="26903" started-at="2018-07-12T19:26:00Z" finished-at="2018-07-12T19:26:26Z">
+    <test name="Test" duration-ms="55060" started-at="2018-07-16T13:12:27Z" finished-at="2018-07-16T13:13:22Z">
+      <class name="com.eDocs.SanityTesting.Utility">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.eDocs.SanityTesting.Utility@302c971f]" name="setUp" is-config="true" duration-ms="925" started-at="2018-07-16T18:42:27Z" finished-at="2018-07-16T18:42:28Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test -->
-      </class> <!-- com.eDocs.residueCalculation.ResidueCalculationwithCampaign -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="Login()[pri:1, instance:com.eDocs.SanityTesting.Utility@302c971f]" name="Login" duration-ms="6471" started-at="2018-07-16T18:42:28Z" finished-at="2018-07-16T18:42:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Login -->
+        <test-method status="PASS" signature="CreateUtility()[pri:2, instance:com.eDocs.SanityTesting.Utility@302c971f]" name="CreateUtility" duration-ms="10358" started-at="2018-07-16T18:42:35Z" finished-at="2018-07-16T18:42:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CreateUtility -->
+        <test-method status="PASS" signature="CreateUtility()[pri:2, instance:com.eDocs.SanityTesting.Utility@302c971f]" name="CreateUtility" duration-ms="12778" started-at="2018-07-16T18:42:45Z" finished-at="2018-07-16T18:42:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CreateUtility -->
+        <test-method status="PASS" signature="SingleDeleteUser()[pri:4, instance:com.eDocs.SanityTesting.Utility@302c971f]" name="SingleDeleteUser" duration-ms="9038" started-at="2018-07-16T18:42:58Z" finished-at="2018-07-16T18:43:07Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SingleDeleteUser -->
+        <test-method status="PASS" signature="MultiDeleteUtility()[pri:6, instance:com.eDocs.SanityTesting.Utility@302c971f]" name="MultiDeleteUtility" duration-ms="15444" started-at="2018-07-16T18:43:07Z" finished-at="2018-07-16T18:43:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- MultiDeleteUtility -->
+      </class> <!-- com.eDocs.SanityTesting.Utility -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

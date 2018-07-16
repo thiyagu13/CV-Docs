@@ -2,6 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 
+	<parameter name="Email Report" value="customized-emailable-report.html" /> 
+
 	<listeners>
 		<listener class-name='com.eDocs.result.LocalScreenshot' />
 		<listener class-name='com.eDocs.result.CustomizedEmailableReport' />
@@ -20,6 +22,14 @@
        			 <include name="MultiDeleteUtility" />
       		</methods>
       	  </class> 
+      	   <!-- <class name="com.eDocs.email.SendMail"/>   -->
+      	<!--   <class name="com.eDocs.SanityTesting.DMS">  
+    		<methods>
+       			 <include name="CreateDMSforValidationDocument" />
+       			 <include name="CreateDMSforSOP" />
+       			 <include name="DeleteDMS" />
+      		</methods>
+      	  </class>
           <class name="com.eDocs.SanityTesting.Equipment">
          	<methods>
        			 <exclude name="Login" />		 
@@ -34,7 +44,6 @@
        			 <include name="CopyEquipment" />
       		</methods> 
          </class> 
-           
          <class name="com.eDocs.SanityTesting.EquipmentGroup">
           <methods>
        			 <include name="CreateEquipmentGroup" />
@@ -64,7 +73,7 @@
       	  </class> 
        	  <class name="com.eDocs.SanityTesting.Product">  
        		 <methods>
-       		 <!-- <exclude name="Login" />	 -->	 
+       		 <exclude name="Login" />		 
        		 <include name="CreateProductSOLID" />
        		 <exclude name="EditProductSOLID" />
        		 <include name="CreateProductLIQUID" />
@@ -82,7 +91,7 @@
        		 <include name="SingleDeleteProduct" />
        		 <include name="MultiDeleteProduct" />
       		</methods> 
-      	</class> 
+      	</class>  -->
     <!--     <class name="com.eDocs.SanityTesting.Usergroup"/>
             <class name="com.eDocs.SanityTesting.User"/>
                     <class name="com.eDocs.SanityTesting.ReviewPolicy"/> -->
