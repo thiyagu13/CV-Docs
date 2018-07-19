@@ -20,16 +20,15 @@ import org.testng.annotations.Test;
 public class SendMail
 
 {
-	@Parameters({"Email Report"}) // pass name & value to the parameter in testNG.xml file
+	@Parameters({"EmailReport"}) // pass name & value to the parameter in testNG.xml file
 	@Test
 	public static void execute(String reportFileName) throws Exception
-
 	{
 		String path = "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\test-output\\customized-emailable-report.html";
 
 		String[] to = { "thiyagu@easysolutions.in" };
-		String[] cc = { "karthik@easysolutions.in" };
-		String[] bcc = { "mohanbabu@easysolutions.in" };
+		String[] cc = { "thiyagu@easysolutions.in" };
+		String[] bcc = { "thiyagu@easysolutions.in" };
 
 		SendMail.sendMail("thiyagu@easysolutions.in", "thiyagu13",
 				"smtp.gmail.com", "465", "true", "true", true,

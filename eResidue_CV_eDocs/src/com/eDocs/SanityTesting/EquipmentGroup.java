@@ -43,7 +43,7 @@ public class EquipmentGroup {
 				static String groupProtocolDocEDIT = "equip Group protocol for edit";
 				static String groupReportIDEDIT = "equip Group report for edit";
 				
-				/*@BeforeClass
+			/*	@BeforeClass
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
@@ -415,6 +415,7 @@ public class EquipmentGroup {
 				public void SingleDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(3000);
+					driver.get(Constant.URL+"/equipment-group");
 					driver.findElement(By.id("dLabel")).click();
 					Thread.sleep(1000);
 					//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[3]/a")).click(); // Click edit equipment button
@@ -448,6 +449,7 @@ public class EquipmentGroup {
 				public void MultiDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);
+					driver.get(Constant.URL+"/equipment-group");
 					driver.findElement(By.id("searchDataTable")).sendKeys(EquipmentGroupName);
 					Thread.sleep(1000);
 					driver.findElement(By.id("example-select-all")).click();

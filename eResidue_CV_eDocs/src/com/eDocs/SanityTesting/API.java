@@ -50,9 +50,9 @@ public class API {
 			//Multi Delete Data for API
 			static String multiDeleteSearchData="Test API";
 			
+		
 			
-		/*	
-			@BeforeClass
+	/*		@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
@@ -79,8 +79,8 @@ public class API {
 		  			driver.findElement(By.id("forcelogin")).click();
 		  		}
 		  		Thread.sleep(1500);
-			}*/
-				
+			}
+			*/	
 			
 			@Test(priority=27,invocationCount=2)
 			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
@@ -133,8 +133,8 @@ public class API {
 				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
 				Thread.sleep(500);
 				
-				driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
-				Thread.sleep(500);
+				//driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
+				//Thread.sleep(500);
 				
 				WebElement submit = driver.findElement(parser.getbjectLocator("APIsubmit"));
 				submit.click();
@@ -245,9 +245,9 @@ public class API {
 				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterEDIT);
 				Thread.sleep(500);
 				
-				String getchControl = driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).getAttribute("value");
-				Thread.sleep(300);
-				Assert.assertEquals(getchControl, ChangeControlNumberCREATE);
+				//String getchControl = driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).getAttribute("value");
+				//Thread.sleep(300);
+				//Assert.assertEquals(getchControl, ChangeControlNumberCREATE);
 				
 				driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).clear();
 				Thread.sleep(500);
@@ -285,6 +285,8 @@ public class API {
 			public void SingleDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
+				driver.get(Constant.URL+"/active-ingredients");
+				Thread.sleep(1000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
 				//driver.findElement(By.xpath(".//*[@id='dropdownactionDoc']/li[3]/a")).click(); // Click edit equipment button
@@ -397,8 +399,8 @@ public class API {
 				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
 				Thread.sleep(500);
 				
-				driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
-				Thread.sleep(500);
+				//driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
+				//Thread.sleep(500);
 				
 				WebElement submit = driver.findElement(parser.getbjectLocator("APIsubmit"));
 				submit.click();

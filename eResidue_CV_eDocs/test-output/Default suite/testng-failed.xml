@@ -3,14 +3,15 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.DMS">
+      <class name="com.eDocs.SanityTesting.Product">
         <methods>
           <include name="setUp"/>
-          <include name="DeleteDMS"/>
-          <include name="CreateDMSforValidationDocument"/>
-          <include name="CreateDMSforSOP"/>
+          <include name="EditProductDILUENT"/>
+          <include name="SingleDeleteProduct"/>
+          <include name="MultiDeleteProduct"/>
+          <include name="CreateProductCLENAINGAGENT"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.DMS -->
+      </class> <!-- com.eDocs.SanityTesting.Product -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

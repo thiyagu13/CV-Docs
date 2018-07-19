@@ -420,6 +420,8 @@ public class EquipmentTrain {
 			public void SingleDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
+				driver.get(Constant.URL+"/equipment-train");
+				Thread.sleep(1000);
 				driver.findElement(By.id("dLabel")).click();
 				Thread.sleep(500);
 				//driver.findElement(By.xpath(".//*[@id='datatable']/tbody/tr[1]/td[8]/div/ul/li[3]/a")).click(); // Click edit equipment button
@@ -453,6 +455,8 @@ public class EquipmentTrain {
 			public void MultiDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
+				driver.get(Constant.URL+"/equipment-train");
+				Thread.sleep(1000);
 				driver.findElement(By.id("searchDataTable")).sendKeys(EquipmenttrainName);
 				Thread.sleep(1000);
 				driver.findElement(By.id("example-select-all")).click();

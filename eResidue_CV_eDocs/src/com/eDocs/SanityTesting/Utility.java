@@ -88,7 +88,7 @@ public class Utility {
 				
 			
 			@Test(priority=2,invocationCount=2)
-			public void CreateUtility() throws InterruptedException, SQLException, ClassNotFoundException, IOException
+			public void CreateUtility() throws Exception
 			{
 				Thread.sleep(2000);
 				//driver.get("http://192.168.1.45:8092/utility");
@@ -372,7 +372,7 @@ public class Utility {
 			
 			
 			@Test(priority=4)
-			public void SingleDeleteUser() throws InterruptedException, IOException
+			public void SingleDeleteUtility() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
 				driver.findElement(By.id("dLabel")).click();
@@ -462,7 +462,7 @@ public class Utility {
 					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				}
 				Thread.sleep(600);
-				SendMail.execute("customized-emailable-report.html"); 
+				
 			}
 			
 			
