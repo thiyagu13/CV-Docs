@@ -172,9 +172,9 @@ public class MicrobialCalculation {
 		Set<String> selectedproducts = new HashSet<>();
 		//selectedproducts.add("L5");
 		//selectedproducts.add("L6");
-		selectedproducts.add("L7");
-		selectedproducts.add("L8");
-		//selectedproducts.add("S3");	
+		selectedproducts.add("S1");
+		selectedproducts.add("S2");
+		selectedproducts.add("S3");	
 		
 		List<String>  currentproductlist = new ArrayList<>(); //store product list
   		currentproductlist.addAll(selectedproducts);

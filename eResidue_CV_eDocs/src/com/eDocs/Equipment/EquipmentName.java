@@ -84,6 +84,8 @@ public class EquipmentName {
   		WebElement alphanumericField = driver.findElement(By.name("name"));
   		AlphaNumericValidation textField = new AlphaNumericValidation();
 		textField.nameBeginingSpaceCheck(testcaseSheetName,alphanumericField,10);
+		//Assert No
+		driver.findElement(By.id("serialOrAssetNo")).sendKeys("sdf sdf");
   	}
 	
   /*	@Test (priority=5)

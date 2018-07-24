@@ -1,46 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <listeners>
-    <listener class-name="com.eDocs.result.LocalScreenshot"/>
-    <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
-  </listeners>
-  <test name="Smoke Testing(failed)">
+  <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.SanityTesting.Equipment">
+      <class name="com.eDocs.EquipmentTrain.EquipmentTrainSelectEquipment">
         <methods>
-          <include name="EditEquipmentwithRiskAssessment"/>
-          <include name="MultiDeleteEquipment"/>
+          <include name="trainSaveandNOChangeControl"/>
         </methods>
-      </class> <!-- com.eDocs.SanityTesting.Equipment -->
-      <class name="com.eDocs.SanityTesting.Product">
-        <methods>
-          <include name="setUp"/>
-          <include name="CreateProductDILUENT"/>
-          <include name="CreateProductTopical"/>
-          <include name="SingleDeleteProduct"/>
-          <include name="MultiDeleteProduct"/>
-          <include name="CreateProductCLENAINGAGENT"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.Product -->
-      <class name="com.eDocs.SanityTesting.EquipmentTrain">
-        <methods>
-          <include name="MultiDeleteEquipmentTrain"/>
-          <include name="EditEquipmentTrain"/>
-          <include name="SingleDeleteEquipmentTrain"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.EquipmentTrain -->
-      <class name="com.eDocs.SanityTesting.EquipmentGroup">
-        <methods>
-          <include name="SingleDeleteEquipmentGroup"/>
-          <include name="EditEquipmentGroup"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.EquipmentGroup -->
-      <class name="com.eDocs.SanityTesting.API">
-        <methods>
-          <include name="EditAPI"/>
-        </methods>
-      </class> <!-- com.eDocs.SanityTesting.API -->
+      </class> <!-- com.eDocs.EquipmentTrain.EquipmentTrainSelectEquipment -->
     </classes>
-  </test> <!-- Smoke Testing(failed) -->
+  </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

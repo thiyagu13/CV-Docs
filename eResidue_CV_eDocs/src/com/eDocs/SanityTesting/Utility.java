@@ -40,6 +40,7 @@ public class Utility {
 			static String qualificationDocCREATE  = "CIP";
 			static String dateofLastQuaCREATE  = "04/04/1989";
 			static String changeControlCREATE  = "CreateUtil 111";
+			static String SerialNo = "111";
 			
 			//Datas for Edit User
 			static int locationNameEDIT = 1;
@@ -109,18 +110,22 @@ public class Utility {
 				userName.sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
 				
+				//Serial No
+				WebElement serialNO = driver.findElement(By.name("serialOrAssetNo"));
+				serialNO.sendKeys(SerialNo);
+				Thread.sleep(500);
 				//SOP Number 
 				//WebElement UtilitySOPNumber  = driver.findElement(parser.getbjectLocator("UtilitySOPNumber"));
 				//Select SelectUtilitySOPNumber  = new Select(UtilitySOPNumber);
 				//SelectUtilitySOPNumber.selectByValue(sopNumberCREATE);
-				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
 				
 				//Qualification Documents 	 
 				//WebElement QualificationDocuments  = driver.findElement(parser.getbjectLocator("QualificationDocuments"));
 				//Select SelectQualificationDocuments  = new Select(QualificationDocuments);
 				//SelectQualificationDocuments.selectByVisibleText(qualificationDocCREATE);
-				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
 				
 				//driver.findElement(parser.getbjectLocator("DateofLastQualification")).sendKeys(dateofLastQuaCREATE);
@@ -131,27 +136,30 @@ public class Utility {
 				Thread.sleep(1000);
 				
 				
-				//if duplicate equipment name
-				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+"' already exists!"))
-				{
-					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
-					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				
 				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
-				for(int k=1;k<1000;k++)
+				for(int k=5;k<1000;k++)
 				{
 					j.add(k);
 				}
+				
+				if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+"' already exists!"))
+				{
+					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				
 				Thread.sleep(500);
 				if(getduplicatename.equalsIgnoreCase("Utility '"+Name+"' already exists!"))
 				{
 					for(Integer i:j)
 					{
-						driver.findElement(parser.getbjectLocator("UtilityName")).clear();
-						driver.findElement(parser.getbjectLocator("UtilityName")).sendKeys(Name+i);
+						//driver.findElement(parser.getbjectLocator("ActiveIngredientName")).clear();
+						userName.clear();
+						Thread.sleep(200);
+						userName.sendKeys(Name+i);
+						//driver.findElement(parser.getbjectLocator("ActiveIngredientName")).sendKeys(Name+i);
 						Thread.sleep(500);
-						driver.findElement(parser.getbjectLocator("UtilitySubmit")).click();
+						submit.click();
+						//driver.findElement(parser.getbjectLocator("APIsubmit")).click();
 						Thread.sleep(500);
 						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+i+"' already exists!"))
 						{
@@ -167,7 +175,45 @@ public class Utility {
 								break;
 						}
 					}
-				}// closing if loop duplicate equipment
+				}
+				
+				
+				//if Duplicate Document ID
+				//Document with same ID already exists 
+				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+"' already exists!"))
+				{
+					String getduplicateID = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				System.out.println("getduplicatename: "+getduplicateID);
+				if(getduplicateID.equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+"' already exists!"))
+				{
+					for(Integer i:j)
+					{
+						serialNO.clear();
+						Thread.sleep(200);
+						serialNO.sendKeys(SerialNo+i);
+						Thread.sleep(500);
+						//driver.findElement(parser.getbjectLocator("APIsubmit")).click();
+						submit.click();
+						Thread.sleep(500);
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+i+"' already exists!"))
+						{
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+i+"' already exists!"))
+							{
+								continue;
+							}
+						}
+								System.out.println("Not duplicate so break the loop");
+								break;
+						}
+				}
+				
+			}
+				
+				
+				
 				
 				
 				//custom loop

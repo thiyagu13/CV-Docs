@@ -62,6 +62,8 @@ public class EquipmentSurfaceArea {
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
 		NumericValidation getnumericField = new NumericValidation();
 		getnumericField.numericMultiDecimal(numericField,20);
+		numericField.clear();
+		numericField.sendKeys("123457");
 	}
   	
 	/*@Test (priority=5)

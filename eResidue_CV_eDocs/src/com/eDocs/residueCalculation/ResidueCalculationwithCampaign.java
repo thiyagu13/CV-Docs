@@ -268,9 +268,8 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("Liquid A");
-		selectedproducts.add("Liquid B");
-
+		selectedproducts.add("T1");
+		selectedproducts.add("T2");
 		/*
 		 * selectedproducts.add("Aspirin 20 mg");
 		 * selectedproducts.add("Aspirin 300 mg E/C tablets");
@@ -1302,7 +1301,7 @@ public class ResidueCalculationwithCampaign {
 																				// area(used in the product) in excel
 
 								// check whether rinse enabled in universal settings
-								if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in
+								if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in
 																								// sampling
 								{
 									Cell L4cEquip = sheet.getRow(L4Row).getCell(24);
@@ -1341,7 +1340,7 @@ public class ResidueCalculationwithCampaign {
 									L4bEquipactual.setCellValue("NA");
 								}
 
-								if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in
+								if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in
 																								// sampling
 								{
 									if (Ac_L4c != 0) {
@@ -1355,7 +1354,7 @@ public class ResidueCalculationwithCampaign {
 								}
 							} // closing ActualequipResult while loop
 
-							if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in
+							if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in
 																							// sampling
 							{
 								// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
@@ -1382,7 +1381,7 @@ public class ResidueCalculationwithCampaign {
 								}
 							}
 							if (sampling_methodOption.equals("1")
-									|| (sampling_methodOption.equals("1,2") && RinseSampling == 2)) // if rinse enabled
+									|| (sampling_methodOption.contains("1,2") && RinseSampling == 2)) // if rinse enabled
 																									// in sampling
 							{
 								// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
@@ -1408,7 +1407,7 @@ public class ResidueCalculationwithCampaign {
 
 						L4Row++; // Leave one row for each product
 
-						if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in sampling
+						if (sampling_methodOption.contains("1,2") && RinseSampling == 2) // if rinse enabled in sampling
 						{
 
 							// getEquipmentTrain(CurrenProductName,LowestoneExpectedL3);
@@ -1654,7 +1653,7 @@ public class ResidueCalculationwithCampaign {
 								}
 
 								// L4c Train Result status
-								if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in
+								if (sampling_methodOption.contains("1,2") && RinseSampling == 2) // if rinse enabled in
 																								// sampling
 								{
 									// check expected L4c and actual L4c
@@ -2348,7 +2347,7 @@ public class ResidueCalculationwithCampaign {
 							// check whether rinse enabled in universal settings
 							System.out.println("sampling_methodOption" + sampling_methodOption);
 							System.out.println("RinseSampling" + RinseSampling);
-							if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in
+							if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in
 																							// sampling
 							{
 								Cell L4cEquip = sheet.getRow(L4Row).getCell(24);
@@ -2390,7 +2389,7 @@ public class ResidueCalculationwithCampaign {
 								L4bEquipactual.setCellValue("NA");
 							}
 
-							if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in
+							if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in
 																							// sampling
 							{
 								if (Ac_L4c != 0) {
@@ -2404,7 +2403,7 @@ public class ResidueCalculationwithCampaign {
 							}
 						} // closing ActualequipResult while loop
 
-						/*if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in sampling
+						if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in sampling
 						{
 							// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
 							double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
@@ -2427,9 +2426,9 @@ public class ResidueCalculationwithCampaign {
 								verify_result.setCellValue("Fail");
 								verify_result.setCellStyle(Utils.style(workbook, "Fail")); // for print red font
 							}
-						}*/
+						}
 						if (sampling_methodOption.equals("1")
-								|| (sampling_methodOption.equals("1,2") && RinseSampling == 2)) // if rinse enabled in sampling
+								|| (sampling_methodOption.contains("1,2") && RinseSampling == 2)) // if rinse enabled in sampling
 						{
 							// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
 							double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
@@ -2454,7 +2453,7 @@ public class ResidueCalculationwithCampaign {
 					} // closing for equipment ID loop
 					L4Row++; // Leave one row for each product
 
-					if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in sampling
+					if (sampling_methodOption.contains("1,2") && RinseSampling == 2) // if rinse enabled in sampling
 					{
 
 						// getEquipmentTrain(CurrenProductName,LowestoneExpectedL3);
@@ -2703,7 +2702,7 @@ public class ResidueCalculationwithCampaign {
 							}
 
 							// L4c Train Result status
-							if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in
+							if (sampling_methodOption.contains("1,2") && RinseSampling == 2) // if rinse enabled in
 																							// sampling
 							{
 								// check expected L4c and actual L4c
@@ -3190,7 +3189,7 @@ public class ResidueCalculationwithCampaign {
 						// check whether rinse enabled in universal settings
 						System.out.println("sampling_methodOption" + sampling_methodOption);
 						System.out.println("RinseSampling" + RinseSampling);
-						if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in sampling
+						if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in sampling
 						{
 							Cell L4cEquip = sheet.getRow(L4Row).getCell(24);
 							L4cEquip.setCellValue(L4cEquipment);
@@ -3231,7 +3230,7 @@ public class ResidueCalculationwithCampaign {
 							L4bEquipactual.setCellValue("NA");
 						}
 
-						if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in sampling
+						if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in sampling
 						{
 							if (Ac_L4c != 0) {
 								Cell L4cEquipactual = sheet.getRow(L4Row).getCell(27);// cell to print L4b value
@@ -3245,7 +3244,7 @@ public class ResidueCalculationwithCampaign {
 
 					} // closing ActualequipResult while loop
 
-					if (sampling_methodOption.equals("1,2") && RinseSampling == 1) // if rinse enabled in sampling
+					if (sampling_methodOption.contains("1,2") && RinseSampling == 1) // if rinse enabled in sampling
 					{
 						// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
 						double EL4a = sheet.getRow(L4Row).getCell(22).getNumericCellValue();
@@ -3270,7 +3269,7 @@ public class ResidueCalculationwithCampaign {
 						}
 					}
 					if (sampling_methodOption.equals("1")
-							|| (sampling_methodOption.equals("1,2") && RinseSampling == 2)) // if rinse enabled in
+							|| (sampling_methodOption.contains("1,2") && RinseSampling == 2)) // if rinse enabled in
 																							// sampling
 					{
 						// check expected L4a,L4b,L4c and actual L4a,L4b,L4c
@@ -3296,7 +3295,7 @@ public class ResidueCalculationwithCampaign {
 				} // closing for equipment ID loop
 				L4Row++; // Leave one row for each product
 
-				if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in sampling
+				if (sampling_methodOption.contains("1,2") && RinseSampling == 2) // if rinse enabled in sampling
 				{
 
 					// getEquipmentTrain(CurrenProductName,LowestoneExpectedL3);
@@ -3546,7 +3545,7 @@ public class ResidueCalculationwithCampaign {
 						}
 
 						// L4c Train Result status
-						if (sampling_methodOption.equals("1,2") && RinseSampling == 2) // if rinse enabled in sampling
+						if (sampling_methodOption.contains("1,2") && RinseSampling == 2) // if rinse enabled in sampling
 						{
 							// check expected L4c and actual L4c
 
