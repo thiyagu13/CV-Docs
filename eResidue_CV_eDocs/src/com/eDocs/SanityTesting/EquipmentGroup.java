@@ -76,7 +76,7 @@ public class EquipmentGroup {
 				}*/
 	
 	
-				@Test(priority=19,invocationCount=2)
+				@Test(priority=27,invocationCount=2)
 				public void CreateEquipmentGroup() throws InterruptedException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -270,7 +270,7 @@ public class EquipmentGroup {
 				
 	
 				
-				@Test(priority=20)
+				@Test(priority=28)
 				public void EditEquipmentGroup() throws InterruptedException, IOException
 				{
 					//Thread.sleep(6000);
@@ -411,7 +411,7 @@ public class EquipmentGroup {
 				
 				
 				
-				@Test(priority=21)
+				@Test(priority=29)
 				public void SingleDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(3000);
@@ -445,7 +445,7 @@ public class EquipmentGroup {
 				}
 				
 
-				@Test(priority=22)
+				@Test(priority=30)
 				public void MultiDeleteEquipmentGroup() throws InterruptedException, IOException
 				{
 					Thread.sleep(2000);

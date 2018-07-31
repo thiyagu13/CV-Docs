@@ -36,6 +36,9 @@ public class API {
 			static String SolubilityinWaterCREATE = "1";
 			static String ChangeControlNumberCREATE  = "Change cntrl create 111";
 			static String HBELValueCREATE  = "1.32";
+			static String noofCarbonCREATE = "1";
+			static String activeMolarCREATE  = "2";
+			static String organicCarbonCREATE  = "3";
 			
 			//Datas for Edit API
 			static String ActiveIDEDIT = "Active ID for edit";
@@ -43,6 +46,9 @@ public class API {
 			static String ChangeControlNumberEDIT  = "Change cntrl edit 222";
 			static String HBELValueEDIT  = "1.40";
 			static String EditComments = "Edit all the API details";
+			static String noofCarbonEDIT = "2";
+			static String activeMolarEDIT  = "3";
+			static String organicCarbonEDIT  = "4";
 			
 			//Delete Datas for API
 			static String changeControlDELETE="Delete single API";
@@ -52,7 +58,7 @@ public class API {
 			
 		
 			
-	/*		@BeforeClass
+			@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
@@ -80,9 +86,9 @@ public class API {
 		  		}
 		  		Thread.sleep(1500);
 			}
-			*/	
+				
 			
-			@Test(priority=27,invocationCount=2)
+			@Test(priority=35,invocationCount=2)
 			public void CreateAPI() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(2000);
@@ -96,7 +102,6 @@ public class API {
 				APIName.sendKeys(Name);
 				Thread.sleep(500);
 				
-				
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDCREATE);
 				Thread.sleep(1500);
 				//select HBEL Term
@@ -104,34 +109,26 @@ public class API {
 				Thread.sleep(1000);
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(1000);
-				//driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).click();
-				//Thread.sleep(500);
-				//driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
-				//WebElement HBEL = driver.findElement(By.xpath(".//*[@id='activeIngredient-form-1']/div[3]/div/div/span/span[1]/span/span[2]")); 
-				//Select SelectHBEL = new Select(HBEL);
-				//SelectHBEL.selectByValue("1");
-				//Thread.sleep(500);
-				
-				
-				
-				//driver.findElement(By.id("RouteAdmin")).click();
-				//Thread.sleep(500);
-				//driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
-				//Thread.sleep(500);
-				//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
-				//{
-					//driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				//}
-				//driver.findElement(By.id("RouteAdmin")).click();
-				Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
 				Thread.sleep(500);
-				
-				
-				
-				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
+				driver.findElement(By.name("numberofCarbonAtoms")).sendKeys(noofCarbonCREATE);
 				Thread.sleep(500);
+				//scroll down
+				driver.findElement(By.name("numberofCarbonAtoms")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB);
+				Thread.sleep(500);
+				driver.findElement(By.name("activeMolarMass")).sendKeys(activeMolarCREATE);
+				driver.findElement(By.name("activeMolarMass")).sendKeys(Keys.TAB);
+				Thread.sleep(500);	
+				
+				if(driver.findElements(parser.getbjectLocator("SolubilityinWater")).size()!=0)
+				{
+					driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
+					Thread.sleep(500);
+				}else if(driver.findElements(By.id("activeIngredientsolubilityWaterSelect")).size()!=0)
+				{
+					driver.findElement(By.name("organicCarbon")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					Thread.sleep(500);
+				}
 				
 				//driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
 				//Thread.sleep(500);
@@ -195,7 +192,7 @@ public class API {
 			
 			
 			
-			@Test(priority=28)
+			@Test(priority=36)
 			public void EditAPI() throws InterruptedException, SQLException, ClassNotFoundException
 			{
 				Thread.sleep(1000);
@@ -219,40 +216,38 @@ public class API {
 				Thread.sleep(300);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueEDIT);
 				Thread.sleep(500);
-				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // select PDE
-				//Select SelectHBEL = new Select(HBEL);
-				//SelectHBEL.selectByIndex(2);
-				//Thread.sleep(500);
 				
-				//driver.findElement(By.id("RouteAdmin")).click();
-				//Thread.sleep(500);
-				//driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ARROW_DOWN,Keys.ENTER);
-				//Thread.sleep(500);
-				//driver.findElement(By.id("RouteAdmin")).click();
-				//Thread.sleep(200);
-				//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
-				//{
-				//	driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				//}
-				//Thread.sleep(500);
-				
-				
-				String getsolubility = driver.findElement(parser.getbjectLocator("SolubilityinWater")).getAttribute("value");
-				Thread.sleep(300);
-				Assert.assertEquals(getsolubility, SolubilityinWaterCREATE);
-				driver.findElement(parser.getbjectLocator("SolubilityinWater")).clear();
-				Thread.sleep(300);
-				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterEDIT);
+				//No of Carbon
+				String noofCarbon = driver.findElement(By.name("numberofCarbonAtoms")).getAttribute("value");
+				Thread.sleep(500);
+				Assert.assertEquals(noofCarbon, noofCarbonCREATE); 
+				driver.findElement(By.name("numberofCarbonAtoms")).clear();
+				driver.findElement(By.name("numberofCarbonAtoms")).sendKeys(noofCarbonEDIT);
 				Thread.sleep(500);
 				
-				//String getchControl = driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).getAttribute("value");
-				//Thread.sleep(300);
-				//Assert.assertEquals(getchControl, ChangeControlNumberCREATE);
+				//active molar mass
+				String activemolar = driver.findElement(By.name("activeMolarMass")).getAttribute("value");
+				Thread.sleep(500);
+				Assert.assertEquals(activemolar, activeMolarCREATE);
+				driver.findElement(By.name("activeMolarMass")).clear();
+				driver.findElement(By.name("activeMolarMass")).sendKeys(activeMolarEDIT);
+				Thread.sleep(500);	
+			
 				
-				driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).clear();
-				Thread.sleep(500);
-				driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberEDIT);
-				Thread.sleep(500);
+				if(driver.findElements(parser.getbjectLocator("SolubilityinWater")).size()!=0)
+				{
+					String getsolubility = driver.findElement(parser.getbjectLocator("SolubilityinWater")).getAttribute("value");
+					Thread.sleep(300);
+					Assert.assertEquals(getsolubility, SolubilityinWaterCREATE);
+					driver.findElement(parser.getbjectLocator("SolubilityinWater")).clear();
+					driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterEDIT);
+					Thread.sleep(500);
+				}
+				
+				//driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).clear();
+				//Thread.sleep(500);
+				//driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberEDIT);
+				//Thread.sleep(500);
 				
 				WebElement submit = driver.findElement(parser.getbjectLocator("APIsubmit"));
 				submit.click();
@@ -281,7 +276,7 @@ public class API {
 			
 			
 			
-			@Test(priority=29)
+			@Test(priority=37)
 			public void SingleDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -317,7 +312,7 @@ public class API {
 			
 			
 			
-			@Test(priority=30)
+			@Test(priority=38)
 			public void MultiDeleteAPI() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -351,7 +346,7 @@ public class API {
 			}
 			
 			
-			@Test(priority=31)
+			@Test(priority=39)
 			public void CreateAPIforProduct() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(1000);
@@ -366,41 +361,33 @@ public class API {
 				WebElement APIName = driver.findElement(parser.getbjectLocator("ActiveIngredientName"));
 				APIName.sendKeys(Name);
 				Thread.sleep(1000);
-				
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(ActiveIDCREATE);
 				Thread.sleep(1000);
-				
 				//select HBEL Term
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(1000);
 				driver.findElement(parser.getbjectLocator("ActiveID")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(1000);
-				//WebElement HBEL = driver.findElement(parser.getbjectLocator("HBELTerm")); // Select ADE
-				//Select SelectHBEL = new Select(HBEL);
-				//SelectHBEL.selectByIndex(1);
-				Thread.sleep(500);
-				
-				
-				//driver.findElement(By.id("RouteAdmin")).click();
-				//Thread.sleep(500);
-				//driver.findElement(By.id("RouteAdmin")).sendKeys(Keys.ENTER);
-				//Thread.sleep(500);
-				//if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0) 
-				//{
-				//	driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-				//}
-				//driver.findElement(By.id("RouteAdmin")).click();
-				//Thread.sleep(500);
 				driver.findElement(By.id("hbelValue1")).sendKeys(HBELValueCREATE); 
 				Thread.sleep(500);
-				
-				
-				
-				driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
+				driver.findElement(By.name("numberofCarbonAtoms")).sendKeys(noofCarbonCREATE);
 				Thread.sleep(500);
+				//scroll down
+				driver.findElement(By.name("numberofCarbonAtoms")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB);
+				Thread.sleep(500);
+				driver.findElement(By.name("activeMolarMass")).sendKeys(activeMolarCREATE);
+				driver.findElement(By.name("activeMolarMass")).sendKeys(Keys.TAB);
+				Thread.sleep(500);	
 				
-				//driver.findElement(parser.getbjectLocator("APIChangeControlNumber")).sendKeys(ChangeControlNumberCREATE);
-				//Thread.sleep(500);
+				if(driver.findElements(parser.getbjectLocator("SolubilityinWater")).size()!=0)
+				{
+					driver.findElement(parser.getbjectLocator("SolubilityinWater")).sendKeys(SolubilityinWaterCREATE);
+					Thread.sleep(500);
+				}else if(driver.findElements(By.id("activeIngredientsolubilityWaterSelect")).size()!=0)
+				{
+					driver.findElement(By.name("organicCarbon")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					Thread.sleep(500);
+				}
 				
 				WebElement submit = driver.findElement(parser.getbjectLocator("APIsubmit"));
 				submit.click();

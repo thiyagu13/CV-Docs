@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <test name="Test(failed)">
     <classes>
-      <class name="com.eDocs.EquipmentTrain.EquipmentTrainSelectEquipment">
+      <class name="com.eDocs.Utility.UtilityDelete">
         <methods>
-          <include name="trainSaveandNOChangeControl"/>
+          <include name="DeleteAPI"/>
         </methods>
-      </class> <!-- com.eDocs.EquipmentTrain.EquipmentTrainSelectEquipment -->
+      </class> <!-- com.eDocs.Utility.UtilityDelete -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

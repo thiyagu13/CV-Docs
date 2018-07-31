@@ -112,11 +112,11 @@ public class NumericValidation {
 		
 
   	//@Test (priority=2)
-  	public void  NumericEmpty(WebElement sumit, int row) throws IOException, WriteException, InterruptedException
+  	public void  NumericEmpty(String testcaseSheetName,WebElement sumit, int row) throws IOException, WriteException, InterruptedException
   	{
   		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		Thread.sleep(1000);
 		//driver.findElement(By.name("name")).sendKeys("test");// for surface empty check
 		//Thread.sleep(1000);
@@ -155,10 +155,10 @@ public class NumericValidation {
   	
   	
   //	@Test (priority=3)
-  	public void  NumericZERO(WebElement numericField,int row) throws IOException, WriteException, InterruptedException
+  	public void  NumericZERO(String testcaseSheetName,WebElement numericField,int row) throws IOException, WriteException, InterruptedException
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+  		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		Thread.sleep(500);
   		//WebElement numericField = driver.findElement(By.id("surfaceArea"));
   		Thread.sleep(1000);
@@ -202,10 +202,10 @@ public class NumericValidation {
   	
   	
   	//@Test (priority=4)
-  	public void  NumericMaxLength(WebElement numericfield,int row) throws IOException, WriteException, InterruptedException
+  	public void  NumericMaxLength(String testcaseSheetName,WebElement numericfield,int row) throws IOException, WriteException, InterruptedException
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
   		double maxLengthdata = sheet.getRow(row).getCell(4).getNumericCellValue(); 
   		//WebElement numericfield = driver.findElement(By.id("surfaceArea"));
@@ -247,10 +247,10 @@ public class NumericValidation {
   	
   	
   //	@Test (priority=5)
-  	public void  numericFieldAlphabetsCheck(WebElement numericfield,int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
+  	public void  numericFieldAlphabetsCheck(String testcaseSheetName,WebElement numericfield,int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
   		String Data = sheet.getRow(row).getCell(4).getStringCellValue(); 
   		//WebElement numericfield = driver.findElement(By.id("surfaceArea"));
@@ -285,10 +285,10 @@ public class NumericValidation {
   		}
   	
   	//@Test (priority=6)
-  	public void  numericSpaceCheck(WebElement numericfield,int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
+  	public void  numericSpaceCheck(String testcaseSheetName,WebElement numericfield,int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
   		String maxLengthdata = String.valueOf(sheet.getRow(row).getCell(4).getStringCellValue()); 
   		//WebElement numericfield = driver.findElement(By.id("surfaceArea"));
@@ -325,10 +325,10 @@ public class NumericValidation {
   	
 	
   //	@Test (priority=7)
-  	public void  numericMultiDecimal(WebElement numericfield, int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
+  	public void  numericMultiDecimal(String testcaseSheetName,WebElement numericfield, int row) throws IOException, WriteException, InterruptedException // check mandatory symbol and error msg
   	{
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
-		XSSFSheet sheet = workbook.getSheet("EquipmentTC");
+		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		
 		String maxLengthdata = String.valueOf(sheet.getRow(row).getCell(4).getStringCellValue());
   		//WebElement numericfield = driver.findElement(By.id("surfaceArea"));

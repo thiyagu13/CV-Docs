@@ -268,8 +268,10 @@ public class ResidueCalculationwithCampaign {
 		 */
 
 		Set<String> selectedproducts = new HashSet<>();
-		selectedproducts.add("T1");
-		selectedproducts.add("T2");
+		selectedproducts.add("S1");
+		selectedproducts.add("S2");
+		selectedproducts.add("S3");
+		selectedproducts.add("Diluent");
 		/*
 		 * selectedproducts.add("Aspirin 20 mg");
 		 * selectedproducts.add("Aspirin 300 mg E/C tablets");
@@ -366,7 +368,6 @@ public class ResidueCalculationwithCampaign {
 
 		for (String CurrenProductName : currentproductlist) // Current product list
 		{
-
 			int CurrentproductType = 0;
 			// get current product type
 			ResultSet getproductType = stmt.executeQuery("Select product_type from product where name = '"
@@ -430,7 +431,6 @@ public class ResidueCalculationwithCampaign {
 
 				if (limitDetermination() == 2)// Start: Lowest based on lowest amongst all actives within a product
 				{
-
 					// Set<String> s = new HashSet<String>();
 					List<Float> getLowestExpectedL3 = new ArrayList<>(); // get all the l3 stored in the list for equip
 																			// pref trnsfer
@@ -462,7 +462,7 @@ public class ResidueCalculationwithCampaign {
 						/* End: equipment preferential transfer - findout Lowest L# and L1 */
 
 						// Check Diluent included or not in the product list
-						Set<String> DiluentName = new HashSet<>(); // store all the product type
+						/*Set<String> DiluentName = new HashSet<>(); // store all the product type
 						boolean CheckProductType = false;
 						for (String Namelist : currentproductlist) {
 							ResultSet checkDiluent = stmt
@@ -485,8 +485,8 @@ public class ResidueCalculationwithCampaign {
 								}
 							}
 						} // end- Check Diluent included or not in the product list
-
-						if (CheckProductType == true) // if diluent included skip other products
+*/
+						/*if (CheckProductType == true) // if diluent included skip other products
 						{
 							System.out.println("DiluentName" + DiluentName);
 							for (String NextprodName : DiluentName) {
@@ -584,8 +584,7 @@ public class ResidueCalculationwithCampaign {
 																										// train between
 																										// two
 									}
-									System.out.println(
-											"Surface Area: ----------------------->" + Solid_Total_surface_area);
+									System.out.println("Surface Area: ----------------------->" + Solid_Total_surface_area);
 								}
 
 								value_L3 = value_L2 / Solid_Total_surface_area;
@@ -713,7 +712,7 @@ public class ResidueCalculationwithCampaign {
 								row++;
 								column++;
 							}
-						} else {
+						} else {*/
 							for (String NextprodName : nextproductlist) // Next product list
 							{
 								String LimitcalculationType = sheet.getRow(39).getCell(0).getStringCellValue();
@@ -1178,13 +1177,12 @@ public class ResidueCalculationwithCampaign {
 																										// font
 										}
 									}
-
 									row++;
 									column++;
 								}
 								// L1.put((float) Solid_Expec_Value_L1, (float) Solid_Expec_Value_L3); // get
 								// lowest L1
-							}
+							//}
 						} // closing next product iteration
 
 						// Expected Lowest L3 for current product iteration

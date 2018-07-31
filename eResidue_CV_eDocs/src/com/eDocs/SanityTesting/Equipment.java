@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
@@ -61,7 +62,7 @@ public class Equipment {
 				
 				
 				
-				/*
+				
 				@BeforeClass
 				public void setUp() throws IOException  
 				{
@@ -96,9 +97,9 @@ public class Equipment {
 			  		//Thread.sleep(1500);
 			  		//WebElement alphanumericField = driver.findElement(By.name("name"));
 			  		//alphanumericField.sendKeys("test");
-				}*/
+				}
 		
-				@Test(priority=10)
+				@Test(priority=18)
 				public void CreateEquipmentwithRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -477,7 +478,7 @@ public class Equipment {
 				
 				
 			
-				@Test(priority=11)
+				@Test(priority=19)
 				public void EditEquipmentwithRiskAssessment() throws Exception
 				{
 					//Thread.sleep(31000);
@@ -823,7 +824,7 @@ public class Equipment {
 
 				
 						
-				@Test(priority=12)
+				@Test(priority=20)
 				public void DeleteEquipmentRiskAssessment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					Thread.sleep(1000);
@@ -862,7 +863,7 @@ public class Equipment {
 				
 				
 				//@Test(priority=12,invocationCount=2)
-				@Test(priority=13)
+				@Test(priority=21)
 				public void CreateEquipmentwithSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -1245,7 +1246,7 @@ public class Equipment {
 				} // closing Create Equipment method
 			
 				
-				@Test(priority=14)
+				@Test(priority=22)
 				public void EditEquipmentwithSamplingSiteType() throws Exception
 				{
 					//Thread.sleep(31000);
@@ -1630,7 +1631,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=15)
+				@Test(priority=23)
 				public void SingleDeleteEquipmentSamplingSiteType() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					Thread.sleep(1000);
@@ -1668,7 +1669,7 @@ public class Equipment {
 				}
 				
 				
-				@Test(priority=16)
+				@Test(priority=24)
 				public void MultiDeleteEquipment() throws Exception
 				{
 					Thread.sleep(500);
@@ -1705,7 +1706,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=17)
+				@Test(priority=25)
 				public void CreateEquipmentforCreatingGroup() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 				{
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -2091,7 +2092,7 @@ public class Equipment {
 				
 				
 				
-				@Test(priority=18,invocationCount=5)
+				@Test(priority=26,invocationCount=5)
 				public void CopyEquipment() throws InterruptedException, SQLException, ClassNotFoundException
 				{
 					//driver.navigate().refresh();
@@ -2348,6 +2349,7 @@ public class Equipment {
 				}
 					else {
 						System.out.println("else");
+						Thread.sleep(1500);
 						driver.findElement(By.name("password")).sendKeys(password);
 						Thread.sleep(500);
 						driver.findElement(By.name("comments")).sendKeys("Test comments");
@@ -2496,6 +2498,7 @@ public class Equipment {
 					}
 				}
 					else {
+						Thread.sleep(1500);
 						System.out.println("else");
 						driver.findElement(By.name("password")).sendKeys(password);
 						Thread.sleep(500);

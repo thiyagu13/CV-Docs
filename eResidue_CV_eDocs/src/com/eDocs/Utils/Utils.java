@@ -88,6 +88,7 @@ public class Utils {
 	  public  WebDriver getWebDriver() {
 		 // System.setProperty("webdriver.chrome.driver", "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\chromedriver.exe");
 			WebDriver driver = new FirefoxDriver();
+		  //WebDriver driver = Browser.getDriver(browser);
 			driverObjMap.put(getClass().getName(),driver);
 			return driver;
 		}

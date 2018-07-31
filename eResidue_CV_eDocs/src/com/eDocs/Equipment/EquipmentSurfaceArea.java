@@ -14,14 +14,14 @@ public class EquipmentSurfaceArea {
 	
 	private RepositoryParser parser;
 	public static WebDriver driver = Constant.driver;
-	
+	String testcaseSheetName = "EquipmentTC";
   
 	@Test(priority=6)
 	public void NumericEmptyTest() throws InterruptedException, WriteException, IOException
 	{
 		WebElement Submit = driver.findElement(By.id("saveEquipment"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericEmpty(Submit,15);
+		getnumericField.NumericEmpty(testcaseSheetName,Submit,15);
 	}
 	
 	@Test(priority=7)
@@ -29,7 +29,7 @@ public class EquipmentSurfaceArea {
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericZERO(numericField,16);
+		getnumericField.NumericZERO(testcaseSheetName,numericField,16);
 	}
 	
 	@Test(priority=8)
@@ -37,7 +37,7 @@ public class EquipmentSurfaceArea {
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericMaxLength(numericField,17);
+		getnumericField.NumericMaxLength(testcaseSheetName,numericField,17);
 	}
 	
 	@Test(priority=9)
@@ -45,7 +45,7 @@ public class EquipmentSurfaceArea {
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericFieldAlphabetsCheck(numericField,18);
+		getnumericField.numericFieldAlphabetsCheck(testcaseSheetName,numericField,18);
 	}
 	
 	@Test(priority=10)
@@ -53,7 +53,7 @@ public class EquipmentSurfaceArea {
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericSpaceCheck(numericField,19);
+		getnumericField.numericSpaceCheck(testcaseSheetName,numericField,19);
 	}
 	
 	@Test(priority=11)
@@ -61,7 +61,7 @@ public class EquipmentSurfaceArea {
 	{
 		WebElement numericField = driver.findElement(By.id("surfaceArea"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericMultiDecimal(numericField,20);
+		getnumericField.numericMultiDecimal(testcaseSheetName,numericField,20);
 		numericField.clear();
 		numericField.sendKeys("123457");
 	}

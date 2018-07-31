@@ -14,6 +14,7 @@ public class EquipmentMinimumBatch {
 	
 	private RepositoryParser parser;
 	public static WebDriver driver = Constant.driver;
+	String testcaseSheetName = "EquipmentTC";
 	
   
 	@Test(priority=21)
@@ -24,7 +25,7 @@ public class EquipmentMinimumBatch {
 		//prefTransfer.selectByValue("2"); // select no
 		NumericValidation getnumericField = new NumericValidation();
 		WebElement Submit = driver.findElement(By.id("saveEquipment"));
-		getnumericField.NumericEmpty(Submit,31);
+		getnumericField.NumericEmpty(testcaseSheetName,Submit,31);
 	}
 	
 	@Test(priority=22)
@@ -32,7 +33,7 @@ public class EquipmentMinimumBatch {
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericZERO(numericField,32);
+		getnumericField.NumericZERO(testcaseSheetName,numericField,32);
 	}
 	
 	@Test(priority=23)
@@ -40,7 +41,7 @@ public class EquipmentMinimumBatch {
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.NumericMaxLength(numericField,33);
+		getnumericField.NumericMaxLength(testcaseSheetName,numericField,33);
 	}
 	
 	@Test(priority=24)
@@ -48,7 +49,7 @@ public class EquipmentMinimumBatch {
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericFieldAlphabetsCheck(numericField,34);
+		getnumericField.numericFieldAlphabetsCheck(testcaseSheetName,numericField,34);
 	}
 	
 	@Test(priority=25)
@@ -56,7 +57,7 @@ public class EquipmentMinimumBatch {
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericSpaceCheck(numericField,35);
+		getnumericField.numericSpaceCheck(testcaseSheetName,numericField,35);
 	}
 	
 	@Test(priority=26)
@@ -64,7 +65,7 @@ public class EquipmentMinimumBatch {
 	{
 		WebElement numericField = driver.findElement(By.id("minBatch"));
 		NumericValidation getnumericField = new NumericValidation();
-		getnumericField.numericMultiDecimal(numericField,36);
+		getnumericField.numericMultiDecimal(testcaseSheetName,numericField,36);
 	}
 	
 	

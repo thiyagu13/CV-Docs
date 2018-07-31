@@ -6,6 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.eDocs.Utils.Constant;
@@ -226,8 +227,9 @@ public class AlphaNumericValidation {
   		alphanumericField.clear();
   		Thread.sleep(500);
   		alphanumericField.sendKeys(data); // send data to input field
+  		Thread.sleep(500);
+  		alphanumericField.sendKeys(Keys.TAB);
   		Thread.sleep(2000);
-		
 		String expectedMSG =sheet.getRow(row).getCell(4).getStringCellValue(); // get expected value from excel
 		Integer ExpectedResult = expectedMSG.length();
 		String actualMSG = alphanumericField.getAttribute("value"); //get actual value from site

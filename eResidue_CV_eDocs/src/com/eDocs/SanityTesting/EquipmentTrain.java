@@ -47,7 +47,7 @@ public class EquipmentTrain {
 			static String trainRationaleEDIT="Rationale Edit";
 			
 			
-		/*	@BeforeClass
+			@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = new FirefoxDriver();
@@ -75,10 +75,10 @@ public class EquipmentTrain {
 		  		}
 		  		Thread.sleep(1500);
 		  		//driver.get(Constant.URL+"/equipment-train");
-			}*/
+			}
 				
 			
-			@Test(priority=23,invocationCount=2)
+			@Test(priority=31,invocationCount=2)
 			public void CreateEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
@@ -289,7 +289,7 @@ public class EquipmentTrain {
 		
 	
 			
-			@Test(priority=24)
+			@Test(priority=32)
 			public void EditEquipmentTrain() throws InterruptedException, SQLException, ClassNotFoundException, IOException
 			{
 				Thread.sleep(1000);
@@ -396,7 +396,6 @@ public class EquipmentTrain {
 							driver.findElement(By.id("comments")).sendKeys(Keys.SHIFT,Keys.TAB,password);
 							Thread.sleep(500);
 							driver.findElement(By.id("ackSubmit")).click();
-							
 				}
 				Thread.sleep(6000);
 				String EditEquipmentTrain = driver.findElement(By.className("notify-msg")).getText();
@@ -416,7 +415,7 @@ public class EquipmentTrain {
 			
 			
 			
-			@Test(priority=25)
+			@Test(priority=33)
 			public void SingleDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -451,7 +450,7 @@ public class EquipmentTrain {
 			}
 			
 
-			@Test(priority=26)
+			@Test(priority=34)
 			public void MultiDeleteEquipmentTrain() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);

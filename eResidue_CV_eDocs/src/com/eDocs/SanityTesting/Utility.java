@@ -1,9 +1,6 @@
 package com.eDocs.SanityTesting;
 
-import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,26 +8,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.Select;
-import org.sqlite.util.StringUtils;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.Message;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
-import com.eDocs.email.SendMail;
 
 public class Utility {
   
+			//public static RemoteWebDriver driver;
+			
 			private RepositoryParser parser;
-			//private WebDriver driver = Constant.driver;
-			private WebDriver driver =  Constant.driver;
+			private WebDriver driver = Constant.driver;
 			public String password = Constant.sitepassword;
 		
 			//Datas for create User
@@ -52,17 +44,18 @@ public class Utility {
 			static String multiDeleteSearchData="SeleniumUtility";
 			
 			
-			
-			@BeforeClass
+			//@Parameters({ "browser" })
+		/*	@BeforeClass
 			public void setUp() throws IOException  
 			{
-				//driver = new FirefoxDriver();
+				//driver = Browser.getDriver(browser);
 				driver.get(Constant.URL);
 				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\utility.properties");
 			}
 		
+			
 			@Test(priority=1)
-			public void Login() throws InterruptedException
+			public void Login() throws InterruptedException, IOException
 			{
 				//Lets see how we can find the first name field
 				Thread.sleep(1000);
@@ -85,16 +78,16 @@ public class Utility {
 				//Thread.sleep(500);
 			}
 		
-
+*/
 				
 			
-			@Test(priority=2,invocationCount=2)
+			@Test(priority=12,invocationCount=2)
 			public void CreateUtility() throws Exception
 			{
 				Thread.sleep(2000);
-				//driver.get("http://192.168.1.45:8092/utility");
-				///parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\utility.properties");
-				//Thread.sleep(1000);
+				driver.get(Constant.URL+"/utility");
+				parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\utility.properties");
+				Thread.sleep(1000);
 				driver.findElement(By.id("addUtility")).click();
 				Thread.sleep(1000);
 				String Name = utilityNameCREATE;
@@ -103,10 +96,6 @@ public class Utility {
 				Thread.sleep(500);
 				
 				//Location Name
-				
-				//WebElement UtilityLocationName  = driver.findElement(parser.getbjectLocator("UtilityLocationName"));
-				//Select SelecttoUtilityLocationName  = new Select(UtilityLocationName);
-				//SelecttoUtilityLocationName.selectByIndex(locationNameCREATE);
 				userName.sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
 				
@@ -115,21 +104,12 @@ public class Utility {
 				serialNO.sendKeys(SerialNo);
 				Thread.sleep(500);
 				//SOP Number 
-				//WebElement UtilitySOPNumber  = driver.findElement(parser.getbjectLocator("UtilitySOPNumber"));
-				//Select SelectUtilitySOPNumber  = new Select(UtilitySOPNumber);
-				//SelectUtilitySOPNumber.selectByValue(sopNumberCREATE);
 				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
 				
 				//Qualification Documents 	 
-				//WebElement QualificationDocuments  = driver.findElement(parser.getbjectLocator("QualificationDocuments"));
-				//Select SelectQualificationDocuments  = new Select(QualificationDocuments);
-				//SelectQualificationDocuments.selectByVisibleText(qualificationDocCREATE);
 				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
 				Thread.sleep(500);
-				
-				//driver.findElement(parser.getbjectLocator("DateofLastQualification")).sendKeys(dateofLastQuaCREATE);
-				//Thread.sleep(500);
 				
 				WebElement submit = driver.findElement(parser.getbjectLocator("UtilitySubmit"));
 				submit.click();
@@ -180,12 +160,12 @@ public class Utility {
 				
 				//if Duplicate Document ID
 				//Document with same ID already exists 
-				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+"' already exists!"))
+				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+SerialNo+"' already exists!"))
 				{
 					String getduplicateID = driver.findElement(By.className("notify-msg")).getText();
 					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 				System.out.println("getduplicatename: "+getduplicateID);
-				if(getduplicateID.equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+"' already exists!"))
+				if(getduplicateID.equalsIgnoreCase("Equipment Identification Number '"+SerialNo+"' already exists!"))
 				{
 					for(Integer i:j)
 					{
@@ -196,11 +176,11 @@ public class Utility {
 						//driver.findElement(parser.getbjectLocator("APIsubmit")).click();
 						submit.click();
 						Thread.sleep(500);
-						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+i+"' already exists!"))
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+SerialNo+i+"' already exists!"))
 						{
 							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+SerialNo+i+"' already exists!"))
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+SerialNo+i+"' already exists!"))
 							{
 								continue;
 							}
@@ -211,10 +191,6 @@ public class Utility {
 				}
 				
 			}
-				
-				
-				
-				
 				
 				//custom loop
 				//WebElement submitbutton = driver.findElement(parser.getbjectLocator("UtilitySubmit")); //submitEquipmentSamplingDetails
@@ -281,7 +257,7 @@ public class Utility {
 			
 	
 			
-			@Test(priority=3)
+			@Test(priority=13)
 			public void EditUtility() throws Exception
 			{
 				Thread.sleep(2000);
@@ -417,7 +393,7 @@ public class Utility {
 			
 			
 			
-			@Test(priority=4)
+			@Test(priority=14)
 			public void SingleDeleteUtility() throws InterruptedException, IOException
 			{
 				Thread.sleep(2000);
@@ -462,7 +438,7 @@ public class Utility {
 			
 			
 			
-			@Test(priority=5)
+			@Test(priority=15)
 			public void ExportUtility() throws Exception
 			{
 				Thread.sleep(1000);
@@ -470,7 +446,7 @@ public class Utility {
 				Utils.ExportPDF(driver);
 			}
 			
-			@Test(priority=6)
+			@Test(priority=16)
 			public void MultiDeleteUtility() throws Exception
 			{
 				Thread.sleep(2000);
@@ -513,6 +489,191 @@ public class Utility {
 			
 			
 			
+			@Test(priority=17)
+			public void CreateUtilityforEquip() throws Exception
+			{
+				Thread.sleep(2000);
+				//driver.get("http://192.168.1.45:8092/utility");
+				///parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\utility.properties");
+				//Thread.sleep(1000);
+				driver.findElement(By.id("addUtility")).click();
+				Thread.sleep(1000);
+				String Name = utilityNameCREATE;
+				WebElement userName = driver.findElement(parser.getbjectLocator("UtilityName"));
+				userName.sendKeys(Name);
+				Thread.sleep(500);
+				
+				//Location Name
+				//WebElement UtilityLocationName  = driver.findElement(parser.getbjectLocator("UtilityLocationName"));
+				//Select SelecttoUtilityLocationName  = new Select(UtilityLocationName);
+				//SelecttoUtilityLocationName.selectByIndex(locationNameCREATE);
+				userName.sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(500);
+				
+				//Serial No
+				WebElement serialNO = driver.findElement(By.name("serialOrAssetNo"));
+				serialNO.sendKeys(SerialNo);
+				Thread.sleep(500);
+				//SOP Number 
+				//WebElement UtilitySOPNumber  = driver.findElement(parser.getbjectLocator("UtilitySOPNumber"));
+				//Select SelectUtilitySOPNumber  = new Select(UtilitySOPNumber);
+				//SelectUtilitySOPNumber.selectByValue(sopNumberCREATE);
+				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(500);
+				
+				//Qualification Documents 	 
+				//WebElement QualificationDocuments  = driver.findElement(parser.getbjectLocator("QualificationDocuments"));
+				//Select SelectQualificationDocuments  = new Select(QualificationDocuments);
+				//SelectQualificationDocuments.selectByVisibleText(qualificationDocCREATE);
+				userName.sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ENTER);
+				Thread.sleep(500);
+				
+				//driver.findElement(parser.getbjectLocator("DateofLastQualification")).sendKeys(dateofLastQuaCREATE);
+				//Thread.sleep(500);
+				
+				WebElement submit = driver.findElement(parser.getbjectLocator("UtilitySubmit"));
+				submit.click();
+				Thread.sleep(1000);
+				
+				
+				Set<Integer> j = new HashSet<>(); //to store no of digits for iterate calculation title
+				for(int k=5;k<1000;k++)
+				{
+					j.add(k);
+				}
+				
+				if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+"' already exists!"))
+				{
+					String getduplicatename = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				
+				Thread.sleep(500);
+				if(getduplicatename.equalsIgnoreCase("Utility '"+Name+"' already exists!"))
+				{
+					for(Integer i:j)
+					{
+						//driver.findElement(parser.getbjectLocator("ActiveIngredientName")).clear();
+						userName.clear();
+						Thread.sleep(200);
+						userName.sendKeys(Name+i);
+						//driver.findElement(parser.getbjectLocator("ActiveIngredientName")).sendKeys(Name+i);
+						Thread.sleep(500);
+						submit.click();
+						//driver.findElement(parser.getbjectLocator("APIsubmit")).click();
+						Thread.sleep(500);
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+i+"' already exists!"))
+						{
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							System.out.println("Name duplicate: "+nameduplicate);
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Utility '"+Name+i+"' already exists!"))
+							{
+								continue;
+							}
+						}
+								System.out.println("Not duplicate so break the loop");
+								break;
+						}
+					}
+				}
+				
+				
+				//if Duplicate Document ID
+				//Document with same ID already exists 
+				if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+SerialNo+"' already exists!"))
+				{
+					String getduplicateID = driver.findElement(By.className("notify-msg")).getText();
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				System.out.println("getduplicatename: "+getduplicateID);
+				if(getduplicateID.equalsIgnoreCase("Equipment Identification Number '"+SerialNo+"' already exists!"))
+				{
+					for(Integer i:j)
+					{
+						serialNO.clear();
+						Thread.sleep(200);
+						serialNO.sendKeys(SerialNo+i);
+						Thread.sleep(500);
+						//driver.findElement(parser.getbjectLocator("APIsubmit")).click();
+						submit.click();
+						Thread.sleep(500);
+						if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+SerialNo+i+"' already exists!"))
+						{
+							String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+SerialNo+i+"' already exists!"))
+							{
+								continue;
+							}
+						}
+								System.out.println("Not duplicate so break the loop");
+								break;
+						}
+				}
+				
+			}
+				
+				//custom loop
+				//WebElement submitbutton = driver.findElement(parser.getbjectLocator("UtilitySubmit")); //submitEquipmentSamplingDetails
+				Thread.sleep(500);
+				//System.out.println("submitbutton: "+submitbutton);
+			if(driver.findElement(By.id("saveCustomDetails")).isDisplayed())
+			{
+				System.out.println("Text: "+driver.findElement(By.id("saveCustomDetails")).getText());
+				//if(driver.findElement(By.id("saveCustomDetails")).getText().equalsIgnoreCase("Submit"))
+				//{
+				//	System.out.println("No Custom loop");
+				//	driver.findElement(By.id("saveCustomDetails")).click();
+				//	Thread.sleep(500);
+					
+				//}else
+				//{
+					//submitbutton.click();
+					System.out.println("Custom loop");
+					Thread.sleep(1000);
+					for(int i=0;i<6;i++)
+					{
+						System.out.println("i--->"+i);
+						String custom ="customFieldInput_";
+						Thread.sleep(500);
+						if(driver.findElements(By.id(custom+i)).size()!=0)
+						{
+							Thread.sleep(1000);
+							if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("text"))
+							{
+								System.out.println("Text bx");
+								Thread.sleep(500);
+								driver.findElement(By.id(custom+i)).sendKeys("Test");
+							}
+							if(driver.findElement(By.id(custom+i)).getAttribute("type").equals("select-one"))
+							{
+								System.out.println("DropDown");
+								Thread.sleep(500);
+								WebElement select = driver.findElement(By.id(custom+i));
+								Select selectcustom = new Select(select);
+								selectcustom.selectByIndex(1); 
+							}
+						}
+					}
+							//click save button in custom fields
+							driver.findElement(By.id("saveCustomDetails")).click();
+							
+				//}
+			}
+				
+				Thread.sleep(1500);
+				String successMsg = null;
+				if(driver.findElements(By.className("notify-msg")).size()!=0)
+				{
+					successMsg = driver.findElement(By.className("notify-msg")).getText();
+				}
+				Assert.assertEquals(successMsg,Message.utilityCREATE);
+				
+				if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+				{
+					driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+				}
+				Thread.sleep(500);
+			} // closing create User method
 			
 			
 			
