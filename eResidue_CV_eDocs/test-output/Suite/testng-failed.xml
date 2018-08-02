@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
-  <test name="Test(failed)">
+  <listeners>
+    <listener class-name="com.eDocs.result.LocalScreenshot"/>
+    <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
+  </listeners>
+  <test name="Patch Product(failed)">
     <classes>
-      <class name="com.eDocs.Utility.UtilityDelete">
+      <class name="com.eDocs.PatchProduct.PatchWorstCaseRating">
         <methods>
-          <include name="DeleteAPI"/>
+          <include name="worstcaseRatingEmptyTest"/>
         </methods>
-      </class> <!-- com.eDocs.Utility.UtilityDelete -->
+      </class> <!-- com.eDocs.PatchProduct.PatchWorstCaseRating -->
+      <class name="com.eDocs.PatchProduct.PatchEquipmentSelection">
+        <methods>
+          <include name="EquipmentSetEmpty"/>
+          <include name="productSave"/>
+          <include name="EquipmentSetSelectionOptionEmpty"/>
+        </methods>
+      </class> <!-- com.eDocs.PatchProduct.PatchEquipmentSelection -->
     </classes>
-  </test> <!-- Test(failed) -->
+  </test> <!-- Patch Product(failed) -->
 </suite> <!-- Failed suite [Suite] -->
