@@ -9,6 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.eDocs.Utils.Constant;
 import com.eDocs.Utils.RepositoryParser;
 import com.eDocs.Utils.Utils;
@@ -56,37 +59,7 @@ public class AlphaNumericValidation {
   		Thread.sleep(1500);
 	}
 	
-	
-		@Test(priority=2)
-		public void AlphaNumericEmptyTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement alphanumericField = driver.findElement(By.name("name"));
-			WebElement Submit = driver.findElement(By.name("saveEquipment"));
-			AlphaNumericEmpty(Submit,alphanumericField,6);
-		}
-		
-		@Test(priority=3)
-		public void MaxLengthCheckTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement alphanumericField = driver.findElement(By.name("name"));
-			MaxLengthCheck(alphanumericField,8);
-		}
-		
-		
-		@Test(priority=4)
-		public void nameSpecialCharCheckTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement alphanumericField = driver.findElement(By.name("name"));
-			nameSpecialCharCheck(alphanumericField,9);
-		}
-		
-		@Test(priority=5)
-		public void nameBeginingSpaceCheckTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement alphanumericField = driver.findElement(By.name("name"));
-			nameBeginingSpaceCheck(alphanumericField,10);
-		}
-		*/
+	*/
 		
 		
 	//"EquipmentTC"
@@ -101,12 +74,15 @@ public class AlphaNumericValidation {
   			System.out.println("No Loop");
   			alphanumericField.clear();
   		}*/
-  		
-  		Thread.sleep(500);
+  		//Thread.sleep(500);
   		Submit.click();
 		String expectedMSG = sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel
 		String actualMSG = null;
-		Thread.sleep(2000);
+		Thread.sleep(1000);
+		//driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
+		//WebDriverWait wait = new WebDriverWait(driver, 500);
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("notify-msg")));
+		
 		if(driver.findElements(By.className("notify-msg")).size()!=0)
 		{
 			actualMSG = driver.findElement(By.className("notify-msg")).getText();
@@ -146,7 +122,7 @@ public class AlphaNumericValidation {
   		alphanumericField.clear();
   		Thread.sleep(500);
   		alphanumericField.sendKeys(maxLength); // send data to input field
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
 		
 		double expectedMSG = sheet.getRow(row).getCell(5).getNumericCellValue(); // get expected value from excel
 		String actualMSG = alphanumericField.getAttribute("value"); //get actual value from site
@@ -187,7 +163,7 @@ public class AlphaNumericValidation {
   		alphanumericField.clear();
   		Thread.sleep(500);
   		alphanumericField.sendKeys(maxLength); // send data to input field
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
 		
 		String expectedMSG =sheet.getRow(row).getCell(5).getStringCellValue(); // get expected value from excel
 		String actualMSG = alphanumericField.getAttribute("value");//get actual value from site
@@ -229,7 +205,7 @@ public class AlphaNumericValidation {
   		alphanumericField.sendKeys(data); // send data to input field
   		Thread.sleep(500);
   		alphanumericField.sendKeys(Keys.TAB);
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
 		String expectedMSG =sheet.getRow(row).getCell(4).getStringCellValue(); // get expected value from excel
 		Integer ExpectedResult = expectedMSG.length();
 		String actualMSG = alphanumericField.getAttribute("value"); //get actual value from site

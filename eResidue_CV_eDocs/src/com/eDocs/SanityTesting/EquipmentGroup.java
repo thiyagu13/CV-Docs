@@ -42,8 +42,8 @@ public class EquipmentGroup {
 				static String groupNoOfRunsEDIT = "4";
 				static String groupProtocolDocEDIT = "equip Group protocol for edit";
 				static String groupReportIDEDIT = "equip Group report for edit";
-				
-			/*	@BeforeClass
+			/*	
+				@BeforeClass
 				public void setUp() throws IOException  
 				{
 					//driver = new FirefoxDriver();
@@ -73,8 +73,8 @@ public class EquipmentGroup {
 					//Thread.sleep(500);
 					//driver.get("http://192.168.1.111:8090/equipment-group");
 			  		//driver.get(Constant.URL+"/equipment-group");
-				}*/
-	
+				}
+	*/
 	
 				@Test(priority=27,invocationCount=2)
 				public void CreateEquipmentGroup() throws InterruptedException, IOException
@@ -148,7 +148,7 @@ public class EquipmentGroup {
 					}
 					
 					Thread.sleep(500);
-					if(getduplicatename.equals("Group '"+GroupName+"' already exists!"))
+					if(getduplicatename.equalsIgnoreCase("Group '"+GroupName+"' already exists!"))
 					{
 						System.out.println("loop");
 						for(Integer i:j)
@@ -165,7 +165,7 @@ public class EquipmentGroup {
 								String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 								System.out.println("Name duplicate: "+nameduplicate);
 								driver.findElement(By.className("custom-notify-close")).click();
-								if(nameduplicate.equals("Equipment '"+GroupName+i+"' already exists!"))
+								if(nameduplicate.equalsIgnoreCase("Equipment '"+GroupName+i+"' already exists!"))
 								{
 									continue;
 								}

@@ -13,7 +13,7 @@
     	 
           <class name="com.eDocs.SanityTesting.DMS">  
     		<methods>
-    		 	 <include name="Login" />	
+    		 	 <exclude name="Login" />	
        			 <include name="CreateDMSforValidationDocument" />
        			 <include name="CreateDMSforSOP" />
        			 <include name="DeleteDMS" />
@@ -31,7 +31,7 @@
       	  </class>   
           <class name="com.eDocs.SanityTesting.Equipment">
          	<methods>
-       			 <include name="Login" />		 
+       			 <exclude name="Login" />		 
        			 <include name="CreateEquipmentwithRiskAssessment" />
        			 <include name="EditEquipmentwithRiskAssessment" />
        			 <include name="DeleteEquipmentRiskAssessment" />

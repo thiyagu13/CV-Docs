@@ -105,7 +105,7 @@ public class Equipment {
 					parser = new RepositoryParser("C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\src\\UI Map\\Equipment.properties");
 					//Thread.sleep(5000);
 					Thread.sleep(2000);
-					SampleLocationRiskAssessment();
+					//SampleLocationRiskAssessment();
 					
 					driver.get(Constant.URL+"/equipment");
 					//driver.navigate().refresh();
@@ -223,12 +223,12 @@ public class Equipment {
 					
 					//if Duplicate Document ID
 					//Document with same ID already exists 
-					if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+EquipmentSerialNoCREATE+"' already exists!"))
+					if( driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+EquipmentSerialNoCREATE+"' already exists!"))
 					{
 						String getduplicateID = driver.findElement(By.className("notify-msg")).getText();
 						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					System.out.println("getduplicatename: "+getduplicateID);
-					if(getduplicateID.equalsIgnoreCase("Asset Number / Serial Number '"+EquipmentSerialNoCREATE+"' already exists!"))
+					if(getduplicateID.equalsIgnoreCase("Equipment Identification Number '"+EquipmentSerialNoCREATE+"' already exists!"))
 					{
 						for(Integer i:j)
 						{
@@ -239,12 +239,12 @@ public class Equipment {
 							//driver.findElement(parser.getbjectLocator("APIsubmit")).click();
 							submit.click();
 							Thread.sleep(500);
-							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+EquipmentSerialNoCREATE+i+"' already exists!"))
+							if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+EquipmentSerialNoCREATE+i+"' already exists!"))
 							{
 								String nameduplicate = driver.findElement(By.className("notify-msg")).getText();
 								System.out.println("Name duplicate: "+nameduplicate);
 								driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
-								if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Asset Number / Serial Number '"+EquipmentSerialNoCREATE+i+"' already exists!"))
+								if(driver.findElements(By.className("notify-msg")).size()!=0 && driver.findElement(By.className("notify-msg")).getText().equalsIgnoreCase("Equipment Identification Number '"+EquipmentSerialNoCREATE+i+"' already exists!"))
 								{
 									continue;
 								}
@@ -476,7 +476,7 @@ public class Equipment {
 				} // closing Create Equipment method
 				
 				
-				
+			
 			
 				@Test(priority=19)
 				public void EditEquipmentwithRiskAssessment() throws Exception

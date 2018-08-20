@@ -1,6 +1,7 @@
 package com.eDocs.SanityTesting;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -40,6 +41,7 @@ public class UniversalSettings {
 			}
 		
 			@Test(priority=1)
+			//@Test
 			public void Login() throws InterruptedException
 			{
 				Thread.sleep(1000);
@@ -60,9 +62,10 @@ public class UniversalSettings {
 		  		Thread.sleep(1500);
 			}
 
-				
+				/*
 				
 				@Test(priority=2)
+			//@Test
 				public void ResidueLimitSAVE() throws InterruptedException
 				{
 					driver.get(Constant.URL+"/residue-limit");
@@ -89,6 +92,11 @@ public class UniversalSettings {
 						Thread.sleep(500);
 						driver.findElement(By.id("limitBasedonLowestL0")).click();
 					}
+					//select Basis of L3 Determination
+					Thread.sleep(500);
+					driver.findElement(By.id("limitBasedonLowestL0")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					Thread.sleep(500);
+					//scroll
 					driver.findElement(By.id("limitBasedonLowestL0")).sendKeys(Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB);
 					Thread.sleep(500);
 					//Surface Area to be used in Limit per unit area determination 
@@ -96,7 +104,7 @@ public class UniversalSettings {
 					Thread.sleep(1000);
 					
 					//Qualification Run Sampling Method
-					driver.findElement(By.id("defaultsa1")).sendKeys(Keys.TAB,Keys.ARROW_DOWN,Keys.ENTER);
+					driver.findElement(By.id("defaultsa1")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
 					Thread.sleep(500);
 					// Sampling Type
 					driver.findElement(By.id("defaultsa1")).sendKeys(Keys.TAB,Keys.TAB,Keys.ENTER,Keys.ARROW_DOWN,Keys.ENTER);
@@ -159,6 +167,9 @@ public class UniversalSettings {
 					}
 					Thread.sleep(500);
 					
+					//Select Rinse Sampling
+					driver.findElement(By.id("valueForDefinedEachForSolventUsed2")).sendKeys(Keys.TAB,Keys.ENTER,Keys.ENTER);
+					Thread.sleep(500);
 					
 				//Rinse Volume
 					if(driver.findElement(By.id("rinseVolume1")).isSelected()==true)
@@ -209,7 +220,7 @@ public class UniversalSettings {
 							Thread.sleep(500);
 							driver.findElement(By.id("ackSubmit")).click();
 							Thread.sleep(1500);
-							Assert.assertEquals(driver.findElement(By.className("notify-msg")).getText(),Message.residueLimitSave);
+							Assert.assertEquals(driver.findElement(By.className("notify-msg")).getText(),Message.residueLimitUpdate);
 							if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
 							{
 								driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
@@ -226,6 +237,7 @@ public class UniversalSettings {
 	
 				
 				@Test(priority=3)
+			//@Test
 				public void GeneralSettings() throws InterruptedException
 				{
 					driver.get(Constant.URL+"/general-preferences");
@@ -273,6 +285,7 @@ public class UniversalSettings {
 				
 				
 				@Test(priority=4)
+			//@Test
 				public void SiteMap() throws InterruptedException
 				{
 					driver.get(Constant.URL+"/site-map");
@@ -298,12 +311,44 @@ public class UniversalSettings {
 						Thread.sleep(500);
 						driver.findElement(By.id("saveLocation")).click();
 						Thread.sleep(1500);
-						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-						Assert.assertEquals(SuccessMessage,Message.siteMapSave);
-						if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+						
+						//Acknowledge
+						if(driver.findElements(By.className("notify-msg")).size()!=0)
 						{
-							driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+							String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+							System.out.println("SuccessMessage: "+SuccessMessage);
+							if(SuccessMessage.equalsIgnoreCase(Message.siteMapSave))
+							{
+								Assert.assertEquals(SuccessMessage,Message.siteMapSave);
+								if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+								{
+									driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+								}
+								
+							}
 						}
+							else {
+								Thread.sleep(1500);
+								System.out.println("else");
+								driver.findElement(By.name("password")).sendKeys(password);
+								Thread.sleep(500);
+								driver.findElement(By.name("comments")).sendKeys("Test comments");
+								Thread.sleep(500);
+								driver.findElement(By.id("ackSubmit")).click();
+								Thread.sleep(1500);
+								Assert.assertEquals(driver.findElement(By.className("notify-msg")).getText(),Message.siteMapSave);
+								if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+								{
+									driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+								}
+								Thread.sleep(500);
+							}
+						
+						//Assert.assertEquals(SuccessMessage,Message.siteMapSave);
+						//if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+						//{
+						//	driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+						//}
 					}
 					
 					Thread.sleep(500);
@@ -345,10 +390,11 @@ public class UniversalSettings {
 				}
 				
 				
-				
+					
 				
 				
 				@Test(priority=6)
+			//@Test
 				public void SampleLocation() throws InterruptedException
 				{
 					Thread.sleep(1000);
@@ -356,26 +402,32 @@ public class UniversalSettings {
 					Thread.sleep(1000);
 					WebElement selection = driver.findElement(By.id("samplingType"));
 					Select getsamplingSelection = new Select(selection);
-					WebElement option = getsamplingSelection.getFirstSelectedOption(); 
-					String getSelectedOption = option.getText();
+					String getSelectedOption="";
+					try {
+						WebElement option = getsamplingSelection.getFirstSelectedOption();
+						getSelectedOption = option.getText();
+					} catch(Exception e)
+					{
+						System.out.println("No Sampling Type has been selected");
+					}
 					Thread.sleep(500);
 					System.out.println("getSelectedImageOption: "+getSelectedOption);
 					if(getSelectedOption.equals(""))
 					{
-					driver.get(Constant.URL+"/sampling-locations");
-					Thread.sleep(1000);
-					driver.findElement(By.id("listMOC")).click();
-					Thread.sleep(500);
-					driver.findElement(By.id("saveMoc")).click(); // Click Save in MOC tab
-					Thread.sleep(1000);
-					String msg = driver.findElement(By.className("notify-msg")).getText();
-					Thread.sleep(500);
+						driver.get(Constant.URL+"/sampling-locations");
+						Thread.sleep(1000);
+						driver.findElement(By.id("listMOC")).click();
+						Thread.sleep(500);
+						driver.findElement(By.id("saveMoc")).click(); // Click Save in MOC tab
+						Thread.sleep(1000);
+						String msg = driver.findElement(By.className("notify-msg")).getText();
+						Thread.sleep(500);
 					if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
 					{
 						driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
 					}
-					System.out.println("Msg: "+msg);
-					if(!msg.equalsIgnoreCase("Material Of Construction cannot be empty")&& 
+						System.out.println("Msg: "+msg);
+					if(!msg.equalsIgnoreCase("Material Of Construction cannot be empty") || 
 							msg.equalsIgnoreCase(Message.MOCSave))
 					{
 						Assert.assertEquals(msg,Message.MOCSave);
@@ -493,6 +545,7 @@ public class UniversalSettings {
 				
 				
 				@Test(priority=7)
+			//@Test
 				public void productgrouping() throws InterruptedException 
 				{
 					Thread.sleep(1000);
@@ -501,8 +554,15 @@ public class UniversalSettings {
 					
 					WebElement selection = driver.findElement(By.id("groupingCriteria"));
 					Select getcriteriaSelection = new Select(selection);
-					WebElement option = getcriteriaSelection.getFirstSelectedOption(); 
-					String getSelectedOption = option.getText();
+					String getSelectedOption="";
+					try
+					{
+						WebElement option = getcriteriaSelection.getFirstSelectedOption(); 
+						getSelectedOption = option.getText();
+					} catch (Exception e)
+					{
+						System.out.println("no option selected");
+					}
 					Thread.sleep(1000);
 					System.out.println("getSelectedImageOption: "+getSelectedOption);
 				if(getSelectedOption.equals(""))
@@ -512,11 +572,32 @@ public class UniversalSettings {
 					Thread.sleep(1500);
 					driver.findElement(By.id("saveProductGroupingCriteria")).click();
 					Thread.sleep(1500);
-					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(SuccessMessage,"Grouping saved successfully");
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+					
+					//Acknowledge
+					Thread.sleep(1000);
+					if(driver.findElements(By.className("notify-msg")).size()!=0)
 					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+					System.out.println("SuccessMessage: "+SuccessMessage);
+					if(SuccessMessage.equalsIgnoreCase(Message.groupingSave))
+					{
+						Assert.assertEquals(SuccessMessage,Message.groupingSave);
+						if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+						{
+							driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+						}
+					}
+				}
+					else {
+						System.out.println("else");
+						Thread.sleep(1500);
+						driver.findElement(By.name("password")).sendKeys(password);
+						Thread.sleep(500);
+						driver.findElement(By.name("comments")).sendKeys("Test comments");
+						Thread.sleep(500);
+						driver.findElement(By.xpath(".//*[@id='ackSubmit']")).click();
+						Thread.sleep(1000);
+						Assert.assertEquals(driver.findElement(By.className("notify-msg")).getText(),Message.groupingSave);
 					}
 				}
 					String className = this.getClass().getName(); // get current class name - for screenshot
@@ -530,6 +611,7 @@ public class UniversalSettings {
 				
 				
 				@Test(priority=8)
+			//@Test
 				public void microbialLimit() throws InterruptedException 
 				{
 					Thread.sleep(1000);
@@ -590,20 +672,48 @@ public class UniversalSettings {
 					
 					driver.findElement(By.id("saveMicrobialLimit")).click();
 					Thread.sleep(1000);
-					String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
-					Assert.assertEquals(SuccessMessage,Message.microbialSave);
+					
+					//Acknowledge
+					if(driver.findElements(By.className("notify-msg")).size()!=0)
+					{
+						String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+						System.out.println("SuccessMessage: "+SuccessMessage);
+						if(SuccessMessage.equalsIgnoreCase(Message.microbialSave))
+						{
+							Assert.assertEquals(SuccessMessage,Message.microbialSave);
+							if(driver.findElements(By.cssSelector(".grey-text.custom-notify-close")).size()!=0)
+							{
+								driver.findElement(By.cssSelector(".grey-text.custom-notify-close")).click();
+							}
+						}
+					}
+					else {
+						System.out.println("else");
+						Thread.sleep(1500);
+						driver.findElement(By.name("password")).sendKeys(password);
+						Thread.sleep(500);
+						driver.findElement(By.name("comments")).sendKeys("Test comments");
+						Thread.sleep(500);
+						driver.findElement(By.xpath(".//*[@id='ackSubmit']")).click();
+						Thread.sleep(1000);
+						Assert.assertEquals(driver.findElement(By.className("notify-msg")).getText(),Message.microbialSave);
+					}
+				}
+				
+					//String SuccessMessage = driver.findElement(By.className("notify-msg")).getText();
+					//Assert.assertEquals(SuccessMessage,Message.microbialSave);
 					String className = this.getClass().getName(); // get current class name - for screenshot
 					String Currentmethdname = new Object(){}.getClass().getEnclosingMethod().getName(); // get current method name - for screenshot
 					Utils.captureScreenshot_eachClass(driver,Currentmethdname,className); // Capture Screenshot with current method name
-					if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
-					{
-						driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
-					}
+					//if(driver.findElements(By.cssSelector(".close.custom-notify-close")).size()!=0)
+				//	{
+					//	driver.findElement(By.cssSelector(".close.custom-notify-close")).click();
+					//}
 					Thread.sleep(500);
-				}
+				//}
 			}
 				
-				
+				*/
 				
 				
 				

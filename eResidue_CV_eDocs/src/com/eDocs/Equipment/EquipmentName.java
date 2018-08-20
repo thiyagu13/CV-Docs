@@ -17,7 +17,7 @@ public class EquipmentName {
 	public static WebDriver driver = Constant.driver;
 	String testcaseSheetName = "EquipmentTC";
 	
-	@BeforeClass
+	/*@BeforeClass
 	public void setUp() throws IOException  
 	{
 		driver.get(Constant.URL);
@@ -50,13 +50,19 @@ public class EquipmentName {
   		//WebElement alphanumericField = driver.findElement(By.name("name"));
   		//alphanumericField.sendKeys("test");
 	}
-	
+	*/
   
   	@Test (priority=1)
   	public void  nameEmpty() throws IOException, WriteException, InterruptedException
   	{
+  		Thread.sleep(1500);
+		driver.get(Constant.URL+"/equipment");
+		Thread.sleep(1500);
+		driver.findElement(By.id("addEquipment")).click(); 
+  		Thread.sleep(1500);
+  		
   		AlphaNumericValidation textField = new AlphaNumericValidation();
-  		WebElement alphanumericField = driver.findElement(By.name("name"));
+  		//WebElement alphanumericField = driver.findElement(By.name("name"));
 		WebElement Submit = driver.findElement(By.id("saveEquipment"));
 		
   		textField.AlphaNumericEmpty(testcaseSheetName,Constant.EXCEL_PATH,Submit,6);

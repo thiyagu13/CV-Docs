@@ -229,7 +229,7 @@ public class L0 {
 		    	{
 		    		for(Integer activelst:active)
 		    		{
-		    			ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id= '"+activelst+ "' and lowest_route_of_admin_value='"+lowestsolubilityvalue+ "' or lowest_route_of_admin_value LIKE '"+lowestsolubilityvalue+"' && tenant_id='"+tenant_id+"'");
+		    			ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id= '"+activelst+ "' and (lowest_route_of_admin_value='"+lowestsolubilityvalue+ "' or lowest_route_of_admin_value LIKE '"+lowestsolubilityvalue+"') && tenant_id='"+tenant_id+"'");
 		    			while(getActive.next())
 		    			{
 		    				lowestsolubilityID = getActive.getInt(1); 
@@ -267,7 +267,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"' && tenant_id='"+tenant_id+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and (lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"') && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestADEID = getActive.getInt(1); // get health based value
@@ -718,7 +718,7 @@ public class L0 {
 		    	{
 		    		for(Integer activelst:active)
 		    		{
-		    			ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id= '"+activelst+ "' and lowest_route_of_admin_value='"+lowestsolubilityvalue+ "' or lowest_route_of_admin_value LIKE '"+lowestsolubilityvalue+"' && tenant_id='"+tenant_id+"'");
+		    			ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id= '"+activelst+ "' and (lowest_route_of_admin_value='"+lowestsolubilityvalue+ "' or lowest_route_of_admin_value LIKE '"+lowestsolubilityvalue+"') && tenant_id='"+tenant_id+"'");
 		    			while(getActive.next())
 		    			{
 		    				lowestsolubilityID = getActive.getInt(1); 
@@ -756,7 +756,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"' && tenant_id='"+tenant_id+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and (lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"') && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestADEID = getActive.getInt(1); // get health based value
@@ -1487,7 +1487,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "' && tenant_id='"+tenant_id+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and (solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "') && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -1522,7 +1522,7 @@ public class L0 {
 		    for(int listofactiveID:active)
 		    {
 		    	System.out.println("listofactiveID "+listofactiveID);
-		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+" && tenant_id='"+tenant_id+"'");
+		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && (lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+") && tenant_id='"+tenant_id+"'");
 		    	while(getActive.next())
 		    	{
 		    		lowestADEID = getActive.getInt(1); // get health based value
@@ -1716,7 +1716,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+"' && tenant_id='"+tenant_id+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and (solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+"') && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -1750,7 +1750,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"' && tenant_id='"+tenant_id+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and (lowest_route_of_admin_value LIKE '"+minade+ "' or lowest_route_of_admin_value='"+minade+"') && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestADEID = getActive.getInt(1); // get health based value
@@ -1953,7 +1953,7 @@ public class L0 {
 		    // find minimum solubility active id
 		    for(int listofactiveID:active)
 		    {
-		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "' && tenant_id='"+tenant_id+"'");
+		    ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' and (solubility_in_water='"+minsolubility+ "' or solubility_in_water LIKE '"+minsolubility+ "') && tenant_id='"+tenant_id+"'");
 		    while(getActive.next())
 		    {
 		    	lowestsolubilityID =getActive.getInt(1); // get health based value
@@ -1988,7 +1988,7 @@ public class L0 {
 		    for(int listofactiveID:active)
 		    {
 		    	System.out.println("listofactiveID "+listofactiveID);
-		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+" && tenant_id='"+tenant_id+"'");
+		    	ResultSet getActive = stmt.executeQuery("SELECT * FROM product_active_ingredient where id = '"+listofactiveID+ "' && (lowest_route_of_admin_value="+minade+" or lowest_route_of_admin_value LIKE "+minade+") && tenant_id='"+tenant_id+"'");
 		    	while(getActive.next())
 		    	{
 		    		lowestADEID = getActive.getInt(1); // get health based value
@@ -2194,9 +2194,10 @@ public class L0 {
 					if (Basislimitoption== 3) 
 					{
 										doseL0 = LD50 * ConversionFactor * BodyWeight;
+										System.out.println("Dose L0: "+doseL0);
+										System.out.println("Health L0: "+HealthL0);
 										if(HealthL0!=0 && doseL0!=0)
 										{
-											System.out.println("Both not empty: "+doseL0+"Health"+HealthL0);
 											if (HealthL0 <= doseL0) // compare both dose and health
 											{
 												L0 = HealthL0;
@@ -2204,18 +2205,19 @@ public class L0 {
 											else
 											{
 												L0= doseL0;
+												System.out.println("Both Not zero:"+L0);
 											}
 										}
 										if(HealthL0==0)
 										{
 											L0= doseL0;
 										}
-										if(HealthL0!=0)
+										if(doseL0==0)
 										{
 											L0= HealthL0;
 										}
-										
 									return L0; // getting lowest L0 b/w 2
+									
 					}
 					
 					if (Basislimitoption == 1) 

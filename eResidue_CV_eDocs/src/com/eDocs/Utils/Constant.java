@@ -12,9 +12,9 @@ public class Constant {
 	// Site URL
 	public static String URL = "http://192.168.1.111:8090";
 	
-	public static String siteusername = "user5";
+	public static String siteusername = "Rajan";
 	
-	public static String sitepassword = "karthik";
+	public static String sitepassword = "123456";
 	
 	// Screenshot folder - Contains screenshot of testcases
 	public static final String SCREENSHOT_FOLDER = ".\\Screenshot\\";
@@ -35,7 +35,7 @@ public class Constant {
 	
 	public static final String password = "Quascenta@521";	*/
 	
-	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs-testing-admin";
+	public static final String dbUrl = "jdbc:mysql://192.168.1.111:3306/edocs-testing-new";
 	
 	public static final String username = "root";
 	
@@ -47,11 +47,8 @@ public class Constant {
 	
 	public static final String PDFDownloadedPath = "D:\\WebDriverDownloads";	
 	
-	//public static String tenant_id="20180530"; // user 5
-	public static String tenant_id="20180533"; //user12
-	//public static String tenant_id="20187666"; //ravi sir
-	//public static String tenant_id="20180534"; // karthik user 10 
-	//public static String tenant_id="20180999";
+	public static String tenant_id="12313"; //Thiyagu
+	
 	
 	
 }

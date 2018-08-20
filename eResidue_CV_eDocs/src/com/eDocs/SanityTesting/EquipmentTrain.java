@@ -138,7 +138,7 @@ public class EquipmentTrain {
 				}
 				
 				Thread.sleep(500);
-				if(getduplicatename.equals("Train '"+trainName+"' already exists!"))
+				if(getduplicatename.equalsIgnoreCase("Train '"+trainName+"' already exists!"))
 				{
 					System.out.println("loop");
 					for(Integer i:j)

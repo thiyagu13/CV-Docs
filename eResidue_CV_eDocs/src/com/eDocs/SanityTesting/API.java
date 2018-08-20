@@ -151,7 +151,7 @@ public class API {
 				}
 				
 				Thread.sleep(500);
-				if(getduplicatename.equals("Active Ingredient '"+Name+"' already exists!"))
+				if(getduplicatename.equalsIgnoreCase("Active Ingredient '"+Name+"' already exists!"))
 				{
 					for(Integer i:j)
 					{

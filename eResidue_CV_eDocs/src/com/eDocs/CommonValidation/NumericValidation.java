@@ -25,7 +25,7 @@ public class NumericValidation {
 	public static WebDriver driver = Constant.driver;
 	
 
-	@BeforeClass
+	/*@BeforeClass
 	public void setUp() throws IOException  
 	{
 		//driver = new FirefoxDriver();
@@ -58,55 +58,7 @@ public class NumericValidation {
 		Thread.sleep(1500);
 		driver.findElement(By.id("addEquipment")).click(); 
   		Thread.sleep(1500);
-	}
-	/*
-	
-		@Test(priority=2)
-		public void NumericEmptyTest() throws InterruptedException, WriteException, IOException
-		{
-			NumericEmpty(15);
-		}
-		
-		@Test(priority=3)
-		public void NumericZEROTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement numericField = driver.findElement(By.id("surfaceArea"));
-			NumericZERO(numericField,16);
-		}
-		
-		@Test(priority=4)
-		public void NumericMaxLengthTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement numericField = driver.findElement(By.id("surfaceArea"));
-			NumericMaxLength(numericField,17);
-		}
-		
-		@Test(priority=5)
-		public void numericFieldAlphabetsCheckTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement numericField = driver.findElement(By.id("surfaceArea"));
-			numericFieldAlphabetsCheck(numericField,18);
-		}
-		
-		@Test(priority=6)
-		public void numericSpaceCheckTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement numericField = driver.findElement(By.id("surfaceArea"));
-			numericSpaceCheck(numericField,19);
-		}
-		
-		@Test(priority=7)
-		public void numericMultiDecimalTest() throws InterruptedException, WriteException, IOException
-		{
-			WebElement numericField = driver.findElement(By.id("surfaceArea"));
-			numericMultiDecimal(numericField,20);
-		}
-		
-		*/
-		
-		
-		
-	
+	}*/
 		
 		
 		
@@ -117,7 +69,7 @@ public class NumericValidation {
   		//XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
   		XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH_Result);
 		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		//driver.findElement(By.name("name")).sendKeys("test");// for surface empty check
 		//Thread.sleep(1000);
   		//WebElement savebtn = driver.findElement(By.id("saveEquipment"));
@@ -161,7 +113,7 @@ public class NumericValidation {
   		XSSFSheet sheet = workbook.getSheet(testcaseSheetName);
 		Thread.sleep(500);
   		//WebElement numericField = driver.findElement(By.id("surfaceArea"));
-  		Thread.sleep(1000);
+  		//Thread.sleep(1000);
   		numericField.sendKeys("0");
   		Thread.sleep(500);
   		numericField.sendKeys(Keys.TAB);
@@ -215,7 +167,7 @@ public class NumericValidation {
   		System.out.println(String.valueOf(maxLengthdata));
   		//numericfield.sendKeys(String.valueOf(maxLengthdata)); // send data to input field
   		numericfield.sendKeys("12345678");
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
   		
 		double  ExpectedLength = sheet.getRow(row).getCell(5).getNumericCellValue(); // get expected from excel
 		double  Actuallength = numericfield.getAttribute("value").length(); // get expected length of the value present in the sf Text box
@@ -258,7 +210,7 @@ public class NumericValidation {
   		numericfield.clear();
   		Thread.sleep(500);
   		numericfield.sendKeys(Data); // send data to input field
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
   		
 		String  ActualMSG = numericfield.getText(); // get expected length of the value present in the sf Text box
 		System.out.println(ActualMSG);
@@ -296,7 +248,7 @@ public class NumericValidation {
   		numericfield.clear();
   		Thread.sleep(500);
   		numericfield.sendKeys(maxLengthdata); // send data to input field
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
   		
 		double  ExpectedLength = sheet.getRow(row).getCell(5).getNumericCellValue(); // get expected from excel
 		double  Actuallength = Double.valueOf(numericfield.getAttribute("value")); // get expected length of the value present in the sf Text box
@@ -336,7 +288,7 @@ public class NumericValidation {
   		numericfield.clear();
   		Thread.sleep(500);
   		numericfield.sendKeys(String.valueOf(maxLengthdata)); // send data to input field
-  		Thread.sleep(2000);
+  		Thread.sleep(500);
   		
 		double  ExpectedLength = sheet.getRow(row).getCell(5).getNumericCellValue(); // get expected from excel
 		double  Actuallength = Double.valueOf(numericfield.getAttribute("value")); // get expected length of the value present in the sf Text box

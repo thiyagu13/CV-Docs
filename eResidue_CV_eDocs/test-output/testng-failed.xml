@@ -5,20 +5,13 @@
     <listener class-name="com.eDocs.result.LocalScreenshot"/>
     <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
   </listeners>
-  <test name="Patch Product(failed)">
+  <test name="Equipment Train(failed)">
     <classes>
-      <class name="com.eDocs.PatchProduct.PatchWorstCaseRating">
+      <class name="com.eDocs.EquipmentTrain.EquipmentTrainDelete">
         <methods>
-          <include name="worstcaseRatingEmptyTest"/>
+          <include name="DeleteEquipmentTrain"/>
         </methods>
-      </class> <!-- com.eDocs.PatchProduct.PatchWorstCaseRating -->
-      <class name="com.eDocs.PatchProduct.PatchEquipmentSelection">
-        <methods>
-          <include name="EquipmentSetEmpty"/>
-          <include name="productSave"/>
-          <include name="EquipmentSetSelectionOptionEmpty"/>
-        </methods>
-      </class> <!-- com.eDocs.PatchProduct.PatchEquipmentSelection -->
+      </class> <!-- com.eDocs.EquipmentTrain.EquipmentTrainDelete -->
     </classes>
-  </test> <!-- Patch Product(failed) -->
+  </test> <!-- Equipment Train(failed) -->
 </suite> <!-- Failed suite [Suite] -->

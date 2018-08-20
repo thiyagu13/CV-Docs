@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
@@ -45,7 +46,7 @@ public class Utility {
 			
 			
 			//@Parameters({ "browser" })
-		/*	@BeforeClass
+			@BeforeClass
 			public void setUp() throws IOException  
 			{
 				//driver = Browser.getDriver(browser);
@@ -78,7 +79,7 @@ public class Utility {
 				//Thread.sleep(500);
 			}
 		
-*/
+
 				
 			
 			@Test(priority=12,invocationCount=2)
@@ -437,14 +438,14 @@ public class Utility {
 			}
 			
 			
-			
+			/*
 			@Test(priority=15)
 			public void ExportUtility() throws Exception
 			{
 				Thread.sleep(1000);
 				//driver.findElement(By.id("searchDataTable")).clear();
 				Utils.ExportPDF(driver);
-			}
+			}*/
 			
 			@Test(priority=16)
 			public void MultiDeleteUtility() throws Exception

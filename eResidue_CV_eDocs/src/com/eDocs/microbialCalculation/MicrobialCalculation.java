@@ -190,7 +190,6 @@ public class MicrobialCalculation {
 		static float bioburdenL1,bioburdenL3,bioburdenL4ContactPlateORSwab,L4Rinse,EndoToxinResult;
 		public static void microbialcalculation(List<String> currentproduct,List<String> nextproduct) throws SQLException, ClassNotFoundException, IOException
 		{
-			
 			XSSFWorkbook workbook = Utils.getExcelSheet(Constant.EXCEL_PATH); 
 			XSSFSheet sheet = workbook.getSheet("Microbial_Calculation");
 			//database connection
@@ -478,78 +477,78 @@ public class MicrobialCalculation {
 		//actual result L3
 		public static void actualL3Result(String currentproductname,int nextproductID, XSSFWorkbook workbook,Statement stmt,XSSFSheet sheet,
 				int row,float L3SurfaceLimit,float L3SurfacelimitContactORSwab ) throws SQLException
-		{
-			int currentproductID=0;
-    		//get current product id
-    		ResultSet getcurrentProductID = stmt.executeQuery("SELECT * FROM product where name ='"+currentproductname+"' && tenant_id='"+tenant_id+"'");
-			while (getcurrentProductID.next())  //check surface or both
-			{	
-				currentproductID = getcurrentProductID.getInt(1);
-			}
-			System.out.println("Current: "+currentproductID);
-			System.out.println("Next: "+nextproductID);
-    		
-			float actualSurfaceLimit=0,actualSurfaceContactPlateSwab=0;
-    		//ResultSet bioburdensurfaceResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" and rinse_or_surface="+1+" && tenant_id='"+tenant_id+"'");
-			ResultSet bioburdensurfaceResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" && tenant_id='"+tenant_id+"'");
-			while (bioburdensurfaceResult.next())  //check surface or both
-			{	
-				actualSurfaceLimit = bioburdensurfaceResult.getFloat(2);
-				actualSurfaceContactPlateSwab = bioburdensurfaceResult.getFloat(3);
-			}
-			int actualsurfacelimitColumn =11,actualsurfacelimitContantPlateColumn=12;
-			
-			if(actualSurfaceLimit!=0) //print actual surface limit value in excel
 			{
-			Cell actualSurfaceLimitresult = sheet.getRow(row).getCell(actualsurfacelimitColumn); 
-			actualSurfaceLimitresult.setCellValue(actualSurfaceLimit);
-			}else
-			{
+				int currentproductID=0;
+	    		//get current product id
+	    		ResultSet getcurrentProductID = stmt.executeQuery("SELECT * FROM product where name ='"+currentproductname+"' && tenant_id='"+tenant_id+"'");
+				while (getcurrentProductID.next())  //check surface or both
+				{	
+					currentproductID = getcurrentProductID.getInt(1);
+				}
+				System.out.println("Current: "+currentproductID);
+				System.out.println("Next: "+nextproductID);
+	    		
+				float actualSurfaceLimit=0,actualSurfaceContactPlateSwab=0;
+	    		//ResultSet bioburdensurfaceResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" and rinse_or_surface="+1+" && tenant_id='"+tenant_id+"'");
+				ResultSet bioburdensurfaceResult = stmt.executeQuery("SELECT * FROM microbial_bioburden_results where product_id="+currentproductID+" and next_product_ids="+nextproductID+" && tenant_id='"+tenant_id+"'");
+				while (bioburdensurfaceResult.next())  //check surface or both
+				{	
+					actualSurfaceLimit = bioburdensurfaceResult.getFloat(2);
+					actualSurfaceContactPlateSwab = bioburdensurfaceResult.getFloat(3);
+				}
+				int actualsurfacelimitColumn =11,actualsurfacelimitContantPlateColumn=12;
+				
+				if(actualSurfaceLimit!=0) //print actual surface limit value in excel
+				{
 				Cell actualSurfaceLimitresult = sheet.getRow(row).getCell(actualsurfacelimitColumn); 
-				actualSurfaceLimitresult.setCellValue("");
+				actualSurfaceLimitresult.setCellValue(actualSurfaceLimit);
+				}else
+				{
+					Cell actualSurfaceLimitresult = sheet.getRow(row).getCell(actualsurfacelimitColumn); 
+					actualSurfaceLimitresult.setCellValue("");
+				}
+				
+				if(actualSurfaceContactPlateSwab!=0) //print actual surface limit contact plate/swab value in excel
+				{
+					Cell actulasurfaceLimitContorswabResult = sheet.getRow(row).getCell(actualsurfacelimitContantPlateColumn);
+		    		actulasurfaceLimitContorswabResult.setCellValue(actualSurfaceContactPlateSwab);
+				}else
+				{
+					Cell actulasurfaceLimitContorswabResult = sheet.getRow(row).getCell(actualsurfacelimitContantPlateColumn);
+		    		actulasurfaceLimitContorswabResult.setCellValue("");
+				}
+	    		
+	    		int surfacestatus=13;
+	    		if(actualSurfaceLimit!=0)// if actual surface value not zero
+	    		{
+	    			if(Utils.toOptimizeDecimalPlacesRoundedOff(L3SurfaceLimit).equals(Utils.toOptimizeDecimalPlacesRoundedOff(actualSurfaceLimit))) //verify expected surface and actual surface limit value
+	    			{
+	    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacestatus);
+	    			surfacestatusresult.setCellValue("Pass");
+	    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Pass"));
+	    			}else {
+	    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacestatus);
+	    			surfacestatusresult.setCellValue("Fail");
+	    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Fail"));
+	    			}
+	    			
+	    		}
+	    		int surfacecontactstatus=14;
+	    		if(actualSurfaceContactPlateSwab!=0)//if actual surface contact value not zero
+	    		{
+	    			if(Utils.toOptimizeDecimalPlacesRoundedOff(L3SurfacelimitContactORSwab).equals(Utils.toOptimizeDecimalPlacesRoundedOff(actualSurfaceContactPlateSwab))) //verify expected surface and actual surface limit value
+	    			{
+	    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacecontactstatus);
+	    			surfacestatusresult.setCellValue("Pass");
+	    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Pass"));
+	    			}else {
+	    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacecontactstatus);
+	    			surfacestatusresult.setCellValue("Fail");
+	    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Fail"));
+	    			}
+	    			
+	    		}
 			}
-			
-			if(actualSurfaceContactPlateSwab!=0) //print actual surface limit contact plate/swab value in excel
-			{
-				Cell actulasurfaceLimitContorswabResult = sheet.getRow(row).getCell(actualsurfacelimitContantPlateColumn);
-	    		actulasurfaceLimitContorswabResult.setCellValue(actualSurfaceContactPlateSwab);
-			}else
-			{
-				Cell actulasurfaceLimitContorswabResult = sheet.getRow(row).getCell(actualsurfacelimitContantPlateColumn);
-	    		actulasurfaceLimitContorswabResult.setCellValue("");
-			}
-    		
-    		int surfacestatus=13;
-    		if(actualSurfaceLimit!=0)// if actual surface value not zero
-    		{
-    			if(Utils.toOptimizeDecimalPlacesRoundedOff(L3SurfaceLimit).equals(Utils.toOptimizeDecimalPlacesRoundedOff(actualSurfaceLimit))) //verify expected surface and actual surface limit value
-    			{
-    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacestatus);
-    			surfacestatusresult.setCellValue("Pass");
-    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Pass"));
-    			}else {
-    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacestatus);
-    			surfacestatusresult.setCellValue("Fail");
-    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Fail"));
-    			}
-    			
-    		}
-    		int surfacecontactstatus=14;
-    		if(actualSurfaceContactPlateSwab!=0)//if actual surface contact value not zero
-    		{
-    			if(Utils.toOptimizeDecimalPlacesRoundedOff(L3SurfacelimitContactORSwab).equals(Utils.toOptimizeDecimalPlacesRoundedOff(actualSurfaceContactPlateSwab))) //verify expected surface and actual surface limit value
-    			{
-    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacecontactstatus);
-    			surfacestatusresult.setCellValue("Pass");
-    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Pass"));
-    			}else {
-    			Cell surfacestatusresult = sheet.getRow(row).getCell(surfacecontactstatus);
-    			surfacestatusresult.setCellValue("Fail");
-    			surfacestatusresult.setCellStyle(Utils.style(workbook, "Fail"));
-    			}
-    			
-    		}
-		}
 		
 		
 	

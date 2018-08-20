@@ -398,12 +398,16 @@ public class SurfaceAreaValue {
         }
         
         System.out.println("Current prouct Total SF:"+currnetProdeqSettotalSF);
+
+        
         
         List<Float> nextProdeqSettotalSF = new ArrayList<>();
         List<Integer> equipmentgroupNextProd = new ArrayList<>();
         //Next product equipment set and total surface area
         for (int i = 1; i <= nextproductsetcount; i++) {
             List<Integer> equipments = new ArrayList<>();
+            System.out.println("Next Prod Total: "+nextproductID);
+            System.out.println("i: "+i);
             ResultSet getequipfromset = stmt.executeQuery("SELECT * FROM product_equipment_set_equipments where product_id='" + nextproductID + "' && set_id ='" + i + "' && tenant_id='"+tenant_id+"'"); // get product name id
             while (getequipfromset.next()) {
                 equipments.add(getequipfromset.getInt(4));

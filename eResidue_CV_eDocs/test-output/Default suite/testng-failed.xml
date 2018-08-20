@@ -3,16 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.eDocs.PatchProduct.PatchName">
+      <class name="com.eDocs.SanityTesting.UniversalSettings">
         <methods>
-          <include name="absorptionMaxLengthTest"/>
-          <include name="absorptionSpaceTest"/>
-          <include name="absorptionMultiDecimalTest"/>
-          <include name="absorptionZEROTest"/>
+          <include name="GeneralSettings"/>
           <include name="setUp"/>
-          <include name="absorptionAlphabetsTest"/>
         </methods>
-      </class> <!-- com.eDocs.PatchProduct.PatchName -->
+      </class> <!-- com.eDocs.SanityTesting.UniversalSettings -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

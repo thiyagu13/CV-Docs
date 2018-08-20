@@ -354,9 +354,6 @@ public class User {
 			}
 			
 			
-	
-			
-			
 			
 			@Test(priority=10)
 			public void SingleDeleteUser() throws InterruptedException, IOException
