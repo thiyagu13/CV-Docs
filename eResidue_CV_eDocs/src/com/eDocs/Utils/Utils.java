@@ -29,6 +29,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -84,10 +85,20 @@ public class Utils {
 		}
 	  
 	  
-	  
+	//  @Parameters({ "browser"})
 	  public  WebDriver getWebDriver() {
 		 // System.setProperty("webdriver.chrome.driver", "C:\\Users\\Easy solutions\\git\\CV-Docs\\eResidue_CV_eDocs\\chromedriver.exe");
 			WebDriver driver = new FirefoxDriver();
+		/*  WebDriver driver = null;
+		  if(browser.equalsIgnoreCase("chrome"))
+		  {
+			   driver =  new ChromeDriver();;  
+		  }
+		  else if(browser.equalsIgnoreCase("firfox"))
+		  {
+			  driver = new FirefoxDriver();
+		  }*/
+		  
 		  //WebDriver driver = Browser.getDriver(browser);
 			driverObjMap.put(getClass().getName(),driver);
 			return driver;

@@ -1,6 +1,7 @@
 package com.eDocs.SanityTesting;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,9 +9,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.eDocs.Utils.Constant;
@@ -46,7 +50,7 @@ public class Utility {
 			
 			
 			//@Parameters({ "browser" })
-			@BeforeClass
+		/*	@BeforeTest
 			public void setUp() throws IOException  
 			{
 				//driver = Browser.getDriver(browser);
@@ -79,7 +83,7 @@ public class Utility {
 				//Thread.sleep(500);
 			}
 		
-
+*/
 				
 			
 			@Test(priority=12,invocationCount=2)

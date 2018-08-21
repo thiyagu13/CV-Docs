@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]" parallel="tests">
   <listeners>
     <listener class-name="com.eDocs.result.LocalScreenshot"/>
     <listener class-name="com.eDocs.result.CustomizedEmailableReport"/>
   </listeners>
-  <test name="Equipment Train(failed)">
+  <test name="Universal Settings My Machine(failed)" parallel="tests">
+    <parameter name="portNo" value="5567"/>
+    <parameter name="browser" value="firefox"/>
     <classes>
-      <class name="com.eDocs.EquipmentTrain.EquipmentTrainDelete">
+      <class name="com.eDocs.SanityTesting.UniversalSettings">
         <methods>
-          <include name="DeleteEquipmentTrain"/>
+          <include name="GeneralSettings"/>
+          <include name="setUp"/>
+          <include name="Login"/>
+          <include name="ResidueLimitSAVE"/>
+          <include name="SampleLocation"/>
+          <include name="productgrouping"/>
+          <include name="SiteMap"/>
+          <include name="microbialLimit"/>
         </methods>
-      </class> <!-- com.eDocs.EquipmentTrain.EquipmentTrainDelete -->
+      </class> <!-- com.eDocs.SanityTesting.UniversalSettings -->
     </classes>
-  </test> <!-- Equipment Train(failed) -->
+  </test> <!-- Universal Settings My Machine(failed) -->
 </suite> <!-- Failed suite [Suite] -->

@@ -5,8 +5,8 @@
     <classes>
       <class name="com.eDocs.SanityTesting.UniversalSettings">
         <methods>
-          <include name="GeneralSettings"/>
           <include name="setUp"/>
+          <include name="Login"/>
         </methods>
       </class> <!-- com.eDocs.SanityTesting.UniversalSettings -->
     </classes>

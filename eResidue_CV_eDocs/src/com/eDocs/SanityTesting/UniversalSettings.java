@@ -62,7 +62,7 @@ public class UniversalSettings {
 		  		Thread.sleep(1500);
 			}
 
-				/*
+				
 				
 				@Test(priority=2)
 			//@Test
@@ -713,7 +713,7 @@ public class UniversalSettings {
 				//}
 			}
 				
-				*/
+				
 				
 				
 				
